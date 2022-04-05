@@ -5,6 +5,13 @@
 { config, pkgs, ... }:
 
 {
+  nix = {
+    package = pkgs.nixFlakes; # or versioned attributes like nix_2_7
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -18,7 +25,10 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Fortaleza";
+  time = {
+   timeZone = "America/Fortaleza";
+   hardwareClockInLocalTime = true;
+  };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -68,16 +78,17 @@
   # services.xserver.libinput.enable = true;
 
   programs.zsh.enable = true;
+  programs.fish.enable = true;
   
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.michel = {
     isNormalUser = true;
     password = "passwd";
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
     extraGroups = [ "wheel" "networkmanager" "video" ]; 
   };
   
-   environment.pathsToLink = [ "/share/zsh" ];
+   environment.pathsToLink = [ "/share/zsh"  "/share/fish" ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

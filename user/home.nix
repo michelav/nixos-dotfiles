@@ -9,25 +9,27 @@
   home.packages = with pkgs; [
    keepassxc
   ];
+  
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    enableSyntaxHighlighting = true;
-    shellAliases = {
-      ll = "ls -l";
-      update = "sudo nixos-rebuild switch";
-    };
-    history = {
-      size = 10000;
-      # path = "${config.xdg.dataHome}/zsh/history";
-    };
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "robbyrussell";
-    };
-  };
+  programs.fish.enable = true;
+  # programs.zsh = {
+  #   enable = true;
+  #   enableCompletion = true;
+  #   enableSyntaxHighlighting = true;
+  #   shellAliases = {
+  #     ll = "ls -l";
+  #     update = "sudo nixos-rebuild switch";
+  #   };
+  #   history = {
+  #     size = 10000;
+  #     # path = "${config.xdg.dataHome}/zsh/history";
+  #   };
+  #   oh-my-zsh = {
+  #     enable = true;
+  #     plugins = [ "git" ];
+  #     theme = "robbyrussell";
+  #   };
+  # };
 
   programs.git = {
     enable = true;
