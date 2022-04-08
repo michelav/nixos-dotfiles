@@ -27,7 +27,7 @@
   # Set your time zone.
   time = {
    timeZone = "America/Fortaleza";
-   hardwareClockInLocalTime = true;
+   # hardwareClockInLocalTime = true;
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.

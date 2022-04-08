@@ -10,6 +10,8 @@
     # Home manager flake
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: 
@@ -35,7 +37,12 @@
      homeConfigurations.michel = home-manager.lib.homeManagerConfiguration {
         inherit system pkgs username;
         homeDirectory = "/home/${username}";
-        configuration = ./user/home.nix;
+        configuration =  {
+           imports = [
+             ./user/home.nix
+             ./user/sway.nix
+           ];
+        };
         stateVersion = "21.11";
         extraSpecialArgs = { inherit inputs; };    
     };
