@@ -4,7 +4,7 @@
   inputs = {
    
     # Core nix flakes
-    nixpkgs.url = "nixpkgs/nixos-21.11";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     hardware.url = "github:nixos/nixos-hardware";
  
     # Home manager flake
