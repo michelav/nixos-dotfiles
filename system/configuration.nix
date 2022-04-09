@@ -3,7 +3,15 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
+let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
+in
 {
   nix = {
     package = pkgs.nixFlakes; # or versioned attributes like nix_2_7
@@ -29,6 +37,8 @@
    timeZone = "America/Fortaleza";
    # hardwareClockInLocalTime = true;
   };
+
+  nixpkgs.config.allowUnfree = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -56,11 +66,26 @@
     ];
   };
   xdg.portal.wlr.enable = true;
-  hardware.opengl.enable = true; 
-  hardware.bluetooth.enable = true;
+  hardware = {
+    opengl.enable = true;
+    bluetooth.enable = true;
+    nvidia = {
+      modesetting.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      prime = {
+        offload.enable = true;
+        # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+        intelBusId = "PCI:00:02:0";
+        # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+        nvidiaBusId = "PCI:01:00:0";
+      };
+      powerManagement.enable = true;
+    };
+  };
   
   # Enable sound.
- security.rtkit.enable = true;
+  security.rtkit.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -98,6 +123,7 @@
     firefox
     git
     unzip
+    nvidia-offload
   ];
 
 
