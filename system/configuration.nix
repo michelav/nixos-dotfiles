@@ -71,7 +71,7 @@ in
     bluetooth.enable = true;
     nvidia = {
       modesetting.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       prime = {
         offload.enable = true;
         # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
@@ -79,25 +79,49 @@ in
         # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
         nvidiaBusId = "PCI:01:00:0";
       };
-      powerManagement.enable = true;
+      powerManagement.enable = false;
     };
   };
   
   # Enable sound.
   security.rtkit.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+  services = {
+    xserver.videoDrivers = [ "nvidia" ];
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      # If you want to use JACK applications, uncomment this
+      #jack.enable = true;
+    
+      # use the example session manager (no others are packaged yet so this is enabled by default,
+      # no need to redefine it in your config for now)
+      #media-session.enable = true;
+    };
+
+    tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_BAT="powersave";
+        CPU_SCALING_GOVERNOR_ON_AC="performance";
+
+        # The following prevents the battery from charging fully to
+        # preserve lifetime. Run `tlp fullcharge` to temporarily force
+        # full charge.
+        # https://linrunner.de/tlp/faq/battery.html#how-to-choose-good-battery-charge-thresholds
+        # START_CHARGE_THRESH_BAT0=40;
+        #  STOP_CHARGE_THRESH_BAT0=50;
+
+        # 100 being the maximum, limit the speed of my CPU to reduce
+        # heat and increase battery usage:
+        # CPU_MAX_PERF_ON_AC=100;
+        # CPU_MAX_PERF_ON_BAT=60;
+      };
   };
+
+};
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -112,7 +136,12 @@ in
     shell = pkgs.fish;
     extraGroups = [ "wheel" "networkmanager" "video" ]; 
   };
-  
+   
+   fonts.fonts = with pkgs; [
+      font-awesome
+      fira-code
+   ];
+ 
    environment.pathsToLink = [ "/share/zsh"  "/share/fish" ];
 
   # List packages installed in system profile. To search, run:
@@ -124,6 +153,9 @@ in
     git
     unzip
     nvidia-offload
+    glxinfo
+    vulkan-tools
+    glmark2
   ];
 
 

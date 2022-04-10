@@ -31,6 +31,7 @@
        grim
        slurp
        neofetch
+       jq
    ];
  
    
