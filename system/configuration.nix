@@ -18,7 +18,19 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
   };
+
+  nixpkgs.overlays = [
+    (self: super: {
+      mpv = super.mpv-with-scripts.override {
+        scripts = [ self.mpvScripts.mpris ];
+      };
+    })
+  ];
 
   imports =
     [ # Include the results of the hardware scan.
@@ -26,8 +38,11 @@ in
     ];
 
   # Use the systemd-boot EFI boot loader.
-   boot.loader.systemd-boot.enable = true;
-   boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+  };
 
   networking.hostName = "vega"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -57,9 +72,6 @@ in
     enable = true;
     wrapperFeatures.gtk = true; # so that gtk works properly
     extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      wl-clipboard
       mako # notification daemon
       alacritty # Alacritty is the default terminal in the config
       wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
@@ -83,6 +95,7 @@ in
     };
   };
   
+  security.pam.services.swaylock = {};
   # Enable sound.
   security.rtkit.enable = true;
   services = {
@@ -107,6 +120,8 @@ in
         CPU_SCALING_GOVERNOR_ON_BAT="powersave";
         CPU_SCALING_GOVERNOR_ON_AC="performance";
 
+        USB_DENYLIST="046d:c534";
+
         # The following prevents the battery from charging fully to
         # preserve lifetime. Run `tlp fullcharge` to temporarily force
         # full charge.
@@ -126,20 +141,24 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
-  
+  programs = {
+    zsh.enable = true;
+    fish.enable = true;
+    light.enable = true;
+  }; 
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.michel = {
     isNormalUser = true;
     password = "passwd";
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "networkmanager" "video" ]; 
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" ]; 
   };
    
    fonts.fonts = with pkgs; [
       font-awesome
       fira-code
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "DroidSansMono" ]; })
    ];
  
    environment.pathsToLink = [ "/share/zsh"  "/share/fish" ];
