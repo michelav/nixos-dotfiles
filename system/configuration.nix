@@ -135,6 +135,8 @@ in
         # CPU_MAX_PERF_ON_BAT=60;
       };
   };
+   fstrim.enable = true;
+   thermald.enable = true;
 
 };
 

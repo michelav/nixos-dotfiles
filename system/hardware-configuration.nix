@@ -10,8 +10,8 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-intel" "acpi_call" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ]; 
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/VEGA_ROOT";
