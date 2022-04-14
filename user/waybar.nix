@@ -7,38 +7,67 @@ in
     enable = true;
     settings = [{
       output = "eDP-1";
-      layer = "bottom";
-      position = "top";
-      margin = "8";
+      layer = "top";
+      # position = "top";
+      # margin = "8";
       modules-left = [
-        "custom/scratchpad"
+        # "custom/scratchpad"
         "sway/workspaces"
         "sway/mode"
+        "custom/media"
       ];
-      modules-center = [ "mpd" ];
+      modules-center = [ "sway/window" ];
       modules-right = [
         "tray"
         "idle_inhibitor"
         "pulseaudio"
+        "backlight"
         "battery"
+        "bluetooth"
         "network"
         "clock"
       ];
 
       "sway/workspaces" = {
-        format = "{name}";
+        all-outputs = true;
+        format = "{icon}";
+        format-icons = {
+          "1" = "";
+          "2" = "";
+          "3" = "";
+          "4" = "";
+          "5" = "";
+          "6" = "";
+          "7" = "";
+          "9" = "";
+          "10" = "";
+          focused = "";
+          urgent = "";
+          default = "";
+        };
       };
-      "custom/scratchpad" = {
-        interval = 1;
-        exec = "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
-        format = "  {}";
-        tooltip = false;
-        on-click = "swaymsg 'scratchpad show'";
-        on-click-right = "swaymsg 'move scratchpad'";
+      "custom/media" = {
+          format = "{icon} {}";
+          return-type = "json";
+          format-icons = {
+              "Playing" = " ";
+              "Paused" = " ";
+          };
+          max-length = 70;
+          "exec" = "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
+          on-click = "playerctl play-pause";
       };
+      # "custom/scratchpad" = {
+      #   interval = 1;
+      #   exec = "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
+      #   format = "  {}";
+      #   tooltip = false;
+      #   on-click = "swaymsg 'scratchpad show'";
+      #   on-click-right = "swaymsg 'move scratchpad'";
+      # };
       "tray" = {
-        icon-size = 10;
-        spacing = 6;
+        icon-size = 12;
+        spacing = 10;
       };
       # "custom/pkgs" = {
       #   format = "{}";
@@ -54,45 +83,67 @@ in
       #   return-type = "json";
       #   inteval = 5;
       # };
-      "network" = {
-        format = "🐑 {ipaddr}";
-        format-disconnected = "🐑 Disconnected";
-        format-alt = "⬆️ {bandwidthUpBits} ⬇️ {bandwidthDownBits}";
-        tooltip-format = "{ifname}";
-        max-length = 40;
-        interval = 1;
+      "backlight" = {
+        "tooltip" = false;
+        "format" = " {}%";
+        "interval" = 1;
+        "on-scroll-up" = "light -A 5";
+        "on-scroll-down" = "light -U 5";
+	    };
+
+     "sway/window" = {
+      "format" = "{}";
+      "max-length" = 50;
+      };
+
+      network = {
+        format-wifi = "{essid} ({signalStrength}%) ";
+        format-ethernet = "Ethernet ";
+        format-linked = "Ethernet (No IP) ";
+        format-disconnected = "Disconnected ";
+        format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
+        on-click-middle = "nm-connection-editor";
       };
       "idle_inhibitor" = {
         format = "{icon}";
         format-icons = {
-          activated = "🔓";
-          deactivated = "🔒";
+          activated = "";
+          deactivated = "";
         };
       };
-      "pulseaudio" = {
-        format = "🐹 {volume}%";
-        format-muted = "🐹 Muted";
+      pulseaudio = {
+        scroll-step = 1;
+        format = "{volume}% {icon} {format_source}";
+        format-bluetooth = "{volume}% {icon} {format_source}";
+        format-bluetooth-muted = " {icon} {format_source}";
+        format-muted = " {format_source}";
+        format-source = "{volume}% ";
+        format-source-muted = "";
         format-icons = {
-          default = [ "奄" "奔" "墳" ];
+            headphone = "";
+            hands-free = "";
+            headset = "";
+            phone = "";
+            portable = "";
+            car = "";
+            default = [ "" "" "" ];
         };
-        on-click = "${pkgs.pamixer}/bin/pamixer -t";
-        on-click-right = "${pkgs.pamixer}/bin/pamixer --default-source -t";
-        scroll-step = 0.1;
+        on-click = "pavucontrol";
       };
-      "battery" = {
-        format = "🐻 {capacity}%";
-        format-plugged = "🐻 {capacity}%";
-        interval = 5;
+     battery = {
         states = {
           warning = 30;
           critical = 15;
         };
-        max-length = 25;
+        format = "{capacity}% {icon}";
+        format-charging = "{capacity}% ";
+        format-plugged = "{capacity}% ";
+        format-alt = "{time} {icon}";
+        format-icons = [ "" "" "" "" "" ];
       };
-      "clock" = {
-        format = "🐢 {:%H:%M}";
-        format-alt = "🐢 {:%a, %d %b %Y}";
-        tooltip-format = "<big>{:%Y %B}</big>\n<small>{calendar}</small>";
+      clock = {
+        format = "{: %H:%M %p  %d/%m/%Y}";
+        tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
       };
       "mpd" = {
         format = "{stateIcon} {artist} - {title}";
