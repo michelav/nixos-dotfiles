@@ -1,10 +1,10 @@
-{ modifier, pkgs, config, ... }:
+{ modifier, terminal, lockcmd, pkgs, config, ... }:
 let
   inherit (config.colorscheme) colors;
 in
 {
   # open terminal
-  "${modifier}+Return" = "exec $TERM";
+  "${modifier}+Return" = "exec ${terminal}";
 
   # open launcher
   "${modifier}+d" = ''exec ${toString [
@@ -21,10 +21,12 @@ in
 
   "${modifier}+Shift+q" = "kill";
 
-  "${modifier}+h" = "focus left";
-  "${modifier}+j" = "focus down";
-  "${modifier}+k" = "focus up";
-  "${modifier}+l" = "focus right";
+  "${modifier}+l" = "exec ${lockcmd}";
+
+  "${modifier}+Left" = "focus left";
+  "${modifier}+Down" = "focus down";
+  "${modifier}+Up" = "focus up";
+  "${modifier}+Right" = "focus right";
   "${modifier}+Shift+h" = "move left 20";
   "${modifier}+Shift+j" = "move down 20";
   "${modifier}+Shift+k" = "move up 20";
@@ -83,11 +85,19 @@ in
   "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5";
 
   # toggle waybar
-  "${modifier}+b" = "exec pkill -USR1 waybar";
+  # "${modifier}+b" = "exec pkill -USR1 waybar";
+
+  
 
   # layout
-  "${modifier}+v" = "splitt";
+  "${modifier}+h" = "splith";
+  "${modifier}+v" = "splitv";
+  "${modifier}+b" = "splitt";
   "${modifier}+t" = "layout toggle";
+
+  "${modifier}+s" = "layout stacking";
+  "${modifier}+w" = "layout tabbed";
+  "${modifier}+e" = "layout toggle split";
 
   "${modifier}+Shift+c" = "reload";
   "${modifier}+Shift+e" = "exec swaymsg exit";

@@ -1,4 +1,23 @@
 { pkgs, config, ... }:
+let
+  lockcmd = ''
+        swaylock --screenshots \
+              --clock \
+              --indicator \
+              --indicator-radius 100 \
+              --indicator-thickness 7 \
+              --effect-blur 7x5 \
+              --effect-vignette 0.5:0.5 \
+              --ring-color 192330 \
+              --key-hl-color 9d79d6 \
+              --line-color 000000 \
+              --inside-color c94f6d \
+              --separator-color 000000 \
+              --grace 3 \
+              --fade-in 0.5 \
+              --effect-greyscale -d
+  '';
+in
 {
   wayland.windowManager.sway = {
     enable = true;
@@ -7,6 +26,7 @@
     wrapperFeatures = { base = true; gtk = true; };
     # xwayland = true;
     config = rec {
+      terminal = "alacritty";
       input = {
         "type:keyboard" = {
           xkb_layout = "br";
@@ -19,10 +39,10 @@
           tap_button_map = "lmr";
         };
       };
-      output."eDP-1".bg = "~/Downloads/wallpaperflare.com_wallpaper.jpg fill";
+      output."eDP-1".bg = " ~/Downloads/wp4013881-the-office-wallpapers.jpg fill";
       fonts = {
          names = [ config.gtk.font.name ];
-         size = 10.0;
+         size = 14.0;
       };
       gaps = {
         inner = 5;
@@ -30,7 +50,7 @@
       };
       window = {
         titlebar = false;
-        border = 2;
+        # border = 2;
       };
       floating = {
         border = 2;
@@ -41,10 +61,11 @@
             title = "Picture-in-Picture";
           }
           { app_id = "mpv"; }
+          {app_id = "spotify"; }
         ];
       };
       modifier = "Mod4";
-      keybindings = import ./sway-kb.nix { inherit modifier pkgs config; };
+      keybindings = import ./sway-kb.nix { inherit modifier terminal lockcmd pkgs config; };
       modes = {
         resize = {
           "h" = "resize shrink width 50 px";
@@ -84,5 +105,39 @@
     #   export QT_QPA_PLATFORM=wayland
     #   export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
     '';
+  };
+
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+        {
+          timeout = 120;
+          command = ''${pkgs.light}/bin/light -S 20'';
+        }
+        {
+          timeout = 240;
+          command = "${lockcmd}";
+        }
+        {
+          timeout = 600;
+          command = ''swaymsg "output * dpms off"'';
+          resumeCommand = ''swaymsg "output * dpms on"'';
+        }
+        {
+          timeout = 1200;
+          command = ''${pkgs.systemd}/bin/systemctl suspend'';
+        }
+      ];
+      events = [
+        {
+          event = "before-sleep";
+          command = "${lockcmd}";
+        }
+        {
+          event = "lock";
+          command = "${lockcmd}";
+        }
+      ];
+    extraArgs = [ "-w" ];
   };
 }
