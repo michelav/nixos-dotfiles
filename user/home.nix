@@ -1,5 +1,4 @@
 { inputs, config, pkgs, ... }:
-
 {
 
   imports = [ ./sway.nix ./waybar.nix inputs.nix-colors.homeManagerModule ];
@@ -22,23 +21,25 @@
    
    packages = with pkgs; [
        keepassxc
-       bemenu
        libnotify
        fuzzel
        swayidle
-       swaylock
+       swaylock-effects
        wl-clipboard
        grim
        slurp
        neofetch
-       jq
+        jq
+       mako
+       wofi
+       pavucontrol
+       spotify
    ];
  
    
  };
 
   programs = {
-    brave.enable = true;
     fish.enable = true;
     git = {
       enable = true;
@@ -51,6 +52,10 @@
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
       ]; 
+    };
+    brave = {
+      enable = true;
+      commandLineArgs = [ "--enable-features=UseOzonePlatform" "--ozone-platform=wayland" ];
     };
   };
 
@@ -65,7 +70,7 @@
       package = pkgs.gruvbox-dark-gtk;
     };
     font = {
-      name = "JetBrains Mono";
+      name = "JetBrainsMono Nerd Font";
       size = 10;
     };
   };
@@ -88,6 +93,18 @@
     };
     systemDirs.data = [ "/usr/share" "/usr/local/share" ];
   };
+
+
+ 
+  # services.spotifyd = {
+  #   enable = true;
+
+  #   package = pkgs.spotifyd.override {
+  #     withKeyring = true;
+  #     withPulseAudio = true;
+  #     withMpris = true;
+  #   };
+  # };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
