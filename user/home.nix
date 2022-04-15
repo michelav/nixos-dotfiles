@@ -34,6 +34,7 @@
        wofi
        pavucontrol
        spotify
+       playerctl
    ];
 
 

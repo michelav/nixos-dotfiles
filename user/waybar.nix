@@ -48,14 +48,23 @@ in
       };
       "custom/media" = {
           format = "{icon} {}";
+          # format-icons = {
+          #     "Playing" = " ";
+          #     "Paused" = " ";
+          # };
+          # max-length = 70;
+          escape = true;
           return-type = "json";
-          format-icons = {
-              "Playing" = " ";
-              "Paused" = " ";
-          };
-          max-length = 70;
-          "exec" = "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
-          on-click = "playerctl play-pause";
+          max-length = 40;
+          interval = 30; # Remove this if your script is endless and write in loop
+          on-click = "playerctl -p spotify play-pause";
+          on-click-right = "killall spotify";
+          smooth-scrolling-threshold = 10; # This value was tested using a trackpad, it should be lowered if using a mouse.
+          on-scroll-up = "playerctl -p spotify next";
+          on-scroll-down = "playerctl -p spotify previous";
+          exec = "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"; # Script in resources/custom_modules folder
+          exec-if = "pgrep spotify";
+          # "exec" = "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
       };
       # "custom/scratchpad" = {
       #   interval = 1;
@@ -145,21 +154,21 @@ in
         format = "{: %H:%M %p  %d/%m/%Y}";
         tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
       };
-      "mpd" = {
-        format = "{stateIcon} {artist} - {title}";
-        format-disconnected = "ﱙ";
-        format-stopped = "";
-        state-icons = {
-          paused = "";
-          playing = "";
-        };
-        max-length = 40;
-        interval = 1;
-        on-click = "${pkgs.mpc_cli}/bin/mpc toggle";
-        on-click-right = "${pkgs.mpc_cli}/bin/mpc stop";
-        on-scroll-up = "${pkgs.mpc_cli}/bin/mpc volume +1";
-        on-scroll-down = "${pkgs.mpc_cli}/bin/mpc volume -1";
-      };
+      # "mpd" = {
+      #   format = "{stateIcon} {artist} - {title}";
+      #   format-disconnected = "ﱙ";
+      #   format-stopped = "";
+      #   state-icons = {
+      #     paused = "";
+      #     playing = "";
+      #   };
+      #   max-length = 40;
+      #   interval = 1;
+      #   on-click = "${pkgs.mpc_cli}/bin/mpc toggle";
+      #   on-click-right = "${pkgs.mpc_cli}/bin/mpc stop";
+      #   on-scroll-up = "${pkgs.mpc_cli}/bin/mpc volume +1";
+      #   on-scroll-down = "${pkgs.mpc_cli}/bin/mpc volume -1";
+      # };
     }];
     style = import ./style.nix { inherit config; };
   };
