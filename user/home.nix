@@ -6,7 +6,7 @@
   colorscheme = inputs.nix-colors.colorSchemes.dracula;
 
   home = {
-   
+
    username = "michel";
    homeDirectory = "/home/michel";
    sessionVariables = {
@@ -18,7 +18,7 @@
       XDG_DESKTOP_SESSION = "sway";
       XDG_SESSION_TYPE = "wayland";
    };
-   
+
    packages = with pkgs; [
        keepassxc
        libnotify
@@ -35,8 +35,8 @@
        pavucontrol
        spotify
    ];
- 
-   
+
+
  };
 
   programs = {
@@ -46,7 +46,7 @@
       userName  = "michelav";
       userEmail = "michel.vasconcelos@gmail.com";
       delta = {
-         enable = true;   
+         enable = true;
          options = {
             navigate = true;
             # line-numbers = true;
@@ -71,14 +71,29 @@
     };
     vscode = {
       enable = true;
+      # package = pkgs.vscode-insiders;
       mutableExtensionsDir = false;
+
+      userSettings = {
+        "editor.renderWhitespace" = "all";
+        "editor.rulers" = [ 80 120 ];
+        "editor.tabSize" = 2;
+        "editor.fontLigatures" = true;
+        "workbench.fontAliasing" = "antialiased";
+        "files.trimTrailingWhitespace" = true;
+        "workbench.iconTheme" = "vscode-icons";
+      };
+
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
-      ]; 
+        eamodio.gitlens
+        ms-python.python
+        ms-vscode-remote.remote-ssh
+      ];
     };
     brave = {
       enable = true;
-      commandLineArgs = [ "--enable-features=UseOzonePlatform" "--ozone-platform=wayland" ];
+      commandLineArgs = [ "--disable-gpu" ];
     };
   };
 
@@ -115,10 +130,13 @@
       videos = "${config.home.homeDirectory}/Videos";
     };
     systemDirs.data = [ "/usr/share" "/usr/local/share" ];
+
+    # configFile."Code/code-flags.conf".text = "--disable-gpu";
+    # configFile."electron-flags.conf".text = "--disable-gpu";
   };
 
 
- 
+
   # services.spotifyd = {
   #   enable = true;
 
