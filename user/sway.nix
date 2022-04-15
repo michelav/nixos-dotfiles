@@ -1,24 +1,16 @@
 { pkgs, config, ... }:
 let
-  lockcmd = ''
-        swaylock --screenshots \
-              --clock \
-              --indicator \
-              --indicator-radius 100 \
-              --indicator-thickness 7 \
-              --effect-blur 7x5 \
-              --effect-vignette 0.5:0.5 \
-              --ring-color 192330 \
-              --key-hl-color 9d79d6 \
-              --line-color 000000 \
-              --inside-color c94f6d \
-              --separator-color 000000 \
-              --grace 3 \
-              --fade-in 0.5 \
-              --effect-greyscale -d
-  '';
+  lockcmd = "swaylock -f --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 192330 --key-hl-color 9d79d6 --line-color 000000 --inside-color c94f6d --separator-color 000000 --grace 3 --fade-in 0.5 --effect-greyscale -d";  
 in
 {
+  imports = [ ./services/swayidle.nix ];
+
+  services.swayidle = {
+    enable = true;
+    lockcmd = lockcmd;
+    debug = false;
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     extraOptions = [ "--unsupported-gpu" ];
@@ -105,39 +97,5 @@ in
     #   export QT_QPA_PLATFORM=wayland
     #   export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
     '';
-  };
-
-  services.swayidle = {
-    enable = true;
-    timeouts = [
-        {
-          timeout = 120;
-          command = ''${pkgs.light}/bin/light -S 20'';
-        }
-        {
-          timeout = 240;
-          command = "${lockcmd}";
-        }
-        {
-          timeout = 600;
-          command = ''swaymsg "output * dpms off"'';
-          resumeCommand = ''swaymsg "output * dpms on"'';
-        }
-        {
-          timeout = 1200;
-          command = ''${pkgs.systemd}/bin/systemctl suspend'';
-        }
-      ];
-      events = [
-        {
-          event = "before-sleep";
-          command = "${lockcmd}";
-        }
-        {
-          event = "lock";
-          command = "${lockcmd}";
-        }
-      ];
-    extraArgs = [ "-w" ];
   };
 }
