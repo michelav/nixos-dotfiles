@@ -136,18 +136,6 @@
     # configFile."electron-flags.conf".text = "--disable-gpu";
   };
 
-
-
-  # services.spotifyd = {
-  #   enable = true;
-
-  #   package = pkgs.spotifyd.override {
-  #     withKeyring = true;
-  #     withPulseAudio = true;
-  #     withMpris = true;
-  #   };
-  # };
-
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
