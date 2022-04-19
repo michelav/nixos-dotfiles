@@ -41,6 +41,7 @@
  };
 
   programs = {
+    mpv.enable = true;
     fish.enable = true;
     git = {
       enable = true;
