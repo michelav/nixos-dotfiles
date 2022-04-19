@@ -94,11 +94,14 @@ in
       powerManagement.enable = false;
     };
   };
-  
+
   security.pam.services.swaylock = {};
   # Enable sound.
   security.rtkit.enable = true;
   services = {
+
+    transmission.enable = true;
+
     xserver.videoDrivers = [ "nvidia" ];
 
     pipewire = {
@@ -108,7 +111,7 @@ in
       pulse.enable = true;
       # If you want to use JACK applications, uncomment this
       #jack.enable = true;
-    
+
       # use the example session manager (no others are packaged yet so this is enabled by default,
       # no need to redefine it in your config for now)
       #media-session.enable = true;
@@ -147,22 +150,23 @@ in
     zsh.enable = true;
     fish.enable = true;
     light.enable = true;
-  }; 
+    dconf.enable = true;
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.michel = {
     isNormalUser = true;
     password = "passwd";
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" ]; 
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" "transmission" ];
   };
-   
+
    fonts.fonts = with pkgs; [
       font-awesome
       fira-code
       (nerdfonts.override { fonts = [ "JetBrainsMono" "DroidSansMono" ]; })
    ];
- 
+
    environment.pathsToLink = [ "/share/zsh"  "/share/fish" ];
 
   # List packages installed in system profile. To search, run:
