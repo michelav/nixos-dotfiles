@@ -34,7 +34,7 @@ in
           tap_button_map = "lmr";
         };
       };
-      output."eDP-1".bg = " ~/Downloads/wp4013881-the-office-wallpapers.jpg fill";
+      output."eDP-1".bg = " ~/Pictures/wallpapers/journey_middle_earth.png fill";
       fonts = {
          names = [ config.gtk.font.name ];
          size = 14.0;

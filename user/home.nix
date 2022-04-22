@@ -3,7 +3,7 @@
 
   imports = [ ./sway.nix ./waybar.nix inputs.nix-colors.homeManagerModule ];
 
-  colorscheme = inputs.nix-colors.colorSchemes.dracula;
+  colorscheme = inputs.nix-colors.colorSchemes.catppuccin;
 
   home = {
 
@@ -82,6 +82,7 @@
         "editor.tabSize" = 2;
         "editor.fontLigatures" = true;
         "workbench.fontAliasing" = "antialiased";
+        "workbench.colorTheme" = "Catppuccin";
         "files.trimTrailingWhitespace" = true;
         "workbench.iconTheme" = "vscode-icons";
       };
@@ -91,6 +92,7 @@
         eamodio.gitlens
         ms-python.python
         ms-vscode-remote.remote-ssh
+        Catppuccin.catppuccin-vsc
       ];
     };
     brave = {
