@@ -14,6 +14,28 @@ in
     debug = false;
   };
 
+  # Sway Session Variables
+  home = {
+    packages = with pkgs; [
+      libnotify
+      fuzzel
+      swayidle
+      swaylock-effects
+      wl-clipboard
+      grim
+      slurp
+      mako
+      wofi
+    ];
+    sessionVariables = {
+      # wayland
+      XDG_DESKTOP_SESSION = "sway";
+      XDG_SESSION_TYPE = "wayland";
+  };
+
+  };
+
+
   wayland.windowManager.sway = {
     enable = true;
     extraOptions = [ "--unsupported-gpu" ];
@@ -74,16 +96,16 @@ in
       };
       bars = [{ command = "waybar"; }];
       colors = import ./colors.nix { inherit (config.colorscheme) colors; };
-      startup = [
-        {
-          command = ''
-            ${pkgs.remind}/bin/remind \
-              -z -k"${pkgs.libnotify}/bin/notify-send -t 5000 -a 'Remind' 'To-Do' %s" \
-              ${config.home.sessionVariables.REMINDERS}
-          '';
-          always = false;
-        }
-      ];
+      # startup = [
+      #   {
+      #     command = ''
+      #       ${pkgs.remind}/bin/remind \
+      #         -z -k"${pkgs.libnotify}/bin/notify-send -t 5000 -a 'Remind' 'To-Do' %s" \
+      #         ${config.home.sessionVariables.REMINDERS}
+      #     '';
+      #     always = false;
+      #   }
+      # ];
     };
 
    extraSessionCommands = ''

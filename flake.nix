@@ -8,6 +8,7 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     hardware.url = "github:nixos/nixos-hardware";
     nixpkgs-wayland.url  = "github:nix-community/nixpkgs-wayland";
+    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Home manager flake
     # home-manager = {
