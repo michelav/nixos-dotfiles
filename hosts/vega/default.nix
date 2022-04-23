@@ -138,8 +138,20 @@ in
         # CPU_MAX_PERF_ON_BAT=60;
       };
   };
-   fstrim.enable = true;
-   thermald.enable = true;
+
+  greetd = {
+    enable = true;
+    vt = 2;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd sway";
+        user = "greeter";
+      };
+    };
+  };
+
+  fstrim.enable = true;
+  thermald.enable = true;
 
 };
 
@@ -181,6 +193,7 @@ in
     glxinfo
     vulkan-tools
     glmark2
+    # tuigreet
   ];
 
 

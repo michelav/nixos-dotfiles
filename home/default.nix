@@ -1,6 +1,5 @@
 { inputs, config, pkgs, ... }:
 {
-
   imports = [ ./sway.nix ./waybar.nix inputs.nix-colors.homeManagerModule ];
 
   colorscheme = inputs.nix-colors.colorSchemes.catppuccin;
@@ -24,7 +23,7 @@
        libnotify
        fuzzel
        swayidle
-       swaylock-effects
+       inputs.nixpkgs-wayland.packages.${system}.swaylock-effects
        wl-clipboard
        grim
        slurp
@@ -92,7 +91,7 @@
         eamodio.gitlens
         ms-python.python
         ms-vscode-remote.remote-ssh
-        Catppuccin.catppuccin-vsc
+        # Catppuccin.catppuccin-vsc
       ];
     };
     brave = {
