@@ -101,6 +101,11 @@ in
   services = {
 
     transmission.enable = true;
+    transmission.settings.umask = 18;
+    transmission.settings.download-dir="/media/movies"; # SO Jellyfin may read video files
+
+    jellyfin.enable = true;
+    jellyfin.openFirewall = true;
 
     xserver.videoDrivers = [ "nvidia" ];
 
@@ -175,8 +180,7 @@ in
 
    fonts.fonts = with pkgs; [
       font-awesome
-      fira-code
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "DroidSansMono" ]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "DroidSansMono" "FiraCode" ]; })
    ];
 
    environment.pathsToLink = [ "/share/zsh"  "/share/fish" ];
