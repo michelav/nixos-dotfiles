@@ -95,7 +95,7 @@ in
         # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
         nvidiaBusId = "PCI:01:00:0";
       };
-      powerManagement.enable = false;
+      powerManagement.finegrained = true;
     };
   };
 
@@ -150,16 +150,16 @@ in
       };
   };
 
-  greetd = {
-    enable = true;
-    vt = 2;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd sway";
-        user = "greeter";
-      };
-    };
-  };
+  # greetd = {
+  #   enable = true;
+  #   vt = 2;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd sway";
+  #       user = "greeter";
+  #     };
+  #   };
+  # };
 
   fstrim.enable = true;
   thermald.enable = true;

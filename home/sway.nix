@@ -39,9 +39,7 @@ in
   wayland.windowManager.sway = {
     enable = true;
     extraOptions = [ "--unsupported-gpu" ];
-    # package = pkgs.sway-unwrapped;
     wrapperFeatures = { base = true; gtk = true; };
-    # xwayland = true;
     config = rec {
       terminal = "alacritty";
       input = {
@@ -96,31 +94,16 @@ in
       };
       bars = [{ command = "waybar"; }];
       colors = import ./colors.nix { inherit (config.colorscheme) colors; };
-      # startup = [
-      #   {
-      #     command = ''
-      #       ${pkgs.remind}/bin/remind \
-      #         -z -k"${pkgs.libnotify}/bin/notify-send -t 5000 -a 'Remind' 'To-Do' %s" \
-      #         ${config.home.sessionVariables.REMINDERS}
-      #     '';
-      #     always = false;
-      #   }
-      # ];
     };
 
    extraSessionCommands = ''
         export MOZ_ENABLE_WAYLAND="1"
-        export __GLX_VENDOR_LIBRARY_NAME=nvidia
-        export WLR_DRM_NO_ATOMIC="1"
         export GDK_BACKEND=wayland
         export WLR_NO_HARDWARE_CURSORS="1"
         export XDG_SESSION_TYPE=wayland
         export XDG_SESSION_DESKTOP=sway
         export XDG_CURRENT_DESKTOP=sway
         export SDL_VIDEODRIVER=wayland
-    #   # needs qt5.qtwayland in systemPackages
-    #   export QT_QPA_PLATFORM=wayland
-    #   export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
     '';
   };
 }
