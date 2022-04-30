@@ -1,24 +1,24 @@
 { config, pkgs, ... }:
+/*
+* Must config:
+* terminal
+* shell
+* base apps
+*/
 {
   imports = [
+    ./neovim.nix
     ./fish.nix
+    ./theme.nix
     ./vscode.nix
   ];
 
-  home.sessionVariables = {
-    # environment variables
-    BROWSER = "brave";
-    EDITOR = "nvim";
-  };
-
   home.packages = with pkgs; [
-    keepassxc
     neofetch
     jq
-    pavucontrol
-    spotify
-    playerctl
   ];
+
+  home.sessionVariables.BROWSER = "brave";
 
   programs = {
     mpv.enable = true;
@@ -50,26 +50,7 @@
          };
       };
     };
-    brave = {
-      enable = true;
-      commandLineArgs = [ "--disable-gpu" ];
-    };
-  };
-
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = if config.colorscheme.kind == "light" then "Papirus" else "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    theme = {
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-dark-gtk;
-    };
-    font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 10;
-    };
+    brave.enable = true;
   };
 
   xdg = {

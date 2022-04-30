@@ -18,14 +18,14 @@
    homeDirectory = "/home/michel";
 
   # Moved to desktop
-  #  packages = with pkgs; [
-  #     keepassxc
-  #     neofetch
-  #     jq
-  #     pavucontrol
-  #     spotify
-  #     playerctl
-  #  ];
+   packages = with pkgs; [
+      keepassxc
+      neofetch
+      jq
+      pavucontrol
+      spotify
+      playerctl
+   ];
  };
 
   # This value determines the Home Manager release that your

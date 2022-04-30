@@ -111,7 +111,7 @@ in
     transmission.settings.download-dir="/media/movies"; # SO Jellyfin may read video files
 
     jellyfin.enable = true;
-    jellyfin.openFirewall = true;
+    # jellyfin.openFirewall = true;
 
     xserver.videoDrivers = [ "nvidia" ];
 
@@ -184,10 +184,12 @@ in
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "transmission" ];
   };
 
-   fonts.fonts = with pkgs; [
-      font-awesome
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "DroidSansMono" "FiraCode" ]; })
-   ];
+  fonts = {
+    enableDefaultFonts = true;
+    fonts = with pkgs; [
+      corefonts
+    ];
+  };
 
    environment.pathsToLink = [ "/share/zsh"  "/share/fish" ];
 
