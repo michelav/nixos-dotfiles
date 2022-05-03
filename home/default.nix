@@ -1,16 +1,16 @@
 { inputs, config, pkgs, ... }:
 {
 
-  nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+  # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
 
   imports = [
       ./desktop.nix
-      ./sway.nix
-      ./waybar.nix
-      inputs.nix-colors.homeManagerModule
+      # ./sway.nix
+      # ./waybar.nix
+      # inputs.nix-colors.homeManagerModule
   ];
 
-  colorscheme = inputs.nix-colors.colorSchemes.catppuccin;
+  # colorscheme = inputs.nix-colors.colorSchemes.catppuccin;
 
   home = {
 

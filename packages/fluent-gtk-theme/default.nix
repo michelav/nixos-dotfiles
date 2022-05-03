@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    bash install.sh -d $out/share/themes -t ${accentColor}
+    bash install.sh -d $out/share/themes -t ${accentColor} --tweaks float
     runHook postInstall
   '';
 

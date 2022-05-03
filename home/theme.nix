@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # Some Fonts
     font-awesome
+    inter
     roboto
     roboto-mono
     (nerdfonts.override { fonts =
@@ -19,18 +20,33 @@
     gtk-engine-murrine
     gtk_engines
     gsettings-desktop-schemas
+    nordic
+    nordzy-icon-theme
+    nordzy-cursor-theme
     (callPackage ../packages/fluent-gtk-theme {})
     (callPackage ../packages/fluent-icon-theme {})
+
   ];
 
   gtk = {
     enable = true;
-    cursorTheme.name = "Fluent";
-    iconTheme.name = "Fluent";
-    theme.name = "Fluent";
+    cursorTheme.name = "Nordzy-white-cursors";
+    iconTheme.name = "Nordzy-dark";
+    theme.name = "Nordic-darker";
     font = {
-      name = "Roboto";
+      name = "Inter";
       size = 10;
+    };
+  };
+
+  # Setting fonts
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      document-font-name = "Inter 10";
+      monospace-font-name = "FiraCode Nerd Font Mono Regular 10";
+    };
+    "org/gnome/desktop/wm/preferences" = {
+      titlebar-font = "Inter Bold 11";
     };
   };
 }

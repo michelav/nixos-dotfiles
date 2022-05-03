@@ -13,6 +13,7 @@ let
   '';
 in
 {
+
   nix = {
     package = pkgs.nixFlakes; # or versioned attributes like nix_2_7
     extraOptions = ''
@@ -35,6 +36,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/gnome.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -55,9 +57,6 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp7s0.useDHCP = true;
   networking.interfaces.wlp0s20f3.useDHCP = true;
@@ -72,15 +71,6 @@ in
     keyMap = "br-abnt2";
   };
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true; # so that gtk works properly
-    extraPackages = with pkgs; [
-      mako # notification daemon
-      alacritty # Alacritty is the default terminal in the config
-      wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
-    ];
-  };
   xdg.portal.wlr.enable = true;
   hardware = {
     opengl.enable = true;
@@ -99,19 +89,16 @@ in
     };
   };
 
-  security.pam.services.swaylock = {};
   # Enable sound.
   security.rtkit.enable = true;
   services = {
 
-    blueman.enable = true;
 
     transmission.enable = true;
     transmission.settings.umask = 18;
     transmission.settings.download-dir="/media/movies"; # SO Jellyfin may read video files
 
     jellyfin.enable = true;
-    # jellyfin.openFirewall = true;
 
     xserver.videoDrivers = [ "nvidia" ];
 
@@ -120,12 +107,6 @@ in
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
-
-      # use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now)
-      #media-session.enable = true;
     };
 
     tlp = {
@@ -150,29 +131,13 @@ in
       };
   };
 
-  # greetd = {
-  #   enable = true;
-  #   vt = 2;
-  #   settings = {
-  #     default_session = {
-  #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd sway";
-  #       user = "greeter";
-  #     };
-  #   };
-  # };
-
   fstrim.enable = true;
   thermald.enable = true;
 
-};
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  };
 
   programs = {
-    zsh.enable = true;
     fish.enable = true;
-    light.enable = true;
     dconf.enable = true;
   };
 
@@ -191,7 +156,7 @@ in
     ];
   };
 
-   environment.pathsToLink = [ "/share/zsh"  "/share/fish" ];
+   environment.pathsToLink = [ "/share/fish" ];
 
   environment.etc = {
 	"wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
@@ -209,31 +174,14 @@ in
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    firefox
+    # firefox
     git
     unzip
     nvidia-offload
     glxinfo
     vulkan-tools
     glmark2
-    # tuigreet
   ];
-
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  programs.ssh.startAgent = true;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

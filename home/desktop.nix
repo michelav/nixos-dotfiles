@@ -13,14 +13,19 @@
     ./vscode.nix
   ];
 
-  home.packages = with pkgs; [
-    neofetch
-    jq
-  ];
+  # home.packages = with pkgs; [
+  #   neofetch
+  #   jq
+  # ];
 
   home.sessionVariables.BROWSER = "brave";
 
   programs = {
+    foot = {
+      enable = true;
+      server.enable = true;
+    };
+    alacritty.enable = true;
     mpv.enable = true;
     git = {
       enable = true;
@@ -51,7 +56,19 @@
       };
     };
     brave.enable = true;
+
+    firefox = {
+      enable = true;
+
+      package = pkgs.firefox-wayland.override {
+        cfg = {
+          enableGnomeExtensions = true;
+        };
+      };
+    };
   };
+
+  services.easyeffects.enable = true;
 
   xdg = {
     enable = true;
