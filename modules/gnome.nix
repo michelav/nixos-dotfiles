@@ -12,6 +12,13 @@
   services.power-profiles-daemon.enable = false;
   hardware.pulseaudio.enable = false;
 
+  environment.gnome.excludePackages = with pkgs; [
+    gnome.cheese
+    gnome.gnome-terminal
+    gnome-tour
+    gnome.geary
+  ];
+
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator
     gnomeExtensions.blur-my-shell

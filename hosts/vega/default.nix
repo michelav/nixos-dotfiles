@@ -37,6 +37,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/gnome.nix
+      ../../modules/virtual.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -77,7 +78,7 @@ in
     bluetooth.enable = true;
     nvidia = {
       modesetting.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       prime = {
         offload.enable = true;
         # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
@@ -94,11 +95,12 @@ in
   services = {
 
 
-    transmission.enable = true;
-    transmission.settings.umask = 18;
-    transmission.settings.download-dir="/media/movies"; # SO Jellyfin may read video files
+    # transmission.enable = true;
+    # transmission.settings.umask = 18;
+    # transmission.settings.download-dir="/media/movies"; # SO Jellyfin may read video files
 
-    jellyfin.enable = true;
+    # jellyfin.enable = true;
+    # jellyfin.openFirewall = true;
 
     xserver.videoDrivers = [ "nvidia" ];
 
