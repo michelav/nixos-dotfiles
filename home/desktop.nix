@@ -21,6 +21,7 @@
   home.sessionVariables.BROWSER = "brave";
 
   programs = {
+    java.enable = true;
     foot = {
       enable = true;
       server.enable = true;
