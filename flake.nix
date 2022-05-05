@@ -7,21 +7,10 @@
     # nixpkgs.url = "nixpkgs/nixos-21.11";
     nixpkgs.url = "nixpkgs/nixos-unstable";
     hardware.url = "github:nixos/nixos-hardware";
-    nixpkgs-wayland.url  = "github:nix-community/nixpkgs-wayland";
-    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Home manager flake
-    # home-manager = {
-    #   url = "github:nix-community/home-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
@@ -40,26 +29,6 @@
         inherit system;
 
         modules = [
-          ({pkgs, config, ... }: {
-            config = {
-              nix = {
-                # add binary caches
-                binaryCachePublicKeys = [
-                  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-                  "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-                  # ...
-                ];
-                binaryCaches = [
-                  "https://cache.nixos.org"
-                  "https://nixpkgs-wayland.cachix.org"
-                  # ...
-                ];
-              };
-
-              # use it as an overlay
-              nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
-            };
-          })
         ./hosts/vega
         ];
       };
