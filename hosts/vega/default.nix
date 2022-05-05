@@ -99,8 +99,8 @@ in
     # transmission.settings.umask = 18;
     # transmission.settings.download-dir="/media/movies"; # SO Jellyfin may read video files
 
-    # jellyfin.enable = true;
-    # jellyfin.openFirewall = true;
+    jellyfin.enable = true;
+    jellyfin.openFirewall = true;
 
     xserver.videoDrivers = [ "nvidia" ];
 
