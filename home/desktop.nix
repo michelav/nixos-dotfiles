@@ -7,16 +7,11 @@
 */
 {
   imports = [
-    ./neovim.nix
+    ./neovim
     ./fish.nix
     ./theme.nix
     ./vscode.nix
   ];
-
-  # home.packages = with pkgs; [
-  #   neofetch
-  #   jq
-  # ];
 
   home.sessionVariables.BROWSER = "brave";
 
@@ -57,7 +52,6 @@
       };
     };
     brave.enable = true;
-
     firefox = {
       enable = true;
 
@@ -67,6 +61,8 @@
         };
       };
     };
+    fzf.enable = true;
+    fzf.enableFishIntegration = true;
   };
 
   services.easyeffects.enable = true;
@@ -89,10 +85,5 @@
     };
     systemDirs.data = [ "/usr/share" "/usr/local/share" ];
 
-    # configFile."Code/code-flags.conf".text = "--disable-gpu";
-    # configFile."electron-flags.conf".text = "--disable-gpu";
-  };
-
-
-
+ };
 }

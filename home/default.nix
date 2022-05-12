@@ -1,16 +1,12 @@
 { inputs, config, pkgs, ... }:
 {
 
-  # nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
 
   imports = [
       ./desktop.nix
-      # ./sway.nix
-      # ./waybar.nix
-      # inputs.nix-colors.homeManagerModule
-  ];
+ ];
 
-  # colorscheme = inputs.nix-colors.colorSchemes.catppuccin;
 
   home = {
 
@@ -25,6 +21,8 @@
       pavucontrol
       spotify
       playerctl
+      ripgrep
+      fd
    ];
  };
 

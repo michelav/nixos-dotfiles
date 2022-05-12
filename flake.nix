@@ -3,6 +3,7 @@
 
   inputs = {
 
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     # Core nix flakes
     # nixpkgs.url = "nixpkgs/nixos-21.11";
     nixpkgs.url = "nixpkgs/nixos-unstable";
