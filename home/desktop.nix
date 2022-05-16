@@ -66,7 +66,7 @@
   };
 
   services.easyeffects.enable = true;
-
+  xdg.configFile."alacritty/alacritty.yml".source = ../config/alacritty.yml;
   xdg = {
     enable = true;
     mime.enable = true;

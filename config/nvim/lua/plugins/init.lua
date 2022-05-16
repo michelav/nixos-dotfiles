@@ -1,5 +1,5 @@
-require('plugins.cmp') -- loading completion configuration
-require('plugins.telescope') -- loading telescope configuration
-require('plugins.indent')
-require('plugins.statusline')
-require('plugins.gitsign')
+require('plugins.configs.cmp') -- loading completion configuration
+require('plugins.configs.telescope') -- loading telescope configuration
+require('plugins.configs.indent')
+require('plugins.configs.feline')
+require('plugins.configs.gitsign')
