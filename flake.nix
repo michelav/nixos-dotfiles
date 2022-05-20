@@ -12,9 +12,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, neovim-nightly-overlay, nur, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -30,12 +31,12 @@
         inherit system;
 
         modules = [
-        ./hosts/vega
+          ./hosts/vega
+          { nixpkgs.overlays = [ nur.overlay ]; }
         ];
       };
      };
-
-     homeConfigurations.michel = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.michel = home-manager.lib.homeManagerConfiguration {
         inherit system pkgs username;
         homeDirectory = "/home/${username}";
         configuration =  import ./home;

@@ -1,7 +1,18 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 {
   home.sessionVariables.EDITOR = "nvim";
-  programs.neovim = {
+
+  home.packages = with pkgs; [
+    sumneko-lua-language-server
+    rnix-lsp
+    nur.repos.ouzu.catppuccin.gtk
+  ];
+
+  programs.neovim = 
+  let
+    nvimExtraPlugins = pkgs.callPackage ./extraPlugins.nix { inherit pkgs; };
+  in
+   {
     enable = true;
     viAlias = true;
     vimAlias = true;
@@ -32,12 +43,15 @@
       cmp-buffer
       cmp-vsnip
       cmp-nvim-lsp-document-symbol
+      # cmp-nvim-lsp-signature-help
+      cmp-cmdline
 
       # Status
       feline-nvim
 
       # Themes
       nightfox-nvim
+      nvimExtraPlugins.nvim-catppuccin
     ];
   };
   xdg.configFile."nvim/lua".source = ../../config/nvim/lua;

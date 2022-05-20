@@ -1,7 +1,20 @@
 { inputs, config, pkgs, ... }:
 {
 
-  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+#       packageOverrides = pkgs: {
+#         nur = import (builtins.fetchTarball { 
+#           url = "https://github.com/nix-community/NUR/archive/master.tar.gz";
+#           sha256 = "sha256:1729rnpfwh5y6vkmfyyh72py7bh05nqh3bfg3czy7ysn26pl6c2a";
+#         }) {
+#           inherit pkgs;
+#         };
+#       };
+     };
+    overlays = [ inputs.neovim-nightly-overlay.overlay inputs.nur.overlay ];
+  };
 
   imports = [
       ./desktop.nix
@@ -23,6 +36,7 @@
       playerctl
       ripgrep
       fd
+      tree
    ];
  };
 
