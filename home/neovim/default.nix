@@ -42,6 +42,8 @@
       cmp-path
       cmp-buffer
       cmp-vsnip
+      luasnip
+      cmp_luasnip
       cmp-nvim-lsp-document-symbol
       # cmp-nvim-lsp-signature-help
       cmp-cmdline

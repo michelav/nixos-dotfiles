@@ -15,6 +15,10 @@
 
   home.sessionVariables.BROWSER = "brave";
 
+  home.packages = with pkgs; [
+    transmission-gtk
+  ];
+
   programs = {
     java.enable = true;
     foot = {
@@ -65,7 +69,10 @@
     fzf.enableFishIntegration = true;
   };
 
-  services.easyeffects.enable = true;
+  services = {
+    easyeffects.enable = true;
+    dropbox.enable = true;
+  };
   xdg.configFile."alacritty/alacritty.yml".source = ../config/alacritty.yml;
   xdg = {
     enable = true;
