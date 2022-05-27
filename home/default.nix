@@ -37,6 +37,7 @@
       ripgrep
       fd
       tree
+      gcc
    ];
  };
 

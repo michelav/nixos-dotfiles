@@ -6,6 +6,10 @@
     sumneko-lua-language-server
     rnix-lsp
     nur.repos.ouzu.catppuccin.gtk
+    nodejs
+    tree-sitter
+    nodePackages.dockerfile-language-server-nodejs
+    nodePackages.pyright
   ];
 
   programs.neovim = 
@@ -33,6 +37,8 @@
       which-key-nvim
       indent-blankline-nvim
       gitsigns-nvim
+      comment-nvim
+      hop-nvim
 
       # Completions
       nvim-cmp
@@ -45,8 +51,8 @@
       luasnip
       cmp_luasnip
       cmp-nvim-lsp-document-symbol
-      # cmp-nvim-lsp-signature-help
       cmp-cmdline
+      friendly-snippets
 
       # Status
       feline-nvim

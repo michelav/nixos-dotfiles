@@ -13,7 +13,7 @@
     ./vscode.nix
   ];
 
-  home.sessionVariables.BROWSER = "brave";
+  home.sessionVariables.BROWSER = "firefox";
 
   home.packages = with pkgs; [
     transmission-gtk
@@ -21,6 +21,7 @@
 
   programs = {
     java.enable = true;
+    bat.enable = true;
     foot = {
       enable = true;
       server.enable = true;

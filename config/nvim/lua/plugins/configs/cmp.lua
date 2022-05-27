@@ -10,34 +10,6 @@ end
 local luasnip = require("luasnip")
 require("luasnip/loaders/from_vscode").lazy_load()
 
--- local icons = {
---   Text = "",
---   Method = "",
---   Function = "",
---   Constructor = "⌘",
---   Field = "ﰠ",
---   Variable = "",
---   Class = "ﴯ",
---   Interface = "",
---   Module = "",
---   Property = "ﰠ",
---   Unit = "塞",
---   Value = "",
---   Enum = "",
---   Keyword = "廓",
---   Snippet = "",
---   Color = "",
---   File = "",
---   Reference = "",
---   Folder = "",
---   EnumMember = "",
---   Constant = "",
---   Struct = "פּ",
---   Event = "",
---   Operator = "",
---   TypeParameter = "",
--- }
-
 local icons = {
   Text = "",
   Method = "m",
@@ -83,10 +55,17 @@ cmp.setup({
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
-    format = function(_, vim_item)
+    format = function(entry, vim_item)
       vim_item.menu = vim_item.kind
       vim_item.kind = icons[vim_item.kind]
-
+      vim_item.menu = ({
+        -- TODO: Rewrite this so all sources could be addressed automatically
+        nvim_lsp = "[LSP]",
+        luasnip = "[Snippet]",
+        buffer = "[Buffer]",
+        path = "[Path]",
+        cmdline = "[CMD]",
+      })[entry.source.name]
       return vim_item
     end,
   },

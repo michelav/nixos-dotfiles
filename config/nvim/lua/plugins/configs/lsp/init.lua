@@ -75,10 +75,11 @@ if not status_ok then
 end
 
 capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lspconfig = require("lspconfig")
 
-local servers = { "rnix", "sumneko_lua" }
+local servers = { "rnix", "sumneko_lua", "dockerls" }
 
 for _, server in pairs(servers) do
   local opts = {
