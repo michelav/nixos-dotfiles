@@ -74,7 +74,7 @@
     easyeffects.enable = true;
     dropbox.enable = true;
   };
-  xdg.configFile."alacritty/alacritty.yml".source = ../config/alacritty.yml;
+  xdg.configFile."alacritty/alacritty.yml".source = ../../../config/alacritty.yml;
   xdg = {
     enable = true;
     mime.enable = true;

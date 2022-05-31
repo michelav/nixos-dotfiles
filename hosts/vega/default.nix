@@ -47,7 +47,7 @@ in
     loader.efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "vega"; # Define your hostname.
+#  networking.hostName = "vega"; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -56,7 +56,7 @@ in
    # hardwareClockInLocalTime = true;
   };
 
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   networking.useDHCP = false;
   networking.interfaces.enp7s0.useDHCP = true;
@@ -143,15 +143,7 @@ in
     dconf.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.michel = {
-    isNormalUser = true;
-    password = "passwd";
-    shell = pkgs.fish;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" "transmission" ];
-  };
-
-  fonts = {
+ fonts = {
     enableDefaultFonts = true;
     fonts = with pkgs; [
       corefonts

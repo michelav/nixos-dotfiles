@@ -23,8 +23,8 @@
     nordic
     nordzy-icon-theme
     nordzy-cursor-theme
-    (callPackage ../packages/fluent-gtk-theme {})
-    (callPackage ../packages/fluent-icon-theme {})
+    (callPackage ../../../packages/fluent-gtk-theme {})
+    (callPackage ../../../packages/fluent-icon-theme {})
 
   ];
 

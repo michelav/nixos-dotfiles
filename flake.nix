@@ -16,32 +16,31 @@
   };
 
   outputs = { self, nixpkgs, home-manager, neovim-nightly-overlay, nur, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config = { allowUnfree = true; };
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config = { allowUnfree = true; };
+    };
+    local-lib = import ./lib { inherit inputs; };
+    inherit (local-lib) mkSystem mkHome;
+    username = "michel";
+    overlays = {
+      nur = nur.overlay;
+    };
+  in
+  {
+    nixosConfigurations = {
+      vega = mkSystem {
+        inherit system overlays;
+        hostname = "vega";
+        users = [ "michel" ];
       };
-      lib = nixpkgs.lib;
-      username = "michel";
-    in
-    {
-     nixosConfigurations = {
-      vega = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        modules = [
-          ./hosts/vega
-          { nixpkgs.overlays = [ nur.overlay ]; }
-        ];
-      };
-     };
-    homeConfigurations.michel = home-manager.lib.homeManagerConfiguration {
-        inherit system pkgs username;
-        homeDirectory = "/home/${username}";
-        configuration =  import ./home;
-        stateVersion = "21.11";
-        extraSpecialArgs = { inherit inputs; };
+    };
+    homeConfigurations = {
+    "${username}@vega" = mkHome {
+        inherit system pkgs username overlays;
     };
    };
+  };
 }
