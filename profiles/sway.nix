@@ -29,7 +29,9 @@ in
   #   sway
   #   fish
   # '';
- services.blueman.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+
+  services.blueman.enable = true;
   security.pam.services.swaylock = {};
   programs.light.enable = true;
   programs.sway = {

@@ -80,6 +80,10 @@
     ];
   };
 
+  environment.systemPackages = with pkgs; [
+    gnome.seahorse
+  ];
+
   environment.pathsToLink = [ "/share/fish" ];
 
   environment.etc = {
@@ -94,7 +98,7 @@
   };
   programs.gnupg.agent = {
     enable = true;
-    enableSSHSupport = true;
+    # enableSSHSupport = true;
   };
     # xdg-desktop-portal works by exposing a series of D-Bus interfaces
   # known as portals under a well-known name
