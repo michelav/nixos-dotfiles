@@ -45,7 +45,6 @@ in
               ./waybar.nix
               ../services/swayidle.nix
               ../services/wlsunset.nix
-              ../services/easyeffects.nix
             ];
 
   services.swayidle = {

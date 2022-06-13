@@ -17,16 +17,18 @@
 
   home.packages = with pkgs; [
     transmission-gtk
+    keepassxc
+    neofetch
+    pavucontrol
+    spotify
+    playerctl
   ];
 
   programs = {
     java.enable = true;
     bat.enable = true;
-    foot = {
-      enable = true;
-      server.enable = true;
-    };
-    alacritty.enable = true;
+    kitty.enable = true;
+   alacritty.enable = true;
     mpv.enable = true;
     git = {
       enable = true;
@@ -71,7 +73,6 @@
   };
 
   services = {
-    easyeffects.enable = true;
     dropbox.enable = true;
   };
   xdg.configFile."alacritty/alacritty.yml".source = ../../../../config/alacritty.yml;
