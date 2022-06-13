@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, lib, profiles, ... }:
 {
 
   nixpkgs = {
@@ -7,31 +7,26 @@
     };
     overlays = [ inputs.neovim-nightly-overlay.overlay inputs.nur.overlay ];
   };
-
+  
+  # The profiles dictates what should be installed
   imports = [
-      ./desktop.nix
- ];
-
+     inputs.nix-colors.homeManagerModule
+     ./profiles
+  ] ++ lib.forEach profiles (p: ./profiles/. + "/${p}.nix");
+  
+  colorscheme = inputs.nix-colors.colorSchemes.nord;
 
   home = {
-
-   username = "michel";
-   homeDirectory = "/home/michel";
-
-  # Moved to desktop
-   packages = with pkgs; [
-      keepassxc
-      neofetch
+    # Moved to desktop
+    packages = with pkgs; [
       jq
-      pavucontrol
-      spotify
-      playerctl
       ripgrep
       fd
       tree
+      htop
       gcc
-   ];
- };
+    ];
+  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -41,7 +36,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.11";
+#  home.stateVersion = "21.11";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

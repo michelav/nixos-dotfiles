@@ -1,8 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, ... }:
 {
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
+    displayManager.gdm.enable = lib.mkForce true;
     desktopManager.gnome.enable = true;
     layout = "br";
     xkbModel = "abnt2";
@@ -36,9 +36,4 @@
   services.gnome.core-developer-tools.enable = true;
   # USer Gnome Extensions from browser
   services.gnome.chrome-gnome-shell.enable = true;
-
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
 }

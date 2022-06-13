@@ -1,7 +1,10 @@
 { config, pkgs, ... }:
 {
   programs = {
-    fish.enable = true;
+    fish = {
+      enable = true;
+      loginShellInit = builtins.readFile ../dotfiles/fish/login.fish;
+    };
 
     starship = {
       enable = true;

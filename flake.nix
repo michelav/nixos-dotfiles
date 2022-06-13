@@ -13,6 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
      nur.url = "github:nix-community/NUR";
+     nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = { self, nixpkgs, home-manager, neovim-nightly-overlay, nur, ... }@inputs:
