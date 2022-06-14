@@ -93,7 +93,7 @@ in
           tap = "enabled";
           natural_scroll = "enabled";
           middle_emulation = "enabled";
-          tap_button_map = "lmr";
+          tap_button_map = "lrm";
         };
       };
       output."eDP-1".bg = " ~/Pictures/wallpapers/journey_middle_earth.png fill";

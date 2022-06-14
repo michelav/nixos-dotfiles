@@ -74,12 +74,12 @@ in
   "Shift+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save window ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";
   "Control+Shift+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";
 
-  "XF86AudioPlay" = "exec ${pkgs.mpc_cli}/bin/mpc toggle";
-  "XF86AudioPause" = "exec ${pkgs.mpc_cli}/bin/mpc toggle";
-  "XF86AudioNext" = "exec ${pkgs.mpc_cli}/bin/mpc next";
-  "XF86AudioPrev" = "exec ${pkgs.mpc_cli}/bin/mpc prev";
-  "Shift+XF86AudioNext" = "exec ${pkgs.mpc_cli}/bin/mpc seek +10";
-  "Shift+XF86AudioPrev" = "exec ${pkgs.mpc_cli}/bin/mpc seek -10";
+  "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+  "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+  "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+  "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+  "Shift+XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl position 10+";
+  "Shift+XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl position 10-";
 
   "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5";
   "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5";
