@@ -1,260 +1,184 @@
 { config, ... }:
 
 with config.colorscheme.colors; ''
+
+  /* Nord */
+  @define-color bg #${base00};
+  @define-color light #${base05};
+  @define-color warning #${base0A};
+  @define-color critical #${base08};
+  @define-color mode #${base02};
+  @define-color workspacesfocused #${base03};
+  @define-color tray @workspacesfocused;
+  @define-color module-bg #${base02};
+  @define-color module-fg #${base05};
+  @define-color module-inv-fg #${base04};
+  @define-color module-inv-bg #${base05};
+
   * {
     border: none;
-    border-radius: 10;
+    border-radius: 3px;
+    min-height: 0;
+    margin: 0.2em 0.3em 0.2em 0.3em;
+  }
+
+  #waybar {
+    background: @bg;
+    color: @light;
     font-family: '${config.gtk.font.name}', monospace, 'JetBrainsMono Nerd Font';
-    font-size: 15px;
-    min-height: 10px;
-  }
+    font-size: 12px;
+    font-weight: bold;
 
-  /* waybar */
-  window#waybar {
-    background: transparent;
   }
-
   
- window#waybar {
-	background: transparent;
-}
+  /* Each module */
+  #battery,
+  #clock,
+  #cpu,
+  #custom-layout,
+  #memory,
+  #mode,
+  #custom-media,
+  #network,
+  #pulseaudio,
+  #temperature,
+  #idle_inhibitor,
+  #window,
+  #tray,
+  #backlight {
+      padding-left: 0.6em;
+      padding-right: 0.6em;
+  }
 
-window#waybar.hidden {
-	opacity: 0.2;
-}
+  /* Each module that should blink */
+  #mode,
+  #memory,
+  #temperature,
+  #battery {
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+  }
 
-#window {
-	margin-top: 6px;
-	padding-left: 10px;
-	padding-right: 10px;
-	border-radius: 10px;
-	transition: none;
-    color: transparent;
-	background: transparent;
-}
+  /* Each critical module */
+  #memory.critical,
+  #cpu.critical,
+  #temperature.critical,
+  #battery.critical {
+      color: @critical;
+  }
+  
+  /* Each critical that should blink */
+  #mode,
+  #memory.critical,
+  #temperature.critical,
+  #battery.critical.discharging {
+      animation-name: blink-critical;
+      animation-duration: 2s;
+  }
+  
+  /* Each warning */
+  #network.disconnected,
+  #memory.warning,
+  #cpu.warning,
+  #temperature.warning,
+  #battery.warning {
+      background: @warning;
+      color: @module-inv-fg;
+  }
+  
+  /* Each warning that should blink */
+  #battery.warning.discharging {
+      animation-name: blink-warning;
+      animation-duration: 3s;
+  }
 
-#workspaces {
-	margin-top: 6px;
-	margin-left: 12px;
-	font-size: 4px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	background: #161320;
-	transition: none;
-}
+  #mode { /* Shown current Sway mode (resize etc.) */
+    color: @light;
+    background: @mode;
+  }
+  
+  /* Workspaces stuff */
+  
+  #workspaces {
+  }
+  
+  #workspaces button {
+      font-weight: bold; /* Somewhy the bar-wide setting is ignored*/
+      padding: 0;
+      opacity: 0.3;
+      background: none;
+      font-size: 1em;
+  }
+  
+  #workspaces button.focused {
+      background: @workspacesfocused;
+      color: @module-fg;
+      opacity: 1;
+      padding: 0 0.4em;
+  }
+  
+  #workspaces button.urgent {
+      border-color: #c9545d;
+      color: #c9545d;
+      opacity: 1;
+  }
+  
+  #window {
+      margin-right: 40px;
+      margin-left: 40px;
+      font-weight: normal;
+  }
 
-#workspaces button {
-	transition: none;
-	color: #B5E8E0;
-	background: transparent;
-	font-size: 16px;
-	border-radius: 2px;
-}
+  #idle_inhibitor {
+      background: @mode;
+      font-weight: bold;
+      padding: 0 0.6em;
+      color: @light;
+  }
 
-#workspaces button.occupied {
-	transition: none;
-	color: #F28FAD;
-	background: transparent;
-	font-size: 4px;
-}
+  #bluetooth {
+    background: @module-bg;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0 0.6em;
+  }
 
-#workspaces button.focused {
-	color: #ABE9B3;
-    border-top: 2px solid #ABE9B3;
-    border-bottom: 2px solid #ABE9B3;
-}
+  @keyframes blink-warning {
+      70% {
+          color: @light;
+      }
+  
+      to {
+          color: @light;
+          background-color: @warning;
+      }
+  }
+  
+  @keyframes blink-critical {
+      70% {
+        color: @light;
+      }
+  
+      to {
+          color: @light;
+          background-color: @critical;
+      }
+  }
+  #memory,
+  #clock,
+  #battery,
+  #pulseaudio,
+  #network,
+  #cpu,
+  #custom-media,
+  #backlight {
+    background: @module-bg;
+    color: @light;
+  }
 
-#workspaces button:hover {
-	transition: none;
-	box-shadow: inherit;
-	text-shadow: inherit;
-	color: #FAE3B0;
-    border-color: #E8A2AF;
-    color: #E8A2AF;
-}
-
-#workspaces button.focused:hover {
-    color: #E8A2AF;
-}
-
-#network {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #bd93f9;
-}
-
-#pulseaudio {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #1A1826;
-	background: #FAE3B0;
-}
-
-#battery {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #B5E8E0;
-}
-
-#battery.charging, #battery.plugged {
-	color: #161320;
-    background-color: #B5E8E0;
-}
-
-#battery.critical:not(.charging) {
-    background-color: #B5E8E0;
-    color: #161320;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-@keyframes blink {
-    to {
-        background-color: #BF616A;
-        color: #B5E8E0;
-    }
-}
-
-#backlight {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #F8BD96;
-}
-
-#clock {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #ABE9B3;
-	/*background: #1A1826;*/
-}
-
-#idle_inhibitor {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #E8A2AF;
-}
-
-#memory {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	margin-bottom: 0px;
-	padding-right: 10px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #DDB6F2;
-}
-#cpu {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	margin-bottom: 0px;
-	padding-right: 10px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #96CDFB;
-}
-
-#tray {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	margin-bottom: 0px;
-	padding-right: 10px;
-	border-radius: 10px;
-	transition: none;
-	color: #B5E8E0;
-	background: #161320;
-}
-
-#custom-launcher {
-	font-size: 24px;
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 5px;
-	border-radius: 10px;
-	transition: none;
-    color: #89DCEB;
-    background: #161320;
-}
-
-#custom-power {
-	font-size: 20px;
-	margin-top: 6px;
-	margin-left: 8px;
-	margin-right: 8px;
-	padding-left: 10px;
-	padding-right: 5px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #F28FAD;
-}
-
-#custom-wallpaper {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #C9CBFF;
-}
-
-#custom-media {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #F2CDCD;
-}
-
+  #tray {
+  	background: @tray;
+    color: @light;
+  }
 ''

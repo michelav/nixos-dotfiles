@@ -14,7 +14,7 @@
      ./profiles
   ] ++ lib.forEach profiles (p: ./profiles/. + "/${p}.nix");
   
-  colorscheme = inputs.nix-colors.colorSchemes.nord;
+  colorScheme = inputs.nix-colors.colorSchemes.catppuccin;
 
   home = {
     # Moved to desktop

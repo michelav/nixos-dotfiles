@@ -23,6 +23,7 @@
     nordic
     nordzy-icon-theme
     nordzy-cursor-theme
+    catppuccin-gtk
     (callPackage ../../../packages/fluent-gtk-theme {})
     (callPackage ../../../packages/fluent-icon-theme {})
 
@@ -32,7 +33,7 @@
     enable = true;
     cursorTheme.name = "Nordzy-white-cursors";
     iconTheme.name = "Nordzy-dark";
-    theme.name = "Nordic-darker";
+    theme.name = "Catppuccin-red-dark";
     font = {
       name = "Inter";
       size = 10;

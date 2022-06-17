@@ -8,7 +8,7 @@ in
     settings = [{
       output = "eDP-1";
       layer = "top";
-      # position = "top";
+      position = "top";
       # margin = "8";
       modules-left = [
         # "custom/scratchpad"
@@ -19,11 +19,11 @@ in
       modules-center = [ "sway/window" ];
       modules-right = [
         "idle_inhibitor"
-        "pulseaudio"
         "backlight"
-        "battery"
-        "bluetooth"
+        "pulseaudio"
+        # "bluetooth"
         "network"
+        "battery"
         "clock"
         "tray"
       ];
@@ -103,8 +103,9 @@ in
 	    };
 
      "sway/window" = {
-      "format" = "{}";
+       "format" = " {} ";
       "max-length" = 50;
+      "tooltip" = false;
       };
 
       network = {
@@ -124,11 +125,11 @@ in
       };
       pulseaudio = {
         scroll-step = 1;
-        format = "{volume}% {icon} {format_source}";
-        format-bluetooth = "{volume}% {icon} {format_source}";
-        format-bluetooth-muted = " {icon} {format_source}";
-        format-muted = " {format_source}";
-        format-source = "{volume}% ";
+        format = " {volume}% {icon} {format_source}";
+        format-bluetooth = " {volume}% {icon} {format_source}";
+        format-bluetooth-muted = "  {icon} {format_source}";
+        format-muted = "  {format_source}";
+        format-source = " {volume}% ";
         format-source-muted = "";
         format-icons = {
             headphone = "";
@@ -146,14 +147,14 @@ in
           warning = 30;
           critical = 15;
         };
-        format = "{capacity}% {icon}";
+        format = "{capacity}% {icon} ";
         format-charging = "{capacity}% ";
         format-plugged = "{capacity}% ";
         format-alt = "{time} {icon}";
         format-icons = [ "" "" "" "" "" ];
       };
       clock = {
-        format = "{: %H:%M %p  %d/%m/%Y}";
+        format = "{:  %H:%M %p   %d/%m/%Y}";
         tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
       };
       # "mpd" = {
