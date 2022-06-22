@@ -30,7 +30,7 @@ in
   #   fish
   # '';
   services.gnome.gnome-keyring.enable = true;
-
+  services.dbus.packages = [ pkgs.gcr ];
   services.blueman.enable = true;
   security.pam.services.swaylock = {};
   programs.light.enable = true;

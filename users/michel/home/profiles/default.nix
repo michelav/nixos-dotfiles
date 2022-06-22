@@ -74,6 +74,11 @@
 
   services = {
     dropbox.enable = true;
+    gpg-agent = {
+      enable = true;
+      enableFishIntegration = true;
+      pinentryFlavor = "gnome3";
+    };
   };
   xdg.configFile."alacritty/alacritty.yml".source = ../../../../config/alacritty.yml;
   xdg = {
