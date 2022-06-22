@@ -146,7 +146,6 @@ in
         export XDG_SESSION_DESKTOP=sway
         export XDG_CURRENT_DESKTOP=sway
         export SDL_VIDEODRIVER=wayland
-        exec 
     '';
   };
 }

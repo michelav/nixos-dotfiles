@@ -1,0 +1,4 @@
+{ config, ... }:
+{
+  imports = [ ./michel.nix ];
+}

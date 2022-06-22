@@ -39,10 +39,10 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../profiles
-      ../../profiles/virtualisation.nix
-      ../../profiles/nvidia.nix
-      (../../profiles/. + "/${desktop}.nix")
+      ../../nixos
+      ../../nixos/virtualisation.nix
+      ../../nixos/nvidia.nix
+      (../../nixos/. + "/${desktop}.nix")
     ];
 
   # Use the systemd-boot EFI boot loader.

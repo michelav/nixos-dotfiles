@@ -13,7 +13,7 @@
     inherit system;
     specialArgs = { inherit system desktop inputs; };
     modules = [
-      ../hosts/${hostname}
+      ../system/hosts/${hostname}
       {
         networking.hostName = hostname;
         nixpkgs = {
@@ -21,7 +21,7 @@
           config.allowUnfree = true;
         };
       }
-    ] ++ nixpkgs.lib.forEach users (u: import ../users/${u}/system);
+    ] ++ nixpkgs.lib.forEach users (u: import ../system/users/${u}.nix);
   };
   
   mkHome = {
@@ -33,7 +33,7 @@
   }:
   with inputs; home-manager.lib.homeManagerConfiguration {
     inherit username pkgs system;
-    configuration = ../users/${username}/home;
+    configuration = ../home/${username};
     homeDirectory = "/home/${username}";
     stateVersion = "21.11";
     extraSpecialArgs = { inherit system inputs profiles; };
