@@ -13,6 +13,8 @@
       (../../nixos/. + "/${desktop}.nix")
     ];
 
+  networking.networkmanager.enable = true;
+
   # Use the systemd-boot EFI boot loader.
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

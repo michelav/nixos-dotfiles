@@ -4,7 +4,6 @@
     ./nix.nix
     ./pipewire.nix
   ];
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time = {
@@ -13,10 +12,6 @@
  };
 
   # nixpkgs.config.allowUnfree = true;
-
-  networking.useDHCP = false;
-  networking.interfaces.enp7s0.useDHCP = true;
-  networking.interfaces.wlp0s20f3.useDHCP = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "pt_BR.UTF-8";
