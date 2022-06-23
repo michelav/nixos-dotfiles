@@ -1,13 +1,6 @@
 { inputs, config, pkgs, lib, profiles, ... }:
 {
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-    overlays = [ inputs.neovim-nightly-overlay.overlay inputs.nur.overlay ];
-  };
-  
   # The profiles dictates what should be installed
   imports = [
      inputs.nix-colors.homeManagerModule

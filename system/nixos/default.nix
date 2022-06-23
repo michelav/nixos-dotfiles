@@ -1,5 +1,8 @@
 {config, pkgs, lib, ... }:
 {
+  imports = [
+    ./nix.nix
+  ];
   networking.networkmanager.enable = true;
 
   # Set your time zone.

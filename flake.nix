@@ -28,6 +28,7 @@
     username = "michel";
     overlays = {
       nur = nur.overlay;
+      neovim-overlay = neovim-nightly-overlay.overlay;
     };
   in
   {
