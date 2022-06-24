@@ -1,6 +1,17 @@
 {pkgs, inputs, lib, config, ...}:
 {
   nix = {
+    settings = {
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://misterio.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "michelav.cachix.org-1:nWCV2A3/ZUVYtNcJqzNv4nGxpNipH4aYJ4XQ2ZCQuIM="
+      ];
+     trusted-users = [ "root" "@wheel" ];
+    };  
     package = pkgs.nixFlakes; # or versioned attributes like nix_2_7
     extraOptions = ''
       experimental-features = nix-command flakes

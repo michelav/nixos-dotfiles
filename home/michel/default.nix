@@ -12,6 +12,7 @@
   home = {
     # Moved to desktop
     packages = with pkgs; [
+      cachix
       jq
       ripgrep
       fd
