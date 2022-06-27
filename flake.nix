@@ -30,6 +30,7 @@
       nur = nur.overlay;
       neovim-overlay = neovim-nightly-overlay.overlay;
     };
+    feats = [ "cli" "dev" ];
   in
   {
     nixosConfigurations = {
@@ -41,7 +42,7 @@
     };
     homeConfigurations = {
     "${username}@vega" = mkHome {
-        inherit system pkgs username overlays;
+        inherit system pkgs username feats overlays;
     };
    };
   };

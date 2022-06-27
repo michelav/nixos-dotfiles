@@ -3,7 +3,7 @@
   programs = {
     fish = {
       enable = true;
-      loginShellInit = builtins.readFile ../dotfiles/fish/login.fish;
+      loginShellInit = builtins.readFile ../configs/fish/login.fish;
     };
 
     starship = {

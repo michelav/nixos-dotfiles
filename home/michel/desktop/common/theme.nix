@@ -1,5 +1,7 @@
-{config, pkgs, ...}:
+{config, pkgs, inputs, ...}:
 {
+  colorScheme = inputs.nix-colors.colorSchemes.catppuccin;
+
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     # Some Fonts
@@ -24,8 +26,8 @@
     nordzy-icon-theme
     nordzy-cursor-theme
     catppuccin-gtk
-    (callPackage ../../../packages/fluent-gtk-theme {})
-    (callPackage ../../../packages/fluent-icon-theme {})
+    (callPackage ../../../../packages/fluent-gtk-theme {})
+    (callPackage ../../../../packages/fluent-icon-theme {})
 
   ];
 

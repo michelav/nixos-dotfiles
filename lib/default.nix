@@ -29,17 +29,22 @@
     pkgs,
     system ? "x86_64-linux",
     overlays ? { },
-    profiles ? [ "tiling-desktop" ],
+    desktop ? "sway",
+    feats ? [ "cli" ],
   }:
   with inputs; home-manager.lib.homeManagerConfiguration {
     inherit username pkgs system;
     configuration = ../home/${username};
     homeDirectory = "/home/${username}";
     stateVersion = "21.11";
-    nixpkgs = {
-      overlays = builtins.attrValues overlays;
-      config.allowUnfree = true;
-    };
-    extraSpecialArgs = { inherit system inputs profiles; };
+    extraModules = [
+      {
+        nixpkgs = {
+          overlays = builtins.attrValues overlays;
+          config.allowUnfree = true;
+        };
+      }
+    ];
+    extraSpecialArgs = { inherit system inputs desktop feats; };
   };
 }

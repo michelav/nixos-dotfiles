@@ -62,5 +62,5 @@
       nvimExtraPlugins.nvim-catppuccin
     ];
   };
-  xdg.configFile."nvim/lua".source = ../configs/nvim/lua;
+  xdg.configFile."nvim/lua".source = ../../configs/nvim/lua;
 }

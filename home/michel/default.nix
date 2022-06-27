@@ -1,18 +1,17 @@
-{ inputs, config, pkgs, lib, profiles, ... }:
+{ inputs, config, pkgs, lib, desktop, feats, ... }:
+let
+  inherit (lib) optional forEach;
+in
 {
 
-  # The profiles dictates what should be installed
+  # The feats dictates what should be installed
   imports = [
      inputs.nix-colors.homeManagerModule
-     ./profiles
-  ] ++ lib.forEach profiles (p: ./profiles/. + "/${p}.nix");
-  
-  colorScheme = inputs.nix-colors.colorSchemes.catppuccin;
+   ] ++ forEach feats (f: ./${f}) 
+   ++ optional (null != desktop) ./desktop/${desktop};
 
   home = {
-    # Moved to desktop
     packages = with pkgs; [
-      cachix
       jq
       ripgrep
       fd

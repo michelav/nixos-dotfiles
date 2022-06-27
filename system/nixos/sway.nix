@@ -29,7 +29,10 @@ in
   #   sway
   #   fish
   # '';
-  services.gnome.gnome-keyring.enable = true;
+#  services.gnome.gnome-keyring.enable = true;
+
+  imports = [ ./greetd.nix ];
+
   services.dbus.packages = [ pkgs.gcr ];
   services.blueman.enable = true;
   security.pam.services.swaylock = {};

@@ -42,9 +42,10 @@ let
 in
 {
   imports = [ 
+              ../common
               ./waybar.nix
-              ../services/swayidle.nix
-              ../services/wlsunset.nix
+              ./swayidle.nix
+              ./wlsunset.nix
             ];
 
   services.swayidle = {
@@ -71,6 +72,7 @@ in
     ];
     sessionVariables = {
       # wayland
+      BROWSER = "firefox";
       XDG_DESKTOP_SESSION = "sway";
       XDG_SESSION_TYPE = "wayland";
     };
@@ -83,7 +85,7 @@ in
     extraOptions = [ "--unsupported-gpu" ];
     wrapperFeatures = { base = true; gtk = true; };
     config = rec {
-      terminal = "alacritty";
+      terminal = "kitty";
       input = {
         "type:keyboard" = {
           xkb_layout = "br";
@@ -137,6 +139,10 @@ in
       bars = [{ command = "waybar"; }];
       colors = import ./colors.nix { inherit (config.colorscheme) colors; };
     };
+
+    extraConfig = ''
+      exec systemctl --user import-environment
+    '';
 
    extraSessionCommands = ''
         export MOZ_ENABLE_WAYLAND="1"
