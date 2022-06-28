@@ -5,6 +5,7 @@
       ./hardware-configuration.nix
       ../../nixos
       ../../nixos/nvidia.nix
+      ../../nixos/gaming.nix
     ] ++ lib.optional ( null != desktop ) ../../nixos/${desktop}.nix;
 
   networking.networkmanager.enable = true;
