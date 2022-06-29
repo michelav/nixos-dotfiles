@@ -44,6 +44,7 @@
           config.allowUnfree = true;
         };
       }
+      ../modules/fontConfigs.nix
     ];
     extraSpecialArgs = { inherit system inputs desktop feats; };
   };

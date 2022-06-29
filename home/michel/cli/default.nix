@@ -3,6 +3,7 @@
     ./neovim
     # ./bat.nix
     ./fish.nix
+    ./kitty.nix
     ./git.nix
     ./gpg.nix
     ./ssh.nix

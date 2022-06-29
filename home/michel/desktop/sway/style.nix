@@ -1,6 +1,6 @@
 { config, ... }:
 
-with config.colorscheme.colors; ''
+with config.colorscheme.colors; with config.desktop; ''
 
   /* Nord */
   @define-color bg #${base00};
@@ -25,8 +25,8 @@ with config.colorscheme.colors; ''
   #waybar {
     background: @bg;
     color: @light;
-    font-family: '${config.gtk.font.name}', monospace, 'JetBrainsMono Nerd Font';
-    font-size: 12px;
+    font-family: '${fonts.regular.name}', '${fonts.monospace.name}';
+    font-size: 12pt;
     font-weight: bold;
 
   }

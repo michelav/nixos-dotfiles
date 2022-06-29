@@ -44,6 +44,7 @@ in
   imports = [ 
               ../common
               ./waybar.nix
+              ./dunst.nix
               ./swayidle.nix
               ./wlsunset.nix
             ];
@@ -64,7 +65,6 @@ in
       wl-clipboard
       grim
       slurp
-      mako
       wofi
       dbus-sway-environment
       configure-gtk-sway
