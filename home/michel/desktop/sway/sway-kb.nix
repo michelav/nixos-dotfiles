@@ -87,7 +87,7 @@ in
   # toggle waybar
   # "${modifier}+b" = "exec pkill -USR1 waybar";
 
-  
+  "${modifier}+w" = "exec makoctl dismiss";
 
   # layout
   "${modifier}+h" = "splith";
@@ -96,10 +96,10 @@ in
   "${modifier}+t" = "layout toggle";
 
   "${modifier}+s" = "layout stacking";
-  "${modifier}+w" = "layout tabbed";
+  "${modifier}+a" = "layout tabbed";
   "${modifier}+e" = "layout toggle split";
 
-  "${modifier}+Shift+c" = "reload";
+  "${modifier}+Shift+r" = "reload";
   "${modifier}+Shift+e" = "exec swaymsg exit";
 }
 

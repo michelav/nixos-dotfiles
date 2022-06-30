@@ -18,6 +18,7 @@ in
       ];
       modules-center = [ "sway/window" ];
       modules-right = [
+        "custom/dont_disturb"
         "idle_inhibitor"
         "backlight"
         "pulseaudio"
