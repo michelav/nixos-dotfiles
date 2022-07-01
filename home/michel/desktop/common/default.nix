@@ -11,6 +11,7 @@
   home.packages = with pkgs; [
     keepassxc
     gnucash
+    transmission-gtk
   ];
 
   services.dropbox.enable = true;
