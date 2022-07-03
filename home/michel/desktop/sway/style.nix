@@ -3,17 +3,21 @@
 with config.colorscheme.colors; with config.desktop; ''
 
   /* Nord */
-  @define-color bg #${base00};
-  @define-color light #${base05};
   @define-color warning #${base0A};
   @define-color critical #${base08};
-  @define-color mode #${base02};
-  @define-color workspacesfocused #${base03};
-  @define-color tray @workspacesfocused;
+  @define-color workspacesfocused_bg #${base00};
+  @define-color workspacesfocused_fg #${base03};
+  @define-color workspace-urgent #${base09};
   @define-color module-bg #${base02};
+  @define-color module-bg-alt #${base04};
   @define-color module-fg #${base05};
-  @define-color module-inv-fg #${base04};
-  @define-color module-inv-bg #${base05};
+  @define-color module-fg-alt #${base00};
+  @define-color module-fg-anm #${base01};
+  @define-color module-bg-gp1 #${base0B};
+  @define-color module-bg-gp2 #${base0C};
+  @define-color module-bg-gp3 #${base0D};
+  @define-color module-bg-gp4 #${base0E};
+  @define-color module-bg-gp5 #${base0F};
 
   * {
     border: none;
@@ -23,11 +27,11 @@ with config.colorscheme.colors; with config.desktop; ''
   }
 
   #waybar {
-    background: @bg;
-    color: @light;
+    background: none;
+    color: @module-fg;
     font-family: '${fonts.regular.name}', '${fonts.monospace.name}';
     font-size: 12pt;
-    font-weight: bold;
+    font-weight: normal;
 
   }
   
@@ -46,8 +50,8 @@ with config.colorscheme.colors; with config.desktop; ''
   #window,
   #tray,
   #backlight {
-      padding-left: 0.6em;
-      padding-right: 0.6em;
+      padding-left: 0.8em;
+      padding-right: 1.0em;
   }
 
   /* Each module that should blink */
@@ -65,7 +69,8 @@ with config.colorscheme.colors; with config.desktop; ''
   #cpu.critical,
   #temperature.critical,
   #battery.critical {
-      color: @critical;
+      background: @critical;
+      color: @module-fg-anm;
   }
   
   /* Each critical that should blink */
@@ -84,7 +89,7 @@ with config.colorscheme.colors; with config.desktop; ''
   #temperature.warning,
   #battery.warning {
       background: @warning;
-      color: @module-inv-fg;
+      color: @module-fg-anm;
   }
   
   /* Each warning that should blink */
@@ -94,33 +99,33 @@ with config.colorscheme.colors; with config.desktop; ''
   }
 
   #mode { /* Shown current Sway mode (resize etc.) */
-    color: @light;
-    background: @mode;
+    color: @module-fg;
+    background: @module-bg;
   }
   
   /* Workspaces stuff */
   
   #workspaces {
+    background: @module-bg;
   }
   
   #workspaces button {
       font-weight: bold; /* Somewhy the bar-wide setting is ignored*/
-      padding: 0;
+      padding: 0 0.6em;
       opacity: 0.3;
       background: none;
       font-size: 1em;
   }
   
   #workspaces button.focused {
-      background: @workspacesfocused;
-      color: @module-fg;
+      background: @workspacesfocused_bg;
+      color: @module_fg;
       opacity: 1;
-      padding: 0 0.4em;
   }
   
   #workspaces button.urgent {
-      border-color: #c9545d;
-      color: #c9545d;
+      border-color: @workspace-urgent;
+      color: @workspace-urgent;
       opacity: 1;
   }
   
@@ -131,10 +136,10 @@ with config.colorscheme.colors; with config.desktop; ''
   }
 
   #idle_inhibitor {
-      background: @mode;
+      background: @module-bg-gp1;
       font-weight: bold;
       padding: 0 0.6em;
-      color: @light;
+      color: @module-fg-alt;
   }
 
   #bluetooth {
@@ -146,39 +151,57 @@ with config.colorscheme.colors; with config.desktop; ''
 
   @keyframes blink-warning {
       70% {
-          color: @light;
+          color: @module-fg-alt;
       }
   
       to {
-          color: @light;
+          color: @module-fg-anm;
           background-color: @warning;
       }
   }
   
   @keyframes blink-critical {
       70% {
-        color: @light;
+        color: @module-fg-alt;
       }
   
       to {
-          color: @light;
+          color: @module-fg-anm;
           background-color: @critical;
       }
   }
-  #memory,
-  #clock,
-  #battery,
-  #pulseaudio,
-  #network,
-  #cpu,
+
+  /* Group 0 */
   #custom-media,
-  #backlight {
-    background: @module-bg;
-    color: @light;
+  #clock,
+  #tray {
+    background: none;
+    color: @module-fg;
+    font-weight: bold;
+    font-size: 14pt
   }
 
-  #tray {
-  	background: @tray;
-    color: @light;
+  #network {
+    background: @module-bg-gp4;
+    color: @module-fg-alt;
+  }
+
+  /* Group 2 */
+  #pulseaudio {
+    background: @module-bg-gp3;
+    color: @module-fg-alt;
+  }
+
+  /* Group 4 */
+  #memory,
+  #cpu,
+  #backlight {
+    background: @module-bg-gp2;
+    color: @module-fg-alt;
+  }
+
+  #battery {
+  	background: @module-bg-gp5;
+    color: @module-fg-alt;
   }
 ''

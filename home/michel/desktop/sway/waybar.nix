@@ -16,16 +16,14 @@ in
         "sway/mode"
         "custom/media"
       ];
-      modules-center = [ "sway/window" ];
+      modules-center = [ "clock" ];
       modules-right = [
-        "custom/dont_disturb"
         "idle_inhibitor"
         "backlight"
         "pulseaudio"
         # "bluetooth"
         "network"
         "battery"
-        "clock"
         "tray"
       ];
 
@@ -109,13 +107,15 @@ in
       "tooltip" = false;
       };
 
-      network = {
-        format-wifi = "{essid} ({signalStrength}%) ";
-        format-ethernet = "Ethernet ";
-        format-linked = "Ethernet (No IP) ";
+      "network" = {
+        format-wifi = "{ipaddr}/{cidr} "; 
+        format-ethernet = "{ipaddr}/{cidr} ";
+        format-linked = "(No IP) ";
         format-disconnected = "Disconnected ";
         format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
-        on-click-middle = "nm-connection-editor";
+        on-click-middle = "nmtui";
+        tooltip-format-wifi = "{ifname} / {essid} ({signalStrength}%)";
+        tooltip-format-ethernet = "{ifname}";
       };
       "idle_inhibitor" = {
         format = "{icon}";
@@ -124,13 +124,13 @@ in
           deactivated = "";
         };
       };
-      pulseaudio = {
+      "pulseaudio" = {
         scroll-step = 1;
-        format = " {volume}% {icon} {format_source}";
-        format-bluetooth = " {volume}% {icon} {format_source}";
-        format-bluetooth-muted = "  {icon} {format_source}";
-        format-muted = "  {format_source}";
-        format-source = " {volume}% ";
+        format = "{volume}% {icon} {format_source}";
+        format-bluetooth = "{volume}% {icon} {format_source}";
+        format-bluetooth-muted = " {icon} {format_source}";
+        format-muted = " {format_source}";
+        format-source = "{volume}% ";
         format-source-muted = "";
         format-icons = {
             headphone = "";
@@ -143,7 +143,7 @@ in
         };
         on-click = "pavucontrol";
       };
-     battery = {
+     "battery" = {
         states = {
           warning = 30;
           critical = 15;
@@ -154,8 +154,9 @@ in
         format-alt = "{time} {icon}";
         format-icons = [ "" "" "" "" "" ];
       };
-      clock = {
-        format = "{:  %H:%M %p   %d/%m/%Y}";
+      "clock" = {
+        #format = "{:  %H:%M %p   %d/%m/%Y}";
+        format = "{: %a, %d/%m/%Y  %H:%M}";
         tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
       };
       # "mpd" = {

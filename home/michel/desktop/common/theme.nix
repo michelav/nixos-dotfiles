@@ -1,16 +1,16 @@
 {config, pkgs, inputs, ...}:
 {
-  colorScheme = inputs.nix-colors.colorSchemes.catppuccin;
+  colorScheme = inputs.nix-colors.colorSchemes.nord;
 
   desktop.fonts = {
     enable = true;
     monospace = {
-      name = "FiraCode Nerd Font";
-      package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
+      name = "JetBrainsMono Nerd Font";
+      package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
     };
     regular = {
-      name = "Fira Sans";
-      package = pkgs.fira;
+      name = "Inconsolata";
+      package = pkgs.inconsolata;
     };
   };
 
@@ -48,7 +48,10 @@
       name = "Nordzy-dark";
       package = pkgs.nordzy-icon-theme;
     };
-    theme.name = "Catppuccin-red-dark";
+    theme = {
+      name = "Nordic-bluish-accent";
+      package = pkgs.nordic;
+    };
     font = {
       name = config.desktop.fonts.regular.name;
       size = 12;

@@ -3,6 +3,7 @@
   imports = [
     ./nix.nix
     ./pipewire.nix
+    ./jellyfin.nix
     ./virtualisation.nix
   ];
 
