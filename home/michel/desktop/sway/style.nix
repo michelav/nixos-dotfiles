@@ -177,7 +177,6 @@ with config.colorscheme.colors; with config.desktop; ''
   #tray {
     background: none;
     color: @module-fg;
-    font-weight: bold;
     font-size: 14pt
   }
 

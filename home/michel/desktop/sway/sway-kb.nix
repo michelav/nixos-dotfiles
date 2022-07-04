@@ -58,6 +58,10 @@ in
   "${modifier}+Shift+7" = "move container to workspace number 7";
   "${modifier}+Shift+8" = "move container to workspace number 8";
   "${modifier}+Shift+9" = "move container to workspace number 9";
+  "${modifier}+Shift+Tab" = "workspace prev";
+  "${modifier}+Tab" = "workspace next";
+  "${modifier}+Ctrl+Left" = "move container to workspace prev";
+  "${modifier}+Ctrl+Right" = "move container to workspace next";
 
   # scratchpad
   "${modifier}+Shift+minus" = "move scratchpad";
