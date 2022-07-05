@@ -46,7 +46,7 @@ in
               ./waybar.nix
               ./mako.nix
               ./swayidle.nix
-              ./wlsunset.nix
+              ./gammastep.nix
             ];
 
   services.swayidle = {
