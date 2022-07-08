@@ -36,6 +36,7 @@ with config.colorscheme.colors; with config.desktop; ''
   }
   
   /* Each module */
+  #custom-scratchpad,
   #battery,
   #clock,
   #cpu,
@@ -178,6 +179,11 @@ with config.colorscheme.colors; with config.desktop; ''
     background: none;
     color: @module-fg;
     font-size: 14pt
+  }
+
+  #custom-scratchpad {
+    background: #${base07};
+    color: @module-fg-alt;
   }
 
   #network {

@@ -64,8 +64,8 @@ in
   "${modifier}+Ctrl+Right" = "move container to workspace next";
 
   # scratchpad
-  "${modifier}+Shift+minus" = "move scratchpad";
-  "${modifier}+minus" = "scratchpad show";
+  "${modifier}+Shift+u" = "move scratchpad";
+  "${modifier}+u" = "scratchpad show";
 
   "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
   "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";

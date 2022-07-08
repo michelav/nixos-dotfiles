@@ -110,6 +110,12 @@ in
       window = {
         titlebar = false;
         # border = 2;
+        commands = [
+           {
+              command = "move scratchpad";
+              criteria = { title = "Firefox — Sharing Indicator"; };
+            }
+          ];
       };
       floating = {
         border = 2;
@@ -141,7 +147,7 @@ in
     };
 
     extraConfig = ''
-      exec systemctl --user import-environment
+      exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     '';
 
    extraSessionCommands = ''

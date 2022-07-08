@@ -11,7 +11,7 @@ in
       position = "top";
       # margin = "8";
       modules-left = [
-        # "custom/scratchpad"
+        "custom/scratchpad"
         "sway/workspaces"
         "sway/mode"
         "custom/media"
@@ -67,14 +67,14 @@ in
           exec-if = "pgrep spotify";
           # "exec" = "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
       };
-      # "custom/scratchpad" = {
-      #   interval = 1;
-      #   exec = "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
-      #   format = "  {}";
-      #   tooltip = false;
-      #   on-click = "swaymsg 'scratchpad show'";
-      #   on-click-right = "swaymsg 'move scratchpad'";
-      # };
+      "custom/scratchpad" = {
+        interval = 1;
+        exec = "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
+        format = "  {}";
+        tooltip = false;
+        on-click = "swaymsg 'scratchpad show'";
+        on-click-right = "swaymsg 'move scratchpad'";
+      };
       "tray" = {
         icon-size = 12;
         spacing = 10;
