@@ -26,26 +26,27 @@
   
   mkHome = {
     username,
-    pkgs,
+    packages,
     system ? "x86_64-linux",
     overlays ? { },
     desktop ? "sway",
     feats ? [ "cli" ],
   }:
   with inputs; home-manager.lib.homeManagerConfiguration {
-    inherit username pkgs system;
-    configuration = ../home/${username};
-    homeDirectory = "/home/${username}";
-    stateVersion = "21.11";
-    extraModules = [
+    # inherit username system;
+    pkgs = packages.${system};
+    modules = [ 
+      ../home/${username}
       {
-        nixpkgs = {
-          overlays = builtins.attrValues overlays;
-          config.allowUnfree = true;
+        home = {
+          inherit username;
+          homeDirectory = "/home/${username}";
+          stateVersion = "22.05";
         };
+
       }
       ../modules/fontConfigs.nix
-    ];
-    extraSpecialArgs = { inherit system inputs desktop feats; };
+   ];
+   extraSpecialArgs = { inherit system inputs desktop feats; };
   };
 }
