@@ -8,6 +8,11 @@
     ./gpg.nix
     ./ssh.nix
   ];
+
+  home.sessionVariables = {
+    NIX_SHELL_PRESERVE_PROMPT=1;
+  };
+
   home.packages = with pkgs; [
     cachix # For managing my binary cache
     comma # Install and run programs by sticking a , before them
@@ -29,6 +34,7 @@
     haskellPackages.nix-derivation # Inspecting .drv's
 
     neofetch
+    most
   ];
 
   programs = {

@@ -4,30 +4,44 @@
     fish = {
       enable = true;
       loginShellInit = builtins.readFile ../configs/fish/login.fish;
+      shellAbbrs = {
+        ls = "exa";
+        cat = "bat";
+        man = "man --pager=most";
+        ndev = "nix develop -c $SHELL";
+      };
     };
 
     starship = {
       enable = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
       settings = {
         username = {
-          format = "[── $user]($style)@";
-          style_user = "bold blue";
+          format = "[$user]($style)@";
           style_root = "bold red";
           show_always = true;
         };
 
         hostname = {
           format = "[$hostname]($style) in ";
-          style = "bold dimmed blue";
-          trim_at = "-";
+          style = "bold dimmed green";
+          trim_at = ".";
           ssh_only = false;
           disabled = false;
         };
 
         directory = {
-          truncation_length = 0;
-          truncate_to_repo = true;
-          truncation_symbol = "repo:";
+          truncation_length = 2;
+          truncate_to_repo = false;
+          # truncation_symbol = "repo:";
+          fish_style_pwd_dir_length = 1;
+        };
+
+        character = {
+          error_symbol = "[~>](bold red)";
+          success_symbol = "[->](bold dimmed green)";
+          vicmd_symbol = "[<-](bold yellow)";
         };
 
         aws.symbol = "  ";
