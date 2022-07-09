@@ -115,6 +115,10 @@ in
               command = "move scratchpad";
               criteria = { title = "Firefox — Sharing Indicator"; };
             }
+            {
+              command = "move scratchpad";
+              criteria = { app_id = "transmission-gtk"; };
+            }
           ];
       };
       floating = {
