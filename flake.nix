@@ -18,22 +18,25 @@
 
   outputs = { self, nixpkgs, home-manager, neovim-nightly-overlay, nur, ... }@inputs:
   let
-    system = "x86_64-linux";
+   system = "x86_64-linux";
    local-lib = import ./lib { inherit inputs; };
-    inherit (local-lib) mkSystem mkHome;
-    username = "michel";
-    overlays = {
+   inherit (local-lib) mkSystem mkHome;
+   inherit (nixpkgs.lib) genAttrs systems;
+   forAllSystems = genAttrs systems.flakeExposed;
+   username = "michel";
+   overlays = {
       nur = nur.overlay;
       neovim-overlay = neovim-nightly-overlay.overlay;
-    };
-    feats = [ "cli" "dev" ];
+   };
+   feats = [ "cli" "dev" ];
   in
   rec {
-    packages.${system} = import nixpkgs {
+    packages = forAllSystems (system: import nixpkgs {
       inherit system;
       overlays = builtins.attrValues overlays;
       config.allowUnfree = true;
-    };
+    });
+
     nixosConfigurations = {
       vega = mkSystem {
         inherit system overlays;
@@ -46,14 +49,17 @@
         inherit system packages username feats overlays;
       };
     };
-    devShells.${system}.default = packages.mkShell {
-      buildInputs = with packages; [
-        coreutils
-        findutils
-        gnumake
-        nixpkgs-fmt
-        nixFlakes
-      ];
-    };
+
+    devShells = forAllSystems (system: { 
+      default = packages.${system}.mkShell {
+        buildInputs = with packages; [
+          coreutils
+          findutils
+          gnumake
+          nixpkgs-fmt
+          nixFlakes
+        ];
+      };
+    });
   };
 }
