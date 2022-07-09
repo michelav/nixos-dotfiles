@@ -50,9 +50,11 @@
       };
     };
 
+    pkgs = packages.${system};
     devShells = forAllSystems (system: { 
-      default = packages.${system}.mkShell {
-        buildInputs = with packages; [
+      inherit pkgs;
+      default = pkgs.mkShell {
+        buildInputs = with pkgs; [
           coreutils
           findutils
           gnumake
