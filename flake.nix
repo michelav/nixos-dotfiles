@@ -14,6 +14,11 @@
     };
     nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
+    
+    nnn-plugins = {
+      url = "github:jarun/nnn/v4.5";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, neovim-nightly-overlay, nur, ... }@inputs:
@@ -31,11 +36,11 @@
    feats = [ "cli" "dev" ];
   in
   rec {
-    packages = forAllSystems (system: import nixpkgs {
+   packages = forAllSystems (system: import nixpkgs {
       inherit system;
       overlays = builtins.attrValues overlays;
       config.allowUnfree = true;
-    });
+   });
 
     nixosConfigurations = {
       vega = mkSystem {
@@ -50,8 +55,10 @@
       };
     };
 
-    pkgs = packages.${system};
-    devShells = forAllSystems (system: { 
+    devShells = forAllSystems (system: 
+    let
+      pkgs = packages.${system};
+    in { 
       inherit pkgs;
       default = pkgs.mkShell {
         buildInputs = with pkgs; [
@@ -62,6 +69,7 @@
           nixFlakes
         ];
       };
+      python39 = import ./shells/python.nix { pkgs = packages.${system}; }; 
     });
   };
 }

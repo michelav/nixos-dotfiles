@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./neovim
-    # ./bat.nix
+    ./nnn.nix
     ./fish.nix
     ./kitty.nix
     ./git.nix
