@@ -6,6 +6,7 @@
    aliases = {
      co = "checkout";
      graph = "log --decorate --oneline --graph";
+     st = "status";
    };
    extraConfig = {
     init = { defaultBranch = "main"; };

@@ -25,6 +25,7 @@
         p = "preview-tui";
         t = "nmount";
         v = "imgview";
+        d = "pdfview";
       };
     };
   };

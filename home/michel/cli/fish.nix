@@ -9,6 +9,7 @@
         cat = "bat";
         man = "man --pager=most";
         ndev = "nix develop -c $SHELL";
+        gits = "git status";
       };
     };
 

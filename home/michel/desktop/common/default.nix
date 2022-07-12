@@ -3,7 +3,7 @@
   imports = [
     ./theme.nix
     ./browsers.nix
-    # ./dropbox.nix
+    ./zathura.nix
     ./media.nix
 #    ./discord.nix
   ];
@@ -12,6 +12,7 @@
     keepassxc
     gnucash
     transmission-gtk
+    qutebrowser
   ];
 
   services.dropbox.enable = true;
