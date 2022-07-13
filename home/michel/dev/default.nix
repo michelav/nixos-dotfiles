@@ -2,6 +2,7 @@
 {
   imports = [
     ./vscode.nix
+    ./direnv.nix
   ];
 
   programs = {

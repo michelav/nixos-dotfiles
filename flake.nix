@@ -70,6 +70,7 @@
         ];
       };
       python39 = import ./shells/python.nix { pkgs = packages.${system}; }; 
+      haskell = import ./shells/haskell.nix { pkgs = packages.${system}; };
     });
   };
 }
