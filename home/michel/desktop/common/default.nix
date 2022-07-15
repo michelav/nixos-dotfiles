@@ -13,6 +13,8 @@
     gnucash
     transmission-gtk
     qutebrowser
+    discord
+    slack
   ];
 
   services.dropbox.enable = true;

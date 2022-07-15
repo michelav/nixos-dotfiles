@@ -10,6 +10,9 @@
     tree-sitter
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.pyright
+    nodePackages.jsonlint
+    nodePackages.prettier
+    stylua
   ];
 
   programs.neovim = 
@@ -39,6 +42,7 @@
       gitsigns-nvim
       comment-nvim
       hop-nvim
+      null-ls-nvim
 
       # Completions
       nvim-cmp

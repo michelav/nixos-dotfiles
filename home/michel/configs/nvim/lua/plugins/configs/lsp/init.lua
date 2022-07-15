@@ -1,3 +1,5 @@
+require('plugins.configs.lsp.nullls')
+
 local signs = {
   { name = "DiagnosticSignError", text = "" },
   { name = "DiagnosticSignWarn", text = "" },
