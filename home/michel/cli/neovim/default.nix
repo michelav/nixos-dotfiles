@@ -29,7 +29,6 @@
 
     plugins = with pkgs; with vimPlugins; [
       vim-nix
-      nvim-treesitter
       nvim-lspconfig
 
       # Basic
@@ -64,6 +63,7 @@
       # Themes
       nightfox-nvim
       nvimExtraPlugins.nvim-catppuccin
+      { plugin = nvim-treesitter.withPlugins (p : tree-sitter.allGrammars); }
     ];
   };
   xdg.configFile."nvim/lua".source = ../../configs/nvim/lua;

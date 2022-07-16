@@ -81,7 +81,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lspconfig = require("lspconfig")
 
-local servers = { "rnix", "sumneko_lua", "dockerls", "hls" }
+local servers = { "rnix", "sumneko_lua", "dockerls", "hls", "terraformls" }
 
 for _, server in pairs(servers) do
   local opts = {
