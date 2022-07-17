@@ -7,3 +7,5 @@ require('plugins.configs.lsp')
 require('plugins.configs.treesitter')
 require('Comment').setup()
 require('plugins.configs.hop')
+
+require("nvim-tree").setup()

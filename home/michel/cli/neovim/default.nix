@@ -64,6 +64,7 @@
       nightfox-nvim
       nvimExtraPlugins.nvim-catppuccin
       { plugin = nvim-treesitter.withPlugins (p : tree-sitter.allGrammars); }
+      nvim-tree-lua
     ];
   };
   xdg.configFile."nvim/lua".source = ../../configs/nvim/lua;
