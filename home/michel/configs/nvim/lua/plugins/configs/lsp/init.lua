@@ -1,4 +1,4 @@
-require('plugins.configs.lsp.nullls')
+-- require('plugins.configs.lsp.nullls')
 
 local signs = {
   { name = "DiagnosticSignError", text = "" },
@@ -81,16 +81,39 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lspconfig = require("lspconfig")
 
-local servers = { "rnix", "sumneko_lua", "dockerls", "hls", "terraformls" }
+local servers = { "rnix", "dockerls", "hls", "terraformls" }
+
+local opts = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 
 for _, server in pairs(servers) do
-  local opts = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-  local has_custom_opts, server_custom_opts = pcall(require, "plugins.configs.lsp.servers." .. server)
-  if has_custom_opts then
-    opts = vim.tbl_deep_extend("force", server_custom_opts, opts)
-  end
-  lspconfig[server].setup(opts)
+ lspconfig[server].setup(opts)
 end
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+lspconfig.sumneko_lua.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = runtime_path,
+      },
+      diagnostics = {
+        globals = {'vim'},
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  }
+}

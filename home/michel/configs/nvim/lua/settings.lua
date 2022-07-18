@@ -2,7 +2,7 @@ local o = vim.o
 local wo = vim.wo
 local bo = vim.bo
 local set = vim.opt
-local catppuccin = require("catppuccin")
+--local catppuccin = require("catppuccin")
 
 -- global options
 o.swapfile = true
@@ -68,4 +68,4 @@ for key, value in pairs(options) do
 end
 
 
-vim.cmd[[colorscheme catppuccin]]
+vim.cmd[[colorscheme nordfox]]
