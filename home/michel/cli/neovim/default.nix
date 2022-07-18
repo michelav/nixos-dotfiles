@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   home.sessionVariables.EDITOR = "nvim";
 
@@ -28,13 +28,13 @@
       {
         plugin = nvim-lspconfig;
         type = "lua";
-        config = builtins.readFile ../../configs/nvim/lua/plugins/configs/lsp/init.lua;
+        config = builtins.readFile ./cfg/lsp.lua;
       }
       # Basic
       {
         plugin = telescope-nvim;
         type = "lua";
-        config = builtins.readFile ../../configs/nvim/lua/plugins/configs/telescope.lua;
+        config = builtins.readFile ./cfg/telescope.lua;
       }
       telescope-fzf-native-nvim
       plenary-nvim
@@ -42,7 +42,7 @@
       {
         plugin = which-key-nvim;
         type = "lua";
-        config = builtins.readFile ../../configs/nvim/lua/mappings.lua;
+        config = builtins.readFile ./cfg/mappings.lua;
       }
       {
         plugin = indent-blankline-nvim;
@@ -94,7 +94,6 @@
         local b = nls.builtins
         nls.setup({
           sources = {
-            b.diagnostics.chtex,
             b.formatting.prettier,
             b.diagnostics.markdownlint,
             b.formatting.markdownlint,
@@ -115,7 +114,7 @@
       {
         plugin = nvim-cmp;
         type = "lua";
-        config = builtins.readFile ../../configs/nvim/lua/plugins/configs/cmp.lua;
+        config = builtins.readFile ./cfg/cmp.lua;
       }
       cmp-nvim-lsp
       cmp-nvim-lua
@@ -144,7 +143,7 @@
       nvimExtraPlugins.nvim-catppuccin
       nord-nvim
       { 
-        plugin = nvim-treesitter.withPlugins (p : tree-sitter.allGrammars); 
+        plugin = nvim-treesitter.withPlugins (_ : tree-sitter.allGrammars); 
         type = "lua";
         config = ''
           local vim = vim
@@ -167,7 +166,7 @@
     ];
     extraConfig = ''
     lua << EOF
-      ${builtins.readFile ../../configs/nvim/lua/settings.lua}
+      ${builtins.readFile ./cfg/extraConfig.lua}
     EOF
     '';
   };
