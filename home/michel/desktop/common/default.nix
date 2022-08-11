@@ -15,6 +15,8 @@
     qutebrowser
     discord
     slack
+    bitwarden
+    bitwarden-cli
   ];
 
   services.dropbox.enable = true;

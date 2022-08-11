@@ -1,11 +1,9 @@
-{ pkgs, lib, config, ... }:
+# { pkgs, lib, config, ... }: {
 {
-  imports = [
-    ./vscode.nix
-    ./direnv.nix
-  ];
+  imports = [ ./vscode.nix ./direnv.nix ];
 
-  programs = {
-    java.enable = true;
-  };
+  # programs = {
+  #   java.enable = true;
+  #   go.enable = true;
+  # };
 }

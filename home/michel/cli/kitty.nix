@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   inherit (config.colorscheme) colors;
 in
@@ -6,11 +6,12 @@ in
     programs.kitty = {
       enable = true;
       font = {
-        name = config.desktop.fonts.monospace.name;
+        inherit (config.desktop.fonts.monospace) name;
         size = 12;
       };
       settings = {
         window_padding_width = 3;
+        allow_remote_control = "yes";
         foreground = "#${colors.base05}";
         background = "#${colors.base00}";
         background_opacity = "0.8";

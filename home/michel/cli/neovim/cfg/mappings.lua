@@ -15,7 +15,7 @@ wk.register({
 
   --    ["<c-n>"] = { "<cmd>NvimTreeToggle<cr> <cmd>NvimTreeRefresh<cr>", "[NVIMTREE] Toggle" },
 
-  ["<leader>f"] = {
+  ["<leader>t"] = {
     name = "[TELESCOPE]",
     f = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", "[TELESCOPE] Find File" },
     g = { "<cmd>Telescope live_grep<cr>", "[TELESCOPE] Find File by grep" },

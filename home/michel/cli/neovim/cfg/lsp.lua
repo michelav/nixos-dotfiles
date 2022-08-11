@@ -1,5 +1,3 @@
--- require('plugins.configs.lsp.nullls')
-
 local signs = {
   { name = "DiagnosticSignError", text = "" },
   { name = "DiagnosticSignWarn", text = "" },
@@ -48,25 +46,58 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(
-  bufnr,
-  "n",
-  "gl",
-  '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>',
-  opts
+    bufnr,
+    "n",
+    "gl",
+    '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>',
+    opts
   )
   vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+  vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format{async=true}' ]])
+  -- vim.cmd([[ au BufWritePre <buffer> lua vim.lsp.buf.format() ]])
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>lf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "v", "<space>lF", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+end
+
+local lsp_formatting = function(bufnr)
+  vim.lsp.buf.format({
+    filter = function(client)
+      -- apply whatever logic you want (in this example, we'll only use null-ls)
+      return client.name == "null-ls"
+    end,
+    bufnr = bufnr,
+  })
+end
+
+-- if you want to set up formatting on save, you can use this as a callback
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+-- add to your shared on_attach callback
+local format_on_save = function(bufnr)
+  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format()
+    end,
+  })
 end
 
 local on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
+  -- if client.supports_method("textDocument/formatting") then
+  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>lf", "<cmd>vim.lsp.buf.format()<CR>", opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, "v", "<space>lF", "<cmd>vim.lsp.buf.range_formatting()<CR>", opts)
+  -- format_on_save(bufnr)
+  -- end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -81,7 +112,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lspconfig = require("lspconfig")
 
-local servers = { "rnix", "dockerls", "hls", "terraformls" }
+local servers = { "rnix", "dockerls", "hls", "terraformls", "rust_analyzer" }
 
 local opts = {
   on_attach = on_attach,
@@ -89,24 +120,24 @@ local opts = {
 }
 
 for _, server in pairs(servers) do
- lspconfig[server].setup(opts)
+  lspconfig[server].setup(opts)
 end
 
-local runtime_path = vim.split(package.path, ';')
+local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-lspconfig.sumneko_lua.setup{
+lspconfig.sumneko_lua.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
-        version = 'LuaJIT',
+        version = "LuaJIT",
         path = runtime_path,
       },
       diagnostics = {
-        globals = {'vim'},
+        globals = { "vim" },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
@@ -115,5 +146,12 @@ lspconfig.sumneko_lua.setup{
         enable = false,
       },
     },
-  }
-}
+  },
+})
+
+require("rust-tools").setup({
+  server = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  },
+})
