@@ -1,9 +1,6 @@
-# { pkgs, lib, config, ... }: {
-{
+{ pkgs, ... }: {
+
   imports = [ ./vscode.nix ./direnv.nix ];
 
-  # programs = {
-  #   java.enable = true;
-  #   go.enable = true;
-  # };
+  home.packages = with pkgs; [ glow ];
 }
