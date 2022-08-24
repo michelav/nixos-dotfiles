@@ -4,8 +4,6 @@
   inputs = {
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    # Core nix flakes
-    # nixpkgs.url = "nixpkgs/nixos-21.11";
     nixpkgs.url = "nixpkgs/nixos-unstable";
     hardware.url = "github:nixos/nixos-hardware";
     home-manager = {
@@ -21,8 +19,7 @@
     };
   };
 
-  outputs =
-    { self, nixpkgs, home-manager, neovim-nightly-overlay, nur, ... }@inputs:
+  outputs = { nixpkgs, neovim-nightly-overlay, nur, ... }@inputs:
     let
       system = "x86_64-linux";
       local-lib = import ./lib { inherit inputs; };
@@ -31,12 +28,14 @@
       forAllSystems = genAttrs systems.flakeExposed;
       username = "michel";
       overlays = {
+        # Comment out to insert new overlays
+        # default = import ./overlays { inherit inputs; };
         nur = nur.overlay;
         neovim-overlay = neovim-nightly-overlay.overlay;
       };
       feats = [ "cli" "dev" ];
     in rec {
-      packages = forAllSystems (system:
+      legacyPackages = forAllSystems (system:
         import nixpkgs {
           inherit system;
           overlays = builtins.attrValues overlays;
@@ -45,18 +44,19 @@
 
       nixosConfigurations = {
         vega = mkSystem {
-          inherit system overlays;
+          inherit system;
+          pkgs = legacyPackages.${system};
           hostname = "vega";
           users = [ "michel" ];
         };
       };
-      homeConfigurations = {
-        "${username}@vega" =
-          mkHome { inherit system packages username feats overlays; };
+      homeConfigurations = let pkgs = legacyPackages.${system};
+      in {
+        "${username}@vega" = mkHome { inherit system pkgs username feats; };
       };
 
       devShells = forAllSystems (system:
-        let pkgs = packages.${system};
+        let pkgs = legacyPackages.${system};
         in {
           inherit pkgs;
           default = pkgs.mkShell {
@@ -68,10 +68,10 @@
               nixFlakes
             ];
           };
-          python39 = import ./shells/python.nix { pkgs = packages.${system}; };
-          haskell = import ./shells/haskell.nix { pkgs = packages.${system}; };
-          rust = import ./shells/rust.nix { pkgs = packages.${system}; };
-          golang = import ./shells/golang.nix { pkgs = packages.${system}; };
+          python39 = import ./shells/python.nix { inherit pkgs; };
+          haskell = import ./shells/haskell.nix { inherit pkgs; };
+          rust = import ./shells/rust.nix { inherit pkgs; };
+          golang = import ./shells/golang.nix { inherit pkgs; };
         });
     };
 }
