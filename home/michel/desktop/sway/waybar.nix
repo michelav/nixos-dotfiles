@@ -1,8 +1,6 @@
 { pkgs, lib, config, ... }:
-let
-  scripts = ./scripts;
-in
-{
+let scripts = ./scripts;
+in {
   programs.waybar = {
     enable = true;
     settings = [{
@@ -10,12 +8,8 @@ in
       layer = "top";
       position = "top";
       # margin = "8";
-      modules-left = [
-        "custom/scratchpad"
-        "sway/workspaces"
-        "sway/mode"
-        "custom/media"
-      ];
+      modules-left =
+        [ "custom/scratchpad" "sway/workspaces" "sway/mode" "custom/media" ];
       modules-center = [ "clock" ];
       modules-right = [
         "idle_inhibitor"
@@ -48,28 +42,31 @@ in
         };
       };
       "custom/media" = {
-          format = "{icon} {}";
-          # format-icons = {
-          #     "Playing" = " ";
-          #     "Paused" = " ";
-          # };
-          # max-length = 70;
-          escape = true;
-          return-type = "json";
-          max-length = 40;
-          interval = 30; # Remove this if your script is endless and write in loop
-          on-click = "playerctl -p spotify play-pause";
-          on-click-right = "killall spotify";
-          smooth-scrolling-threshold = 10; # This value was tested using a trackpad, it should be lowered if using a mouse.
-          on-scroll-up = "playerctl -p spotify next";
-          on-scroll-down = "playerctl -p spotify previous";
-          exec = "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"; # Script in resources/custom_modules folder
-          exec-if = "pgrep spotify";
-          # "exec" = "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
+        format = "{icon} {}";
+        # format-icons = {
+        #     "Playing" = " ";
+        #     "Paused" = " ";
+        # };
+        # max-length = 70;
+        escape = true;
+        return-type = "json";
+        max-length = 40;
+        interval = 30; # Remove this if your script is endless and write in loop
+        on-click = "playerctl -p spotify play-pause";
+        on-click-right = "killall spotify";
+        smooth-scrolling-threshold =
+          10; # This value was tested using a trackpad, it should be lowered if using a mouse.
+        on-scroll-up = "playerctl -p spotify next";
+        on-scroll-down = "playerctl -p spotify previous";
+        exec =
+          "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"; # Script in resources/custom_modules folder
+        exec-if = "pgrep spotify";
+        # "exec" = "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
       };
       "custom/scratchpad" = {
         interval = 1;
-        exec = "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
+        exec =
+          "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
         format = "  {}";
         tooltip = false;
         on-click = "swaymsg 'scratchpad show'";
@@ -99,22 +96,22 @@ in
         "interval" = 1;
         "on-scroll-up" = "light -A 5";
         "on-scroll-down" = "light -U 5";
-	    };
+      };
 
-     "sway/window" = {
-       "format" = " {} ";
-      "max-length" = 50;
-      "tooltip" = false;
+      "sway/window" = {
+        "format" = " {} ";
+        "max-length" = 50;
+        "tooltip" = false;
       };
 
       "network" = {
-        format-wifi = "{ipaddr}/{cidr} "; 
+        format-wifi = "{essid} ({signalStrength}%) ";
         format-ethernet = "{ipaddr}/{cidr} ";
         format-linked = "(No IP) ";
         format-disconnected = "Disconnected ";
         format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
         on-click-middle = "nmtui";
-        tooltip-format-wifi = "{ifname} / {essid} ({signalStrength}%)";
+        tooltip-format-wifi = "{ipaddr}/{cidr}";
         tooltip-format-ethernet = "{ifname}";
       };
       "idle_inhibitor" = {
@@ -133,17 +130,17 @@ in
         format-source = "{volume}% ";
         format-source-muted = "";
         format-icons = {
-            headphone = "";
-            hands-free = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
-            default = [ "" "" "" ];
+          headphone = "";
+          hands-free = "";
+          headset = "";
+          phone = "";
+          portable = "";
+          car = "";
+          default = [ "" "" "" ];
         };
         on-click = "pavucontrol";
       };
-     "battery" = {
+      "battery" = {
         states = {
           warning = 30;
           critical = 15;
@@ -157,7 +154,9 @@ in
       "clock" = {
         #format = "{:  %H:%M %p   %d/%m/%Y}";
         format = "{: %a, %d/%m/%Y  %H:%M}";
-        tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+        tooltip-format = ''
+          <big>{:%Y %B}</big>
+          <tt><small>{calendar}</small></tt>'';
       };
       # "mpd" = {
       #   format = "{stateIcon} {artist} - {title}";
