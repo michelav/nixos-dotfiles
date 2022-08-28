@@ -1,20 +1,22 @@
-{ modifier, terminal, lockcmd, pkgs, config, ... }:
+{ modifier, terminal, pkgs, config, ... }:
 let
   inherit (config.colorscheme) colors;
-in
-{
+  lockcmd = "${pkgs.swaylock-effects}/bin/swaylock -f -S";
+in {
   # open terminal
   "${modifier}+Return" = "exec ${terminal}";
 
   # open launcher
-  "${modifier}+d" = ''exec ${toString [
-    "${pkgs.fuzzel}/bin/fuzzel -P 'run: '"
-    "-f '${config.gtk.font.name}:size=10' -i '${config.gtk.iconTheme.name}'"
-    "-r 2 -B 3 -y 20 -p 10"
-    "-b '${colors.base00}ff' -t '${colors.base06}ff'"
-    "-C '${colors.base0D}ff' -m '${colors.base08}ff'"
-    "-s '${colors.base02}ff' -S '${colors.base06}ff'"
-  ]}'';
+  "${modifier}+d" = "exec ${
+      toString [
+        "${pkgs.fuzzel}/bin/fuzzel -P 'run: '"
+        "-f '${config.gtk.font.name}:size=10' -i '${config.gtk.iconTheme.name}'"
+        "-r 2 -B 3 -y 20 -p 10"
+        "-b '${colors.base00}ff' -t '${colors.base06}ff'"
+        "-C '${colors.base0D}ff' -m '${colors.base08}ff'"
+        "-s '${colors.base02}ff' -S '${colors.base06}ff'"
+      ]
+    }";
 
   # function keybindings
   "${modifier}+F1" = "exec ${config.home.sessionVariables.BROWSER}";
@@ -70,13 +72,19 @@ in
   "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
   "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
   "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
-  "Shift+XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer --default-source -t";
-  "Shift+XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer --default-source -i 5";
-  "Shift+XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer --default-source -d 5";
+  "Shift+XF86AudioMute" =
+    "exec ${pkgs.pamixer}/bin/pamixer --default-source -t";
+  "Shift+XF86AudioRaiseVolume" =
+    "exec ${pkgs.pamixer}/bin/pamixer --default-source -i 5";
+  "Shift+XF86AudioLowerVolume" =
+    "exec ${pkgs.pamixer}/bin/pamixer --default-source -d 5";
 
-  "Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";
-  "Shift+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save window ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";
-  "Control+Shift+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";
+  "Print" =
+    "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";
+  "Shift+Print" =
+    "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save window ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";
+  "Control+Shift+Print" =
+    "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";
 
   "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
   "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
@@ -106,4 +114,3 @@ in
   "${modifier}+Shift+r" = "reload";
   "${modifier}+Shift+e" = "exec swaymsg exit";
 }
-

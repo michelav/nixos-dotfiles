@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 let
-  lockcmd = "swaylock -f --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 192330 --key-hl-color 9d79d6 --line-color 000000 --inside-color c94f6d --separator-color 000000 --grace 3 --fade-in 0.5 --effect-greyscale -d";
+  lockcmd = "swaylock -f -S";
+  #   "swaylock -f --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 192330 --key-hl-color 9d79d6 --line-color 000000 --inside-color c94f6d --separator-color 000000 --grace 3 --fade-in 0.5 --effect-greyscale -d";
   # Script to let dbus know about important env variables and
   # propogate them to relevent services run at the end of sway config
   # see
@@ -25,35 +26,29 @@ let
   # using the XDG_DATA_DIR environment variable
   # run at the end of sway config
   configure-gtk-sway = pkgs.writeTextFile {
-      name = "configure-gtk";
-      destination = "/bin/configure-gtk-sway";
-      executable = true;
-      text = let
-        schema = pkgs.gsettings-desktop-schemas;
-        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-      in ''
-        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-        gnome_schema=org.gnome.desktop.interface
-        gsettings set $gnome_schema gtk-theme 'Catppuccin-red-dark'
-        gsettings set $gnome_schema icon-theme 'Nordzy-dark'
-        gsettings set $gnome_schema cursor-theme 'Nordzy-white-cursors'
-        '';
+    name = "configure-gtk";
+    destination = "/bin/configure-gtk-sway";
+    executable = true;
+    text = let
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in ''
+      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+      gnome_schema=org.gnome.desktop.interface
+      gsettings set $gnome_schema gtk-theme 'Catppuccin-red-dark'
+      gsettings set $gnome_schema icon-theme 'Nordzy-dark'
+      gsettings set $gnome_schema cursor-theme 'Nordzy-white-cursors'
+    '';
   };
-in
-{
-  imports = [ 
-              ../common
-              ./waybar.nix
-              ./mako.nix
-              ./swayidle.nix
-              ./gammastep.nix
-            ];
-
-  services.swayidle = {
-    enable = true;
-    lockcmd = lockcmd;
-    debug = false;
-  };
+in {
+  imports = [
+    ../common
+    ./waybar.nix
+    ./mako.nix
+    ./swayidle.nix
+    ./swaylock.nix
+    ./gammastep.nix
+  ];
 
   home = {
     packages = with pkgs; [
@@ -75,21 +70,24 @@ in
       BROWSER = "firefox";
       XDG_DESKTOP_SESSION = "sway";
       XDG_SESSION_TYPE = "wayland";
+      LIBSEAT_BACKEND = "logind";
     };
 
   };
 
-
   wayland.windowManager.sway = {
     enable = true;
     extraOptions = [ "--unsupported-gpu" ];
-    wrapperFeatures = { base = true; gtk = true; };
+    wrapperFeatures = {
+      base = true;
+      gtk = true;
+    };
     config = rec {
       terminal = "kitty";
       input = {
         "type:keyboard" = {
           xkb_layout = "br";
-          xkb_model  = "abnt2";
+          xkb_model = "abnt2";
         };
         "1739:32552:MSFT0001:01_06CB:7F28_Touchpad" = {
           tap = "enabled";
@@ -100,8 +98,8 @@ in
       };
       output."eDP-1".bg = " ~/Pictures/wallpapers/ign_endeavour2.png fill";
       fonts = {
-         names = [ config.gtk.font.name ];
-         size = 12.0;
+        names = [ config.desktop.fonts.regular.name ];
+        size = 12.0;
       };
       gaps = {
         inner = 5;
@@ -111,15 +109,15 @@ in
         titlebar = false;
         # border = 2;
         commands = [
-           {
-              command = "move scratchpad";
-              criteria = { title = "Firefox — Sharing Indicator"; };
-            }
-            {
-              command = "move scratchpad";
-              criteria = { app_id = "transmission-gtk"; };
-            }
-          ];
+          {
+            command = "move scratchpad";
+            criteria = { title = "Firefox — Sharing Indicator"; };
+          }
+          {
+            command = "move scratchpad";
+            criteria = { app_id = "transmission-gtk"; };
+          }
+        ];
       };
       floating = {
         border = 2;
@@ -130,11 +128,12 @@ in
             title = "Picture-in-Picture";
           }
           { app_id = "mpv"; }
-          {app_id = "spotify"; }
+          { app_id = "spotify"; }
         ];
       };
       modifier = "Mod4";
-      keybindings = import ./sway-kb.nix { inherit modifier terminal lockcmd pkgs config; };
+      keybindings =
+        import ./sway-kb.nix { inherit modifier terminal lockcmd pkgs config; };
       modes = {
         resize = {
           "h" = "resize shrink width 50 px";
@@ -151,17 +150,17 @@ in
     };
 
     extraConfig = ''
-      exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+      exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
     '';
 
-   extraSessionCommands = ''
-        export MOZ_ENABLE_WAYLAND="1"
-        export GDK_BACKEND=wayland
-        export WLR_NO_HARDWARE_CURSORS="1"
-        export XDG_SESSION_TYPE=wayland
-        export XDG_SESSION_DESKTOP=sway
-        export XDG_CURRENT_DESKTOP=sway
-        export SDL_VIDEODRIVER=wayland
+    extraSessionCommands = ''
+      export MOZ_ENABLE_WAYLAND="1"
+      export GDK_BACKEND=wayland
+      export WLR_NO_HARDWARE_CURSORS="1"
+      export XDG_SESSION_TYPE=wayland
+      export XDG_SESSION_DESKTOP=sway
+      export XDG_CURRENT_DESKTOP=sway
+      export SDL_VIDEODRIVER=wayland
     '';
   };
 }

@@ -1,12 +1,11 @@
-{ pkgs, lib, inputs, desktop, ... }:
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../nixos
-      ../../nixos/nvidia.nix
-      ../../nixos/gaming.nix
-    ] ++ lib.optional ( null != desktop ) ../../nixos/${desktop}.nix;
+{ pkgs, lib, inputs, desktop, ... }: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../nixos
+    ../../nixos/nvidia.nix
+    ../../nixos/gaming.nix
+  ] ++ lib.optional (null != desktop) ../../nixos/${desktop}.nix;
 
   networking.networkmanager.enable = true;
 
@@ -24,10 +23,10 @@
     tlp = {
       enable = true;
       settings = {
-        CPU_SCALING_GOVERNOR_ON_BAT="powersave";
-        CPU_SCALING_GOVERNOR_ON_AC="performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
 
-        USB_DENYLIST="046d:c534";
+        USB_DENYLIST = "046d:c534";
 
         # The following prevents the battery from charging fully to
         # preserve lifetime. Run `tlp fullcharge` to temporarily force
@@ -35,7 +34,12 @@
         # https://linrunner.de/tlp/faq/battery.html#how-to-choose-good-battery-charge-thresholds
         # START_CHARGE_THRESH_BAT0=40;
         #  STOP_CHARGE_THRESH_BAT0=50;
-     };
+      };
+    };
+
+    logind = {
+      lidSwitch = "suspend";
+      lidSwitchExternalPower = "lock";
     };
 
     fstrim.enable = true;
@@ -51,4 +55,3 @@
   system.stateVersion = "22.05"; # Did you read the comment?
 
 }
-

@@ -1,12 +1,5 @@
-{ pkgs, config, lib, ... }:
-{
-  imports = [
-    ./theme.nix
-    ./browsers.nix
-    ./zathura.nix
-    ./media.nix
-#    ./discord.nix
-  ];
+{ pkgs, config, lib, ... }: {
+  imports = [ ./theme.nix ./browsers.nix ./zathura.nix ./media.nix ];
 
   home.packages = with pkgs; [
     keepassxc
