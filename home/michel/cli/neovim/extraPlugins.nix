@@ -29,4 +29,28 @@
       sha256 = "sha256-vkgQNpr2pf+WegMdDJ3FAJk0tH2Q6G14Z4n1sGK9SN8=";
     };
   };
+  gitsigns-main = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "gitsigns-main";
+    version = "2022-08-28";
+    src = pkgs.fetchFromGitHub {
+      owner = "lewis6991";
+      repo = "gitsigns.nvim";
+      rev = "main";
+      sha256 =
+        "sha256-d5kSdbqQBFdpu/Be+q6OqNNlGrgkL7OU13HOatLx4mE=";
+    };
+  };
+  nvim-treesitter-main = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvim-treesitter-main";
+    version = "2022-08-28";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-treesitter";
+      repo = "nvim-treesitter";
+      rev = "main";
+      sha256 =
+        "";
+    };
+  };
+
+
 }

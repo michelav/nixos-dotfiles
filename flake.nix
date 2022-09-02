@@ -3,7 +3,11 @@
 
   inputs = {
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim = {
+      url = "github:neovim/neovim?dir=contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs.url = "nixpkgs/nixos-unstable";
     hardware.url = "github:nixos/nixos-hardware";
     home-manager = {
@@ -19,7 +23,7 @@
     };
   };
 
-  outputs = { nixpkgs, neovim-nightly-overlay, nur, ... }@inputs:
+  outputs = { nixpkgs, nur, ... }@inputs:
     let
       system = "x86_64-linux";
       local-lib = import ./lib { inherit inputs; };
@@ -27,18 +31,24 @@
       inherit (nixpkgs.lib) genAttrs systems;
       forAllSystems = genAttrs systems.flakeExposed;
       username = "michel";
-      overlays = {
-        # Comment out to insert new overlays
-        # default = import ./overlays { inherit inputs; };
-        nur = nur.overlay;
-        neovim-overlay = neovim-nightly-overlay.overlay;
-      };
+      overlays = [
+       (import ./overlays )
+       nur.overlay
+      inputs.neovim.overlay
+       # neovim-nightly-overlay.overlay
+     ]; 
+     # overlays = {
+       #   # Comment out to insert new overlays
+       #   default = import ./overlays { inherit inputs; };
+       #   nur = nur.overlay;
+       #   neovim-overlay = neovim-nightly-overlay.overlay;
+       # };
       feats = [ "cli" "dev" ];
     in rec {
       legacyPackages = forAllSystems (system:
         import nixpkgs {
-          inherit system;
-          overlays = builtins.attrValues overlays;
+          inherit system overlays;
+          # overlays = builtins.attrValues overlays;
           config.allowUnfree = true;
         });
 

@@ -20,6 +20,7 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+    package = pkgs.neovim;
     plugins = with pkgs;
       with vimPlugins; [
         vim-nix
@@ -48,7 +49,6 @@
           config = ''
             vim.opt.list = true
             vim.opt.listchars:append("eol:↴")
-
             require("indent_blankline").setup {
               show_end_of_line = true,
               show_current_context = true,
@@ -56,34 +56,36 @@
             }
           '';
         }
-        {
-          plugin = gitsigns-nvim;
-          type = "lua";
-          config = ''
-            require('gitsigns').setup()
-          '';
-        }
+        # {
+        #   plugin = nvimExtraPlugins.gitsigns-main;
+        #   type = "lua";
+        #   config = ''
+        #     require('gitsigns').setup()
+        #   '';
+        # }
         {
           plugin = comment-nvim;
           type = "lua";
-          config = "require('Comment').setup() ";
-        }
-        {
-          plugin = hop-nvim;
-          type = "lua";
           config = ''
-            require'hop'.setup()
-            vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-            vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-            vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
-            vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
-            vim.api.nvim_set_keymap("", 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-            vim.api.nvim_set_keymap("", 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-            vim.api.nvim_set_keymap('n', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
-            vim.api.nvim_set_keymap('v', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
-            vim.api.nvim_set_keymap('o', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>", {})
+            require('Comment').setup()
           '';
         }
+        # {
+        #   plugin = hop-nvim;
+        #   type = "lua";
+        #   config = ''
+        #     require'hop'.setup()
+        #     vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+        #     vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+        #     vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
+        #     vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
+        #     vim.api.nvim_set_keymap("", 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+        #     vim.api.nvim_set_keymap("", 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+        #     vim.api.nvim_set_keymap('n', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
+        #     vim.api.nvim_set_keymap('v', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
+        #     vim.api.nvim_set_keymap('o', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>", {})
+        #   '';
+        # }
         {
           plugin = null-ls-nvim;
           type = "lua";
@@ -155,9 +157,9 @@
           plugin = feline-nvim;
           type = "lua";
           config = ''
-                    require("feline").setup({
-            	        components = require('catppuccin.core.integrations.feline'),
-                    })
+            require("feline").setup({
+              components = require('catppuccin.core.integrations.feline'),
+            })
           '';
         }
         # Themes
@@ -175,7 +177,53 @@
         nord-nvim
         nvimExtraPlugins.onenord
         {
-          plugin = nvim-treesitter.withPlugins (_: tree-sitter.allGrammars);
+          plugin = nvim-treesitter.withPlugins (p: [
+            p.tree-sitter-bash
+            p.tree-sitter-c
+            p.tree-sitter-bibtex
+            p.tree-sitter-cmake
+            p.tree-sitter-commonlisp
+            p.tree-sitter-cpp
+            p.tree-sitter-css
+            p.tree-sitter-dockerfile
+            p.tree-sitter-elisp
+            p.tree-sitter-elm
+            p.tree-sitter-fish
+            p.tree-sitter-go
+            p.tree-sitter-haskell
+            p.tree-sitter-hcl
+            p.tree-sitter-html
+            p.tree-sitter-http
+            p.tree-sitter-java
+            p.tree-sitter-javascript
+            p.tree-sitter-json
+            p.tree-sitter-json5
+            p.tree-sitter-latex
+            p.tree-sitter-llvm
+            p.tree-sitter-lua
+            p.tree-sitter-make
+            p.tree-sitter-markdown
+            p.tree-sitter-markdown-inline
+            p.tree-sitter-nix
+            p.tree-sitter-norg
+            p.tree-sitter-org-nvim
+            p.tree-sitter-perl
+            p.tree-sitter-python
+            p.tree-sitter-query
+            p.tree-sitter-r
+            p.tree-sitter-regex
+            p.tree-sitter-rst
+            p.tree-sitter-ruby
+            p.tree-sitter-rust
+            p.tree-sitter-scala
+            p.tree-sitter-scheme
+            p.tree-sitter-scss
+            p.tree-sitter-sql
+            p.tree-sitter-toml
+            p.tree-sitter-typescript
+            p.tree-sitter-vim
+            p.tree-sitter-yaml
+          ]);
           type = "lua";
           config = ''
             local vim = vim
@@ -206,7 +254,6 @@
           type = "lua";
           config = ''
             toggleterm = require("toggleterm")
-
             toggleterm.setup({
             	size = 20,
             	open_mapping = [[<c-\>]],
@@ -272,7 +319,6 @@
             function _PYTHON_TOGGLE()
             	python:toggle()
             end
-
           '';
         }
         SchemaStore-nvim

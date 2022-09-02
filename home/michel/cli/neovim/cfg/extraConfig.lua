@@ -14,7 +14,6 @@ o.incsearch = true
 o.ignorecase = true
 o.scrolloff = 12
 
--- ... snip ...
 
 -- window-local options
 wo.number = false
@@ -50,7 +49,7 @@ local options = {
   number = true,
   relativenumber = true,
   clipboard = "unnamedplus",
-  --    cursorline = true,
+  cursorline = true,
   mouse = "a",
   cmdheight = 1,
   undodir = "/tmp/.nvimdid",
