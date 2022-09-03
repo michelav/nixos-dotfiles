@@ -226,10 +226,8 @@
           ]);
           type = "lua";
           config = ''
-            local vim = vim
             local opt = vim.opt
             require'nvim-treesitter.configs'.setup {
-              ensure_installed = { "c", "lua", "rust", "hcl" },
               highlight = {
                enable = true,
               },
