@@ -67,7 +67,6 @@ in {
     ];
     sessionVariables = {
       # wayland
-      BROWSER = "firefox";
       XDG_DESKTOP_SESSION = "sway";
       XDG_SESSION_TYPE = "wayland";
       LIBSEAT_BACKEND = "logind";
