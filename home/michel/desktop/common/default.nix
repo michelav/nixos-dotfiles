@@ -11,6 +11,7 @@
     bitwarden
     bitwarden-cli
     xdg-utils
+    fractal
   ];
 
   xdg = {

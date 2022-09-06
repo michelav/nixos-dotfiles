@@ -20,20 +20,24 @@
       url = "github:jarun/nnn/v4.5";
       flake = false;
     };
+
+    jupyterWith = {
+      url = "github:tweag/jupyterWith";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, nur, ... }@inputs:
     let
-      system = "x86_64-linux";
-      local-lib = import ./lib { inherit inputs; };
-      inherit (local-lib) mkSystem mkHome;
-      inherit (nixpkgs.lib) genAttrs systems;
-      forAllSystems = genAttrs systems.flakeExposed;
       username = "michel";
-      overlays = [ (import ./overlays) nur.overlay inputs.neovim.overlay ];
+      local-lib = import ./lib { inherit inputs; };
+      inherit (local-lib) mkSystem mkHome forAllMySystems;
+      inherit (nixpkgs.lib) attrValues genAttrs systems;
+      overlays = [ (import ./overlays) nur.overlay inputs.neovim.overlay ]
+        ++ (builtins.attrValues inputs.jupyterWith.overlays);
       feats = [ "cli" "dev" ];
     in rec {
-      legacyPackages = forAllSystems (system:
+      legacyPackages = forAllMySystems (system:
         import nixpkgs {
           inherit system overlays;
           config.allowUnfree = true;
@@ -41,21 +45,35 @@
 
       nixosConfigurations = {
         vega = mkSystem {
-          inherit system;
-          pkgs = legacyPackages.${system};
+          pkgs = legacyPackages."x86_64-linux";
           hostname = "vega";
-          users = [ "michel" ];
+          users = [ "${username}" ];
         };
       };
-      homeConfigurations = let pkgs = legacyPackages.${system};
-      in {
-        "${username}@vega" = mkHome { inherit system pkgs username feats; };
+      homeConfigurations = {
+        "${username}@vega" = mkHome {
+          inherit username feats;
+          pkgs = legacyPackages."x86_64-linux";
+        };
       };
-
-      devShells = forAllSystems (system:
+      apps = forAllMySystems (system:
+        let
+          pkgs = legacyPackages.${system};
+          iPython = pkgs.kernels.iPythonWith {
+            name = "Python-env";
+            packages = p: with p; [ numpy pandas scikit-learn ];
+            ignoreCollisions = true;
+          };
+          jupyterEnvironment = pkgs.jupyterlabWith { kernels = [ iPython ]; };
+        in rec {
+          jupyterLab = {
+            type = "app";
+            program = "${jupyterEnvironment}/bin/jupyter-lab";
+          };
+        });
+      devShells = forAllMySystems (system:
         let pkgs = legacyPackages.${system};
         in {
-          inherit pkgs;
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               coreutils

@@ -1,18 +1,20 @@
 { inputs, ... }: {
-  mkSystem = { hostname, system ? "x86_64-linux", pkgs, users ? [ ]
-    , # Choose between gnome or sway
-    desktop ? "sway", extraModules ? [ ] }:
+  # Place a new system architecture in the list as needed
+  forAllMySystems = inputs.nixpkgs.lib.genAttrs [ "x86_64-linux" ];
+
+  mkSystem =
+    { hostname, pkgs, users ? [ ], desktop ? "sway", extraModules ? [ ] }:
     with inputs;
-    nixpkgs.lib.nixosSystem {
-      inherit system pkgs;
-      specialArgs = { inherit system desktop inputs; };
+    let inherit (nixpkgs.lib) nixosSystem forEach;
+    in nixosSystem {
+      inherit pkgs;
+      specialArgs = { inherit desktop inputs; };
       modules =
         [ ../system/hosts/${hostname} { networking.hostName = hostname; } ]
-        ++ nixpkgs.lib.forEach users (u: import ../system/users/${u}.nix);
+        ++ (forEach users (u: import ../system/users/${u}.nix));
     };
 
-  mkHome = { username, pkgs, system ? "x86_64-linux", desktop ? "sway"
-    , feats ? [ "cli" ], }:
+  mkHome = { username, pkgs, desktop ? "sway", feats ? [ "cli" ] }:
     with inputs;
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
@@ -28,6 +30,6 @@
         }
         ../modules/fontConfigs.nix
       ];
-      extraSpecialArgs = { inherit system inputs desktop feats; };
+      extraSpecialArgs = { inherit inputs desktop feats; };
     };
 }
