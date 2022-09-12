@@ -56,13 +56,13 @@
             }
           '';
         }
-        # {
-        #   plugin = nvimExtraPlugins.gitsigns-main;
-        #   type = "lua";
-        #   config = ''
-        #     require('gitsigns').setup()
-        #   '';
-        # }
+        {
+          plugin = gitsigns-nvim;
+          type = "lua";
+          config = ''
+            require('gitsigns').setup()
+          '';
+        }
         {
           plugin = comment-nvim;
           type = "lua";
