@@ -1,10 +1,11 @@
-local telescope = require 'telescope'
+local telescope = require("telescope")
+local trouble = require("trouble.providers.telescope")
 
 telescope.setup({
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
-    file_ignore_patterns = {"^./.git/"},
+    file_ignore_patterns = { "^./.git/" },
     vimgrep_arguments = {
       "rg",
       "--color=never",
@@ -49,10 +50,11 @@ telescope.setup({
         -- map actions.which_key to <C-h> (default: <C-/>)
         -- actions.which_key shows the mappings for your picker,
         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-        ["<C-h>"] = "which_key"
+        ["<C-h>"] = "which_key",
+        ["<c-t>"] = trouble.open_with_trouble,
       },
-      n = { ["q"] = require("telescope.actions").close }
-    }
+      n = { ["q"] = require("telescope.actions").close, ["<c-t>"] = trouble.open_with_trouble },
+    },
   },
   pickers = {
     -- Default configuration for builtin pickers goes here:
@@ -69,5 +71,5 @@ telescope.setup({
     --   extension_config_key = value,
     -- }
     -- please take a look at the readme of the extension you want to configure
-  }
+  },
 })

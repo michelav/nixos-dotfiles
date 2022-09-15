@@ -147,6 +147,8 @@ require("rust-tools").setup({
 
 lspconfig.jsonls.setup({
   settings = {
+    on_attach = on_attach,
+    capabilities = capabilities,
     json = {
       schemas = require("schemastore").json.schemas({
         select = {

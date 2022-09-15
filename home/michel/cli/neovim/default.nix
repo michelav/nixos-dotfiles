@@ -1,18 +1,21 @@
 { config, pkgs, ... }: {
   home.sessionVariables.EDITOR = "nvim";
 
-  home.packages = with pkgs; [
-    sumneko-lua-language-server
-    rnix-lsp
-    nur.repos.ouzu.catppuccin.gtk
-    nodejs
-    tree-sitter
-    nodePackages.dockerfile-language-server-nodejs
-    nodePackages.pyright
-    nodePackages.jsonlint
-    nodePackages.prettier
-    stylua
-  ];
+  home.packages = with pkgs;
+    with nodePackages; [
+      sumneko-lua-language-server
+      rnix-lsp
+      nur.repos.ouzu.catppuccin.gtk
+      nodejs
+      tree-sitter
+      dockerfile-language-server-nodejs
+      pyright
+      jsonlint
+      prettier
+      vscode-langservers-extracted
+      markdownlint-cli
+      stylua
+    ];
 
   programs.neovim = let
     nvimExtraPlugins = pkgs.callPackage ./extraPlugins.nix { inherit pkgs; };
@@ -117,6 +120,21 @@
           plugin = nvim-cmp;
           type = "lua";
           config = builtins.readFile ./cfg/cmp.lua;
+        }
+        {
+          plugin = trouble-nvim;
+          type = "lua";
+          config = ''
+            require("trouble").setup {}
+            local opts = { noremap = true, silent = true }
+            local keymap = vim.api.nvim_set_keymap
+            keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
+            keymap("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
+            keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
+            keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
+            keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
+            keymap("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>", opts)
+          '';
         }
         cmp-nvim-lsp
         cmp-nvim-lua
