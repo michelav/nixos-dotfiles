@@ -13,7 +13,7 @@ let
     destination = "/bin/dbus-sway-environment";
     executable = true;
     text = ''
-      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway SWAYSOCK
       systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
       systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
     '';
@@ -146,11 +146,19 @@ in {
       };
       bars = [{ command = "waybar"; }];
       colors = import ./colors.nix { inherit (config.colorscheme) colors; };
+      startup = [
+        # Initial lock
+        {
+          command = "${pkgs.swaylock-effects}/bin/swaylock -f -S";
+        }
+        # https://github.com/NixOS/nixpkgs/issues/119445
+        { command = "dbus-sway-environment"; }
+      ];
     };
 
-    extraConfig = ''
-      exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
-    '';
+    # extraConfig = ''
+    #   exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
+    # '';
 
     extraSessionCommands = ''
       export MOZ_ENABLE_WAYLAND="1"
