@@ -32,7 +32,6 @@
       username = "michel";
       local-lib = import ./lib { inherit inputs; };
       inherit (local-lib) mkSystem mkHome forAllMySystems;
-      inherit (nixpkgs.lib) attrValues genAttrs systems;
       overlays = [ (import ./overlays) nur.overlay inputs.neovim.overlay ]
         ++ (builtins.attrValues inputs.jupyterWith.overlays);
       feats = [ "cli" "dev" ];
