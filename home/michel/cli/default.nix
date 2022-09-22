@@ -1,17 +1,8 @@
 { pkgs, ... }: {
-  imports = [
-    ./neovim
-    ./nnn.nix
-    ./fish.nix
-    ./kitty.nix
-    ./git.nix
-    ./gpg.nix
-    ./ssh.nix
-  ];
+  imports =
+    [ ./neovim ./nnn.nix ./fish.nix ./kitty.nix ./git.nix ./gpg.nix ./ssh.nix ];
 
-  home.sessionVariables = {
-    NIX_SHELL_PRESERVE_PROMPT=1;
-  };
+  home.sessionVariables = { NIX_SHELL_PRESERVE_PROMPT = 1; };
 
   home.packages = with pkgs; [
     cachix # For managing my binary cache
@@ -26,7 +17,8 @@
     httpie # Better curl
     jq # JSON pretty printer and manipulator
 
-    nvd nix-diff # Check derivation differences
+    nvd
+    nix-diff # Check derivation differences
     rnix-lsp # Nix LSP
     nixfmt # Nix formatter
     deadnix # Nix dead code locator
@@ -35,6 +27,8 @@
 
     neofetch
     most
+
+    ranger # File Management
   ];
 
   programs = {
