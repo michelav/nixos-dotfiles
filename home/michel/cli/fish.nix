@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   programs = {
     fish = {
       enable = true;
@@ -18,6 +17,16 @@
       enableBashIntegration = true;
       enableFishIntegration = true;
       settings = {
+        format = let
+          git = "$git_branch$git_commit$git_state$git_status";
+          cloud = "$aws$gcloud$azure";
+          langs =
+            "$c$cmake$dotnet$elixir$elm$erlang$golang$haskell$helm$java$julia$kotlin$lua$nodejs$ocaml$perl$pulumi$purescript$python$rlang$ruby$rust$scala";
+        in ''
+          ($all)$username$hostname$directory$shlvl${git}(
+          ${cloud})(
+          $nix_shell $package $terraform ${langs})
+          $jobs$character'';
         username = {
           format = "[$user]($style)@";
           style_root = "bold red";
@@ -38,11 +47,14 @@
           # truncation_symbol = "repo:";
           fish_style_pwd_dir_length = 1;
         };
-
         character = {
           error_symbol = "[~>](bold red)";
           success_symbol = "[->](bold dimmed green)";
           vicmd_symbol = "[<-](bold yellow)";
+        };
+        nix_shell = {
+          format = "via [$symbol($name)(\\[$state\\])]($style)";
+          style = "bold blue";
         };
 
         aws.symbol = "  ";
