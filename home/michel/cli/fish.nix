@@ -23,7 +23,7 @@
           langs =
             "$c$cmake$dotnet$elixir$elm$erlang$golang$haskell$helm$java$julia$kotlin$lua$nodejs$ocaml$perl$pulumi$purescript$python$rlang$ruby$rust$scala";
         in ''
-          ($all)$username$hostname$directory$shlvl${git}(
+          ($all)$username$hostname$directory$shlvl${git} $cmd_duration(
           ${cloud})(
           $nix_shell $package $terraform ${langs})
           $jobs$character'';
