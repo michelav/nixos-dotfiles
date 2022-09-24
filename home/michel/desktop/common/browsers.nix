@@ -10,6 +10,10 @@
         cfg = { enableGnomeExtensions = true; };
       };
     };
+    chromium = {
+      enable = true;
+      package = pkgs.google-chrome;
+    };
   };
 
   xdg.mimeApps.defaultApplications = {
