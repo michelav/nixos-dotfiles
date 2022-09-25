@@ -7,7 +7,10 @@
     ../../nixos/gaming.nix
   ] ++ lib.optional (null != desktop) ../../nixos/${desktop}.nix;
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot = {

@@ -1,10 +1,10 @@
-{config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   imports = [
     ./nix.nix
     ./pipewire.nix
     ./jellyfin.nix
     ./virtualisation.nix
+    ./networking.nix
   ];
 
   # Set your time zone.
@@ -14,9 +14,7 @@
   i18n.defaultLocale = "pt_BR.UTF-8";
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
-    packages = with pkgs; [
-      terminus_font
-    ];
+    packages = with pkgs; [ terminus_font ];
     keyMap = "br-abnt2";
   };
 
@@ -29,18 +27,10 @@
 
   fonts = {
     enableDefaultFonts = true;
-    fonts = with pkgs; [
-      corefonts
-    ];
+    fonts = with pkgs; [ corefonts ];
   };
- 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-    unzip
-    gnome.seahorse
-  ];
+
+  environment.systemPackages = with pkgs; [ vim wget git unzip gnome.seahorse ];
 
   environment.pathsToLink = [ "/share/fish" ];
 
@@ -54,5 +44,5 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
- };
+  };
 }
