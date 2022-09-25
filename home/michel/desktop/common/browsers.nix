@@ -1,5 +1,5 @@
 { pkgs, config, ... }: {
-  home.packages = [ pkgs.qutebrowser ];
+  imports = [ ./qutebrowser.nix ];
   home.sessionVariables = { BROWSER = "firefox"; };
   programs = {
     brave.enable = true;
