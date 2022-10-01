@@ -29,6 +29,7 @@
 
         }
         ../modules/fontConfigs.nix
+        ../modules/hm
       ];
       extraSpecialArgs = { inherit inputs desktop feats; };
     };

@@ -28,7 +28,6 @@
     neofetch
     most
 
-    ranger # File Management
   ];
 
   programs = {
@@ -38,5 +37,6 @@
     nix-index.enable = true;
     fzf.enable = true;
     fzf.enableFishIntegration = true;
+    ranger.enable = true;
   };
 }
