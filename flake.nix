@@ -2,9 +2,8 @@
   description = "Basic Flake";
 
   inputs = {
-
-    neovim = {
-      url = "github:neovim/neovim?dir=contrib";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "nixpkgs/nixos-unstable";
@@ -32,8 +31,11 @@
       username = "michel";
       local-lib = import ./lib { inherit inputs; };
       inherit (local-lib) mkSystem mkHome forAllMySystems;
-      overlays = [ (import ./overlays) nur.overlay inputs.neovim.overlay ]
-        ++ (builtins.attrValues inputs.jupyterWith.overlays);
+      overlays = [
+        (import ./overlays)
+        nur.overlay
+        inputs.neovim-nightly-overlay.overlay
+      ] ++ (builtins.attrValues inputs.jupyterWith.overlays);
       feats = [ "cli" "dev" ];
     in rec {
       legacyPackages = forAllMySystems (system:
