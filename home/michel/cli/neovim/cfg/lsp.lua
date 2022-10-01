@@ -160,3 +160,15 @@ lspconfig.jsonls.setup({
     },
   },
 })
+
+lspconfig.yamlls.setup({
+  settings = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    yaml = {
+      schemas = {
+        ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master/all.json"] = "/*.k8s.yaml",
+      },
+    },
+  },
+})

@@ -15,6 +15,7 @@
       vscode-langservers-extracted
       markdownlint-cli
       stylua
+      yaml-language-server
     ];
 
   programs.neovim = let
@@ -23,7 +24,6 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
-    package = pkgs.neovim;
     plugins = with pkgs;
       with vimPlugins; [
         vim-nix
