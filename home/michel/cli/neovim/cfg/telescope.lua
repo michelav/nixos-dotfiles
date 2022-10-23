@@ -5,7 +5,7 @@ telescope.setup({
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
-    file_ignore_patterns = { "^./.git/" },
+    -- file_ignore_patterns = { "^./.git/" },
     vimgrep_arguments = {
       "rg",
       "--color=never",
@@ -16,6 +16,8 @@ telescope.setup({
       "--no-ignore",
       "--smart-case",
       "--hidden",
+      "--glob",
+      "!.git/**",
     },
     prompt_prefix = "     ",
     layout_config = {
@@ -32,7 +34,6 @@ telescope.setup({
       preview_cutoff = 120,
     },
     file_sorter = require("telescope.sorters").get_fuzzy_file,
-    -- file_ignore_patterns = { "node_modules", ".git/", "dist/" },
     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
     path_display = { "absolute" },
     winblend = 0,
@@ -57,6 +58,9 @@ telescope.setup({
     },
   },
   pickers = {
+    find_files = {
+      find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
+    },
     -- Default configuration for builtin pickers goes here:
     -- picker_name = {
     --   picker_config_key = value,
