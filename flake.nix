@@ -7,12 +7,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
     hardware.url = "github:nixos/nixos-hardware";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
 
     nnn-plugins = {
@@ -26,63 +26,60 @@
     };
   };
 
-  outputs = { nixpkgs, nur, ... }@inputs:
+  outputs = { nixpkgs, ... }@inputs:
     let
       username = "michel";
       local-lib = import ./lib { inherit inputs; };
-      inherit (local-lib) mkSystem mkHome forAllMySystems;
-      overlays = [
-        (import ./overlays)
-        nur.overlay
-        inputs.neovim-nightly-overlay.overlay
-      ] ++ (builtins.attrValues inputs.jupyterWith.overlays);
+      inherit (local-lib) mkSystem mkHome;
+      # TODO: Import local overlays
+      overlays = [ inputs.neovim-nightly-overlay.overlay ];
       feats = [ "cli" "dev" ];
-    in rec {
-      legacyPackages = forAllMySystems (system:
+      supportedSystems = [ "x86_64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      legacyPackages = forAllSystems (system:
         import nixpkgs {
           inherit system overlays;
           config.allowUnfree = true;
         });
-
+      pkgs = legacyPackages."x86_64-linux";
+    in rec {
+      inherit legacyPackages;
       nixosConfigurations = {
         vega = mkSystem {
-          pkgs = legacyPackages."x86_64-linux";
+          inherit pkgs;
           hostname = "vega";
           users = [ "${username}" ];
         };
       };
       homeConfigurations = {
-        "${username}@vega" = mkHome {
-          inherit username feats;
-          pkgs = legacyPackages."x86_64-linux";
-        };
+        "${username}@vega" = mkHome { inherit username feats pkgs; };
       };
-      apps = forAllMySystems (system:
-        let
-          pkgs = legacyPackages.${system};
-          iPython = pkgs.kernels.iPythonWith {
-            name = "Python-env";
-            packages = p: with p; [ numpy pandas scikit-learn ];
-            ignoreCollisions = true;
-          };
-          jupyterEnvironment = pkgs.jupyterlabWith { kernels = [ iPython ]; };
-        in rec {
-          jupyterLab = {
-            type = "app";
-            program = "${jupyterEnvironment}/bin/jupyter-lab";
-          };
-        });
-      devShells = forAllMySystems (system:
-        let pkgs = legacyPackages.${system};
-        in {
-          default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              coreutils
-              findutils
-              gnumake
-              nixpkgs-fmt
-              nixFlakes
-            ];
+      # TODO: Wait for JupyterWith updates
+      # apps = forAllSystems (system:
+      #   let
+      #     pkgs = legacyPackages.${system};
+      #     inherit (inputs.jupyterWith.lib.${system}) mkJupyterLab;
+      #     jupyterLab = mkJupyterLab {
+      #       kernels = k:
+      #         with k;
+      #         [
+      #           (python {
+      #             name = "python-ds";
+      #             displayName = "Python DS";
+      #             extraPackages = p: with p; [ numpy pandas scikit-learn ];
+      #           })
+      #         ];
+      #     };
+      #   in rec {
+      #     jupyterLab = {
+      #       type = "app";
+      #       program = "${jupyterLab.outPath}bin/jupyter-lab";
+      #     };
+      #   });
+      devShells = forAllSystems (system:
+        with pkgs; {
+          default = mkShell {
+            buildInputs = [ coreutils findutils gnumake nixpkgs-fmt nixFlakes ];
           };
           python39 = import ./shells/python.nix { inherit pkgs; };
           haskell = import ./shells/haskell.nix { inherit pkgs; };

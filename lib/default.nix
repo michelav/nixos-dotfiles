@@ -1,7 +1,4 @@
 { inputs, ... }: {
-  # Place a new system architecture in the list as needed
-  forAllMySystems = inputs.nixpkgs.lib.genAttrs [ "x86_64-linux" ];
-
   mkSystem =
     { hostname, pkgs, users ? [ ], desktop ? "sway", extraModules ? [ ] }:
     with inputs;
