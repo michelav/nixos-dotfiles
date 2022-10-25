@@ -5,7 +5,6 @@
     with nodePackages; [
       sumneko-lua-language-server
       rnix-lsp
-      nur.repos.ouzu.catppuccin.gtk
       nodejs
       tree-sitter
       dockerfile-language-server-nodejs
