@@ -3,18 +3,21 @@
 
   home.packages = with pkgs;
     with nodePackages; [
+      # language servers
       sumneko-lua-language-server
       rnix-lsp
       nodejs
-      tree-sitter
       dockerfile-language-server-nodejs
+      vscode-langservers-extracted
+      yaml-language-server
+      gopls
+
+      tree-sitter
       pyright
       jsonlint
       prettier
-      vscode-langservers-extracted
       markdownlint-cli
       stylua
-      yaml-language-server
     ];
 
   programs.neovim = let

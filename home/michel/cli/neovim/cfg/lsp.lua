@@ -97,7 +97,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lspconfig = require("lspconfig")
 
-local servers = { "rnix", "dockerls", "hls", "terraformls", "rust_analyzer", "yamlls" }
+local servers = { "rnix", "dockerls", "hls", "terraformls", "rust_analyzer", "yamlls", "gopls" }
 
 local opts = {
   on_attach = on_attach,
@@ -156,5 +156,47 @@ lspconfig.jsonls.setup({
       }),
       validate = { enable = true },
     },
+  },
+})
+
+function go_org_imports(wait_ms)
+  local params = vim.lsp.util.make_range_params()
+  params.context = { only = { "source.organizeImports" } }
+  local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
+  for cid, res in pairs(result or {}) do
+    for _, r in pairs(res.result or {}) do
+      if r.edit then
+        local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+        vim.lsp.util.apply_workspace_edit(r.edit, enc)
+      end
+    end
+  end
+end
+
+local on_attach_golang = function(client, buffer)
+  on_attach(client, buffer)
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    buffer = buffer,
+    callback = function()
+      go_org_imports()
+    end,
+  })
+end
+
+lspconfig.gopls.setup({
+  on_attach = on_attach_golang,
+  capabilities = capabilities,
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+        shadow = true,
+      },
+      staticcheck = true,
+    },
+  },
+  init_options = {
+    usePlaceholders = true,
   },
 })
