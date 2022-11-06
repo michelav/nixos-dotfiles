@@ -2,5 +2,5 @@
 
   imports = [ ./vscode.nix ./direnv.nix ];
 
-  home.packages = with pkgs; [ glow ];
+  home.packages = with pkgs; [ glow lazygit ];
 }
