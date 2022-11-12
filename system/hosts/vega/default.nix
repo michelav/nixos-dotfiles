@@ -21,6 +21,8 @@
   hardware.enableRedistributableFirmware = true;
 
   services = {
+    udisks2.enable = true;
+    devmon.enable = true;
 
     tlp = {
       enable = true;
