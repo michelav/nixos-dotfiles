@@ -1,5 +1,4 @@
-{config, pkgs, inputs, ...}:
-{
+{ config, pkgs, inputs, ... }: {
   colorScheme = inputs.nix-colors.colorSchemes.nord;
 
   desktop.fonts = {
@@ -37,14 +36,14 @@
     # nordzy-icon-theme
     nordzy-cursor-theme
     catppuccin-gtk
-    (callPackage ../../../../packages/fluent-gtk-theme {})
-    (callPackage ../../../../packages/fluent-icon-theme {})
+    (callPackage ../../../../packages/fluent-gtk-theme { })
+    (callPackage ../../../../packages/fluent-icon-theme { })
   ];
 
   gtk = {
     enable = true;
     cursorTheme.name = "Nordzy-white-cursors";
-    iconTheme = { 
+    iconTheme = {
       name = "Nordzy-dark";
       package = pkgs.nordzy-icon-theme;
     };
@@ -53,7 +52,8 @@
       package = pkgs.nordic;
     };
     font = {
-      name = config.desktop.fonts.regular.name;
+      inherit (config.desktop.fonts.regular) name package;
+
       size = 12;
     };
   };
