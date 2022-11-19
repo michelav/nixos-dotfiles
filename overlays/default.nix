@@ -15,4 +15,5 @@ final: prev: {
   iamlive = prev.callPackage ../packages/iamlive {
     inherit (prev) lib fetchFromGitHub buildGoModule;
   };
+  spotify-nss-latest = prev.spotify.override { nss = prev.nss_latest; };
 }
