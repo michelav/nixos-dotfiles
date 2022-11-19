@@ -23,6 +23,7 @@
   programs = {
     fish.enable = true;
     dconf.enable = true;
+    fuse.userAllowOther = true;
   };
 
   fonts = {
@@ -30,9 +31,25 @@
     fonts = with pkgs; [ corefonts ];
   };
 
-  environment.systemPackages = with pkgs; [ vim wget git unzip gnome.seahorse ];
-
-  environment.pathsToLink = [ "/share/fish" ];
+  environment = {
+    pathsToLink = [ "/share/fish" ];
+    systemPackages = with pkgs; [ vim wget git unzip gnome.seahorse ];
+    loginShellInit = ''
+      # Activate home-manager environment, if not already
+      [ -d "$HOME/.nix-profile" ] || /nix/var/nix/profiles/per-user/$USER/home-manager/activate &> /dev/null
+    '';
+    # Persist logs, timers, etc
+    persistence = {
+      "/persist".directories = [
+        "/var/lib/systemd"
+        "/var/log"
+        "/srv"
+        "/etc/NetworkManager/system-connections"
+        "/var/lib/bluetooth"
+        "/var/lib/docker/containers"
+      ];
+    };
+  };
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
   # known as portals under a well-known name

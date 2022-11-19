@@ -1,6 +1,7 @@
 { pkgs, lib, inputs, desktop, ... }: {
   imports = [
     # Include the results of the hardware scan.
+    inputs.impermanence.nixosModule
     ./hardware-configuration.nix
     ../../nixos
     ../../nixos/nvidia.nix
