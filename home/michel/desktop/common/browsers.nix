@@ -1,13 +1,51 @@
-{ pkgs, config, ... }: {
+{ inputs, pkgs, config, ... }: {
   imports = [ ./qutebrowser.nix ];
   home.sessionVariables = { BROWSER = "firefox"; };
   programs = {
     brave.enable = true;
-    firefox = {
+    firefox = let addons = inputs.firefox-addons.packages.${pkgs.system};
+    in {
       enable = true;
+      extensions = with addons; [
+        grammarly
+        keepassxc-browser
+        ublock-origin
+        netflix-1080p
+      ];
+      profiles.michel = {
+        search = {
+          default = "Google";
+          engines = {
+            "Nix Packages" = {
+              urls = [{
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }];
 
-      package = pkgs.firefox-wayland.override {
-        cfg = { enableGnomeExtensions = true; };
+              icon =
+                "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@np" ];
+            };
+
+            "NixOS Wiki" = {
+              urls = [{
+                template = "https://nixos.wiki/index.php?search={searchTerms}";
+              }];
+              iconUpdateURL = "https://nixos.wiki/favicon.png";
+              updateInterval = 24 * 60 * 60 * 1000; # every day
+              definedAliases = [ "@nw" ];
+            };
+          };
+        };
       };
     };
     chromium = {
