@@ -25,6 +25,11 @@
       url = "github:tweag/jupyterWith";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs:
@@ -33,7 +38,8 @@
       local-lib = import ./lib { inherit inputs; };
       inherit (local-lib) mkSystem mkHome;
       # TODO: Import local overlays
-      overlays = [ inputs.neovim-nightly-overlay.overlay ];
+      local-overlays = import ./overlays;
+      overlays = [ inputs.neovim-nightly-overlay.overlay local-overlays ];
       feats = [ "cli" "dev" ];
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -55,28 +61,6 @@
       homeConfigurations = {
         "${username}@vega" = mkHome { inherit username feats pkgs; };
       };
-      # TODO: Wait for JupyterWith updates
-      # apps = forAllSystems (system:
-      #   let
-      #     pkgs = legacyPackages.${system};
-      #     inherit (inputs.jupyterWith.lib.${system}) mkJupyterLab;
-      #     jupyterLab = mkJupyterLab {
-      #       kernels = k:
-      #         with k;
-      #         [
-      #           (python {
-      #             name = "python-ds";
-      #             displayName = "Python DS";
-      #             extraPackages = p: with p; [ numpy pandas scikit-learn ];
-      #           })
-      #         ];
-      #     };
-      #   in rec {
-      #     jupyterLab = {
-      #       type = "app";
-      #       program = "${jupyterLab.outPath}bin/jupyter-lab";
-      #     };
-      #   });
       devShells = forAllSystems (system:
         with pkgs; {
           default = mkShell {
