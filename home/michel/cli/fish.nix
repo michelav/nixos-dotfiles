@@ -3,6 +3,9 @@
     fish = {
       enable = true;
       loginShellInit = builtins.readFile ../configs/fish/login.fish;
+      interactiveShellInit = ''
+        ${pkgs.procps}/bin/pgrep ssh-agent>/dev/null || keychain --eval --quiet -Q --agents ssh | source
+      '';
       shellAbbrs = {
         ls = "exa";
         cat = "bat";

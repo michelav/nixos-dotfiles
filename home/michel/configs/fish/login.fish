@@ -1,7 +1,3 @@
-if test (tty) = /dev/tty1
-  eval $(keychain --eval --agents ssh)
-end
-
 set -U fish_color_autosuggestion      brblack
 set -U fish_color_cancel              -r
 set -U fish_color_command             brgreen
