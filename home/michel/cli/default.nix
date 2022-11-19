@@ -1,6 +1,14 @@
 { pkgs, ... }: {
-  imports =
-    [ ./neovim ./nnn.nix ./fish.nix ./kitty.nix ./git.nix ./gpg.nix ./ssh.nix ];
+  imports = [
+    ./neovim
+    ./nnn.nix
+    ./fish.nix
+    ./kitty.nix
+    ./git.nix
+    ./gpg.nix
+    ./ssh.nix
+    ./nix-index.nix
+  ];
 
   home.sessionVariables = { NIX_SHELL_PRESERVE_PROMPT = 1; };
 
@@ -34,7 +42,6 @@
     alacritty.enable = true;
     bat.enable = true;
     kitty.enable = true;
-    nix-index.enable = true;
     fzf.enable = true;
     fzf.enableFishIntegration = true;
     ranger.enable = true;
