@@ -6,9 +6,11 @@
     in nixosSystem {
       inherit pkgs;
       specialArgs = { inherit desktop inputs; };
-      modules =
-        [ ../system/hosts/${hostname} { networking.hostName = hostname; } ]
-        ++ (forEach users (u: import ../system/users/${u}.nix));
+      modules = [
+        ../system/hosts/common.nix
+        ../system/hosts/${hostname}
+        { networking.hostName = hostname; }
+      ] ++ (forEach users (u: import ../system/users/${u}.nix));
     };
 
   mkHome = { username, pkgs, desktop ? "sway", feats ? [ "cli" ] }:

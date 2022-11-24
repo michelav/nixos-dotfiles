@@ -22,6 +22,13 @@
   hardware.enableRedistributableFirmware = true;
 
   services = {
+    openssh = {
+      enable = true;
+      permitRootLogin = "no";
+      extraConfig = ''
+        StreamLocalBindUnlink yes
+      '';
+    };
     udisks2.enable = true;
     devmon.enable = true;
 

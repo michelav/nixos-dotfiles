@@ -289,6 +289,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-22_05": {
+      "locked": {
+        "lastModified": 1668307144,
+        "narHash": "sha256-uY2StvGJvTfgtLaiz3uvX+EQeWZDkiLFiz2vekgJ9ZE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "eac99848dfd869e486573d8272b0c10729675ca2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-22.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1655599917,
@@ -414,7 +430,8 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
-        "nnn-plugins": "nnn-plugins"
+        "nnn-plugins": "nnn-plugins",
+        "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
@@ -439,6 +456,27 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-22_05": "nixpkgs-22_05"
+      },
+      "locked": {
+        "lastModified": 1668311578,
+        "narHash": "sha256-nF6mwSbVyvnlIICWFZlADegWdTsgrk1pZnA/0VqByNw=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "39f0fe57f1ef78764c1abc1de145f091fee1bbbb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },

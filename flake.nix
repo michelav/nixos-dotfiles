@@ -30,6 +30,10 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs:
@@ -37,9 +41,12 @@
       username = "michel";
       local-lib = import ./lib { inherit inputs; };
       inherit (local-lib) mkSystem mkHome;
-      # TODO: Import local overlays
       local-overlays = import ./overlays;
-      overlays = [ inputs.neovim-nightly-overlay.overlay local-overlays ];
+      overlays = [
+        inputs.neovim-nightly-overlay.overlay
+        inputs.sops-nix.overlay
+        local-overlays
+      ];
       feats = [ "cli" "dev" ];
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -70,6 +77,19 @@
           haskell = import ./shells/haskell.nix { inherit pkgs; };
           rust = import ./shells/rust.nix { inherit pkgs; };
           golang = import ./shells/golang.nix { inherit pkgs; };
+          sops-nix = mkShell {
+            name = "sops-nix";
+            nativeBuildInputs = [
+              age
+              gnupg
+              sops
+              sops-install-secrets
+              sops-init-gpg-key
+              sops-import-keys-hook
+              ssh-to-age
+              ssh-to-pgp
+            ];
+          };
         });
     };
 }

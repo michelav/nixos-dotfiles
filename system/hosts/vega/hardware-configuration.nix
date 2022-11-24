@@ -5,44 +5,48 @@
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-boot.initrd.supportedFilesystems = ["btrfs"];
+  boot.initrd.supportedFilesystems = [ "btrfs" ];
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "acpi_call" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
-  boot.initrd.luks.devices."nixosenc".device = "/dev/disk/by-uuid/39dbfe54-66db-4e00-9b0d-45bd118e1bec";
+  boot.initrd.luks.devices."vega_crypt".device =
+    "/dev/disk/by-label/VEGA_CRYPT";
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/fec3f7b3-960d-436e-91d0-29e430914562";
-      fsType = "btrfs";
-      options = [ "subvol=root" "noatime" "compress=zstd" "space_cache=v2" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/VEGA_BTRFS";
+    fsType = "btrfs";
+    options = [ "subvol=root" "noatime" "compress=zstd" "space_cache=v2" ];
+  };
 
-  fileSystems."/swap" =
-    { device = "/dev/disk/by-uuid/fec3f7b3-960d-436e-91d0-29e430914562";
-      fsType = "btrfs";
-      options = [ "subvol=swap" "noatime" "nodatacow" ];
-    };
+  fileSystems."/swap" = {
+    device = "/dev/disk/by-label/VEGA_BTRFS";
+    fsType = "btrfs";
+    options = [ "subvol=swap" "noatime" "nodatacow" ];
+  };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/fec3f7b3-960d-436e-91d0-29e430914562";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress=zstd" "space_cache=v2" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-label/VEGA_BTRFS";
+    fsType = "btrfs";
+    options = [ "subvol=nix" "noatime" "compress=zstd" "space_cache=v2" ];
+  };
 
-  fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/fec3f7b3-960d-436e-91d0-29e430914562";
-      fsType = "btrfs";
-      options = [ "subvol=persist" "noatime" "compress=zstd" "space_cache=v2" ];
-neededForBoot = true;
-    };
+  fileSystems."/persist" = {
+    device = "/dev/disk/by-label/VEGA_BTRFS";
+    fsType = "btrfs";
+    options = [ "subvol=persist" "noatime" "compress=zstd" "space_cache=v2" ];
+    neededForBoot = true;
+  };
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/SYSTEM_DRV";
     fsType = "vfat";
   };
 
-  swapDevices = [{ device = "/swap/swapfile"; size=32768; }];
+  swapDevices = [{
+    device = "/swap/swapfile";
+    size = 32768;
+  }];
   nixpkgs.hostPlatform.system = "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode =
