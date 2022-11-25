@@ -1,6 +1,6 @@
 keys:
-  - &michel age1267mxnlqzgtm396ugf2qsck87qs22v88guux6lye07gq5h6wpgjsug7g5h
-  - &vega age1xvnaz7pfkwqtj32zyz7dn53z6djpx3kvvfxsl0ex8vluagzjyv0shgk9cu
+  - &michel age1uve2npyrt5myye3s0hh4yeznmxrm8dexjxudc83xcv477snt3c2qx6g2zq
+  - &vega age1m7nfjvjuajq09s4jn0u56j0erqcs3zl076qsf9vjs2lje6x0sf3qzf6mxv
 creation_rules:
   - path_regex: system/secrets/vega.yaml$
     key_groups:
