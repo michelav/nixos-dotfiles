@@ -15,6 +15,7 @@
       profiles.michel = {
         search = {
           default = "Google";
+          force = true;
           engines = {
             "Nix Packages" = {
               urls = [{
