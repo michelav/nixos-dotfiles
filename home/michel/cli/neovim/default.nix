@@ -187,9 +187,6 @@
           plugin = nvimExtraPlugins.nightfox-main;
           type = "lua";
           config = ''
-            require("nightfox").setup({
-              palettes = { nordfox = { bg1 = "#2e3441"}, },
-            })
             vim.cmd("colorscheme nordfox")
           '';
         }

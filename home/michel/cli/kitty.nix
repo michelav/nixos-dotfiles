@@ -12,7 +12,7 @@ in {
       allow_remote_control = "yes";
       foreground = "#${colors.base05}";
       background = "#${colors.base00}";
-      background_opacity = "0.8";
+      # background_opacity = "0.8";
       selection_background = "#${colors.base05}";
       selection_foreground = "#${colors.base00}";
       url_color = "#${colors.base04}";
