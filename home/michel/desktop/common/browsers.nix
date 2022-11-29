@@ -7,7 +7,6 @@
     in {
       enable = true;
       extensions = with addons; [
-        grammarly
         keepassxc-browser
         ublock-origin
         netflix-1080p

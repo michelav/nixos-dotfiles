@@ -2,6 +2,7 @@
   imports = [
     # Include the results of the hardware scan.
     inputs.impermanence.nixosModule
+    ./impermanence-optin.nix
     ./hardware-configuration.nix
     ../../nixos
     ../../nixos/nvidia.nix
@@ -28,6 +29,16 @@
       extraConfig = ''
         StreamLocalBindUnlink yes
       '';
+      hostKeys = [
+        {
+          path = "/persist/vega/etc/ssh/ssh_host_rsa_key";
+          type = "rsa";
+        }
+        {
+          path = "/persist/vega/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+        }
+      ];
     };
     udisks2.enable = true;
     devmon.enable = true;
