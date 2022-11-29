@@ -6,6 +6,7 @@ in {
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.nix-colors.homeManagerModule
+    ./hm-impermanence-optin.nix
   ] ++ forEach feats (f: ./${f})
     ++ optional (null != desktop) ./desktop/${desktop};
 

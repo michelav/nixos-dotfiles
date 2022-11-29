@@ -17,11 +17,11 @@
   xdg = {
     enable = true;
     mimeApps.enable = true;
-    userDirs = {
-      enable = true;
-      createDirectories = true;
-    };
+    userDirs = { enable = true; };
   };
 
-  services.dropbox.enable = true;
+  services.dropbox = {
+    enable = true;
+    path = "/persist/home/michel/Dropbox";
+  };
 }
