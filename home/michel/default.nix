@@ -12,6 +12,8 @@ in {
 
   home = { packages = with pkgs; [ jq ripgrep fd tree htop gcc ]; };
 
+  systemd.user.startServices = "sd-switch";
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
