@@ -14,7 +14,6 @@
       ".mozilla/firefox"
       ".config/discord"
       ".config/Slack"
-      ".config/spotify"
       ".config/qutebrowser/bookmarks"
       ".config/qutebrowser/greasemonkey"
       ".local/share/qutebrowser"
@@ -23,7 +22,12 @@
       ".gnupg"
       ".ssh"
       ".aws"
+      ".config/keepassxc"
+      ".cache/keepassxc"
+      ".config/spotify"
+      ".cache/spotify"
+      ".local/share/fish"
     ];
-    files = [ ".local/share/fish/fish_history" ".config/sops/age/keys.txt" ];
+    files = [ ".config/sops/age/keys.txt" ];
   };
 }
