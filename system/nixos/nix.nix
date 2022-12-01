@@ -5,10 +5,12 @@
         "https://nix-community.cachix.org"
         "https://misterio.cachix.org"
         "https://michelav.cachix.org"
+        "https://devenv.cachix.org"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "michelav.cachix.org-1:nWCV2A3/ZUVYtNcJqzNv4nGxpNipH4aYJ4XQ2ZCQuIM="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
       trusted-users = [ "root" "@wheel" ];
       experimental-features = [ "nix-command" "flakes" ];

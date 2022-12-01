@@ -34,12 +34,14 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    devenv.url = "github:cachix/devenv/v0.4";
   };
 
   outputs = { nixpkgs, ... }@inputs:
     let
       username = "michel";
       local-lib = import ./lib { inherit inputs; };
+      inherit (inputs.flake-utils.lib) eachSystem;
       inherit (local-lib) mkSystem mkHome;
       local-overlays = import ./overlays;
       overlays = [
@@ -58,6 +60,8 @@
       pkgs = legacyPackages."x86_64-linux";
     in rec {
       inherit legacyPackages;
+      packages = forAllSystems
+        (system: { inherit (inputs.devenv.packages.${system}) devenv; });
       nixosConfigurations = {
         vega = mkSystem {
           inherit pkgs;
