@@ -28,6 +28,7 @@
       ".cache/spotify"
       ".local/share/fish"
       ".local/share/devenv"
+      ".local/share/direnv"
     ];
     files = [ ".config/sops/age/keys.txt" ];
   };
