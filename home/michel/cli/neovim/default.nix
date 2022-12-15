@@ -29,22 +29,9 @@
     plugins = with pkgs;
       with vimPlugins; [
 
-        vim-nix
-        # UI, Outlines
-        {
-          plugin = symbols-outline-nvim;
-          type = "lua";
-          config = ''
-            require("symbols-outline").setup() 
-            vim.api.nvim_set_keymap('n', '<leader>o', "<cmd>SymbolsOutline<cr>", {})
-          '';
-        }
-        {
-          plugin = nvim-lspconfig;
-          type = "lua";
-          config = builtins.readFile ./cfg/lsp.lua;
-        }
+        ########
         # Basic
+        ########
         {
           plugin = telescope-nvim;
           type = "lua";
@@ -52,7 +39,6 @@
         }
         telescope-fzf-native-nvim
         plenary-nvim
-        nvim-web-devicons
         {
           plugin = which-key-nvim;
           type = "lua";
@@ -85,22 +71,37 @@
             require('Comment').setup()
           '';
         }
-        # {
-        #   plugin = hop-nvim;
-        #   type = "lua";
-        #   config = ''
-        #     require'hop'.setup()
-        #     vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-        #     vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-        #     vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
-        #     vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
-        #     vim.api.nvim_set_keymap("", 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-        #     vim.api.nvim_set_keymap("", 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-        #     vim.api.nvim_set_keymap('n', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
-        #     vim.api.nvim_set_keymap('v', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
-        #     vim.api.nvim_set_keymap('o', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>", {})
-        #   '';
-        # }
+
+        ##############################
+        # UI, Outlines, Icons, Status
+        ##############################
+        {
+          plugin = symbols-outline-nvim;
+          type = "lua";
+          config = ''
+            require("symbols-outline").setup() 
+            vim.api.nvim_set_keymap('n', '<leader>o', "<cmd>SymbolsOutline<cr>", {})
+          '';
+        }
+        nvim-web-devicons
+        {
+          plugin = feline-nvim;
+          type = "lua";
+          config = ''
+            require("feline").setup({
+              components = require('catppuccin.core.integrations.feline'),
+            })
+          '';
+        }
+
+        ############
+        # LSP Stuff
+        ############
+        {
+          plugin = nvim-lspconfig;
+          type = "lua";
+          config = builtins.readFile ./cfg/lsp.lua;
+        }
         {
           plugin = null-ls-nvim;
           type = "lua";
@@ -127,39 +128,26 @@
             })
           '';
         }
-        # Completions
         {
-          plugin = nvim-cmp;
-          type = "lua";
-          config = builtins.readFile ./cfg/cmp.lua;
-        }
-        {
-          plugin = trouble-nvim;
+          plugin = nvim-lightbulb;
           type = "lua";
           config = ''
-            require("trouble").setup {}
-            local opts = { noremap = true, silent = true }
-            local keymap = vim.api.nvim_set_keymap
-            keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
-            keymap("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
-            keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
-            keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
-            keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
-            keymap("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>", opts)
+            require('nvim-lightbulb').setup({autocmd = {enabled = true}})
           '';
         }
-        cmp-nvim-lsp
-        cmp-nvim-lua
-        cmp-treesitter
-        cmp-path
-        cmp-buffer
-        cmp-vsnip
-        luasnip
-        cmp_luasnip
-        cmp-nvim-lsp-document-symbol
-        cmp-cmdline
-        friendly-snippets
+        vim-nix
+        rust-tools-nvim
 
+        ################
+        ## Utils
+        ################
+        {
+          plugin = nvim-surround;
+          type = "lua";
+          config = ''
+            require('nvim-surround').setup({})
+          '';
+        }
         {
           plugin = nvim-autopairs;
           type = "lua";
@@ -182,27 +170,11 @@
             cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done {})
           '';
         }
-        # Status
-        {
-          plugin = feline-nvim;
-          type = "lua";
-          config = ''
-            require("feline").setup({
-              components = require('catppuccin.core.integrations.feline'),
-            })
-          '';
-        }
-        # Themes
-        {
-          plugin = nvimExtraPlugins.nightfox-main;
-          type = "lua";
-          config = ''
-            vim.cmd("colorscheme nordfox")
-          '';
-        }
-        nvimExtraPlugins.nvim-catppuccin
-        nord-nvim
-        nvimExtraPlugins.onenord
+
+        SchemaStore-nvim
+        #############
+        # Tree sitter
+        #############
         {
           plugin = nvim-treesitter.withPlugins (p: [
             p.tree-sitter-bash
@@ -273,7 +245,72 @@
             keymap("n", "<leader>e", ":NvimTreeFindFileToggle<cr>", opts)
           '';
         }
-        rust-tools-nvim
+
+        # {
+        #   plugin = hop-nvim;
+        #   type = "lua";
+        #   config = ''
+        #     require'hop'.setup()
+        #     vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+        #     vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+        #     vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
+        #     vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
+        #     vim.api.nvim_set_keymap("", 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+        #     vim.api.nvim_set_keymap("", 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+        #     vim.api.nvim_set_keymap('n', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
+        #     vim.api.nvim_set_keymap('v', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
+        #     vim.api.nvim_set_keymap('o', '<leader>h', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>", {})
+        #   '';
+        # }
+
+        ##############
+        # Completions
+        ##############
+        {
+          plugin = nvim-cmp;
+          type = "lua";
+          config = builtins.readFile ./cfg/cmp.lua;
+        }
+        {
+          plugin = trouble-nvim;
+          type = "lua";
+          config = ''
+            require("trouble").setup {}
+            local opts = { noremap = true, silent = true }
+            local keymap = vim.api.nvim_set_keymap
+            keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
+            keymap("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
+            keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
+            keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
+            keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
+            keymap("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>", opts)
+          '';
+        }
+        cmp-nvim-lsp
+        cmp-nvim-lua
+        cmp-treesitter
+        cmp-path
+        cmp-buffer
+        cmp-vsnip
+        luasnip
+        cmp_luasnip
+        cmp-nvim-lsp-document-symbol
+        cmp-cmdline
+        friendly-snippets
+
+        ########
+        # Themes
+        ########
+        {
+          plugin = nvimExtraPlugins.nightfox-main;
+          type = "lua";
+          config = ''
+            vim.cmd("colorscheme nordfox")
+          '';
+        }
+        nvimExtraPlugins.nvim-catppuccin
+        nord-nvim
+        nvimExtraPlugins.onenord
         {
           plugin = toggleterm-nvim;
           type = "lua";
@@ -346,7 +383,6 @@
             end
           '';
         }
-        SchemaStore-nvim
       ];
     extraConfig = ''
       lua << EOF
