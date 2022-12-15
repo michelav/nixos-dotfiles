@@ -28,7 +28,17 @@
     vimAlias = true;
     plugins = with pkgs;
       with vimPlugins; [
+
         vim-nix
+        # UI, Outlines
+        {
+          plugin = symbols-outline-nvim;
+          type = "lua";
+          config = ''
+            require("symbols-outline").setup() 
+            vim.api.nvim_set_keymap('n', '<leader>o', "<cmd>SymbolsOutline<cr>", {})
+          '';
+        }
         {
           plugin = nvim-lspconfig;
           type = "lua";
