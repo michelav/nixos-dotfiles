@@ -73,7 +73,7 @@
         }
 
         ##############################
-        # UI, Outlines, Icons, Status
+        # UI, Outlines, Icons, Status, Themes
         ##############################
         {
           plugin = symbols-outline-nvim;
@@ -83,14 +83,47 @@
             vim.api.nvim_set_keymap('n', '<leader>o', "<cmd>SymbolsOutline<cr>", {})
           '';
         }
+        nvim-navic
         nvim-web-devicons
+        /* {
+           plugin = feline-nvim;
+           type = "lua";
+           config = ''
+           require("feline").setup({
+           components = require('catppuccin.core.integrations.feline'),
+           })
+           '';
+           }
+        */
         {
-          plugin = feline-nvim;
+          plugin = nvim-colorizer-lua;
           type = "lua";
           config = ''
-            require("feline").setup({
-              components = require('catppuccin.core.integrations.feline'),
-            })
+            require("colorizer").setup({})
+          '';
+        }
+        {
+          plugin = lualine-nvim;
+          type = "lua";
+          config = builtins.readFile ./cfg/bars.lua;
+        }
+        /* {
+           plugin = nvimExtraPlugins.nightfox-main;
+           type = "lua";
+           config = ''
+           vim.cmd("colorscheme nordfox")
+           '';
+           }
+        */
+
+        nvimExtraPlugins.nvim-catppuccin
+        nord-nvim
+        nvimExtraPlugins.onenord
+        {
+          plugin = nvim-base16;
+          type = "lua";
+          config = ''
+            vim.cmd('colorscheme base16-nord')
           '';
         }
 
@@ -111,20 +144,20 @@
             local d = nls.builtins.diagnostics
             local ca = nls.builtins.code_actions
             nls.setup({
-              sources = {
-                f.prettier,
-                f.jq,
-                f.markdownlint,
-                f.fourmolu,
-                f.stylua,
-                f.nixfmt,
-                d.markdownlint,
-                d.jsonlint,
-                d.statix,
-                d.deadnix,
-                d.fish,
-                ca.statix,
-              }
+            sources = {
+            f.prettier,
+            f.jq,
+            f.markdownlint,
+            f.fourmolu,
+            f.stylua,
+            f.nixfmt,
+            d.markdownlint,
+            d.jsonlint,
+            d.statix,
+            d.deadnix,
+            d.fish,
+            ca.statix,
+            }
             })
           '';
         }
@@ -154,27 +187,28 @@
           config = ''
             local status_ok, npairs = pcall(require, "nvim-autopairs")
             if not status_ok then
-              return
+            return
             end
 
             npairs.setup {
-              check_ts = true, -- treesitter integration
-              disable_filetype = { "TelescopePrompt" },
+            check_ts = true, -- treesitter integration
+            disable_filetype = { "TelescopePrompt" },
             }
 
             local cmp_autopairs = require "nvim-autopairs.completion.cmp"
             local cmp_status_ok, cmp = pcall(require, "cmp")
             if not cmp_status_ok then
-              return
+            return
             end
             cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done {})
           '';
         }
-
         SchemaStore-nvim
+
         #############
         # Tree sitter
         #############
+        nvim-treesitter-textobjects
         {
           plugin = nvim-treesitter.withPlugins (p: [
             p.tree-sitter-bash
@@ -227,9 +261,9 @@
           config = ''
             local opt = vim.opt
             require'nvim-treesitter.configs'.setup {
-              highlight = {
-               enable = true,
-              },
+            highlight = {
+            enable = true,
+            },
             }
             opt.foldmethod = "expr"
             opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -301,16 +335,6 @@
         ########
         # Themes
         ########
-        {
-          plugin = nvimExtraPlugins.nightfox-main;
-          type = "lua";
-          config = ''
-            vim.cmd("colorscheme nordfox")
-          '';
-        }
-        nvimExtraPlugins.nvim-catppuccin
-        nord-nvim
-        nvimExtraPlugins.onenord
         {
           plugin = toggleterm-nvim;
           type = "lua";

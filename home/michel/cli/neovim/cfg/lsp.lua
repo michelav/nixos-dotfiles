@@ -1,3 +1,5 @@
+-- local navic = require("nvim-navic")
+
 local signs = {
   { name = "DiagnosticSignError", text = "" },
   { name = "DiagnosticSignWarn", text = "" },
@@ -83,6 +85,9 @@ local on_attach = function(client, bufnr)
   if client.supports_method("textDocument/formatting") then
     format_on_save(bufnr)
   end
+  if client.server_capabilities.documentSymbolProvider then
+    require'nvim-navic'.attach(client, bufnr)
+  end
 end
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
@@ -159,7 +164,7 @@ lspconfig.jsonls.setup({
   },
 })
 
-function go_org_imports(wait_ms)
+local function go_org_imports(wait_ms)
   local params = vim.lsp.util.make_range_params()
   params.context = { only = { "source.organizeImports" } }
   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
