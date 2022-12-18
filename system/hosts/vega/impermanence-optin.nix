@@ -28,6 +28,8 @@ in {
       "/var/lib/systemd"
       "/var/lib/docker/containers"
       "/var/lib/iwd"
+      "/var/lib/jellyfin"
+      "/var/cache/jellyfin"
       "/etc/NetworkManager/system-connections"
       "/srv"
     ];
