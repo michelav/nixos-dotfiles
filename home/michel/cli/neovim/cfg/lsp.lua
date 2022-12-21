@@ -59,7 +59,7 @@ local function lsp_keymaps(bufnr)
     opts
   )
   vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ll", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
   vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format{async=true}' ]])
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>lf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "v", "<space>lF", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
@@ -86,7 +86,7 @@ local on_attach = function(client, bufnr)
     format_on_save(bufnr)
   end
   if client.server_capabilities.documentSymbolProvider then
-    require'nvim-navic'.attach(client, bufnr)
+    require("nvim-navic").attach(client, bufnr)
   end
 end
 

@@ -10,7 +10,7 @@ in {
   ] ++ forEach feats (f: ./${f})
     ++ optional (null != desktop) ./desktop/${desktop};
 
-  home = { packages = with pkgs; [ jq ripgrep fd tree htop gcc ]; };
+  home = { packages = with pkgs; [ jq ripgrep fd tree htop gcc bc ]; };
 
   systemd.user.startServices = "sd-switch";
 

@@ -1,5 +1,5 @@
 {
-  description = "Basic Flake";
+  description = "Home Flake";
 
   inputs = {
     neovim-nightly-overlay = {
@@ -7,6 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "nixpkgs/22.11";
     flake-utils.url = "github:numtide/flake-utils";
     hardware.url = "github:nixos/nixos-hardware";
     impermanence.url = "github:nix-community/impermanence";
@@ -37,17 +38,44 @@
     devenv.url = "github:cachix/devenv/v0.4";
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-stable, ... }@inputs:
     let
       username = "michel";
       local-lib = import ./lib { inherit inputs; };
-      inherit (inputs.flake-utils.lib) eachSystem;
       inherit (local-lib) mkSystem mkHome;
       local-overlays = import ./overlays;
       overlays = [
         inputs.neovim-nightly-overlay.overlay
         inputs.sops-nix.overlay
         local-overlays
+        # TODO: Remove after httpie is fixed in nixpkgs-unstable
+        (final: prev: {
+          python310 = prev.python310.override {
+            packageOverrides = pFinal: pPrev: {
+              httpie = pPrev.httpie.overrideAttrs (oldAttrs: {
+                disabledTests = [
+                  # flaky
+                  "test_stdin_read_warning"
+                  # Re-evaluate those tests with the next release
+                  "test_duplicate_keys_support_from_response"
+                  "test_invalid_xml"
+                  "test_json_formatter_with_body_preceded_by_non_json_data"
+                  "test_pretty_options_with_and_without_stream_with_converter"
+                  "test_response_mime_overwrite"
+                  "test_terminal_output_response_charset_detection"
+                  "test_terminal_output_response_charset_override"
+                  "test_terminal_output_response_content_type_charset_with_stream"
+                  "test_terminal_output_response_content_type_charset"
+                  "test_valid_xml"
+                  "test_xml_format_options"
+                  "test_xml_xhtm"
+                ];
+              });
+              # inherit (nixpkgs-stable.legacyPackages."x86_64-linux".python310Packages)
+              #   httpie;
+            };
+          };
+        })
       ];
       feats = [ "cli" "dev" ];
       supportedSystems = [ "x86_64-linux" ];

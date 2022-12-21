@@ -320,6 +320,13 @@
             keymap("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>", opts)
           '';
         }
+        {
+          plugin = todo-comments-nvim;
+          type = "lua";
+          config = ''
+            require("todo-comments").setup {}
+          '';
+        }
         cmp-nvim-lsp
         cmp-nvim-lua
         cmp-treesitter
