@@ -8,6 +8,7 @@
     ./gpg.nix
     ./ssh.nix
     ./nix-index.nix
+    ./pass.nix
   ];
 
   home.sessionVariables = { NIX_SHELL_PRESERVE_PROMPT = 1; };
