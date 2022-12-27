@@ -1,23 +1,6 @@
 { pkgs, config, ... }:
 let
   lockcmd = "swaylock -f -S";
-  #   "swaylock -f --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 192330 --key-hl-color 9d79d6 --line-color 000000 --inside-color c94f6d --separator-color 000000 --grace 3 --fade-in 0.5 --effect-greyscale -d";
-  # Script to let dbus know about important env variables and
-  # propogate them to relevent services run at the end of sway config
-  # see
-  # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/"It-doesn't-work"-Troubleshooting-Checklist
-  # note: this is pretty much the same as  /etc/sway/config.d/nixos.conf but also restarts  
-  # some user services to make sure they have the correct environment variables
-  dbus-sway-environment = pkgs.writeTextFile {
-    name = "dbus-sway-environment";
-    destination = "/bin/dbus-sway-environment";
-    executable = true;
-    text = ''
-      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway SWAYSOCK
-      systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-      systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-    '';
-  };
 
   # currently, there is some friction between sway and gtk:
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
@@ -61,15 +44,18 @@ in {
       grim
       slurp
       wofi
-      dbus-sway-environment
       configure-gtk-sway
       glib
     ];
     sessionVariables = {
       # wayland
-      XDG_DESKTOP_SESSION = "sway";
       XDG_SESSION_TYPE = "wayland";
       LIBSEAT_BACKEND = "logind";
+      MOZ_ENABLE_WAYLAND = "1";
+      GDK_BACKEND = "wayland";
+      WLR_NO_HARDWARE_CURSORS = "1";
+      XDG_SESSION_DESKTOP = "sway";
+      SDL_VIDEODRIVER = "wayland";
     };
 
   };
@@ -151,23 +137,13 @@ in {
         {
           command = "${pkgs.swaylock-effects}/bin/swaylock -f -S";
         }
-        # https://github.com/NixOS/nixpkgs/issues/119445
-        { command = "dbus-sway-environment"; }
+        /* {
+           command =
+           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway SWAYSOCK";
+           }
+        */
       ];
     };
 
-    # extraConfig = ''
-    #   exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
-    # '';
-
-    extraSessionCommands = ''
-      export MOZ_ENABLE_WAYLAND="1"
-      export GDK_BACKEND=wayland
-      export WLR_NO_HARDWARE_CURSORS="1"
-      export XDG_SESSION_TYPE=wayland
-      export XDG_SESSION_DESKTOP=sway
-      export XDG_CURRENT_DESKTOP=sway
-      export SDL_VIDEODRIVER=wayland
-    '';
   };
 }

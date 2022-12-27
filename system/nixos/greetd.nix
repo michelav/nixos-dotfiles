@@ -9,7 +9,7 @@ let
       # nvidia = "0000:00:01.0";
     in ''
       export WLR_DRM_DEVICES=$(udevadm info -q property --value -n /dev/dri/by-path/pci-${intel}-card | grep /dev/dri/card)
-      sway -V
+      sway
     '';
   };
 in {
@@ -18,6 +18,8 @@ in {
     enable = true;
     settings = rec {
       initial_session = {
+        # Comment out if need some logs and verbose output
+        # command = "sway-vega -V > ~/.sway.log 2>&1";
         command = "sway-vega";
         user = "michel";
       };
