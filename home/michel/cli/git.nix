@@ -9,13 +9,18 @@
       graph = "log --decorate --oneline --graph";
       st = "status";
     };
-    extraConfig = { init = { defaultBranch = "main"; }; };
+    extraConfig = {
+      init = { defaultBranch = "main"; };
+      credential = {
+        "https://github.com" = { helper = "!pass GitHub/michelav"; };
+      };
+    };
     delta = {
       enable = true;
       options = {
         navigate = true;
         # line-numbers = true;
-        syntax-theme = "Dracula";
+        syntax-theme = "Nord";
         features = "side-by-side line-numbers decorations";
         plus-style = "syntax #003800";
         minus-style = "syntax #3f0001";

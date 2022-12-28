@@ -21,6 +21,7 @@
       ".gnupg"
       ".ssh"
       ".aws"
+      ".secrets/password-store"
       ".config/keepassxc"
       ".cache/keepassxc"
       ".secrets/keepassxc"
