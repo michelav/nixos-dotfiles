@@ -6,6 +6,7 @@
       # language servers
       sumneko-lua-language-server
       rnix-lsp
+      nil
       nodejs
       dockerfile-language-server-nodejs
       vscode-langservers-extracted
