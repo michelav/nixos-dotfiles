@@ -15,6 +15,7 @@
         "https://github.com" = { helper = "!pass GitHub/michelav"; };
       };
     };
+    ignores = [ "result" ".direnv" ];
     delta = {
       enable = true;
       options = {
