@@ -171,6 +171,7 @@
         }
         vim-nix
         rust-tools-nvim
+        yuck-vim
 
         ################
         ## Utils
