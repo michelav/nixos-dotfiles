@@ -39,7 +39,6 @@ in {
       fuzzel
       swayidle
       swaylock-effects
-      waybar
       wl-clipboard
       grim
       slurp

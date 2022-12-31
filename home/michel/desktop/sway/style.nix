@@ -1,6 +1,7 @@
 { config, ... }:
 
-with config.colorscheme.colors; with config.desktop; ''
+with config.colorscheme.colors;
+with config.desktop; ''
 
   /* Nord */
   @define-color warning #${base0A};
@@ -34,7 +35,7 @@ with config.colorscheme.colors; with config.desktop; ''
     font-weight: normal;
 
   }
-  
+
   /* Each module */
   #custom-scratchpad,
   #battery,
@@ -50,6 +51,7 @@ with config.colorscheme.colors; with config.desktop; ''
   #idle_inhibitor,
   #window,
   #tray,
+  #wireplumber,
   #backlight {
       padding-left: 0.8em;
       padding-right: 1.0em;
@@ -73,7 +75,7 @@ with config.colorscheme.colors; with config.desktop; ''
       background: @critical;
       color: @module-fg-anm;
   }
-  
+
   /* Each critical that should blink */
   #mode,
   #memory.critical,
@@ -82,7 +84,7 @@ with config.colorscheme.colors; with config.desktop; ''
       animation-name: blink-critical;
       animation-duration: 2s;
   }
-  
+
   /* Each warning */
   #network.disconnected,
   #memory.warning,
@@ -92,7 +94,7 @@ with config.colorscheme.colors; with config.desktop; ''
       background: @warning;
       color: @module-fg-anm;
   }
-  
+
   /* Each warning that should blink */
   #battery.warning.discharging {
       animation-name: blink-warning;
@@ -103,13 +105,13 @@ with config.colorscheme.colors; with config.desktop; ''
     color: @module-fg;
     background: @module-bg;
   }
-  
+
   /* Workspaces stuff */
-  
+
   #workspaces {
     background: @module-bg;
   }
-  
+
   #workspaces button {
       font-weight: bold; /* Somewhy the bar-wide setting is ignored*/
       padding: 0 0.6em;
@@ -117,30 +119,44 @@ with config.colorscheme.colors; with config.desktop; ''
       background: none;
       font-size: 1em;
   }
-  
+
   #workspaces button.focused {
       background: @workspacesfocused_bg;
       color: @module_fg;
       opacity: 1;
   }
-  
+
   #workspaces button.urgent {
       border-color: @workspace-urgent;
       color: @workspace-urgent;
       opacity: 1;
   }
-  
+
   #window {
       margin-right: 40px;
       margin-left: 40px;
       font-weight: normal;
   }
 
-  #idle_inhibitor {
+  #custom-media {
       background: @module-bg-gp1;
       font-weight: bold;
       padding: 0 0.6em;
       color: @module-fg-alt;
+  }
+
+  #idle_inhibitor {
+      font-weight: bold;
+      padding: 0 0.6em;
+      color: @module-fg-alt;
+  }
+
+  #idle_inhibitor.activated {
+    background: #${base09}
+  }
+
+  #idle_inhibitor.deactivated {
+    background: @module-bg-gp1;
   }
 
   #bluetooth {
@@ -154,26 +170,26 @@ with config.colorscheme.colors; with config.desktop; ''
       70% {
           color: @module-fg-alt;
       }
-  
+
       to {
           color: @module-fg-anm;
           background-color: @warning;
       }
   }
-  
+
   @keyframes blink-critical {
       70% {
         color: @module-fg-alt;
       }
-  
+
       to {
           color: @module-fg-anm;
           background-color: @critical;
       }
   }
 
+
   /* Group 0 */
-  #custom-media,
   #clock,
   #tray {
     background: none;
@@ -181,7 +197,9 @@ with config.colorscheme.colors; with config.desktop; ''
     font-size: 14pt
   }
 
-  #custom-scratchpad {
+  #custom-scratchpad,
+  #wireplumber
+  {
     background: #${base07};
     color: @module-fg-alt;
   }

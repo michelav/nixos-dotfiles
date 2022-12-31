@@ -1,8 +1,9 @@
 { pkgs, lib, config, ... }:
-let scripts = ./scripts;
+let waybar-with-mp = pkgs.waybar.override { withMediaPlayer = true; };
 in {
   programs.waybar = {
     enable = true;
+    package = waybar-with-mp;
     settings = [{
       output = "eDP-1";
       layer = "top";
@@ -15,7 +16,6 @@ in {
         "idle_inhibitor"
         "backlight"
         "pulseaudio"
-        # "bluetooth"
         "network"
         "battery"
         "tray"
@@ -41,6 +41,13 @@ in {
           default = "";
         };
       };
+
+      "wireplumber" = {
+        format = "{volume}%";
+        format-muted = "";
+        on-click = "helvum";
+        format-icons = [ "" "" "" ];
+      };
       "custom/media" = {
         format = "{icon} {}";
         # format-icons = {
@@ -51,16 +58,14 @@ in {
         escape = true;
         return-type = "json";
         max-length = 40;
-        interval = 30; # Remove this if your script is endless and write in loop
-        on-click = "playerctl -p spotify play-pause";
-        on-click-right = "killall spotify";
+        on-click = "playerctl play-pause";
+        on-click-right = "playerctl stop";
         smooth-scrolling-threshold =
-          10; # This value was tested using a trackpad, it should be lowered if using a mouse.
-        on-scroll-up = "playerctl -p spotify next";
-        on-scroll-down = "playerctl -p spotify previous";
+          5; # This value was tested using a trackpad, it should be lowered if using a mouse.
+        on-scroll-up = "playerctl next";
+        on-scroll-down = "playerctl previous";
         exec =
-          "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"; # Script in resources/custom_modules folder
-        exec-if = "pgrep spotify";
+          "${waybar-with-mp}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
         # "exec" = "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
       };
       "custom/scratchpad" = {
@@ -76,32 +81,12 @@ in {
         icon-size = 12;
         spacing = 10;
       };
-      # "custom/pkgs" = {
-      #   format = "{}";
-      #   exec = "${scripts}/pkgs.sh";
-      #   return-type = "json";
-      #   tooltip = true;
-      # };
-      # "custom/bluetooth" = {
-      #   format = "{}";
-      #   format-alt = "{alt}";
-      #   exec = "${scripts}/bluetooth.sh --show";
-      #   on-click-right = "${scripts}/bluetooth.sh --toggle";
-      #   return-type = "json";
-      #   inteval = 5;
-      # };
       "backlight" = {
         "tooltip" = false;
         "format" = " {}%";
         "interval" = 1;
         "on-scroll-up" = "light -A 5";
         "on-scroll-down" = "light -U 5";
-      };
-
-      "sway/window" = {
-        "format" = " {} ";
-        "max-length" = 50;
-        "tooltip" = false;
       };
 
       "network" = {
@@ -114,12 +99,15 @@ in {
         tooltip-format-wifi = "{ipaddr}/{cidr}";
         tooltip-format-ethernet = "{ifname}";
       };
+
       "idle_inhibitor" = {
         format = "{icon}";
         format-icons = {
           activated = "";
           deactivated = "";
         };
+        tooltip-format-activated = "idle disabled";
+        tooltip-format-deactivated = "idle enabled";
       };
       "pulseaudio" = {
         scroll-step = 1;
@@ -158,21 +146,6 @@ in {
           <big>{:%Y %B}</big>
           <tt><small>{calendar}</small></tt>'';
       };
-      # "mpd" = {
-      #   format = "{stateIcon} {artist} - {title}";
-      #   format-disconnected = "ﱙ";
-      #   format-stopped = "";
-      #   state-icons = {
-      #     paused = "";
-      #     playing = "";
-      #   };
-      #   max-length = 40;
-      #   interval = 1;
-      #   on-click = "${pkgs.mpc_cli}/bin/mpc toggle";
-      #   on-click-right = "${pkgs.mpc_cli}/bin/mpc stop";
-      #   on-scroll-up = "${pkgs.mpc_cli}/bin/mpc volume +1";
-      #   on-scroll-down = "${pkgs.mpc_cli}/bin/mpc volume -1";
-      # };
     }];
     style = import ./style.nix { inherit config; };
   };

@@ -1,5 +1,10 @@
 { pkgs, lib, ... }: {
-  home.packages = with pkgs; [ pavucontrol spotify-nss-latest playerctl ];
+  home.packages = with pkgs; [
+    pavucontrol
+    spotify-nss-latest
+    playerctl
+    helvum
+  ];
   programs.mpv = with pkgs; {
     enable = true;
     config = {
