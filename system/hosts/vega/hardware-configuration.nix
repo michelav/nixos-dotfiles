@@ -5,14 +5,22 @@
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-  boot.initrd.supportedFilesystems = [ "btrfs" ];
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" "acpi_call" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
-  boot.initrd.luks.devices."vega_crypt".device =
-    "/dev/disk/by-label/VEGA_CRYPT";
+  boot = {
+    initrd = {
+      supportedFilesystems = [ "btrfs" ];
+      availableKernelModules =
+        [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+      luks.devices."vega_crypt".device = "/dev/disk/by-label/VEGA_CRYPT";
+    };
+    kernelModules = [ "kvm-intel" "acpi_call" ];
+    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+
+    # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Hibernation
+    resumeDevice = "/dev/disk/by-label/VEGA_BTRFS";
+    kernelParams = [ "resume_offset=533760" ];
+
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/VEGA_BTRFS";

@@ -149,7 +149,6 @@
             f.prettier,
             f.jq,
             f.markdownlint,
-            f.fourmolu,
             f.stylua,
             f.nixfmt,
             d.markdownlint,
