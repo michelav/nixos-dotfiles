@@ -9,18 +9,18 @@ let
   # using the XDG_DATA_DIR environment variable
   # run at the end of sway config
   configure-gtk-sway = pkgs.writeTextFile {
-    name = "configure-gtk";
+    name = "configure-gtk-sway";
     destination = "/bin/configure-gtk-sway";
     executable = true;
     text = let
       schema = pkgs.gsettings-desktop-schemas;
       datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-    in ''
+    in with config.gtk; ''
       export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
       gnome_schema=org.gnome.desktop.interface
-      gsettings set $gnome_schema gtk-theme 'Catppuccin-red-dark'
-      gsettings set $gnome_schema icon-theme 'Nordzy-dark'
-      gsettings set $gnome_schema cursor-theme 'Nordzy-white-cursors'
+      gsettings set $gnome_schema gtk-theme '${theme.name}'
+      gsettings set $gnome_schema icon-theme '${iconTheme.name}'
+      gsettings set $gnome_schema cursor-theme '${cursorTheme.name}'
     '';
   };
 in {
@@ -66,6 +66,9 @@ in {
       base = true;
       gtk = true;
     };
+    extraConfig = ''
+      exec configure-gtk-sway
+    '';
     config = rec {
       terminal = "kitty";
       input = {
@@ -133,16 +136,8 @@ in {
       colors = import ./colors.nix { inherit (config.colorscheme) colors; };
       startup = [
         # Initial lock
-        {
-          command = "${pkgs.swaylock-effects}/bin/swaylock -f -S";
-        }
-        /* {
-           command =
-           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway SWAYSOCK";
-           }
-        */
+        { command = "${pkgs.swaylock-effects}/bin/swaylock -f -S"; }
       ];
     };
-
   };
 }
