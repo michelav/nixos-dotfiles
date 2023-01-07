@@ -11,6 +11,7 @@ in {
       aw = "https://wiki.archlinux.org/?search={}";
       nw = "https://nixos.wiki/index.php?search={}";
       nd = "https://discourse.nixos.org/search?q={}";
+      gh = "https://github.com/search?q={}";
       nixos =
         "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={}";
       opts =

@@ -19,8 +19,6 @@ let
       export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
       gnome_schema=org.gnome.desktop.interface
       gsettings set $gnome_schema gtk-theme '${theme.name}'
-      gsettings set $gnome_schema icon-theme '${iconTheme.name}'
-      gsettings set $gnome_schema cursor-theme '${cursorTheme.name}'
     '';
   };
 in {
