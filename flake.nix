@@ -4,7 +4,11 @@
   inputs = {
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # TODO: Remove workaround after this is handled
+      # https://github.com/nix-community/neovim-nightly-overlay/issues/164
+      inputs.nixpkgs.url =
+        "github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/22.11";
@@ -58,7 +62,7 @@
           config.allowUnfree = true;
         });
       pkgs = legacyPackages."x86_64-linux";
-    in rec {
+    in {
       inherit legacyPackages;
       packages = forAllSystems
         (system: { inherit (inputs.devenv.packages.${system}) devenv; });

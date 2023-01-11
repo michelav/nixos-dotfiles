@@ -16,8 +16,6 @@
       ".config/qutebrowser/bookmarks"
       ".config/qutebrowser/greasemonkey"
       ".local/share/qutebrowser"
-      ".dropbox-hm/.dropbox"
-      ".dropbox-hm/.dropbox-dist"
       ".gnupg"
       ".ssh"
       ".aws"

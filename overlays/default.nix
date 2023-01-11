@@ -16,4 +16,9 @@ final: prev: {
     inherit (prev) lib fetchFromGitHub buildGoModule;
   };
   spotify-nss-latest = prev.spotify.override { nss = prev.nss_latest; };
+  # TODO: Remove this patch after current version of Sway-effects starts working with sway 1.8.
+  swaylock-effects = prev.swaylock-effects.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ [ ./swaylock-effects.diff ];
+  });
+
 }

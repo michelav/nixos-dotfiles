@@ -12,6 +12,10 @@
     bitwarden-cli
     xdg-utils
     fractal
+
+    # TODO: Create modules for sync files with Dropbox, Google Drive and MS One
+    maestral
+    maestral-gui
   ];
 
   xdg = {
@@ -19,10 +23,5 @@
     configFile."mimeapps.list".force = true;
     mimeApps.enable = true;
     userDirs = { enable = true; };
-  };
-
-  services.dropbox = {
-    enable = true;
-    path = "/persist/home/michel/Dropbox";
   };
 }
