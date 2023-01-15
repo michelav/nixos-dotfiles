@@ -16,6 +16,10 @@
       };
     };
     ignores = [ "result" ".direnv" ];
+    signing = {
+      signByDefault = true;
+      key = "60193619FE330051";
+    };
     delta = {
       enable = true;
       options = {
