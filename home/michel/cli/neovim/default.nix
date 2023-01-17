@@ -210,6 +210,7 @@
         # Tree sitter
         #############
         nvim-treesitter-textobjects
+        playground
         {
           plugin = nvim-treesitter.withPlugins (p: [
             p.tree-sitter-bash
@@ -260,14 +261,30 @@
           ]);
           type = "lua";
           config = ''
-            local opt = vim.opt
-            require'nvim-treesitter.configs'.setup {
-            highlight = {
-            enable = true,
+              local opt = vim.opt
+              require'nvim-treesitter.configs'.setup {
+              highlight = {
+              enable = true,
+              },
+              playground = {
+              enable = true,
+              keybindings = {
+                toggle_query_editor = 'o',
+                toggle_hl_groups = 'i',
+                toggle_injected_languages = 't',
+                toggle_anonymous_nodes = 'a',
+                toggle_language_display = 'I',
+                focus_language = 'f',
+                unfocus_language = 'F',
+                update = 'R',
+                goto_node = '<cr>',
+                show_help = '?',
+              },
             },
-            }
-            opt.foldmethod = "expr"
-            opt.foldexpr = "nvim_treesitter#foldexpr()"
+              }
+              opt.foldmethod = "expr"
+              opt.foldexpr = "nvim_treesitter#foldexpr()"
+              opt.foldlevel       = 99  
           '';
         }
         {
