@@ -3,7 +3,7 @@
     pavucontrol
     spotify-nss-latest
     playerctl
-    helvum
+    # helvum
   ];
   programs.mpv = with pkgs; {
     enable = true;

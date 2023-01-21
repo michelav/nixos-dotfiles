@@ -42,12 +42,16 @@ in {
         };
       };
 
-      "wireplumber" = {
-        format = "{volume}%";
-        format-muted = "";
-        on-click = "helvum";
-        format-icons = [ "" "" "" ];
-      };
+      # TODO: Comment out after helvum build is fixed
+
+      /* "wireplumber" = {
+           format = "{volume}%";
+           format-muted = "";
+           on-click = "helvum";
+           format-icons = [ "" "" "" ];
+         };
+      */
+
       "custom/media" = {
         format = "{icon} {}";
         # format-icons = {
