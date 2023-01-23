@@ -135,6 +135,19 @@
           plugin = nvim-lspconfig;
           type = "lua";
           config = builtins.readFile ./cfg/lsp.lua;
+        } # Org mode
+        {
+          plugin = orgmode;
+          type = "lua";
+          config = # lua
+            ''
+              local orgmode = require('orgmode')
+              orgmode.setup_ts_grammar()
+              orgmode.setup{
+                org_agenda_files = '~/Documents/Org/*',
+                org_default_notes_file = '~/Documents/Org/captures.org',
+              }
+            '';
         }
         {
           plugin = null-ls-nvim;
@@ -264,7 +277,8 @@
               local opt = vim.opt
               require'nvim-treesitter.configs'.setup {
               highlight = {
-              enable = true,
+                enable = true,
+                additional_vim_regex_highlighting = {'org'},
               },
               playground = {
               enable = true,
