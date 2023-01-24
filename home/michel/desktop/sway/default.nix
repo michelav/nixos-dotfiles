@@ -67,6 +67,10 @@ in {
     extraConfig = ''
       exec configure-gtk-sway
     '';
+    extraSessionCommands = ''
+      eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+      export SSH_AUTH_SOCK
+    '';
     config = rec {
       terminal = "kitty";
       input = {

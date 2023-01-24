@@ -9,6 +9,7 @@
       "Documents"
       "Videos"
       "Public"
+      "Dropbox"
       "repos"
       ".mozilla/firefox"
       ".config/discord"
@@ -28,6 +29,9 @@
       ".local/share/fish"
       ".local/share/devenv"
       ".local/share/direnv"
+
+      # Keyrings
+      ".local/share/keyrings"
     ];
     files = [ ".config/sops/age/keys.txt" ];
   };
