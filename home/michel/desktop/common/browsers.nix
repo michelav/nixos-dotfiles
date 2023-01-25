@@ -2,6 +2,7 @@
   imports = [ ./qutebrowser.nix ];
   home.sessionVariables = { BROWSER = "firefox"; };
   programs = {
+    browserpass.enable = true;
     brave.enable = true;
     firefox = let addons = inputs.firefox-addons.packages.${pkgs.system};
     in {
@@ -10,6 +11,8 @@
         keepassxc-browser
         ublock-origin
         netflix-1080p
+        browserpass
+        tridactyl
       ];
       profiles.michel = {
         search = {
