@@ -305,7 +305,13 @@
           plugin = nvim-tree-lua;
           type = "lua";
           config = ''
-            require("nvim-tree").setup()
+            require("nvim-tree").setup({
+              actions = {
+                open_file = {
+                  quit_on_open = true,
+                },
+              },
+            })
             local opts = { noremap = true, silent = true }
             local keymap = vim.api.nvim_set_keymap
             keymap("n", "<leader>e", ":NvimTreeFindFileToggle<cr>", opts)
