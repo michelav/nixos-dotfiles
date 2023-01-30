@@ -65,6 +65,7 @@
             require('gitsigns').setup()
           '';
         }
+        vim-fugitive
         {
           plugin = comment-nvim;
           type = "lua";
