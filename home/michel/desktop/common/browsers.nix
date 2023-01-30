@@ -15,6 +15,10 @@
         tridactyl
       ];
       profiles.michel = {
+        settings = {
+          "browser.disableResetPrompt" = true;
+          "browser.download.useDownloadDir" = false;
+        };
         search = {
           default = "Google";
           force = true;
