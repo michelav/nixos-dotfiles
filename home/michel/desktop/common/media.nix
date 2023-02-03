@@ -21,4 +21,7 @@
     };
     scripts = [ mpvScripts.mpris ];
   };
+
+  # TODO: Create a function withPresets to load easyeffects presets
+  services.easyeffects.enable = true;
 }

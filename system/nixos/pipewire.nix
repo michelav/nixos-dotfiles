@@ -16,4 +16,6 @@
       }
     '';
   };
+  # in order to easyeffects work
+  programs.dconf.enable = true;
 }
