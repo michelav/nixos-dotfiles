@@ -5,5 +5,5 @@
     ./direnv.nix
   ];
 
-  home.packages = with pkgs; [ glow lazygit ];
+  home.packages = with pkgs; [ glow lazygit gnumake cmake ];
 }

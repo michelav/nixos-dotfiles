@@ -100,7 +100,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lspconfig = require("lspconfig")
 
-local servers = { "nil_ls", "dockerls", "hls", "terraformls", "rust_analyzer", "yamlls", "texlab" }
+local servers = { "nil_ls", "dockerls", "hls", "terraformls", "rust_analyzer", "yamlls", "texlab", "ccls" }
 
 local opts = {
 	on_attach = on_attach,

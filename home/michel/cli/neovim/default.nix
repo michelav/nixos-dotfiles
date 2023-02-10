@@ -12,7 +12,7 @@
       vscode-langservers-extracted
       yaml-language-server
       gopls
-
+      ccls
       tree-sitter
       pyright
       jsonlint
