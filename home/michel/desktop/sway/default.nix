@@ -87,7 +87,7 @@ in {
       };
       output."eDP-1".bg = " ~/Pictures/wallpapers/ign_endeavour2.png fill";
       fonts = {
-        names = [ config.desktop.fonts.regular.name ];
+        names = [ config.fonts.regular.name ];
         size = 12.0;
       };
       gaps = {

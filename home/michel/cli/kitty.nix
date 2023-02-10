@@ -4,7 +4,7 @@ in {
   programs.kitty = {
     enable = true;
     font = {
-      inherit (config.desktop.fonts.monospace) name;
+      inherit (config.fonts.monospace) name;
       size = 12;
     };
     settings = {

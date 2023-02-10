@@ -5,7 +5,7 @@ in {
     enable = true;
     options = {
       selection-clipboard = "clipboard";
-      font = "${config.desktop.fonts.regular.name} 12";
+      font = "${config.fonts.regular.name} 12";
       recolor = true;
       default-bg = "#${colors.base00}";
       default-fg = "#${colors.base01}";

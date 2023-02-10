@@ -1,57 +1,64 @@
 { config, ... }: {
-  programs.alacritty = let inherit (config) fonts colorschemes;
+  programs.alacritty = let inherit (config) fonts colorscheme;
   in {
     enable = true;
     settings = {
-      font = { family.style = fonts.monospace.name; };
-      colors = with colorschemes.colors; {
+      window = {
+        padding.x = 3;
+        padding.y = 3;
+      };
+      font = {
+        family.style = fonts.monospace.name;
+        size = 12;
+      };
+      colors = with colorscheme.colors; {
         primary = {
           background = "#${base00}";
           foreground = "#${base06}";
           # TODO: Check if a5abb6 would be a better choice
-          dim_foreground = "${base04}";
+          dim_foreground = "#${base04}";
         };
         cursor = {
-          text = "${base00}";
-          cursor = "${base05}";
+          text = "#${base00}";
+          cursor = "#${base05}";
         };
         vi_mode_cursor = {
-          text = "${base00}";
-          cursor = "${base05}";
+          text = "#${base00}";
+          cursor = "#${base05}";
         };
         selection = {
           text = "CellForeground";
-          background = "${base03}";
+          background = "#${base03}";
         };
         search = {
           matches = {
             foreground = "CellBackground";
-            background = "${base08}";
+            background = "#${base08}";
           };
-          bar = {
-            foreground = "${base05}";
-            background = "${base02}";
+          footer_bar = {
+            foreground = "#${base05}";
+            background = "#${base02}";
           };
         };
         normal = {
           black = "#${base01}";
           red = "#${base0B}";
-          green = "${base0E}";
-          yellow = "${base0D}";
-          blue = "${base09}";
-          magenta = "${base0F}";
-          cyan = "${base08}";
-          white = "${base05}";
+          green = "#${base0E}";
+          yellow = "#${base0D}";
+          blue = "#${base09}";
+          magenta = "#${base0F}";
+          cyan = "#${base08}";
+          white = "#${base05}";
         };
         bright = {
           black = "#${base03}";
           red = "#${base0B}";
-          green = "${base0E}";
-          yellow = "${base0D}";
-          blue = "${base09}";
-          magenta = "${base0F}";
-          cyan = "${base07}";
-          white = "${base06}";
+          green = "#${base0E}";
+          yellow = "#${base0D}";
+          blue = "#${base09}";
+          magenta = "#${base0F}";
+          cyan = "#${base07}";
+          white = "#${base06}";
         };
         dim = {
           black = "#373e4d";

@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }: {
   colorScheme = inputs.nix-colors.colorSchemes.nord;
 
-  desktop.fonts = {
+  fonts = {
     enable = true;
     monospace = {
       name = "JetBrainsMono Nerd Font";
@@ -47,7 +47,7 @@
        };
     */
     font = {
-      inherit (config.desktop.fonts.regular) name package;
+      inherit (config.fonts.regular) name package;
 
       size = 12;
     };

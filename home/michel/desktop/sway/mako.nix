@@ -4,7 +4,7 @@ in {
   programs.mako = {
     enable = true;
     # iconPath = "${config.gtk.iconTheme.package}/share/icons/${config.gtk.iconTheme.name}";
-    font = "${config.desktop.fonts.regular.name} 10";
+    font = "${config.fonts.regular.name} 10";
     padding = "10,20";
     anchor = "top-right";
     width = 400;

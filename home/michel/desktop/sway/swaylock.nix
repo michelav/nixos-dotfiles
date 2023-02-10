@@ -8,7 +8,7 @@ in {
       fade-in = 0.5;
       grace = 2;
 
-      font = config.desktop.fonts.monospace.name;
+      font = config.fonts.monospace.name;
       font-size = 20;
 
       line-uses-inside = true;
