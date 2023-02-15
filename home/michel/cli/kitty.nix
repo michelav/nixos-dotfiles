@@ -7,6 +7,7 @@ in {
       inherit (config.fonts.monospace) name;
       size = 12;
     };
+    keybindings = { "ctrl+a>z" = "toggle_layout stack"; };
     settings = {
       window_padding_width = 3;
       allow_remote_control = "yes";
