@@ -4,7 +4,7 @@
   home.packages = with pkgs;
     with nodePackages; [
       # language servers
-      sumneko-lua-language-server
+      lua-language-server
       rnix-lsp
       nil
       nodejs

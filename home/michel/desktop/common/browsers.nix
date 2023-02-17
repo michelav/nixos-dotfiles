@@ -7,14 +7,14 @@
     firefox = let addons = inputs.firefox-addons.packages.${pkgs.system};
     in {
       enable = true;
-      extensions = with addons; [
-        keepassxc-browser
-        ublock-origin
-        netflix-1080p
-        browserpass
-        tridactyl
-      ];
       profiles.michel = {
+        extensions = with addons; [
+          keepassxc-browser
+          ublock-origin
+          netflix-1080p
+          browserpass
+          tridactyl
+        ];
         settings = {
           "browser.disableResetPrompt" = true;
           "browser.download.useDownloadDir" = false;
