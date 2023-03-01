@@ -7,19 +7,6 @@
     ./networking.nix
   ];
 
-  # Set your time zone.
-  time.timeZone = "America/Fortaleza";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "pt_BR.UTF-8";
-  console = {
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
-    packages = with pkgs; [ terminus_font ];
-    keyMap = "br-abnt2";
-  };
-
-  hardware.bluetooth.enable = true;
-
   programs = {
     fish.enable = true;
     dconf.enable = true;
