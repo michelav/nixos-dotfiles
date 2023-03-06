@@ -30,7 +30,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    devenv.url = "github:cachix/devenv/v0.4";
   };
 
   outputs = { nixpkgs, ... }@inputs:
