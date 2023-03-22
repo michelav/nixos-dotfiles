@@ -1,4 +1,4 @@
-final: prev: {
+final: prev: rec {
   vimPlugins = prev.vimPlugins // {
     nvim-treesitter-full = (prev.vimPlugins.nvim-treesitter.withPlugins
       (_: final.tree-sitter.allGrammars)).overrideAttrs (_: rec {
@@ -16,4 +16,5 @@ final: prev: {
     inherit (prev) lib fetchFromGitHub buildGoModule;
   };
   spotify-nss-latest = prev.spotify.override { nss = prev.nss_latest; };
+
 }

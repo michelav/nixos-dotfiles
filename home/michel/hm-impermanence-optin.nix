@@ -23,6 +23,7 @@
       ".secrets/password-store"
       ".config/keepassxc"
       ".cache/keepassxc"
+      ".cache/nix-index"
       ".secrets/keepassxc"
       ".config/spotify"
       ".cache/spotify"

@@ -1,7 +1,7 @@
 { config, ... }:
 let inherit (config.colorScheme) colors;
 in {
-  programs.mako = {
+  services.mako = {
     enable = true;
     # iconPath = "${config.gtk.iconTheme.package}/share/icons/${config.gtk.iconTheme.name}";
     font = "${config.fonts.regular.name} 10";
