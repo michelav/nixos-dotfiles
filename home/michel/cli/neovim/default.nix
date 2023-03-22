@@ -33,6 +33,7 @@
         ########
         # Basic
         ########
+        vimtex
         {
           plugin = telescope-nvim;
           type = "lua";
