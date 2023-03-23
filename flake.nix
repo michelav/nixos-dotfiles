@@ -38,11 +38,7 @@
       local-lib = import ./lib { inherit inputs; };
       inherit (local-lib) mkSystem mkHome;
       local-overlays = import ./overlays;
-      overlays = [
-        inputs.neovim-nightly-overlay.overlay
-        inputs.sops-nix.overlay
-        local-overlays
-      ];
+      overlays = [ inputs.neovim-nightly-overlay.overlay local-overlays ];
       feats = [ "cli" "dev" ];
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;

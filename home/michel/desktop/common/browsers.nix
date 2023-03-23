@@ -11,7 +11,6 @@
         extensions = with addons; [
           keepassxc-browser
           ublock-origin
-          netflix-1080p
           browserpass
           tridactyl
         ];
