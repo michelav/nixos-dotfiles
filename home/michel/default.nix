@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, desktop, feats, ... }:
+{ inputs, config, pkgs, lib, desktop, feats, ... }:
 let inherit (lib) optional forEach;
 in {
 
@@ -14,6 +14,22 @@ in {
 
   systemd.user.startServices = "sd-switch";
 
+  userPrefs = {
+    enable = true;
+    editor = "vim";
+    browser = "firefox";
+    colorSchemeName = "nord";
+    fonts = {
+      monospace = {
+        name = "JetBrainsMono Nerd Font";
+        package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+      };
+      regular = {
+        name = "Inconsolata";
+        package = pkgs.inconsolata;
+      };
+    };
+  };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

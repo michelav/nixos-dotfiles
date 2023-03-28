@@ -1,10 +1,12 @@
 { config, ... }:
-let inherit (config.colorScheme) colors;
+let
+  inherit (config) colorScheme userPrefs;
+  inherit (colorScheme) colors;
 in {
   services.mako = {
     enable = true;
     # iconPath = "${config.gtk.iconTheme.package}/share/icons/${config.gtk.iconTheme.name}";
-    font = "${config.fonts.regular.name} 10";
+    font = "${userPrefs.fonts.regular.name} 10";
     padding = "10,20";
     anchor = "top-right";
     width = 400;

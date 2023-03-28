@@ -1,5 +1,5 @@
 { config, ... }: {
-  programs.alacritty = let inherit (config) fonts colorscheme;
+  programs.alacritty = let inherit (config) userPrefs colorscheme;
   in {
     enable = true;
     settings = {
@@ -8,7 +8,7 @@
         padding.y = 3;
       };
       font = {
-        family.style = fonts.monospace.name;
+        family.style = userPrefs.fonts.monospace.name;
         size = 12;
       };
       colors = with colorscheme.colors; {

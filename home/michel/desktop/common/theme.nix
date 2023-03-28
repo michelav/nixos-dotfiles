@@ -1,17 +1,4 @@
 { config, pkgs, inputs, ... }: {
-  colorScheme = inputs.nix-colors.colorSchemes.nord;
-
-  fonts = {
-    enable = true;
-    monospace = {
-      name = "JetBrainsMono Nerd Font";
-      package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-    };
-    regular = {
-      name = "Inconsolata";
-      package = pkgs.inconsolata;
-    };
-  };
 
   home.packages = with pkgs; [
     # Some Fonts
@@ -47,7 +34,7 @@
        };
     */
     font = {
-      inherit (config.fonts.regular) name package;
+      inherit (config.userPrefs.fonts.regular) name package;
 
       size = 12;
     };
