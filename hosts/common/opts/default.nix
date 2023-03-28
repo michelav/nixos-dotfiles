@@ -1,11 +1,5 @@
 { config, pkgs, lib, ... }: {
-  imports = [
-    ./nix.nix
-    ./pipewire.nix
-    ./jellyfin.nix
-    ./virtualisation.nix
-    ./networking.nix
-  ];
+  imports = [ ./pipewire.nix ./jellyfin.nix ./networking.nix ];
 
   programs = {
     fish.enable = true;

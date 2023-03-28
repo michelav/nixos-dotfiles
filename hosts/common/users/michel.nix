@@ -1,6 +1,6 @@
 { pkgs, config, ... }: {
   sops.secrets.michel-passwd = {
-    sopsFile = ../secrets/vega.yaml;
+    sopsFile = ../secrets.yaml;
     neededForUsers = true;
   };
   # users.mutableUsers = false;

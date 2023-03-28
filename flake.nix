@@ -50,13 +50,10 @@
       pkgs = legacyPackages."x86_64-linux";
     in {
       inherit legacyPackages;
-      packages = forAllSystems
-        (system: { inherit (inputs.devenv.packages.${system}) devenv; });
       nixosConfigurations = {
         vega = mkSystem {
           inherit pkgs;
           hostname = "vega";
-          users = [ "${username}" ];
         };
       };
       homeConfigurations = {
@@ -67,23 +64,24 @@
           default = mkShell {
             buildInputs = [ coreutils findutils gnumake nixpkgs-fmt nixFlakes ];
           };
-          python39 = import ./shells/python.nix { inherit pkgs; };
+          # python3 = import ./shells/python.nix { inherit pkgs; };
           haskell = import ./shells/haskell.nix { inherit pkgs; };
           rust = import ./shells/rust.nix { inherit pkgs; };
           golang = import ./shells/golang.nix { inherit pkgs; };
-          sops-nix = mkShell {
-            name = "sops-nix";
-            nativeBuildInputs = [
-              age
-              gnupg
-              sops
-              sops-install-secrets
-              sops-init-gpg-key
-              sops-import-keys-hook
-              ssh-to-age
-              ssh-to-pgp
-            ];
-          };
+          /* sops-nix = mkShell {
+               name = "sops-nix";
+               nativeBuildInputs = [
+                 age
+                 gnupg
+                 sops
+                 sops-install-secrets
+                 sops-init-gpg-key
+                 sops-import-keys-hook
+                 ssh-to-age
+                 ssh-to-pgp
+               ];
+             };
+          */
         });
     };
 }
