@@ -21,6 +21,7 @@
       package = pkgs.gnome.gnome-themes-extra;
       name = "Adwaita-dark";
     };
+
     # You may come back with theme settings after icons bug is fixed
     # https://github.com/NixOS/nixpkgs/issues/207339
     /* cursorTheme.name = "Nordzy-white-cursors";
