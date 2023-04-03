@@ -1,17 +1,4 @@
 { config, pkgs, inputs, ... }: {
-  colorScheme = inputs.nix-colors.colorSchemes.nord;
-
-  fonts = {
-    enable = true;
-    monospace = {
-      name = "JetBrainsMono Nerd Font";
-      package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-    };
-    regular = {
-      name = "Inconsolata";
-      package = pkgs.inconsolata;
-    };
-  };
 
   home.packages = with pkgs; [
     # Some Fonts
@@ -34,6 +21,7 @@
       package = pkgs.gnome.gnome-themes-extra;
       name = "Adwaita-dark";
     };
+
     # You may come back with theme settings after icons bug is fixed
     # https://github.com/NixOS/nixpkgs/issues/207339
     /* cursorTheme.name = "Nordzy-white-cursors";
@@ -47,7 +35,7 @@
        };
     */
     font = {
-      inherit (config.fonts.regular) name package;
+      inherit (config.userPrefs.fonts.regular) name package;
 
       size = 12;
     };

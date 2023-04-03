@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 let
+  inherit (config) userPrefs;
   lockcmd = "swaylock -f -S";
 
   # currently, there is some friction between sway and gtk:
@@ -87,7 +88,7 @@ in {
       };
       output."eDP-1".bg = " ~/Pictures/wallpapers/ign_endeavour2.png fill";
       fonts = {
-        names = [ config.fonts.regular.name ];
+        names = [ userPrefs.fonts.regular.name ];
         size = 12.0;
       };
       gaps = {

@@ -4,7 +4,7 @@ in {
   programs.kitty = {
     enable = true;
     font = {
-      inherit (config.fonts.monospace) name;
+      inherit (config.userPrefs.fonts.monospace) name;
       size = 12;
     };
     keybindings = { "ctrl+a>z" = "toggle_layout stack"; };

@@ -4,9 +4,22 @@
     inputs.impermanence.nixosModule
     ./impermanence-optin.nix
     ./hardware-configuration.nix
-    ../../nixos
-    ../../nixos/nvidia.nix
-  ] ++ lib.optional (null != desktop) ../../nixos/${desktop}.nix;
+    ../common/opts
+    ../common/opts/nvidia.nix
+    # INFO: Change the desktop option if u wanna another desktop / wm (gnome or hyprland for instance)
+    ../common/opts/sway.nix
+  ];
+
+  # Set your time zone.
+  time.timeZone = "America/Fortaleza";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "pt_BR.UTF-8";
+  console = {
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
+    packages = with pkgs; [ terminus_font ];
+    keyMap = "br-abnt2";
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -16,6 +29,7 @@
   };
 
   hardware.enableRedistributableFirmware = true;
+  hardware.bluetooth.enable = true;
 
   services = {
     openssh = {

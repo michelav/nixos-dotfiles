@@ -1,1 +1,1 @@
-{ imports = [ ./ranger.nix ]; }
+{ imports = [ ./ranger.nix ./userPrefs.nix ]; }

@@ -1,6 +1,8 @@
 { config, ... }:
 
-let inherit (config.colorscheme) colors;
+let
+  inherit (config.colorscheme) colors;
+  inherit (config.userPrefs) fonts;
 in {
   programs.swaylock = {
     settings = {
@@ -8,7 +10,7 @@ in {
       fade-in = 0.5;
       grace = 2;
 
-      font = config.fonts.monospace.name;
+      font = fonts.monospace.name;
       font-size = 20;
 
       line-uses-inside = true;

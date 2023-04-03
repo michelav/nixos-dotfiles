@@ -1,7 +1,7 @@
 { config, ... }:
 
 with config.colorscheme.colors;
-with config; ''
+with config.userPrefs; ''
 
   /* Nord */
   @define-color warning #${base0A};

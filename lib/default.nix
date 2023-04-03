@@ -1,16 +1,16 @@
 { inputs, ... }: {
-  mkSystem =
-    { hostname, pkgs, users ? [ ], desktop ? "sway", extraModules ? [ ] }:
+  mkSystem = { hostname, pkgs, desktop ? "sway" }:
     with inputs;
-    let inherit (nixpkgs.lib) nixosSystem forEach;
+    let inherit (nixpkgs.lib) nixosSystem;
     in nixosSystem {
       inherit pkgs;
       specialArgs = { inherit desktop inputs; };
       modules = [
-        ../system/hosts/common.nix
-        ../system/hosts/${hostname}
+        ../hosts/common/global
+        ../hosts/${hostname}
         { networking.hostName = hostname; }
-      ] ++ (forEach users (u: import ../system/users/${u}.nix));
+        ../hosts/common/users
+      ];
     };
 
   mkHome = { username, pkgs, desktop ? "sway", feats ? [ "cli" ] }:
@@ -28,7 +28,6 @@
           };
 
         }
-        ../modules/fontConfigs.nix
         ../modules/hm
       ];
       extraSpecialArgs = { inherit inputs desktop feats; };
