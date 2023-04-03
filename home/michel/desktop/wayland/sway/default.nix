@@ -23,14 +23,7 @@ let
     '';
   };
 in {
-  imports = [
-    ../common
-    ./waybar.nix
-    ./mako.nix
-    ./swayidle.nix
-    ./swaylock.nix
-    ./gammastep.nix
-  ];
+  imports = [ ./waybar.nix ];
 
   home = {
     packages = with pkgs; [

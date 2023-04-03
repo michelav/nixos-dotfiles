@@ -13,7 +13,7 @@
       ];
     };
 
-  mkHome = { username, pkgs, desktop ? "sway", feats ? [ "cli" ] }:
+  mkHome = { username, pkgs, desktop ? "wayland", feats ? [ "cli" ] }:
     with inputs;
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs;

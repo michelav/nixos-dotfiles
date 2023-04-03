@@ -11,8 +11,6 @@
     nordic
     nordzy-cursor-theme
     catppuccin-gtk
-    (callPackage ../../../../packages/fluent-gtk-theme { })
-    (callPackage ../../../../packages/fluent-icon-theme { })
   ];
 
   gtk = {

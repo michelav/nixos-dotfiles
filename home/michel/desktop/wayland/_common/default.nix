@@ -1,5 +1,14 @@
 { pkgs, ... }: {
-  imports = [ ./theme.nix ./browsers.nix ./zathura.nix ./media.nix ];
+  imports = [
+    ./theme.nix
+    ./browsers.nix
+    ./zathura.nix
+    ./media.nix
+    ./swayidle.nix
+    ./swaylock.nix
+    ./gammastep.nix
+    ./mako.nix
+  ];
 
   home.packages = with pkgs; [
     keepassxc
@@ -18,10 +27,4 @@
     maestral-gui
   ];
 
-  xdg = {
-    enable = true;
-    configFile."mimeapps.list".force = true;
-    mimeApps.enable = true;
-    userDirs = { enable = true; };
-  };
 }

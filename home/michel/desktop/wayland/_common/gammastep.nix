@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = [ pkgs.gammastep ];
   services.gammastep = {
     enable = true;
@@ -10,8 +9,6 @@
       day = 6500;
       night = 4500;
     };
-    settings = {
-      general.adjustment-method = "wayland";
-    };
+    settings = { general.adjustment-method = "wayland"; };
   };
 }
