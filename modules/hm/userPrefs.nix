@@ -31,7 +31,13 @@ in {
 
     browser = mkPrefOption "browser";
     editor = mkPrefOption "editor";
+    terminal = mkPrefOption "terminal";
     colorSchemeName = mkPrefOption "colorSchemeName";
+    wallpaper = mkOption {
+      type = types.str;
+      default = "";
+      description = "Wallpaper path";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -41,6 +47,7 @@ in {
     home.sessionVariables = {
       EDITOR = cfg.editor;
       BROWSER = cfg.browser;
+      TERMINAL = cfg.terminal;
     };
   };
 }

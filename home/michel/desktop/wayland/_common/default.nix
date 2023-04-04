@@ -1,13 +1,13 @@
 { pkgs, ... }: {
   imports = [
-    ./theme.nix
     ./browsers.nix
-    ./zathura.nix
+    ./gammastep.nix
+    ./mako.nix
     ./media.nix
     ./swayidle.nix
     ./swaylock.nix
-    ./gammastep.nix
-    ./mako.nix
+    ./theme.nix
+    ./zathura.nix
   ];
 
   home.packages = with pkgs; [

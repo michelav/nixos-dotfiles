@@ -18,6 +18,7 @@ in {
     enable = true;
     editor = "vim";
     browser = "firefox";
+    terminal = "kitty";
     colorSchemeName = "nord";
     fonts = {
       monospace = {
@@ -29,6 +30,7 @@ in {
         package = pkgs.inconsolata;
       };
     };
+    wallpaper = "~/Pictures/wallpapers/ign_astronaut.png";
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

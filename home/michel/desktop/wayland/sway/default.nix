@@ -34,7 +34,6 @@ in {
       wl-clipboard
       grim
       slurp
-      wofi
       configure-gtk-sway
       glib
     ];
