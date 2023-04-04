@@ -1,4 +1,7 @@
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, inputs, ... }:
+let
+  inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
+in rec {
 
   home.packages = with pkgs; [
     # Some Fonts
@@ -16,26 +19,29 @@
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.gnome.gnome-themes-extra;
-      name = "Adwaita-dark";
+      name = "${config.colorscheme.slug}";
+      package = gtkThemeFromScheme { scheme = config.colorscheme; };
     };
-
-    # You may come back with theme settings after icons bug is fixed
-    # https://github.com/NixOS/nixpkgs/issues/207339
-    /* cursorTheme.name = "Nordzy-white-cursors";
-       iconTheme = {
-         name = "Nordzy-dark";
-         package = pkgs.nordzy-icon-theme;
-       };
-       theme = {
-         name = "Nordic-bluish-accent";
-         package = pkgs.nordic;
-       };
-    */
+    cursorTheme.name = "Nordzy-cursors-white";
+    iconTheme = {
+      name = "Nordzy-dark";
+      package = pkgs.nordzy-icon-theme;
+    };
     font = {
       inherit (config.userPrefs.fonts.regular) name package;
 
       size = 12;
     };
+  };
+  services.xsettingsd = {
+    enable = true;
+    settings = {
+      "Net/ThemeName" = "${gtk.theme.name}";
+      "Net/IconThemeName" = "${gtk.iconTheme.name}";
+    };
+  };
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
   };
 }
