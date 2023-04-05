@@ -5,6 +5,7 @@
   services.blueman.enable = true;
   security.pam.services.swaylock = { };
   programs.light.enable = true;
+  programs.hyprland.enable = true;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;

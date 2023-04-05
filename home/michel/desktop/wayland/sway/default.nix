@@ -37,16 +37,11 @@ in {
       configure-gtk-sway
       glib
     ];
-    sessionVariables = {
-      # wayland
-      XDG_SESSION_TYPE = "wayland";
-      LIBSEAT_BACKEND = "logind";
-      MOZ_ENABLE_WAYLAND = "1";
-      GDK_BACKEND = "wayland";
-      WLR_NO_HARDWARE_CURSORS = "1";
-      XDG_SESSION_DESKTOP = "sway";
-      SDL_VIDEODRIVER = "wayland";
-    };
+    /* sessionVariables = {
+         # wayland
+         XDG_SESSION_DESKTOP = "sway";
+       };
+    */
 
   };
 
@@ -63,6 +58,7 @@ in {
     extraSessionCommands = ''
       eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
       export SSH_AUTH_SOCK
+      export XDG_SESSION_DESKTOP=sway
     '';
     config = rec {
       terminal = "kitty";
@@ -131,7 +127,7 @@ in {
       colors = import ./colors.nix { inherit (config.colorscheme) colors; };
       startup = [
         # Initial lock
-        { command = "${pkgs.swaylock-effects}/bin/swaylock -f -S"; }
+        # { command = "${pkgs.swaylock-effects}/bin/swaylock -f -S"; }
       ];
     };
   };

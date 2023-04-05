@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  mkSystem = { hostname, pkgs, desktop ? "sway" }:
+  mkSystem = { hostname, pkgs, desktop ? "wayland" }:
     with inputs;
     let inherit (nixpkgs.lib) nixosSystem;
     in nixosSystem {

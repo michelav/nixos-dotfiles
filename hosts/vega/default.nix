@@ -2,12 +2,13 @@
   imports = [
     # Include the results of the hardware scan.
     inputs.impermanence.nixosModule
+    inputs.hyprland.nixosModules.default
     ./impermanence-optin.nix
     ./hardware-configuration.nix
     ../common/opts
     ../common/opts/nvidia.nix
     # INFO: Change the desktop option if u wanna another desktop / wm (gnome or hyprland for instance)
-    ../common/opts/sway.nix
+    ../common/opts/wayland.nix
   ];
 
   # Set your time zone.

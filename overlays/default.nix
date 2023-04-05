@@ -16,5 +16,21 @@ final: prev: rec {
     inherit (prev) lib fetchFromGitHub buildGoModule;
   };
   spotify-nss-latest = prev.spotify.override { nss = prev.nss_latest; };
+  greetd = prev.greetd // {
+    regreet = prev.greetd.regreet.overrideAttrs (old: rec {
+      version = "2023-04-05";
+      src = final.fetchFromGitHub {
+        owner = "rharish101";
+        repo = "ReGreet";
+        rev = "27f21a7642f2bdda625a0372e777b87dab23499c";
+        hash = "sha256-fSmjPEXzcyGIahPtF2BagUL4rncDqrK4h1wsUu0vd+A=";
+      };
 
+      cargoDeps = old.cargoDeps.overrideAttrs (_: {
+        inherit src;
+        outputHash = "sha256-C7RwnXqnoLeFdA7Yd/o5NtTI+UR9qwn0NrV2zxF7cIg=";
+      });
+
+    });
+  };
 }

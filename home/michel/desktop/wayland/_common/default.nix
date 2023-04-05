@@ -27,4 +27,15 @@
     maestral-gui
   ];
 
+  home.sessionVariables = {
+    # wayland
+    XDG_SESSION_TYPE = "wayland";
+    LIBSEAT_BACKEND = "logind";
+    MOZ_ENABLE_WAYLAND = "1";
+    GDK_BACKEND = "wayland";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    SDL_VIDEODRIVER = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+  };
+
 }
