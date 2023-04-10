@@ -1,42 +1,44 @@
-{ pkgs, lib, config, ... }: {
-  services.swayidle = let
-    swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
-    swaymsg = "${pkgs.sway}/bin/swaymsg";
-    pgrep = "${pkgs.procps}/bin/pgrep";
-    isLocked = "${pgrep} -x swaylock";
-    screenOff = ''${swaymsg} "output * dpms off"'';
-    screenOn = ''${swaymsg} "output * dpms on"'';
-    lockcmd = "${swaylock} -f -S";
-    systemctl = "${pkgs.systemd}/bin/systemctl";
-  in {
-    enable = true;
+{ pkgs, lib, ... }:
+let
+  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
+  swaymsg = "${pkgs.sway}/bin/swaymsg";
+  pgrep = "${pkgs.procps}/bin/pgrep";
+  hyprctl = "${pkgs.hyprland}/bin/hyprctl";
+  isLocked = "${pgrep} -x swaylock";
+  swayScreenOff = ''${swaymsg} "output * dpms off"'';
+  swayScreenOn = ''${swaymsg} "output * dpms on"'';
+  hyprScreenOn = "${hyprctl} dispatch dpms on";
+  hyprScreenOff = "${hyprctl} dispatch dpms off";
+  toggleMic = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+  lockcmd = "${swaylock} -f -S";
+  systemctl = "${pkgs.systemd}/bin/systemctl";
+  restartServices = "${systemctl} --user gammastep.service";
+  lockTime = 4 * 60;
+  mkTimeout = time: action: resume: ''
+    timeout ${toString (lockTime + time)} '${action}' ${
+      lib.optionalString (resume != null) "resume '${resume}'"
+    }
+    timeout ${toString time} '${isLocked} && ${action}' ${
+      lib.optionalString (resume != null) "resume '${isLocked} && ${resume}'"
+    }
+  '';
+  mkEvent = event: action: ''
+    ${event} '${action}'
+  '';
+in {
+  home.packages = [ pkgs.swayidle ];
+  xdg.configFile."swayidle/sway-config".text = ''
+    timeout ${toString lockTime} '${lockcmd}'
+  '' + (mkTimeout 10 "${toggleMic}" "${toggleMic}")
+    + (mkTimeout 60 "${swayScreenOff}" "${swayScreenOn}")
+    + (mkEvent "before-sleep" "${lockcmd}")
+    + (mkEvent "after-resume" "${swayScreenOn} && ${restartServices}");
 
-    timeouts = [
-      {
-        timeout = 240;
-        command = "echo Idle. Locking device. && ${lockcmd}";
-      }
-      {
-        # Try to turn screen off if locked by 1 min
-        timeout = 300;
-        command = "echo Turning Screen off && ${screenOff}";
-        resumeCommand = "echo Turning Screen on && ${screenOn}";
-      }
-    ];
-    events = [
-      {
-        event = "before-sleep";
-        command = "${lockcmd}";
-      }
-      {
-        event = "after-resume";
-        command =
-          "echo Resuming... && ${screenOn} && ${systemctl} --user restart gammastep.service";
-      }
-      {
-        event = "lock";
-        command = "${lockcmd}";
-      }
-    ];
-  };
+  xdg.configFile."swayidle/hypr-config".text = ''
+    timeout ${toString lockTime} '${lockcmd}'
+  '' + (mkTimeout 10 "${toggleMic}" "${toggleMic}")
+    + (mkTimeout 60 "${hyprScreenOff}" "${hyprScreenOn}")
+    + (mkEvent "before-sleep" "${lockcmd}")
+    + (mkEvent "after-resume" "${hyprScreenOn} && ${restartServices}")
+    + (mkEvent "lock" "${lockcmd}");
 }

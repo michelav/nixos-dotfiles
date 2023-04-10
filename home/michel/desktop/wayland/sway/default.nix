@@ -1,7 +1,9 @@
 { pkgs, config, ... }:
 let
-  inherit (config) userPrefs;
-  lockcmd = "swaylock -f -S";
+  inherit (config) userPrefs xdg;
+  swaylock = "${pkgs.swaylock-effects}/bin/swaylock}";
+  lockcmd = "${swaylock} -f -S";
+  swayidle = "${pkgs.swayidle}/bin/swayidle";
 
   # currently, there is some friction between sway and gtk:
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
@@ -29,7 +31,6 @@ in {
     packages = with pkgs; [
       libnotify
       fuzzel
-      swayidle
       swaylock-effects
       wl-clipboard
       grim
@@ -125,10 +126,12 @@ in {
       };
       bars = [{ command = "waybar"; }];
       colors = import ./colors.nix { inherit (config.colorscheme) colors; };
-      startup = [
-        # Initial lock
-        # { command = "${pkgs.swaylock-effects}/bin/swaylock -f -S"; }
-      ];
+      startup = [{
+        command = "${swayidle} -w -C ${xdg.configHome}/swayidle/sway-config";
+      }
+      # Initial lock
+      # { command = "${pkgs.swaylock-effects}/bin/swaylock -f -S"; }
+        ];
     };
   };
 }

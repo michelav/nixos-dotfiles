@@ -8,6 +8,7 @@
     ./swaylock.nix
     ./theme.nix
     ./zathura.nix
+    ./wezterm.nix
   ];
 
   home.packages = with pkgs; [

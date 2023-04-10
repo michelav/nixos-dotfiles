@@ -1,7 +1,7 @@
 { config, ... }:
 let
   inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
-  inherit (config) colorscheme;
+  inherit (config) colorscheme xdg;
   inherit (config.userPrefs) wallpaper;
 in ''
   monitor=eDP-1, 1920x1080@120, 0x0, 1
@@ -73,7 +73,7 @@ in ''
     exec-once=waybar
     exec=swaybg -i ${wallpaper} --mode fill
     exec-once=mako
-    exec-once=swayidle -w
+    exec-once=swayidle -w -C ${xdg.configHome}/swayidle/hypr-config
     # Mouse binding
     bindm=SUPER,mouse:272,movewindow
     bindm=SUPER,mouse:273,resizewindow
