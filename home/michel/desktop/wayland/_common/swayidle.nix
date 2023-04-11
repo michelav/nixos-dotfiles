@@ -38,7 +38,6 @@ in {
     timeout ${toString lockTime} '${lockcmd}'
   '' + (mkTimeout 10 "${toggleMic}" "${toggleMic}")
     + (mkTimeout 60 "${hyprScreenOff}" "${hyprScreenOn}")
-    + (mkEvent "before-sleep" "${lockcmd}")
-    + (mkEvent "after-resume" "${hyprScreenOn} && ${restartServices}")
-    + (mkEvent "lock" "${lockcmd}");
+    + (mkEvent "before-sleep" "! ${isLocked} && ${lockcmd}")
+    + (mkEvent "after-resume" "${hyprScreenOn} && ${restartServices}");
 }

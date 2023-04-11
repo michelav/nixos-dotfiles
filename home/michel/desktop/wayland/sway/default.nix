@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 let
   inherit (config) userPrefs xdg;
-  swaylock = "${pkgs.swaylock-effects}/bin/swaylock}";
+  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   lockcmd = "${swaylock} -f -S";
   swayidle = "${pkgs.swayidle}/bin/swayidle";
 

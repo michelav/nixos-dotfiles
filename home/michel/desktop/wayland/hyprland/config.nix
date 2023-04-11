@@ -108,11 +108,11 @@ in ''
     bind=ALT,XF86AudioNext,exec,playerctld shift
     bind=ALT,XF86AudioPrev,exec,playerctld unshift
     bind=ALT,XF86AudioPlay,exec,systemctl --user restart playerctld
-    bind=,XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bind=,XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bind=,XF86AudioMute,exec,pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bind=,XF86AudioRaiseVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+    bind=,XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+    bind=,XF86AudioMute,exec,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
     bind=SHIFT,XF86AudioMute,exec,pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    bind=,XF86AudioMicMute,exec,pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    bind=,XF86AudioMicMute,exec,wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
     # Window manager controls
     bind=SUPERSHIFT,q,killactive
     bind=SUPERSHIFT,e,exit
