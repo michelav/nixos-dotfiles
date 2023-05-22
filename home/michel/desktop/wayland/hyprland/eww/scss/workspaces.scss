@@ -1,0 +1,26 @@
+  .ws {
+  font-size: 27px;
+  font-weight: normal;
+  margin: 5px 0px 0px 20px;
+  background-color: $bg;
+  }
+
+  .focused, .occupied, .empty {
+    margin: 0px 10px 0px 0px;
+  }
+
+  /* Unoccupied */
+  .empty {
+  color: $light1;
+  }
+
+  /* Occupied */
+  .occupied {
+    color: $fg;
+  }
+
+  /* Focused */
+  .focused {
+    color: $focus;
+  }
+

@@ -9,6 +9,7 @@
     ./theme.nix
     ./zathura.nix
     ./wezterm.nix
+    ./waybar.nix
   ];
 
   home.packages = with pkgs; [

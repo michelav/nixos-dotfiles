@@ -16,6 +16,7 @@
       ".config/Slack"
       ".config/qutebrowser/bookmarks"
       ".config/qutebrowser/greasemonkey"
+      ".config/eww"
       ".local/share/qutebrowser"
       ".gnupg"
       ".ssh"

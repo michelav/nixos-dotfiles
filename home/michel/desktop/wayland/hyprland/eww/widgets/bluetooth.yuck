@@ -1,0 +1,12 @@
+(defvar icons "{\"Connected\": \"󰂱\", \"disconnected\": \"󰂯\", \"off\": \"󰂲\"}")
+(deflisten btData "bin/bluetooth")
+
+  (defwidget bluetooth []
+    (box 
+      :orientation "h"
+      :space-evenly false
+        (button
+        :class "bt ${btData.status}"
+        "${icons['${btData.status}']}"
+        )
+    )

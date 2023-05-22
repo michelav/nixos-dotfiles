@@ -1,0 +1,13 @@
+(defvar netIcons "{\"ethernet\": \"󰂱\", \"disconnected\": \"󰂯\", \"off\": \"󰂲\"}")
+(deflisten netData "scripts/net")
+
+(defwidget net []
+  (box 
+    :orientation "h"
+    :space-evenly false
+      (button
+      :class "net ${netData.status}"
+      "${icons['${netData.type}']}"
+      )
+  )
+)

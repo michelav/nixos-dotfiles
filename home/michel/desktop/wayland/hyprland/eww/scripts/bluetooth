@@ -1,0 +1,55 @@
+declare -A icon=(["off"]="󰂲" ["connected"]="󰂱" ["disconnected"]="󰂯")
+
+
+toggle() {
+  status=$(rfkill -J | jq -r '.rfkilldevices[] | select(.device == "hci0") | .soft')
+
+  if [ "$status" = "desbloqueado" ]; then
+    rfkill block bluetooth
+  else
+    rfkill unblock bluetooth
+  fi
+}
+
+gen_output() {
+  powered=$(bluetoothctl show | rg Powered | cut -f 2- -d ' ')
+  info=$(bluetoothctl info)
+  name=$(echo "$info" | rg Name | cut -f 2- -d ' ')
+  mac=$(echo "$info" | head -1 | awk '{print $2}' | tr ':' '_')
+
+  if [[ "$(echo "$info" | rg Percentage)" != "" ]]; then
+    battery="$(upower -i /org/freedesktop/UPower/devices/headset_dev_"$mac" | rg percentage | awk '{print $2}' | cut -f 1 -d '%')%"
+  else
+    battery=""
+  fi
+
+  if [ "$powered" = "yes" ]; then
+    if [ "$info" != "Missing device address argument" ]; then
+      status="Connected"
+    else
+      status="Disconnected"
+    fi
+  else
+    status="Off"
+  fi
+
+  echo '{ "battery": "'"$battery"'", "status": "'"$status"'", "name": "'"$name"'" }'
+}
+
+if [ "$1" = "toggle" ]; then
+  toggle
+else
+  gen_output
+  last_time=$(get_time_ms)
+
+  udevadm monitor | while read -r _; do
+    current_time=$(get_time_ms)
+    delta=$((current_time - last_time))
+    # 50ms debounce
+    if [[ $delta -gt 50 ]]; then
+      gen_output
+      # reset debounce timer
+      last_time=$(get_time_ms)
+    fi
+  done
+fi

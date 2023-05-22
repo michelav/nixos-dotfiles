@@ -1,5 +1,5 @@
 { inputs, config, pkgs, lib, ... }: {
-  imports = [ inputs.hyprland.homeManagerModules.default ./wofi.nix ];
+  imports = [ inputs.hyprland.homeManagerModules.default ./wofi.nix ./eww ];
   home.packages = [ pkgs.swaybg pkgs.hyprpicker ];
   /* home.sessionVariables = {
        XDG_CURRENT_DESKTOP = "Hyprland";

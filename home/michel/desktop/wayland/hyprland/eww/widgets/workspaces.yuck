@@ -1,0 +1,27 @@
+(defvar workspaceIcons "{\"focused\": \"\", \"occupied\": \"\", \"empty\": \"\"}")
+(deflisten workspacesData "bin/workspaces")
+
+  (defwindow bar
+            :monitor 0
+            :geometry (geometry :x "0%"
+                         :y "9px"
+                         :width "98%"
+                         :height "30px"
+                         :anchor "top center")
+            :stacking "fg"
+    (workspaces))
+ 
+
+  (defwidget workspaces []
+    (box 
+      :orientation "h"
+      :space-evenly false
+      (for ws in workspacesData
+        (button
+        :class "ws ${ws.status}"
+        "${workspaceIcons['${ws.status}']}"
+        )
+      )
+    )
+  )
+

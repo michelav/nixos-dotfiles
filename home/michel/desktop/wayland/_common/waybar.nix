@@ -1,16 +1,23 @@
-{ pkgs, lib, config, ... }:
-let waybar-with-mp = pkgs.waybar.override { withMediaPlayer = true; };
+{ pkgs, config, ... }:
+let
+  custom-waybar = (pkgs.waybar.overrideAttrs (oa: {
+    mesonFlags = (oa.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ];
+  })).override { withMediaPlayer = true; };
 in {
   programs.waybar = {
     enable = true;
-    package = waybar-with-mp;
+    package = custom-waybar;
     settings = [{
       output = "eDP-1";
       layer = "top";
       position = "top";
       # margin = "8";
-      modules-left =
-        [ "custom/scratchpad" "sway/workspaces" "sway/mode" "custom/media" ];
+      modules-left = [
+        # "custom/scratchpad"
+        "wlr/workspaces"
+        "hyprland/submap"
+        "custom/media"
+      ];
       modules-center = [ "clock" ];
       modules-right = [
         "idle_inhibitor"
@@ -21,7 +28,7 @@ in {
         "tray"
       ];
 
-      "sway/workspaces" = {
+      "wlr/workspaces" = {
         disable-scroll = true;
         all-outputs = true;
         format = "{icon}";
@@ -40,6 +47,7 @@ in {
           urgent = "";
           default = "";
         };
+        on-click = "activate";
       };
 
       # TODO: Comment out after helvum build is fixed
@@ -69,7 +77,7 @@ in {
         on-scroll-up = "playerctl next";
         on-scroll-down = "playerctl previous";
         exec =
-          "${waybar-with-mp}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
+          "${custom-waybar}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
         # "exec" = "playerctl -a metadata --format '{\"text\": \"{{playerName}}: {{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F";
       };
       "custom/scratchpad" = {
