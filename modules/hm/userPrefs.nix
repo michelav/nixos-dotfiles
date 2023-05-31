@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, ... }:
+{ inputs, config, lib, ... }:
 let
   inherit (lib) types mkOption mkEnableOption mkIf;
   mkFontOption = kind: {

@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 let
   inherit (config) userPrefs xdg;
-  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
+  swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   lockcmd = "${swaylock} -f -S";
   swayidle = "${pkgs.swayidle}/bin/swayidle";
 
@@ -30,7 +30,6 @@ in {
     packages = with pkgs; [
       libnotify
       fuzzel
-      swaylock-effects
       wl-clipboard
       grim
       slurp

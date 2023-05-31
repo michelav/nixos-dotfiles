@@ -1,16 +1,30 @@
-{ inputs, config, pkgs, lib, desktop, feats, ... }:
-let inherit (lib) optional forEach;
-in {
+{ inputs, outputs, pkgs, ... }: {
 
   # The feats dictates what should be installed
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
-    inputs.nix-colors.homeManagerModule
+    inputs.nix-colors.homeManagerModules.default
     ./hm-impermanence-optin.nix
-  ] ++ forEach feats (f: ./${f})
-    ++ optional (null != desktop) ./desktop/${desktop};
+    ./cli
+    ./dev
+    ./desktop/wayland
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
 
-  home = { packages = with pkgs; [ jq ripgrep fd tree htop gcc bc ]; };
+  nixpkgs = {
+    inherit (outputs) overlays;
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = _: true;
+    };
+  };
+
+  home.packages = with pkgs; [ jq ripgrep fd tree htop gcc bc bottom ];
+
+  home = {
+    username = "michel";
+    homeDirectory = "/home/michel";
+    stateVersion = "23.05";
+  };
 
   systemd.user.startServices = "sd-switch";
 

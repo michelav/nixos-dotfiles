@@ -1,1 +1,4 @@
-{ imports = [ ./ranger.nix ./userPrefs.nix ]; }
+{
+  ranger = import ./ranger.nix;
+  prefs = import ./userPrefs.nix;
+}

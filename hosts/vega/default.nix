@@ -1,8 +1,12 @@
-{ pkgs, lib, inputs, desktop, ... }: {
+{ inputs, outputs, pkgs, ... }: {
   imports = [
     # Include the results of the hardware scan.
+    inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModule
     inputs.hyprland.nixosModules.default
+    ../common/global
+    ../common/users/michel.nix
+
     ./impermanence-optin.nix
     ./hardware-configuration.nix
     ../common/opts
@@ -10,6 +14,9 @@
     # INFO: Change the desktop option if u wanna another desktop / wm (gnome or hyprland for instance)
     ../common/opts/wayland.nix
   ];
+  home-manager.extraSpecialArgs = { inherit inputs outputs; };
+
+  networking.hostName = "vega";
 
   # Set your time zone.
   time.timeZone = "America/Fortaleza";
@@ -85,6 +92,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 
 }

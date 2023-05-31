@@ -1,7 +1,7 @@
 { pkgs, lib, ... }: {
   home.packages = with pkgs; [
     pavucontrol
-    spotify-nss-latest
+    spotify
     playerctl
     # helvum
   ];

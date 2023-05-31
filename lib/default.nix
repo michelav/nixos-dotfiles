@@ -10,6 +10,7 @@
         ../hosts/${hostname}
         { networking.hostName = hostname; }
         ../hosts/common/users
+        inputs.home-manager.nixosModules.home-manager
       ];
     };
 
@@ -24,7 +25,7 @@
           home = {
             inherit username;
             homeDirectory = "/home/${username}";
-            stateVersion = "22.11";
+            stateVersion = "23.05";
           };
 
         }

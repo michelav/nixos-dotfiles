@@ -1,7 +1,7 @@
 { modifier, terminal, pkgs, config, ... }:
 let
   inherit (config.colorscheme) colors;
-  lockcmd = "${pkgs.swaylock-effects}/bin/swaylock -f -S";
+  lockcmd = "${config.programs.swaylock.package}/bin/swaylock -f -S";
 in {
   # open terminal
   "${modifier}+Return" = "exec ${terminal}";

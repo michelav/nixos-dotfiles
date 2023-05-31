@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
-  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
+  swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";

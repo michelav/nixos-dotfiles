@@ -19,8 +19,9 @@
     qutebrowser
     discord
     slack
-    bitwarden
-    bitwarden-cli
+    # TODO: Fix after #230971 goes to nixos-unstable
+    # bitwarden
+    # bitwarden-cli
     xdg-utils
     fractal
 

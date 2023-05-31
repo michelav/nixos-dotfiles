@@ -1,10 +1,11 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   inherit (config.colorscheme) colors;
   inherit (config.userPrefs) fonts;
 in {
   programs.swaylock = {
+    package = pkgs.swaylock-effects;
     settings = {
       effect-blur = "10x2";
       fade-in = 0.5;

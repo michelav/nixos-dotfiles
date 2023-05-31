@@ -46,6 +46,6 @@
     kitty.enable = true;
     fzf.enable = true;
     fzf.enableFishIntegration = true;
-    ranger.enable = true;
+    # ranger.enable = true;
   };
 }

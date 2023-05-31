@@ -1,18 +1,20 @@
-{ pkgs, desktop, lib, ... }: {
-  home.packages =
-    if desktop != null
-    then [ pkgs.pinentry-gnome ]
-    else [ pkgs.pinentry-curses ];
-
+{ config, pkgs, ... }:
+let
+  pinentry = if config.gtk.enable then {
+    packages = [ pkgs.pinentry-gnome pkgs.gcr ];
+    name = "gnome3";
+  } else {
+    packages = [ pkgs.pinentry-curses ];
+    name = "curses";
+  };
+in {
   services.gpg-agent = {
     enable = true;
     enableFishIntegration = true;
     # enableSshSupport = true;
-    pinentryFlavor = if desktop != null then "gnome3" else "curses";
+    pinentryFlavor = pinentry.name;
   };
 
-  programs.gpg = {
-    enable = true;
-  };
+  programs.gpg = { enable = true; };
 
 }

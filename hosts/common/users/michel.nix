@@ -20,4 +20,8 @@
       else
         [ ]);
   };
+  home-manager = {
+    useUserPackages = true;
+    users.michel = import ../../../home/michel;
+  };
 }

@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.programs.ranger;
-  ranger = pkgs.ranger;
+  inherit (pkgs) ranger;
 in {
   options.programs.ranger = {
     enable = mkEnableOption "ranger";

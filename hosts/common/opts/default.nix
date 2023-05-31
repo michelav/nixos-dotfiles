@@ -1,4 +1,16 @@
-{ config, pkgs, lib, ... }: {
+{ pkgs, ... }:
+let
+  activate-hm = pkgs.writeTextFile {
+    name = "activate-hm";
+    destination = "/bin/activate-hm";
+    executable = true;
+    text = let hm = "${pkgs.home-manager}/bin/home-manager";
+    in ''
+      generation=$(${hm} generations | head -1 | awk -F'->' '{print $2}')
+      "$generation/activate &> /dev/null"
+    '';
+  };
+in {
   imports = [ ./pipewire.nix ./jellyfin.nix ./networking.nix ];
 
   programs = {
@@ -14,10 +26,17 @@
 
   environment = {
     pathsToLink = [ "/share/fish" ];
-    systemPackages = with pkgs; [ vim wget git unzip gnome.seahorse ];
+    systemPackages = with pkgs; [
+      vim
+      wget
+      git
+      unzip
+      gnome.seahorse
+      activate-hm
+    ];
     loginShellInit = ''
       # Activate home-manager environment, if not already
-      [ -d "$HOME/.nix-profile" ] || /nix/var/nix/profiles/per-user/$USER/home-manager/activate &> /dev/null
+      [ -d "$HOME/.nix-profile" ] || activate-hm
     '';
   };
 

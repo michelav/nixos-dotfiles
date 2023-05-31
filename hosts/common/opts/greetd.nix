@@ -29,6 +29,10 @@ in {
           "sway -V --unsupported-gpu --config /etc/greetd/sway-config > /persist/logs/regreet-sway.log 2>&1";
         user = "greeter";
       };
+      # initial_session = {
+      #   command = "$SHELL -l";
+      #   user = "michel";
+      # };
     };
   };
   programs.regreet = {

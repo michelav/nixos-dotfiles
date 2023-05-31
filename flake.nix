@@ -33,56 +33,38 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-colors, ... }@inputs:
     let
-      username = "michel";
-      local-lib = import ./lib { inherit inputs; };
-      inherit (local-lib) mkSystem mkHome;
+      inherit (self) outputs;
       local-overlays = import ./overlays;
       overlays = [ inputs.neovim-nightly-overlay.overlay local-overlays ];
-      feats = [ "cli" "dev" ];
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      legacyPackages = forAllSystems (system:
-        import nixpkgs {
-          inherit system overlays;
-          config.allowUnfree = true;
-        });
-      pkgs = legacyPackages."x86_64-linux";
+      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      mkNixos = modules:
+        nixpkgs.lib.nixosSystem {
+          inherit modules;
+          specialArgs = { inherit inputs outputs; };
+        };
+      homeManagerModules = import ./modules/hm;
     in {
-      inherit legacyPackages;
-      nixosConfigurations = {
-        vega = mkSystem {
-          inherit pkgs;
-          hostname = "vega";
+      inherit overlays homeManagerModules;
+      nixpkgs = {
+        inherit overlays;
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = (_: true);
         };
       };
-      homeConfigurations = {
-        "${username}@vega" = mkHome { inherit username feats pkgs; };
-      };
+      nixosConfigurations = { vega = mkNixos [ ./hosts/vega ]; };
       devShells = forAllSystems (system:
         with pkgs; {
           default = mkShell {
             buildInputs = [ coreutils findutils gnumake nixpkgs-fmt nixFlakes ];
           };
-          # python3 = import ./shells/python.nix { inherit pkgs; };
           haskell = import ./shells/haskell.nix { inherit pkgs; };
           rust = import ./shells/rust.nix { inherit pkgs; };
           golang = import ./shells/golang.nix { inherit pkgs; };
-          /* sops-nix = mkShell {
-               name = "sops-nix";
-               nativeBuildInputs = [
-                 age
-                 gnupg
-                 sops
-                 sops-install-secrets
-                 sops-init-gpg-key
-                 sops-import-keys-hook
-                 ssh-to-age
-                 ssh-to-pgp
-               ];
-             };
-          */
         });
     };
 }
