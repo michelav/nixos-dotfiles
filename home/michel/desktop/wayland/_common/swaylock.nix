@@ -5,6 +5,7 @@ let
   inherit (config.userPrefs) fonts;
 in {
   programs.swaylock = {
+    enable = true;
     package = pkgs.swaylock-effects;
     settings = {
       effect-blur = "10x2";

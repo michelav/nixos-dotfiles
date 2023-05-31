@@ -1,16 +1,4 @@
-{ pkgs, ... }:
-let
-  activate-hm = pkgs.writeTextFile {
-    name = "activate-hm";
-    destination = "/bin/activate-hm";
-    executable = true;
-    text = let hm = "${pkgs.home-manager}/bin/home-manager";
-    in ''
-      generation=$(${hm} generations | head -1 | awk -F'->' '{print $2}')
-      "$generation/activate &> /dev/null"
-    '';
-  };
-in {
+{ pkgs, ... }: {
   imports = [ ./pipewire.nix ./jellyfin.nix ./networking.nix ];
 
   programs = {
@@ -26,18 +14,7 @@ in {
 
   environment = {
     pathsToLink = [ "/share/fish" ];
-    systemPackages = with pkgs; [
-      vim
-      wget
-      git
-      unzip
-      gnome.seahorse
-      activate-hm
-    ];
-    loginShellInit = ''
-      # Activate home-manager environment, if not already
-      [ -d "$HOME/.nix-profile" ] || activate-hm
-    '';
+    systemPackages = with pkgs; [ vim wget git unzip gnome.seahorse ];
   };
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
