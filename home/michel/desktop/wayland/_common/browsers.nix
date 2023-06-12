@@ -11,11 +11,18 @@
           keepassxc-browser
           ublock-origin
           browserpass
-          tridactyl
         ];
         settings = {
           "browser.disableResetPrompt" = true;
           "browser.download.useDownloadDir" = false;
+          "dom.security.https_only_mode" = true;
+          "identity.fxaccounts.enabled" = false;
+          "privacy.trackingprotection.enabled" = true;
+          "signon.rememberSignons" = false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "browser.shell.checkDefaultBrowser" = false;
+          "browser.shell.defaultBrowserCheckCount" = 1;
+          "browser.download.panel.shown" = true;
         };
         search = {
           default = "Google";
