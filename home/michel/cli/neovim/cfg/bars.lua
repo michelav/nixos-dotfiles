@@ -63,13 +63,13 @@ local config = {
       {
         "diff",
         -- Is it me or the symbol for modified us really weird
-        symbols = { added = " ", modified = "柳", removed = " " },
+        symbols = { added = " ", modified = " ", removed = " " },
         separator = false,
         cond = conditions.hide_in_width,
       },
     },
     lualine_c = {
-      { "%=", separator = "" },
+      { "%=",       separator = "" },
       { "filename", cond = conditions.buffer_not_empty, filestatus = true, path = 3, separator = "" },
     },
     lualine_x = {

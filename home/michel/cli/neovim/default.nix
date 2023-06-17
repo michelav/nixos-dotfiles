@@ -87,16 +87,6 @@
         }
         nvim-navic
         nvim-web-devicons
-        /* {
-           plugin = feline-nvim;
-           type = "lua";
-           config = ''
-           require("feline").setup({
-           components = require('catppuccin.core.integrations.feline'),
-           })
-           '';
-           }
-        */
         {
           plugin = nvim-colorizer-lua;
           type = "lua";
@@ -108,25 +98,6 @@
           plugin = lualine-nvim;
           type = "lua";
           config = builtins.readFile ./cfg/bars.lua;
-        }
-        /* {
-           plugin = nvimExtraPlugins.nightfox-main;
-           type = "lua";
-           config = ''
-           vim.cmd("colorscheme nordfox")
-           '';
-           }
-        */
-
-        nvimExtraPlugins.nvim-catppuccin
-        nord-nvim
-        nvimExtraPlugins.onenord
-        {
-          plugin = nvim-base16;
-          type = "lua";
-          config = ''
-            vim.cmd('colorscheme base16-nord')
-          '';
         }
 
         ############
@@ -444,7 +415,11 @@
           '';
         }
       ];
-    extraConfig = ''
+    extraConfig = let
+      color =
+        pkgs.writeText "color.vim" (import ./theme.nix config.colorscheme);
+    in ''
+      source ${color}
       lua << EOF
         ${builtins.readFile ./cfg/extraConfig.lua}
       EOF

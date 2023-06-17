@@ -8,6 +8,7 @@
     ./cli
     ./dev
     ./desktop/wayland
+    ./gaming
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
@@ -33,7 +34,7 @@
     editor = "vim";
     browser = "firefox";
     terminal = "kitty";
-    colorSchemeName = "nord";
+    colorSchemeName = "gruvbox-light-soft";
     fonts = {
       monospace = {
         name = "JetBrainsMono Nerd Font";
@@ -44,7 +45,7 @@
         package = pkgs.inconsolata;
       };
     };
-    wallpaper = "~/Pictures/wallpapers/ign_astronaut.png";
+    wallpaper = "~/Pictures/wallpapers/gruvbox/gruvbox-light-blue.png";
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

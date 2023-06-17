@@ -116,8 +116,8 @@ in {
       "idle_inhibitor" = {
         format = "{icon}";
         format-icons = {
-          activated = "";
-          deactivated = "";
+          deactivated = "󰷛 ";
+          activated = "󰍹 ";
         };
         tooltip-format-activated = "idle disabled";
         tooltip-format-deactivated = "idle enabled";
