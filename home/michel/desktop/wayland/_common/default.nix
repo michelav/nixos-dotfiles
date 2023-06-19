@@ -16,7 +16,6 @@
     keepassxc
     gnucash
     transmission-gtk
-    qutebrowser
     discord
     slack
     # TODO: Fix after #230971 goes to nixos-unstable

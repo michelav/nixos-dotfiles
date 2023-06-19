@@ -1,10 +1,11 @@
 # Color configuration extracted from https://github.com/Misterio77/nix-config
-{ config, ... }:
+{ pkgs, config, ... }:
 let inherit (config.colorscheme) colors;
 in {
   programs.qutebrowser = {
     enable = true;
     loadAutoconfig = true;
+    package = pkgs.qutebrowser-qt6;
     searchEngines = {
       wiki =
         "https://en.wikipedia.org/wiki/Special:Search?search={}&go=Go&ns0=1";
@@ -22,7 +23,7 @@ in {
         "https://www.linguee.com.br/portugues-ingles/search?source=auto&query={}";
     };
     settings = {
-      content.javascript.can_access_clipboard = true;
+      content.javascript.clipboard = "access-paste";
       scrolling.smooth = true;
       colors = {
         webpage = { preferred_color_scheme = "light"; };
