@@ -42,10 +42,15 @@
 
   programs = {
     alacritty.enable = true;
-    bat.enable = true;
     kitty.enable = true;
     fzf.enable = true;
     fzf.enableFishIntegration = true;
+    bat = {
+      enable = true;
+      config = {
+        theme = "gruvbox-light"; # XXX: Change it if colorscheme is changed
+      };
+    };
     # ranger.enable = true;
   };
 }
