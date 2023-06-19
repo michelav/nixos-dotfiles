@@ -23,11 +23,9 @@ in {
     };
     settings = {
       content.javascript.can_access_clipboard = true;
+      scrolling.smooth = true;
       colors = {
-        webpage = {
-          preferred_color_scheme = "dark";
-          bg = "#ffffff";
-        };
+        webpage = { preferred_color_scheme = "light"; };
         completion = {
           fg = "#${colors.base05}";
           match.fg = "#${colors.base09}";
