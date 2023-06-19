@@ -12,8 +12,7 @@ in rec {
     gtk_engines
     gsettings-desktop-schemas
     nordic
-    nordzy-cursor-theme
-    catppuccin-gtk
+    numix-cursor-theme
   ];
 
   gtk = {
@@ -22,10 +21,10 @@ in rec {
       name = "${config.colorscheme.slug}";
       package = gtkThemeFromScheme { scheme = config.colorscheme; };
     };
-    cursorTheme.name = "Nordzy-cursors-white";
+    cursorTheme.name = "Numix-Cursor-Light";
     iconTheme = {
-      name = "Nordzy-dark";
-      package = pkgs.nordzy-icon-theme;
+      name = "Numix-Circle-Light";
+      package = pkgs.numix-icon-theme;
     };
     font = {
       inherit (config.userPrefs.fonts.regular) name package;
