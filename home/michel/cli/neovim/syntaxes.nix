@@ -34,6 +34,6 @@
     SchemaStore-nvim
     vim-nix
     yuck-vim
-    # vimtex
+    vimtex
   ];
 }
