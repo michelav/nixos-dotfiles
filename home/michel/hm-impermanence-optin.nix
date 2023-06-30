@@ -13,6 +13,7 @@
       "repos"
       ".mozilla/firefox"
       ".config/discord"
+      ".config/maestral"
       ".config/Slack"
       ".config/qutebrowser/bookmarks"
       ".config/qutebrowser/greasemonkey"

@@ -10,6 +10,7 @@
     ./zathura.nix
     ./wezterm.nix
     ./waybar.nix
+    ./maestral.nix
   ];
 
   home.packages = with pkgs; [
@@ -23,10 +24,6 @@
     # bitwarden-cli
     xdg-utils
     fractal
-
-    # TODO: Create modules for sync files with Dropbox, Google Drive and MS One
-    maestral
-    maestral-gui
   ];
 
   home.sessionVariables = {
