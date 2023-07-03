@@ -1,4 +1,6 @@
-{ colors, ... }: ''
+{ colors, hexToRGBString, ... }:
+let rgba = color: alpha: "rgba(${hexToRGBString "," "${color}"},${alpha})";
+in ''
   @define-color base00 #${colors.base00};
   @define-color base01 #${colors.base01};
   @define-color base02 #${colors.base02};
@@ -18,11 +20,10 @@
 
   #window {
     margin: 0px;
-
     border-radius: 7px;
     background-color: @base00;
     font-size: 16px;
-    background: @base01;
+    background: ${rgba "${colors.base01}" "0.6"};
   }
 
   #input {

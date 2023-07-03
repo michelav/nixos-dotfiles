@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 # Copied from https://github.com/Misterio77/nix-config
 let
   wofi = pkgs.wofi.overrideAttrs (oa: {
@@ -19,6 +19,8 @@ in {
     run-exec_search=true
   '';
 
-  xdg.configFile."wofi/style.css".text =
-    import ./wofi-style.nix { inherit (config.colorScheme) colors; };
+  xdg.configFile."wofi/style.css".text = import ./wofi-style.nix {
+    inherit (config.colorScheme) colors;
+    inherit (inputs.nix-colors.lib-core.conversions) hexToRGBString;
+  };
 }
