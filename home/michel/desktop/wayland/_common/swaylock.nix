@@ -2,7 +2,8 @@
 
 let
   inherit (config.colorscheme) colors;
-  inherit (config.userPrefs) fonts;
+  inherit (config.userPrefs) fonts wallpaper;
+  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
 in {
   programs.swaylock = {
     enable = true;
@@ -41,6 +42,16 @@ in {
       inside-caps-lock-color = "#${colors.base09}";
       ring-caps-lock-color = "#${colors.base02}";
       separator-color = "#${colors.base02}";
+    };
+  };
+  systemd.user.services.lockOnAutoLogin = {
+    Unit = { Description = "Lock the Screen after autologin"; };
+    Install = { WantedBy = [ "hyprland-session.target" ]; };
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = "true";
+      Environment = [ "PYTHONOPTIMIZE=2" "LC_CTYPE=UTF-8" ];
+      ExecStart = "${swaylock} -i ${wallpaper}";
     };
   };
 }

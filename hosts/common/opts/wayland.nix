@@ -3,7 +3,7 @@
   services.gnome.gnome-keyring.enable = true;
   services.dbus.packages = [ pkgs.gcr ];
   services.blueman.enable = true;
-  security.pam.services.swaylock = { };
+  security.pam.services.swaylock = { enableGnomeKeyring = true; };
   programs.light.enable = true;
   programs.hyprland = {
     enable = true;

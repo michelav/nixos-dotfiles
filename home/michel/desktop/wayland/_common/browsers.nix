@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, ... }: {
+{ inputs, pkgs, ... }: {
   imports = [ ./qutebrowser.nix ];
   programs = {
     browserpass.enable = true;
@@ -11,6 +11,7 @@
           keepassxc-browser
           ublock-origin
           browserpass
+          vimium
         ];
         settings = {
           "browser.disableResetPrompt" = true;
