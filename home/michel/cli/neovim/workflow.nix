@@ -159,8 +159,20 @@
           local orgmode = require('orgmode')
           orgmode.setup_ts_grammar()
           orgmode.setup{
-            org_agenda_files = '~/Documents/Org/*',
-            org_default_notes_file = '~/Documents/Org/captures.org',
+            org_agenda_files = '~/Dropbox/Org/*',
+            org_default_notes_file = '~/Dropbox/Org/notes.org',
+            org_capture_templates = {
+              t = {
+                description = 'Task',
+                template = '* TODO %?\n %u',
+                target = '~/Dropbox/Org/todo.org'
+              },
+              j = {
+                description = 'Journal',
+                template = '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
+                target = '~/Dropbox/Org/journal.org'
+              },
+            },
           }
         '';
     }
