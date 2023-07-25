@@ -33,7 +33,7 @@
           type = "lua";
           config = builtins.readFile ./cfg/mappings.lua;
         }
-
+        vim-ledger
       ];
     extraConfig = let
       color =

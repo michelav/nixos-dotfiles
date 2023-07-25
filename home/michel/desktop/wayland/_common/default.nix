@@ -15,7 +15,6 @@
 
   home.packages = with pkgs; [
     keepassxc
-    gnucash
     transmission-gtk
     discord
     slack

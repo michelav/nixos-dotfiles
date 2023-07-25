@@ -8,6 +8,7 @@
     ./cli
     ./dev
     ./desktop/wayland
+    ./finance
     ./gaming
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
