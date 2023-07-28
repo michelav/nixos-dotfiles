@@ -8,8 +8,8 @@
   };
 
   fonts = {
-    enableDefaultFonts = true;
-    fonts = with pkgs; [ corefonts ];
+    enableDefaultPackages = true;
+    packages = with pkgs; [ corefonts ];
   };
 
   environment = {
