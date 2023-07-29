@@ -32,7 +32,7 @@
         })
       '';
     }
-
+    lspkind-nvim
     {
       plugin = nvim-cmp;
       type = "lua";
