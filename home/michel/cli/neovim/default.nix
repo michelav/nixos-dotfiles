@@ -41,10 +41,8 @@
     in ''
       let g:loaded_perl_provider = 0
       source ${color}
-      lua << EOF
-        ${builtins.readFile ./cfg/extraConfig.lua}
-      EOF
     '';
+    extraLuaConfig = builtins.readFile ./cfg/extraConfig.lua;
     extraPython3Packages = ps: with ps; [ greenlet ];
   };
 

@@ -50,6 +50,17 @@
     cmp-nvim-lsp-document-symbol
     cmp-cmdline
     friendly-snippets
-    rust-tools-nvim
+    {
+      plugin = rust-tools-nvim;
+      type = "lua";
+      config = # lua
+        ''
+          local rust_tools = require('rust-tools')
+          if vim.fn.executable("rust-analyzer") == 1 then
+            rust_tools.setup{ tools = { autoSetHints = true } }
+          end
+          vim.api.nvim_set_hl(0, '@lsp.type.comment.rust', {})
+        '';
+    }
   ];
 }
