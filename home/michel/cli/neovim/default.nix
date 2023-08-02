@@ -26,7 +26,6 @@
     vimAlias = true;
     plugins = with pkgs;
       with vimPlugins; [
-
         plenary-nvim
         {
           plugin = which-key-nvim;

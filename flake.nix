@@ -39,7 +39,13 @@
       overlays = [ inputs.neovim-nightly-overlay.overlay local-overlays ];
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit overlays;
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = _: true;
+        };
+      };
       mkNixos = modules:
         nixpkgs.lib.nixosSystem {
           inherit modules;
@@ -47,17 +53,10 @@
         };
       homeManagerModules = import ./modules/hm;
     in {
-      inherit overlays homeManagerModules;
-      nixpkgs = {
-        inherit overlays;
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = (_: true);
-        };
-      };
+      inherit pkgs overlays homeManagerModules;
       nixosConfigurations = { vega = mkNixos [ ./hosts/vega ]; };
       devShells = forAllSystems (system:
-        with pkgs; {
+        with pkgs.legacyPackages.${system}; {
           default = mkShell {
             buildInputs = [ coreutils findutils gnumake nixpkgs-fmt nixFlakes ];
           };
