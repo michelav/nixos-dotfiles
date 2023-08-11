@@ -1,10 +1,6 @@
 { pkgs, lib, ... }: {
-  home.packages = with pkgs; [
-    pavucontrol
-    spotify
-    playerctl
-    # helvum
-  ];
+  imports = [ ./easyeffects.nix ];
+  home.packages = with pkgs; [ pavucontrol spotify playerctl qpwgraph ];
   programs.mpv = with pkgs; {
     enable = true;
     config = {
@@ -21,7 +17,4 @@
     };
     scripts = [ mpvScripts.mpris ];
   };
-
-  # TODO: Create a function withPresets to load easyeffects presets
-  services.easyeffects.enable = true;
 }

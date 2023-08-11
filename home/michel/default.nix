@@ -10,6 +10,7 @@
     ./desktop/wayland
     ./finance
     ./gaming
+    ./media
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {

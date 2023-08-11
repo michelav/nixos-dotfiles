@@ -3,7 +3,6 @@
     ./browsers.nix
     ./gammastep.nix
     ./mako.nix
-    ./media.nix
     ./swayidle.nix
     ./swaylock.nix
     ./theme.nix
