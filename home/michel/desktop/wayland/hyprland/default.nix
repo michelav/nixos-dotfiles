@@ -35,7 +35,7 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.hyprland;
-    nvidiaPatches = true;
+    enableNvidiaPatches = true;
     extraConfig = import ./config.nix { inherit config; };
   };
 }

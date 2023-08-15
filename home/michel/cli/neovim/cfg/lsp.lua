@@ -57,15 +57,15 @@ local on_attach_golang = function(client, buffer)
 end
 
 local servers = {
-  { cmd = "nil",                         name = "nil_ls",        options = opts },
-  { cmd = "docker-langserver",           name = "dockerls",      options = opts },
-  { cmd = "haskell-language-server",     name = "hls",           options = opts },
-  { cmd = "terraform-ls",                name = "terraformls",   options = opts },
-  { cmd = "rust_analyzer",               name = "rust_analyzer", options = opts },
-  { cmd = "yaml-language-server",        name = "yamlls",        options = opts },
-  { cmd = "texlab",                      name = "texlab",        options = opts },
-  { cmd = "ccls",                        name = "ccls",          options = opts },
-  { cmd = "vscode-json-language-server", name = "jsonls",        options = opts },
+  { cmd = "nil",                             name = "nil_ls",        options = opts },
+  { cmd = "docker-langserver",               name = "dockerls",      options = opts },
+  { cmd = "haskell-language-server-wrapper", name = "hls",           options = opts },
+  { cmd = "terraform-ls",                    name = "terraformls",   options = opts },
+  { cmd = "rust_analyzer",                   name = "rust_analyzer", options = opts },
+  { cmd = "yaml-language-server",            name = "yamlls",        options = opts },
+  { cmd = "texlab",                          name = "texlab",        options = opts },
+  { cmd = "ccls",                            name = "ccls",          options = opts },
+  { cmd = "vscode-json-language-server",     name = "jsonls",        options = opts },
   {
     cmd = "gopls",
     name = "gopls",
