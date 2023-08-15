@@ -39,30 +39,32 @@
       overlays = [ inputs.neovim-nightly-overlay.overlay local-overlays ];
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      pkgs = import nixpkgs {
-        inherit overlays;
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = _: true;
-        };
-      };
-      mkNixos = modules:
+      pkgs = forAllSystems (system:
+        import nixpkgs {
+          inherit system overlays;
+          config = {
+            allowUnfree = true;
+            allowUnfreePredicate = _: true;
+          };
+        });
+      mkNixos = system: modules:
         nixpkgs.lib.nixosSystem {
-          inherit modules;
+          inherit system modules;
           specialArgs = { inherit inputs outputs; };
         };
       homeManagerModules = import ./modules/hm;
     in {
       inherit pkgs overlays homeManagerModules;
-      nixosConfigurations = { vega = mkNixos [ ./hosts/vega ]; };
+      nixosConfigurations = { vega = mkNixos "x86_64-linux" [ ./hosts/vega ]; };
       devShells = forAllSystems (system:
-        with pkgs.legacyPackages.${system}; {
+        let ps = pkgs.${system};
+        in with ps; {
           default = mkShell {
             buildInputs = [ coreutils findutils gnumake nixpkgs-fmt nixFlakes ];
           };
-          haskell = import ./shells/haskell.nix { inherit pkgs; };
-          rust = import ./shells/rust.nix { inherit pkgs; };
-          golang = import ./shells/golang.nix { inherit pkgs; };
+          haskell = import ./shells/haskell.nix { pkgs = ps; };
+          rust = import ./shells/rust.nix { pkgs = ps; };
+          golang = import ./shells/golang.nix { pkgs = ps; };
         });
     };
 }
