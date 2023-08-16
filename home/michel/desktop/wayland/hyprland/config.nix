@@ -24,16 +24,17 @@ in ''
       inactive_opacity=0.84
       fullscreen_opacity=1.0
       rounding=5
-      blur=true
-      blur_size=5
-      blur_passes=3
-      blur_new_optimizations=true
-      blur_ignore_opacity=true
       drop_shadow=true
       shadow_range=12
       shadow_offset=3 3
       col.shadow=0x44000000
       col.shadow_inactive=0x66000000
+      blur {
+        enabled=true
+        size=5
+        passes=3
+        ignore_opacity=true
+      }
     }
     animations {
       enabled=true
@@ -221,5 +222,4 @@ in ''
     bind=SUPERSHIFT,f10,movetoworkspacesilent,20
     bind=SUPERSHIFT,f11,movetoworkspacesilent,21
     bind=SUPERSHIFT,f12,movetoworkspacesilent,22
-    blurls=waybar
 ''
