@@ -44,8 +44,9 @@
     editor = "vim";
     browser = "firefox";
     terminal = "kitty";
+    # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
+    colorSchemeName = "one-light";
     # colorSchemeName = "gruvbox-light-soft";
-    colorSchemeName = "tomorrow";
     fonts = {
       monospace = {
         name = "JetBrainsMono Nerd Font";
@@ -56,7 +57,6 @@
         package = pkgs.inconsolata;
       };
     };
-    # wallpaper = "~/Pictures/wallpapers/gruvbox/gruvbox-light-blue.png";
     wallpaper = "${wp}";
   };
   # Let Home Manager install and manage itself.
