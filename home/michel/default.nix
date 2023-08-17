@@ -1,4 +1,4 @@
-{ inputs, outputs, pkgs, ... }: {
+{ inputs, outputs, pkgs, config, ... }: {
 
   # The feats dictates what should be installed
   imports = [
@@ -31,12 +31,21 @@
 
   systemd.user.startServices = "sd-switch";
 
-  userPrefs = {
+  userPrefs = let
+    colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
+    wp = colors-lib.nixWallpaperFromScheme {
+      scheme = config.colorScheme;
+      width = 1920;
+      height = 1080;
+      logoScale = 3.0;
+    };
+  in {
     enable = true;
     editor = "vim";
     browser = "firefox";
     terminal = "kitty";
-    colorSchemeName = "gruvbox-light-soft";
+    # colorSchemeName = "gruvbox-light-soft";
+    colorSchemeName = "tomorrow";
     fonts = {
       monospace = {
         name = "JetBrainsMono Nerd Font";
@@ -47,7 +56,8 @@
         package = pkgs.inconsolata;
       };
     };
-    wallpaper = "~/Pictures/wallpapers/gruvbox/gruvbox-light-blue.png";
+    # wallpaper = "~/Pictures/wallpapers/gruvbox/gruvbox-light-blue.png";
+    wallpaper = "${wp}";
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
