@@ -14,7 +14,7 @@ in {
       position = "top";
       modules-left = [
         # "custom/scratchpad"
-        "hyprland/workspaces"
+        "wlr/workspaces"
         "hyprland/submap"
         "custom/media"
       ];
@@ -27,22 +27,12 @@ in {
         "battery"
         "tray"
       ];
-
-      "hyprland/workspaces" = {
+      # TODO: Chage to hyprland/workspaces module
+      "wlr/workspaces" = {
         disable-scroll = true;
         all-outputs = true;
         on-click = "activate";
       };
-
-      # TODO: Comment out after helvum build is fixed
-
-      /* "wireplumber" = {
-           format = "{volume}%";
-           format-muted = "";
-           on-click = "helvum";
-           format-icons = [ "" "" "" ];
-         };
-      */
 
       "custom/media" = {
         format = "{icon} {}";

@@ -67,11 +67,6 @@ in ''
         disable_while_typing=false
       }
     }
-    # Passthrough mode (e.g. for VNC)
-    bind=SUPER,P,submap,passthrough
-    submap=passthrough
-    bind=SUPER,P,submap,reset
-    submap=reset
     # Startup
     exec-once=waybar
     exec=swaybg -i ${wallpaper} --mode fill
@@ -236,5 +231,10 @@ in ''
     # use reset to go back to the global submap
     bind=,escape,submap,reset 
     # will reset the submap, meaning end the current one and return to the global one
+    submap=reset
+    ### Passthrough mode (e.g. for VNC) ###
+    bind=SUPER,P,submap,passthrough
+    submap=passthrough
+    bind=SUPER,P,submap,reset
     submap=reset
 ''
