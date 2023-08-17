@@ -14,7 +14,7 @@ in {
       position = "top";
       modules-left = [
         # "custom/scratchpad"
-        "wlr/workspaces"
+        "hyprland/workspaces"
         "hyprland/submap"
         "custom/media"
       ];
@@ -28,7 +28,7 @@ in {
         "tray"
       ];
 
-      "wlr/workspaces" = {
+      "hyprland/workspaces" = {
         disable-scroll = true;
         all-outputs = true;
         on-click = "activate";
@@ -185,7 +185,7 @@ in {
         #cpu,
         #custom-layout,
         #memory,
-        #mode,
+        #submap,
         #custom-media,
         #network,
         #pulseaudio,
@@ -200,7 +200,7 @@ in {
         }
 
         /* Each module that should blink */
-        #mode,
+        #submap,
         #memory,
         #temperature,
         #battery {
@@ -219,7 +219,6 @@ in {
         }
 
         /* Each critical that should blink */
-        #mode,
         #memory.critical,
         #temperature.critical,
         #battery.critical.discharging {
@@ -238,12 +237,13 @@ in {
         }
 
         /* Each warning that should blink */
+        #submap,
         #battery.warning.discharging {
             animation-name: blink-warning;
             animation-duration: 3s;
         }
 
-        #mode { /* Shown current Sway mode (resize etc.) */
+        #submap { /* Shown current Sway mode (resize etc.) */
           color: @module-fg;
           background: @module-bg;
         }
