@@ -111,20 +111,20 @@
       };
       "pulseaudio" = {
         scroll-step = 1;
-        format = "{volume}% {icon} {format_source}";
+        format = "{volume}%  {icon} {format_source}";
         format-bluetooth = "{volume}% {icon} {format_source}";
         format-bluetooth-muted = " {icon} {format_source}";
         format-muted = " {format_source}";
-        format-source = "{volume}% ";
-        format-source-muted = "";
+        format-source = "{volume}%  ";
+        format-source-muted = " ";
         format-icons = {
-          headphone = "";
-          hands-free = "";
-          headset = "";
-          phone = "";
-          portable = "";
-          car = "";
-          default = [ "" "" "" ];
+          headphone = " ";
+          hands-free = " ";
+          headset = " ";
+          phone = " ";
+          portable = " ";
+          car = " ";
+          default = [ " " " " " " ];
         };
         on-click = "pavucontrol";
       };
@@ -154,7 +154,7 @@
         @define-color warning #${base0A};
         @define-color critical #${base08};
         @define-color workspacesfocused_bg #${base00};
-        @define-color workspacesfocused_fg #${base0B};
+        @define-color workspacesfocused_fg #${base07};
         @define-color workspace-urgent #${base09};
         @define-color module-bg #${base03};
         @define-color module-bg-alt #${base03};
@@ -266,12 +266,13 @@
             margin: 2px;
         }
 
+        #workspaces button.special,
         #workspaces button.focused,
         #workspaces button.active {
             background: @workspacesfocused_bg;
             color: @workspacesfocused_fg;
             opacity: 1;
-            font-weight: 900;
+            font-weight: bold;
         }
 
         #workspaces button.urgent {
@@ -287,10 +288,9 @@
         }
 
         #custom-media {
-            background: @module-bg-gp1;
-            font-weight: bold;
+            background: @module-bg;
             padding: 0 0.6em;
-            color: @module-fg-alt;
+            color: @module-fg;
         }
 
         #idle_inhibitor {
@@ -342,15 +342,6 @@
         #tray {
           background: @module-bg;
           color: @module-fg;
-          font-weight: bold;
-        }
-
-        #workspaces button.special
-        {
-          background: #${base02};
-          color: @workspacesfocused_fg;
-          font-weight: bold;
-          opacity: 1;
         }
 
         #network {
