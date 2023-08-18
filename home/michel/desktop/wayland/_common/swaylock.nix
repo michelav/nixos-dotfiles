@@ -51,7 +51,7 @@ in {
       Type = "oneshot";
       RemainAfterExit = "true";
       Environment = [ "PYTHONOPTIMIZE=2" "LC_CTYPE=UTF-8" ];
-      ExecStart = "${swaylock} -i ${wallpaper}";
+      ExecStart = "${swaylock} -i ${wallpaper} --grace 0 --fade-in 0";
     };
   };
 }
