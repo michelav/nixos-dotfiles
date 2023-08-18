@@ -35,7 +35,7 @@
 
         hostname = {
           format = "[$hostname]($style) in ";
-          style = "bold dimmed green";
+          style = "bold green";
           trim_at = ".";
           ssh_only = false;
           disabled = false;
@@ -49,7 +49,7 @@
         };
         character = {
           error_symbol = "[~>](bold red)";
-          success_symbol = "[->](bold dimmed green)";
+          success_symbol = "[->](bold green)";
           vicmd_symbol = "[<-](bold yellow)";
         };
         nix_shell = {
