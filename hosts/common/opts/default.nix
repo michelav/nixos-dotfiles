@@ -9,7 +9,19 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs; [ corefonts ];
+    packages = with pkgs; [
+      corefonts
+      roboto-slab
+      inter
+      iosevka
+      noto-fonts-emoji
+    ];
+    fontconfig.defaultFonts = {
+      serif = [ "Roboto Slab" ];
+      sansSerif = [ "Inter" ];
+      monospace = [ "Iosevka" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
   };
 
   environment = {

@@ -41,7 +41,7 @@
           "7" = "7";
           "8" = "8";
           "9" = "9";
-          "special" = "  ";
+          "special" = " ";
         };
         # XXX: Not working as expected. Should be always visible
         persistent_workspaces = { "eDP-1" = -99; };
@@ -156,10 +156,10 @@
         @define-color workspacesfocused_bg #${base00};
         @define-color workspacesfocused_fg #${base0B};
         @define-color workspace-urgent #${base09};
-        @define-color module-bg #${base02};
-        @define-color module-bg-alt #${base04};
-        @define-color module-fg #${base05};
-        @define-color module-fg-alt #${base00};
+        @define-color module-bg #${base03};
+        @define-color module-bg-alt #${base03};
+        @define-color module-fg #${base00};
+        @define-color module-fg-alt #${base06};
         @define-color module-fg-anm #${base01};
         @define-color module-bg-gp1 #${base0B};
         @define-color module-bg-gp2 #${base0C};
@@ -178,7 +178,7 @@
           background: none;
           color: @module-fg;
           font-family: '${fonts.regular.name}', '${fonts.monospace.name}';
-          font-size: 12pt;
+          font-size: 11pt;
           font-weight: normal;
 
         }
@@ -205,7 +205,6 @@
         }
 
         /* Each module that should blink */
-        #submap,
         #memory,
         #temperature,
         #battery {
@@ -242,7 +241,6 @@
         }
 
         /* Each warning that should blink */
-        #submap,
         #battery.warning.discharging {
             animation-name: blink-warning;
             animation-duration: 3s;
@@ -250,7 +248,7 @@
 
         #submap { /* Shown current Sway mode (resize etc.) */
           color: @module-fg;
-          background: @module-bg;
+          background: @warning;
         }
 
         /* Workspaces stuff */
@@ -265,7 +263,6 @@
             padding: 0 0.6em;
             opacity: 0.3;
             background: none;
-            font-size: 14pt;
             margin: 2px;
         }
 
@@ -299,7 +296,7 @@
         #idle_inhibitor {
             font-weight: bold;
             padding: 0 0.6em;
-            color: @module-fg-alt;
+            color: @module-fg;
         }
 
         #idle_inhibitor.activated {
@@ -307,7 +304,7 @@
         }
 
         #idle_inhibitor.deactivated {
-          background: @module-bg-gp1;
+          background: @module-bg;
         }
 
         #bluetooth {
@@ -343,41 +340,41 @@
         /* Group 0 */
         #clock,
         #tray {
-          background: none;
+          background: @module-bg;
           color: @module-fg;
-          font-size: 14pt
+          font-weight: bold;
         }
 
-        #custom-scratchpad,
-        #workspaces button.special,
-        #wireplumber
+        #workspaces button.special
         {
-          background: #${base07};
-          color: @module-fg-alt;
+          background: #${base02};
+          color: @workspacesfocused_fg;
+          font-weight: bold;
+          opacity: 1;
         }
 
         #network {
-          background: @module-bg-gp4;
-          color: @module-fg-alt;
+          background: @module-bg;
+          color: @module-fg;
         }
 
         /* Group 2 */
         #pulseaudio {
-          background: @module-bg-gp3;
-          color: @module-fg-alt;
+          background: @module-bg;
+          color: @module-fg;
         }
 
         /* Group 4 */
         #memory,
         #cpu,
         #backlight {
-          background: @module-bg-gp2;
-          color: @module-fg-alt;
+          background: @module-bg;
+          color: @module-fg;
         }
 
         #battery {
-        	background: @module-bg-gp5;
-          color: @module-fg-alt;
+        	background: @module-bg;
+          color: @module-fg;
         }
       '';
   };

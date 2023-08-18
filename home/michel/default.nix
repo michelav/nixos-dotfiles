@@ -45,7 +45,7 @@
     browser = "firefox";
     terminal = "kitty";
     # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
-    colorSchemeName = "tomorrow";
+    colorSchemeName = "one-light";
     # colorSchemeName = "gruvbox-light-soft";
     fonts = {
       monospace = {
@@ -53,8 +53,8 @@
         package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
       };
       regular = {
-        name = "Inconsolata";
-        package = pkgs.inconsolata;
+        name = "Inter";
+        package = pkgs.inter;
       };
     };
     wallpaper = "${wp}";
