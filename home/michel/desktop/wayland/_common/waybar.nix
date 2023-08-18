@@ -66,7 +66,7 @@
         on-scroll-up = "playerctl next";
         on-scroll-down = "playerctl previous";
         exec =
-          "${custom-waybar}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
+          "${pkgs.waybar-main}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
       };
       "custom/scratchpad" = {
         interval = 1;
