@@ -1,12 +1,7 @@
-{ pkgs, config, ... }:
-let
-  custom-waybar = (pkgs.waybar.overrideAttrs (oa: {
-    mesonFlags = (oa.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ];
-  })).override { withMediaPlayer = true; };
-in {
+{ pkgs, config, ... }: {
   programs.waybar = {
     enable = true;
-    package = custom-waybar;
+    package = pkgs.waybar-main;
     settings = [{
       output = "eDP-1";
       mode = "dock";
@@ -14,7 +9,8 @@ in {
       position = "top";
       modules-left = [
         # "custom/scratchpad"
-        "wlr/workspaces"
+        # "wlr/workspaces"
+        "hyprland/workspaces"
         "hyprland/submap"
         "custom/media"
       ];
@@ -28,9 +24,28 @@ in {
         "tray"
       ];
       # TODO: Chage to hyprland/workspaces module
-      "wlr/workspaces" = {
-        disable-scroll = true;
-        all-outputs = true;
+      # "wlr/workspaces" = {
+      #   disable-scroll = true;
+      #   all-outputs = true;
+      #   on-click = "activate";
+      # };
+      "hyprland/workspaces" = {
+        format = "{icon}";
+        format-icons = {
+          "1" = "1";
+          "2" = "2";
+          "3" = "3";
+          "4" = "4";
+          "5" = "5";
+          "6" = "6";
+          "7" = "7";
+          "8" = "8";
+          "9" = "9";
+          "special" = "  ";
+        };
+        # XXX: Not working as expected. Should be always visible
+        persistent_workspaces = { "eDP-1" = -99; };
+        show-special = true;
         on-click = "activate";
       };
 
@@ -244,7 +259,8 @@ in {
           background: @module-bg;
         }
 
-        #workspaces button {
+        #workspaces button,
+        #workspaces button.persistent {
             font-weight: normal; /* Somewhy the bar-wide setting is ignored*/
             padding: 0 0.6em;
             opacity: 0.3;
@@ -333,6 +349,7 @@ in {
         }
 
         #custom-scratchpad,
+        #workspaces button.special,
         #wireplumber
         {
           background: #${base07};
