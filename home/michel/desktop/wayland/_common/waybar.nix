@@ -88,7 +88,7 @@
         "on-scroll-up" = "light -A 5";
         "on-scroll-down" = "light -U 5";
       };
-
+      # TODO: Show only network symbol. Adjust tooltip and click to show more info if necessary
       "network" = {
         format-wifi = "{essid} ({signalStrength}%)  ";
         format-ethernet = "{ipaddr}/{cidr}  ";
@@ -157,7 +157,7 @@
         @define-color workspacesfocused_fg #${base07};
         @define-color workspace-urgent #${base09};
         @define-color module-bg #${base03};
-        @define-color module-bg-alt #${base03};
+        @define-color module-bg-alt #${base02};
         @define-color module-fg #${base00};
         @define-color module-fg-alt #${base06};
         @define-color module-fg-anm #${base01};
@@ -179,8 +179,8 @@
           color: @module-fg;
           font-family: '${fonts.regular.name}', '${fonts.monospace.name}';
           font-size: 12pt;
-          font-weight: normal;
-          opacity: 1;
+          font-weight: 500;
+          opacity: 1.0;
         }
 
         /* Each module */
@@ -197,7 +197,7 @@
           background: @module-bg;
           color: @module-fg;
           padding-left: 0.8em;
-          padding-right: 1.0em;
+          padding-right: 0.8em;
         }
 
         /* Each module that should blink */
@@ -257,7 +257,6 @@
         #workspaces button.persistent {
             font-weight: normal; /* Somewhy the bar-wide setting is ignored*/
             padding: 0 0.6em;
-            opacity: 0.7;
             background: none;
             margin: 2px;
         }
@@ -267,14 +266,12 @@
         #workspaces button.active {
             /* background: @workspacesfocused_bg; */
             color: @module-fg;
-            opacity: 1;
             font-weight: bold;
         }
 
         #workspaces button.urgent {
             border-color: @workspace-urgent;
             color: @workspace-urgent;
-            opacity: 1;
         }
 
         #custom-media {
