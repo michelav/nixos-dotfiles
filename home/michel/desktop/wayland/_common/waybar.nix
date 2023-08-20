@@ -90,10 +90,10 @@
       };
 
       "network" = {
-        format-wifi = "{essid} ({signalStrength}%) ";
-        format-ethernet = "{ipaddr}/{cidr} ";
-        format-linked = "(No IP) ";
-        format-disconnected = "Disconnected ";
+        format-wifi = "{essid} ({signalStrength}%)  ";
+        format-ethernet = "{ipaddr}/{cidr}  ";
+        format-linked = "(No IP)  ";
+        format-disconnected = "Disconnected  ";
         format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
         on-click-middle = "nmtui";
         tooltip-format-wifi = "{ipaddr}/{cidr}";
@@ -111,11 +111,11 @@
       };
       "pulseaudio" = {
         scroll-step = 1;
-        format = "{volume}%  {icon} {format_source}";
+        format = "{volume}% {icon} {format_source}";
         format-bluetooth = "{volume}% {icon} {format_source}";
         format-bluetooth-muted = " {icon} {format_source}";
         format-muted = " {format_source}";
-        format-source = "{volume}%  ";
+        format-source = "{volume}% ";
         format-source-muted = " ";
         format-icons = {
           headphone = " ";
@@ -133,11 +133,11 @@
           warning = 30;
           critical = 15;
         };
-        format = "{capacity}% {icon} ";
-        format-charging = "{capacity}% ";
-        format-plugged = "{capacity}% ";
+        format = "{capacity}% {icon}";
+        format-charging = "{capacity}%  ";
+        format-plugged = "{capacity}%  ";
         format-alt = "{time} {icon}";
-        format-icons = [ "" "" "" "" "" ];
+        format-icons = [ " " " " " " " " " " ];
       };
       "clock" = {
         #format = "{:  %H:%M %p   %d/%m/%Y}";
@@ -178,30 +178,26 @@
           background: none;
           color: @module-fg;
           font-family: '${fonts.regular.name}', '${fonts.monospace.name}';
-          font-size: 11pt;
+          font-size: 12pt;
           font-weight: normal;
-
+          opacity: 1;
         }
 
         /* Each module */
-        #custom-scratchpad,
         #battery,
         #clock,
-        #cpu,
-        #custom-layout,
-        #memory,
         #submap,
         #custom-media,
         #network,
         #pulseaudio,
-        #temperature,
         #idle_inhibitor,
-        #window,
         #tray,
         #wireplumber,
         #backlight {
-            padding-left: 0.8em;
-            padding-right: 1.0em;
+          background: @module-bg;
+          color: @module-fg;
+          padding-left: 0.8em;
+          padding-right: 1.0em;
         }
 
         /* Each module that should blink */
@@ -261,7 +257,7 @@
         #workspaces button.persistent {
             font-weight: normal; /* Somewhy the bar-wide setting is ignored*/
             padding: 0 0.6em;
-            opacity: 0.3;
+            opacity: 0.7;
             background: none;
             margin: 2px;
         }
@@ -269,8 +265,8 @@
         #workspaces button.special,
         #workspaces button.focused,
         #workspaces button.active {
-            background: @workspacesfocused_bg;
-            color: @workspacesfocused_fg;
+            /* background: @workspacesfocused_bg; */
+            color: @module-fg;
             opacity: 1;
             font-weight: bold;
         }
@@ -281,16 +277,8 @@
             opacity: 1;
         }
 
-        #window {
-            margin-right: 40px;
-            margin-left: 40px;
-            font-weight: normal;
-        }
-
         #custom-media {
-            background: @module-bg;
             padding: 0 0.6em;
-            color: @module-fg;
         }
 
         #idle_inhibitor {
@@ -334,38 +322,6 @@
                 color: @module-fg-anm;
                 background-color: @critical;
             }
-        }
-
-
-        /* Group 0 */
-        #clock,
-        #tray {
-          background: @module-bg;
-          color: @module-fg;
-        }
-
-        #network {
-          background: @module-bg;
-          color: @module-fg;
-        }
-
-        /* Group 2 */
-        #pulseaudio {
-          background: @module-bg;
-          color: @module-fg;
-        }
-
-        /* Group 4 */
-        #memory,
-        #cpu,
-        #backlight {
-          background: @module-bg;
-          color: @module-fg;
-        }
-
-        #battery {
-        	background: @module-bg;
-          color: @module-fg;
         }
       '';
   };
