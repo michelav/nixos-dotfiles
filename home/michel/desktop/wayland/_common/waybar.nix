@@ -1,7 +1,13 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+let
+  custom-waybar = pkgs.waybar-hyprland.override {
+    withMediaPlayer = true;
+    hyprlandSupport = true;
+  };
+in {
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar-main;
+    package = custom-waybar;
     settings = [{
       output = "eDP-1";
       mode = "dock";
@@ -66,7 +72,7 @@
         on-scroll-up = "playerctl next";
         on-scroll-down = "playerctl previous";
         exec =
-          "${pkgs.waybar-main}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
+          "${custom-waybar}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
       };
       "custom/scratchpad" = {
         interval = 1;
