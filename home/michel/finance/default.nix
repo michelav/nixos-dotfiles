@@ -9,7 +9,6 @@
   ];
 
   home.sessionVariables = {
-    LEDGER_FILE =
-      "${config.home.homeDirectory}/Dropbox/financas/hledger/current.journal";
+    LEDGER_FILE = "${config.home.homeDirectory}/repos/financas/current.journal";
   };
 }
