@@ -1,5 +1,6 @@
 { inputs, config, pkgs, ... }:
 let
+  hyprw-contrib = inputs.hyprland-contrib.packages.${pkgs.system};
   hyprland-vega = pkgs.writeTextFile {
     name = "hyprland-vega";
     destination = "/bin/hyprland-vega";
@@ -14,7 +15,8 @@ let
   };
 in {
   imports = [ inputs.hyprland.homeManagerModules.default ./wofi.nix ./eww ];
-  home.packages = [ pkgs.swaybg pkgs.hyprpicker hyprland-vega ];
+  home.packages =
+    [ pkgs.swaybg pkgs.hyprpicker hyprw-contrib.grimblast hyprland-vega ];
   programs = {
     fish.loginShellInit = ''
       if test (tty) = "/dev/tty1"
