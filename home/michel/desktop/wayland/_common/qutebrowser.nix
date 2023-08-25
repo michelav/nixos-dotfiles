@@ -5,7 +5,7 @@ in {
   programs.qutebrowser = {
     enable = true;
     loadAutoconfig = true;
-    package = pkgs.qutebrowser-qt6;
+    package = pkgs.qutebrowser;
     searchEngines = {
       wiki =
         "https://en.wikipedia.org/wiki/Special:Search?search={}&go=Go&ns0=1";

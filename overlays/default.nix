@@ -14,7 +14,7 @@ final: prev: {
   iamlive = prev.callPackage ../packages/iamlive {
     inherit (prev) lib fetchFromGitHub buildGoModule;
   };
-  waybar-main = (prev.waybar-hyprland.overrideAttrs (_: {
+  waybar-main = (prev.waybar.overrideAttrs (_: {
     version = "0.9.22_20230817";
     src = prev.fetchFromGitHub {
       owner = "Alexays";

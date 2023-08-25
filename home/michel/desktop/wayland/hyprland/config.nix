@@ -11,7 +11,7 @@ in ''
 
   general {
       gaps_in=5
-      gaps_out=20
+      gaps_out=10
       border_size=1
       col.active_border=0xff${colorscheme.colors.base0C}
       col.inactive_border=0xff${colorscheme.colors.base02}

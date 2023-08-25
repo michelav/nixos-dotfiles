@@ -7,7 +7,7 @@
   programs.light.enable = true;
   programs.hyprland = {
     enable = true;
-    nvidiaPatches = true;
+    enableNvidiaPatches = true;
   };
   programs.sway = {
     enable = true;

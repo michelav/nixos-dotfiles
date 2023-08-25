@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  custom-waybar = pkgs.waybar-hyprland.override {
+  custom-waybar = pkgs.waybar.override {
     withMediaPlayer = true;
     hyprlandSupport = true;
   };
