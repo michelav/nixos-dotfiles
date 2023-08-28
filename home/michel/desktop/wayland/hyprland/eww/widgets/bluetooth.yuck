@@ -1,12 +1,13 @@
-(defvar icons "{\"Connected\": \"󰂱\", \"disconnected\": \"󰂯\", \"off\": \"󰂲\"}")
-(deflisten btData "bin/bluetooth")
+(defvar btIcons "{\"Connected\": \"󰂱\", \"disconnected\": \"󰂯\", \"off\": \"󰂲\"}")
+(deflisten btData "sh scripts/bluetooth")
 
-  (defwidget bluetooth []
-    (box 
-      :orientation "h"
-      :space-evenly false
-        (button
-        :class "bt ${btData.status}"
-        "${icons['${btData.status}']}"
-        )
-    )
+(defwidget bluetooth []
+  (box 
+    :orientation "h"
+    :space-evenly false
+      (button
+      :class "bt ${btData.status}"
+      "${btIcons['${btData.status}']}"
+      )
+  )
+)

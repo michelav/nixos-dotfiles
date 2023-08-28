@@ -1,5 +1,5 @@
 (defvar netIcons "{\"ethernet\": \"󰂱\", \"disconnected\": \"󰂯\", \"off\": \"󰂲\"}")
-(deflisten netData "scripts/net")
+(deflisten netData "sh scripts/wifi")
 
 (defwidget net []
   (box 
@@ -7,7 +7,7 @@
     :space-evenly false
       (button
       :class "net ${netData.status}"
-      "${icons['${netData.type}']}"
+      "${netIcons['${netData.type}']}"
       )
   )
 )

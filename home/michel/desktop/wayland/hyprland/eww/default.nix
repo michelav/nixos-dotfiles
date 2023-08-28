@@ -4,18 +4,19 @@ let
   eww = pkgs.eww-wayland;
   xdgDir = config.xdg.configHome;
 in {
-  home.packages = [ eww ];
+  home.packages = [ eww pkgs.socat ];
 
   xdg.configFile = {
     "eww/eww.yuck".text = ''
       ;; includes
-      (include ./widgets/workspaces.yuck)
-      (include ./widgets/sys.yuck)
-      (include ./widgets/net.yuck)
-      (include ./widgets/sound.yuck)
-      (include ./widgets/player.yuck)
-      (include ./widgets/bright.yuck)
-      (include ./widgets/lock.yuck)
+      (include "./widgets/workspaces.yuck")
+      (include "./widgets/sys.yuck")
+      (include "./widgets/net.yuck")
+      (include "./widgets/bluetooth.yuck")
+      ;; (include "./widgets/sound.yuck")
+      ;; (include "./widgets/player.yuck")
+      ;; (include "./widgets/bright.yuck")
+      (include "./widgets/clock.yuck")
 
       (defwidget left []
         (box :orientation "h"
@@ -26,21 +27,11 @@ in {
         )
       )
 
-      (defwidget center []
-        (box :orientation "h"
-          :space-evenly false
-              :halign "center"
-          :class "center_modules"
-      (player)))
-
       (defwidget right []
         (box :orientation "h"
           :space-evenly false
           :halign "end"
           :class "right_modules"
-          (lock)
-          (bright)
-          (sound)
           (net)
           (bluetooth)
           (sys)
@@ -51,11 +42,11 @@ in {
       (defwidget bar [] 
         (box :class "bar_class" :orientation "h"
           (left)
-          (center)
           (right))
       )
 
       (defwindow top-bar
+        :monitor 0
         :geometry (geometry :x "0%"
                 :y "9px"
                 :width "98%"
@@ -67,7 +58,7 @@ in {
       ;; (defwindow dashboard)
     '';
 
-    "eww/scss/_theme.scss".text = let
+    "eww/_theme.scss".text = let
       inherit (colorscheme) colors;
       inherit (userPrefs) fonts;
     in ''
@@ -123,5 +114,6 @@ in {
     "eww/images".source = ./images;
     "eww/scripts".source = ./scripts;
     "eww/widgets".source = ./widgets;
+    "eww/scss".source = ./scss;
   };
 }

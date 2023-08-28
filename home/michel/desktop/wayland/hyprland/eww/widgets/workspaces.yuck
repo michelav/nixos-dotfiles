@@ -1,5 +1,5 @@
 (defvar workspaceIcons "{\"focused\": \"\", \"occupied\": \"\", \"empty\": \"\"}")
-(deflisten workspacesData "bin/workspaces")
+(deflisten workspacesData "sh scripts/workspaceData")
 
   (defwindow bar
             :monitor 0

@@ -1,4 +1,4 @@
-@import "./scss/_theme.scss";
+@import "./_theme.scss";
 @import "./scss/workspaces.scss";
 
 * {
@@ -55,13 +55,6 @@ tooltip label {
   font-weight: bold;
   margin: 0px 5px 0px 0px;
 }
-
-(lock)
-          (bright)
-          (sound)
-          (net)
-          (bluetooth)
-          (sys)
 // Sys
 .membar {
   color: $mem;
