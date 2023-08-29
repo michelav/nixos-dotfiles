@@ -2,6 +2,7 @@
   imports = [
     ./neovim
     ./nnn.nix
+    ./lf.nix
     ./fish.nix
     ./kitty.nix
     ./git.nix
