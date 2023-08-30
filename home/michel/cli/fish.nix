@@ -71,11 +71,11 @@
         hg_branch.symbol = " ";
         java.symbol = " ";
         julia.symbol = " ";
-        memory_usage.symbol = " ";
+        memory_usage.symbol = "󰍛 ";
         nim.symbol = " ";
         nix_shell.symbol = " ";
         nodejs.symbol = " ";
-        package.symbol = " ";
+        package.symbol = "󰏗 ";
         rust.symbol = " ";
       };
     };
