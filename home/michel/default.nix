@@ -43,7 +43,7 @@
     enable = true;
     editor = "vim";
     browser = "firefox";
-    terminal = "kitty";
+    terminal = "wezterm";
     # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
     colorSchemeName = "one-light";
     # colorSchemeName = "gruvbox-light-soft";
