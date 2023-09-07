@@ -10,7 +10,6 @@ in {
     package = custom-waybar;
     settings = [{
       output = "eDP-1";
-      mode = "dock";
       layer = "top";
       position = "top";
       modules-left = [
@@ -96,14 +95,14 @@ in {
       };
       # TODO: Show only network symbol. Adjust tooltip and click to show more info if necessary
       "network" = {
-        format-wifi = "{essid} ({signalStrength}%)  ";
-        format-ethernet = "{ipaddr}/{cidr}  ";
-        format-linked = "(No IP)  ";
+        format-wifi = " ";
+        format-ethernet = "󰈀";
+        format-linked = "(No IP) 󰌷";
         format-disconnected = "Disconnected  ";
         format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
         on-click-middle = "nmtui";
-        tooltip-format-wifi = "{ipaddr}/{cidr}";
-        tooltip-format-ethernet = "{ifname}";
+        tooltip-format-wifi = "{essid} ({signalStrength}%) - {ipaddr}";
+        tooltip-format-ethernet = "{ifname} - {ipaddr}/{cidr}";
       };
 
       "idle_inhibitor" = {
@@ -121,12 +120,12 @@ in {
         format-bluetooth = "{volume}% {icon} {format_source}";
         format-bluetooth-muted = " {icon} {format_source}";
         format-muted = " {format_source}";
-        format-source = "{volume}% ";
+        format-source = " {volume}% ";
         format-source-muted = " ";
         format-icons = {
-          headphone = " ";
-          hands-free = " ";
-          headset = " ";
+          headphone = "󰋋";
+          hands-free = "󰋎";
+          headset = "󰋎 ";
           phone = " ";
           portable = " ";
           car = " ";

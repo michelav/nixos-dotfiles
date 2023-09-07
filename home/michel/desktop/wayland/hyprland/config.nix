@@ -86,7 +86,7 @@ in ''
     bind=,Scroll_Lock,exec,pass-wofi # fn+k
     bind=,XF86Calculator,exec,pass-wofi # fn+f12
     # Toggle waybar
-    bind=,XF86Tools,exec,pkill -USR1 waybar # profile button
+    bind=,XF86Tools,exec,pkill -USR2 waybar # profile button
     # Lock screen
     bind=,XF86Launch5,exec,swaylock -S
     bind=,XF86Launch4,exec,swaylock -S

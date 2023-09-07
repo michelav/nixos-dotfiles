@@ -17,6 +17,7 @@
     transmission-gtk
     discord
     slack
+    element-desktop
     # TODO: Fix after #230971 goes to nixos-unstable
     # bitwarden
     # bitwarden-cli
