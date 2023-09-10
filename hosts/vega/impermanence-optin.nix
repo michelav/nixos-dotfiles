@@ -26,7 +26,7 @@ in {
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/systemd"
-      "/var/lib/docker/containers"
+      "/var/lib/docker"
       "/var/lib/iwd"
       "/var/lib/jellyfin"
       "/var/cache/jellyfin"
