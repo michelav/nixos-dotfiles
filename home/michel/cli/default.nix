@@ -11,6 +11,7 @@
     ./nix-index.nix
     ./pass.nix
     ./alacritty.nix
+    ./eza.nix
   ];
 
   home.sessionVariables = { NIX_SHELL_PRESERVE_PROMPT = 1; };
@@ -22,7 +23,6 @@
 
     bottom # System viewer
     ncdu # TUI disk usage
-    exa # Better ls
     ripgrep # Better grep
     fd # Better find
     httpie # Better curl

@@ -1,10 +1,9 @@
-{ config, ... }: {
+_: {
   programs = {
     fish = {
       enable = true;
       interactiveShellInit = builtins.readFile ../configs/fish/login.fish;
       shellAbbrs = {
-        ls = "exa";
         cat = "bat";
         man = "man --pager=most";
         ndev = "nix develop -c $SHELL";

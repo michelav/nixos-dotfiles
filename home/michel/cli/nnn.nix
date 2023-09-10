@@ -1,5 +1,4 @@
-{ pkgs, inputs, ... }:
-{
+{ pkgs, inputs, ... }: {
   programs.nnn = {
     enable = true;
     package = pkgs.nnn.override ({ withNerdIcons = true; });
@@ -8,17 +7,11 @@
       D = "~/Downloads";
       m = "/media/";
       b = "~/Dropbox/";
-    }; 
-    extraPackages = with pkgs; [ 
-      ffmpegthumbnailer 
-      mediainfo 
-      sxiv 
-      exa
-      fzf 
-    ];
-  plugins = {
-    src = "${inputs.nnn-plugins}/plugins";
-    mappings = {
+    };
+    extraPackages = with pkgs; [ ffmpegthumbnailer mediainfo sxiv fzf ];
+    plugins = {
+      src = "${inputs.nnn-plugins}/plugins";
+      mappings = {
         c = "fzcd";
         f = "finder";
         o = "fzopen";
