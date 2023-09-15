@@ -4,7 +4,7 @@ let
   inherit (config) colorscheme xdg;
   inherit (config.userPrefs) wallpaper;
 in ''
-  monitor=eDP-1, 1920x1080@120, 0x0, 1
+  monitor=,1920x1080@120,0x0, 1
   env=XDG_CURRENT_DESKTOP,Hyprland
   env=XDG_SESSION_DESKTOP,Hyprland
   env=GTK_THEME,${config.gtk.theme.name}

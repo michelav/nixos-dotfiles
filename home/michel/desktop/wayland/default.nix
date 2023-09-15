@@ -1,5 +1,5 @@
 {
-  imports = [ ./_common ./sway ./hyprland ];
+  imports = [ ./_common ./hyprland ];
 
   xdg = {
     enable = true;

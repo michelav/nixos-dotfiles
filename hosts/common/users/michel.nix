@@ -7,7 +7,7 @@
   users.users.michel = {
     isNormalUser = true;
     # password = "pass";
-    passwordFile = config.sops.secrets.michel-passwd.path;
+    hashedPasswordFile = config.sops.secrets.michel-passwd.path;
     shell = pkgs.fish;
     extraGroups = [ "wheel" "video" "audio" "libvirtd" ]
       ++ (if config.networking.networkmanager.enable then

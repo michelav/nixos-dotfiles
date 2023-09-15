@@ -9,7 +9,7 @@ in {
     enable = true;
     package = custom-waybar;
     settings = [{
-      output = "eDP-1";
+      # output = "eDP-1";
       layer = "top";
       position = "top";
       modules-left = [
