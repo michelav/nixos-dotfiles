@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./browsers.nix
+    ./images.nix
     ./gammastep.nix
     ./mako.nix
     ./swayidle.nix
@@ -18,6 +19,8 @@
     discord
     slack
     element-desktop
+    wl-clipboard
+    cliphist
     # TODO: Fix after #230971 goes to nixos-unstable
     # bitwarden
     # bitwarden-cli

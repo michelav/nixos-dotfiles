@@ -38,6 +38,6 @@ in {
     enable = true;
     package = pkgs.hyprland;
     enableNvidiaPatches = true;
-    extraConfig = import ./config.nix { inherit config; };
+    extraConfig = import ./config.nix { inherit config pkgs; };
   };
 }

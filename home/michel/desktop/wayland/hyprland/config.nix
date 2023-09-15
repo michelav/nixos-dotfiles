@@ -1,8 +1,10 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
   inherit (config) colorscheme xdg;
   inherit (config.userPrefs) wallpaper;
+  cliphist = "${pkgs.cliphist}/bin/cliphist";
+  wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
 in ''
   monitor=,1920x1080@120,0x0, 1
   env=XDG_CURRENT_DESKTOP,Hyprland
@@ -72,6 +74,10 @@ in ''
     exec=swaybg -i ${wallpaper} --mode fill
     exec-once=mako
     exec-once=swayidle -w -C ${xdg.configHome}/swayidle/hypr-config
+    #clipboard management
+    exec-once = ${wl-paste} --type text --watch ${cliphist} store #Stores only text data
+    exec-once = ${wl-paste} --type image --watch ${cliphist} store #Stores only image data
+    bind = SUPER, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy
     # Mouse binding
     bindm=SUPER,mouse:272,movewindow
     bindm=SUPER,mouse:273,resizewindow

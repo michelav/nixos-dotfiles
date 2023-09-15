@@ -82,4 +82,5 @@ in ''
   	background-color: inherit;
   	color: @base00;
     font-weight: normal;
+  }
 ''
