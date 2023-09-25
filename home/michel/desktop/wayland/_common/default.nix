@@ -26,6 +26,7 @@
     # bitwarden-cli
     xdg-utils
     fractal
+    drawio
   ];
 
   home.sessionVariables = {
