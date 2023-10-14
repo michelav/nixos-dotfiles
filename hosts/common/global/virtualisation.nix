@@ -1,13 +1,16 @@
 { pkgs, config, ... }: {
   virtualisation = {
     libvirtd.enable = true;
-    docker = {
+    podman = {
       enable = true;
-      enableOnBoot = false;
+      dockerCompat = true;
+      dockerSocket.enable = true;
+      defaultNetwork.settings.dns_enabled = true;
       enableNvidia = true;
     };
   };
 
-  environment.systemPackages = [ pkgs.virt-manager pkgs.libguestfs ];
+  environment.systemPackages =
+    [ pkgs.virt-manager pkgs.libguestfs pkgs.shadow pkgs.slirp4netns ];
 
 }
