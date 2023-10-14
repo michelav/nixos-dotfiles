@@ -33,11 +33,6 @@
       ".local/share/devenv"
       ".local/share/direnv"
 
-      # podman has permission issues when using default bindfs
-      {
-        directory = ".local/share/containers";
-        method = "symlink";
-      }
       # Keyrings
       ".local/share/keyrings"
     ];
