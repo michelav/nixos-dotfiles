@@ -11,6 +11,7 @@ o.hlsearch = true
 o.incsearch = true
 o.ignorecase = true
 o.scrolloff = 12
+o.exrc = true
 
 -- window-local options
 wo.number = false
