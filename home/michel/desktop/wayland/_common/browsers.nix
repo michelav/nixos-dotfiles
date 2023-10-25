@@ -12,6 +12,7 @@
           ublock-origin
           browserpass
           vimium
+          notion-web-clipper
         ];
         settings = {
           "browser.disableResetPrompt" = true;

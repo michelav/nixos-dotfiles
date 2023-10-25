@@ -13,14 +13,6 @@
     ./media
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
-  nixpkgs = {
-    inherit (outputs) overlays;
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = _: true;
-    };
-  };
-
   home.packages = with pkgs; [ jq ripgrep fd tree htop gcc bc bottom ];
 
   home = {

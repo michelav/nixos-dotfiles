@@ -36,7 +36,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       inherit (self) outputs;
       local-overlays = import ./overlays;
@@ -58,8 +58,20 @@
         };
       homeManagerModules = import ./modules/hm;
     in {
-      inherit pkgs overlays homeManagerModules;
-      nixosConfigurations = { vega = mkNixos "x86_64-linux" [ ./hosts/vega ]; };
+      inherit overlays homeManagerModules;
+      nixosConfigurations = {
+        vega = mkNixos "x86_64-linux" [
+          ./hosts/vega
+          {
+            nixpkgs = {
+              inherit overlays;
+              config.allowUnfree = true;
+              config.allowUnfreePredicate = _: true;
+            };
+            home-manager.useGlobalPkgs = true;
+          }
+        ];
+      };
       devShells = forAllSystems (system:
         let ps = pkgs.${system};
         in with ps; {
