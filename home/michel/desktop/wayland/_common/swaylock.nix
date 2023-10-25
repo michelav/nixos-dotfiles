@@ -3,11 +3,11 @@
 let
   inherit (config.colorscheme) colors;
   inherit (config.userPrefs) fonts wallpaper;
-  swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
+  swaylock = "${pkgs.swaylock-effects-main}/bin/swaylock";
 in {
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock-effects;
+    package = pkgs.swaylock-effects-main;
     settings = {
       effect-blur = "10x2";
       fade-in = 0.5;

@@ -61,4 +61,13 @@ in rec {
     hledger-lib = hledger-lib_131;
     hledger = hledger_131;
   };
+  swaylock-effects-main = prev.swaylock-effects.overrideAttrs (_: {
+    version = "20230812";
+    src = prev.fetchFromGitHub {
+      owner = "jirutka";
+      repo = "swaylock-effects";
+      rev = "7c5681ce96587ce3090c6698501faeccdfdc157d";
+      sha256 = "sha256-09Kq90wIIF9lPjiY2anf9MSgi/EqeXKXW1mFmhxA/aM=";
+    };
+  });
 }
