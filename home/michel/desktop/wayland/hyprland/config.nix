@@ -17,8 +17,8 @@ in ''
       border_size=1
       col.active_border=0xff${colorscheme.colors.base0C}
       col.inactive_border=0xff${colorscheme.colors.base02}
-      col.group_border_active=0xff${colorscheme.colors.base0B}
-      col.group_border=0xff${colorscheme.colors.base04}
+      # col.group_border_active=0xff${colorscheme.colors.base0B}
+      # col.group_border=0xff${colorscheme.colors.base04}
       cursor_inactive_timeout=4
     }
     decoration {
