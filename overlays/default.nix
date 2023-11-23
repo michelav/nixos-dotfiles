@@ -70,4 +70,14 @@ in rec {
       sha256 = "sha256-09Kq90wIIF9lPjiY2anf9MSgi/EqeXKXW1mFmhxA/aM=";
     };
   });
+  # TODO: Remove this as soon as wezterm version gets bumped in nixpkgs. Check https://github.com/wez/wezterm/issues/4483
+  wezterm-main = prev.callPackage ./wezterm-main.nix {
+    inherit (prev)
+      stdenv rustPlatform lib fetchFromGitHub ncurses perl pkg-config python3
+      fontconfig installShellFiles openssl libGL libxkbcommon wayland zlib
+      CoreGraphics Cocoa Foundation System libiconv UserNotifications nixosTests
+      runCommand vulkan-loader;
+    inherit (prev.xorg)
+      libX11 libxcb xcbutil xcbutilimage xcbutilkeysyms xcbutilwm;
+  };
 }
