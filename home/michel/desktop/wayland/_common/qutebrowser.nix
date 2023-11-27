@@ -1,6 +1,6 @@
 # Color configuration extracted from https://github.com/Misterio77/nix-config
 { pkgs, config, ... }:
-let inherit (config.colorscheme) colors;
+let inherit (config.colorscheme) colors kind;
 in {
   programs.qutebrowser = {
     enable = true;
@@ -26,7 +26,7 @@ in {
       content.javascript.clipboard = "access-paste";
       scrolling.smooth = true;
       colors = {
-        webpage = { preferred_color_scheme = "light"; };
+        webpage = { preferred_color_scheme = kind; };
         completion = {
           fg = "#${colors.base05}";
           match.fg = "#${colors.base09}";

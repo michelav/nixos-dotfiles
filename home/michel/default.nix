@@ -37,8 +37,7 @@
     browser = "firefox";
     terminal = "wezterm";
     # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
-    colorSchemeName = "one-light";
-    # colorSchemeName = "gruvbox-light-soft";
+    colorSchemeName = "catppuccin-macchiato";
     fonts = {
       monospace = {
         name = "JetBrainsMono Nerd Font";

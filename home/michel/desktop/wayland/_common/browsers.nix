@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, config, ... }: {
   imports = [ ./qutebrowser.nix ];
   programs = {
     browserpass.enable = true;
@@ -14,7 +14,10 @@
           vimium
           # notion-web-clipper
         ];
-        settings = {
+        settings = let
+          inherit (config.colorScheme) kind;
+          mode = if kind == "dark" then 0 else 2;
+        in {
           "browser.disableResetPrompt" = true;
           "browser.download.useDownloadDir" = false;
           "dom.security.https_only_mode" = true;
@@ -25,6 +28,7 @@
           "browser.shell.checkDefaultBrowser" = false;
           "browser.shell.defaultBrowserCheckCount" = 1;
           "browser.download.panel.shown" = true;
+          "layout.css.prefers-color-scheme.content-override" = mode;
         };
         search = {
           default = "Google";
