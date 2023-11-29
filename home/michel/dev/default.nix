@@ -2,6 +2,7 @@
 
   imports = [
     # ./vscode.nix 
+    ./podman.nix
     ./direnv.nix
   ];
 

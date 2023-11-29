@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   home.persistence."/persist/home/michel" = {
     allowOther = true;
     directories = [
@@ -32,7 +32,10 @@
       ".local/share/fish"
       ".local/share/devenv"
       ".local/share/direnv"
-
+      {
+        directory = ".local/share/containers";
+        method = "symlink";
+      }
       # Keyrings
       ".local/share/keyrings"
     ];
