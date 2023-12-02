@@ -14,10 +14,7 @@
           vimium
           # notion-web-clipper
         ];
-        settings = let
-          inherit (config.colorScheme) kind;
-          mode = if kind == "dark" then 0 else 2;
-        in {
+        settings = {
           "browser.disableResetPrompt" = true;
           "browser.download.useDownloadDir" = false;
           "dom.security.https_only_mode" = true;
@@ -28,7 +25,7 @@
           "browser.shell.checkDefaultBrowser" = false;
           "browser.shell.defaultBrowserCheckCount" = 1;
           "browser.download.panel.shown" = true;
-          "layout.css.prefers-color-scheme.content-override" = mode;
+          "layout.css.prefers-color-scheme.content-override" = 1; # Browser Mode
         };
         search = {
           default = "Google";
