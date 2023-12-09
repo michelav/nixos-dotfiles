@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   imports = [
-    # ./docker.nix 
-    ./podman.nix
+    ./docker.nix
+    # ./podman.nix
   ];
   virtualisation.libvirtd.enable = true;
 
