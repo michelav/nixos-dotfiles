@@ -1,16 +1,21 @@
 { pkgs, ... }: {
   imports = [ ./greetd.nix ];
-  services.gnome.gnome-keyring.enable = true;
-  services.dbus.packages = [ pkgs.gcr ];
-  services.blueman.enable = true;
-  security.pam.services.swaylock = { enableGnomeKeyring = true; };
-  programs.light.enable = true;
-  programs.hyprland = {
-    enable = true;
-    enableNvidiaPatches = true;
+  services = {
+    gnome.gnome-keyring.enable = true;
+    dbus.packages = [ pkgs.gcr ];
+    blueman.enable = true;
   };
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
+  security.pam.services.swaylock = { enableGnomeKeyring = true; };
+  programs = {
+    light.enable = true;
+    hyprland = {
+      enable = true;
+      # enableNvidiaPatches = true;
+    };
+    sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
+
   };
 }
