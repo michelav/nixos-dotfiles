@@ -39,6 +39,8 @@
     neofetch
     most
 
+    openconnect
+
   ];
 
   programs = {
