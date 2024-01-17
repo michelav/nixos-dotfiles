@@ -58,10 +58,11 @@
           specialArgs = { inherit inputs outputs; };
         };
       homeManagerModules = import ./modules/hm;
+      nixosModules = import ./modules/nixos;
     in {
-      inherit overlays homeManagerModules;
+      inherit overlays homeManagerModules nixosModules;
       nixosConfigurations = {
-        vega = mkNixos "x86_64-linux" [
+        vega = mkNixos "x86_64-linux" ([
           ./hosts/vega
           {
             nixpkgs = {
@@ -71,7 +72,7 @@
             };
             home-manager.useGlobalPkgs = true;
           }
-        ];
+        ] ++ (builtins.attrValues nixosModules));
       };
       devShells = forAllSystems (system:
         let ps = pkgs.${system};
