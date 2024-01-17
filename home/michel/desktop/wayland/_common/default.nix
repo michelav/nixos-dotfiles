@@ -12,6 +12,7 @@
     ./waybar.nix
     ./maestral.nix
     ./comm.nix
+    ./virt-manager.nix
   ];
 
   home.packages = with pkgs; [
