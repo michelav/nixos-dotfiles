@@ -18,6 +18,7 @@
       ".config/qutebrowser/bookmarks"
       ".config/qutebrowser/greasemonkey"
       ".config/eww"
+      ".config/teams-for-linux"
       ".local/share/qutebrowser"
       ".gnupg"
       ".ssh"
