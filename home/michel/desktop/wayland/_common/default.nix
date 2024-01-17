@@ -11,14 +11,12 @@
     ./wezterm.nix
     ./waybar.nix
     ./maestral.nix
+    ./comm.nix
   ];
 
   home.packages = with pkgs; [
     keepassxc
     transmission-gtk
-    discord
-    slack
-    element-desktop
     wl-clipboard
     cliphist
     # TODO: Fix after #230971 goes to nixos-unstable
