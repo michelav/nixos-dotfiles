@@ -13,12 +13,12 @@
       kernelModules = [ ];
       luks.devices."vega_crypt".device = "/dev/disk/by-label/VEGA_CRYPT";
     };
-    kernelModules = [ "kvm-intel" "acpi_call" "vfio-pci" ];
+    kernelModules = [ "kvm-intel" "acpi_call" ];
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
     # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Hibernation
     resumeDevice = "/dev/disk/by-label/VEGA_BTRFS";
-    kernelParams = [ "resume_offset=533760" "intel_iommu=on" ]; # GPU PASSTHRU
+    kernelParams = [ "resume_offset=533760" ]; # GPU PASSTHRU
 
   };
 

@@ -20,6 +20,7 @@ in {
         are 4-digit hex values.
       '';
     };
+    enableAcs = mkEnableOption "enable acs patch with zen kernel";
   };
   config = mkIf cfg.enable {
     hardware.opengl.enable = true;
@@ -27,13 +28,16 @@ in {
       kernelParams = [
         # enable IOMMU
         "${cfg.iommu-mode}=on"
-        "${cfg.iommu-mode}=pt"
-      ] ++
+        "iommu=pt"
+        "vfio_iommu_type1.allow_unsafe_interrupts=1"
+      ] ++ lib.optional cfg.enableAcs
+        "pcie_acs_override=downstream,multifunction" ++
         # isolate the GPU
         lib.optional (builtins.length cfg.devices > 0)
         ("vfio-pci.ids=" + lib.concatStringsSep "," cfg.devices);
 
-      initrd.kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
+      initrd.kernelModules =
+        lib.mkBefore [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
     };
   };
 }

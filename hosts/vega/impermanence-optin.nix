@@ -29,6 +29,7 @@ in {
       "/var/lib/systemd"
       "/var/lib/iwd"
       "/var/lib/jellyfin"
+      "/var/lib/libvirt/images"
       "/var/cache/jellyfin"
       "/etc/NetworkManager/system-connections"
       "/srv"
