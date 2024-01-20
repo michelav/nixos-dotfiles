@@ -20,9 +20,6 @@
     transmission-gtk
     wl-clipboard
     cliphist
-    # TODO: Fix after #230971 goes to nixos-unstable
-    # bitwarden
-    # bitwarden-cli
     xdg-utils
     fractal
     drawio

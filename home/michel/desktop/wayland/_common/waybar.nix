@@ -28,12 +28,6 @@ in {
         "battery"
         "tray"
       ];
-      # TODO: Chage to hyprland/workspaces module
-      # "wlr/workspaces" = {
-      #   disable-scroll = true;
-      #   all-outputs = true;
-      #   on-click = "activate";
-      # };
       "hyprland/workspaces" = {
         format = "{icon}";
         format-icons = {

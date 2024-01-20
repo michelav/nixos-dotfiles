@@ -7,7 +7,7 @@ let
 in {
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock-effects-main;
+    package = pkgs.swaylock-effects;
     settings = {
       effect-blur = "10x2";
       fade-in = 0.5;
