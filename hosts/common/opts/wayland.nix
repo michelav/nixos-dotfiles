@@ -8,14 +8,6 @@
   security.pam.services.swaylock = { enableGnomeKeyring = true; };
   programs = {
     light.enable = true;
-    hyprland = {
-      enable = true;
-      # enableNvidiaPatches = true;
-    };
-    sway = {
-      enable = true;
-      wrapperFeatures.gtk = true;
-    };
-
+    hyprland = { enable = true; };
   };
 }

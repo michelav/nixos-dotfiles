@@ -11,7 +11,7 @@
     ./hardware-configuration.nix
     ../common/opts
     ../common/opts/nvidia.nix
-    ../common/opts/gpupt.nix
+    # ../common/opts/gpupt.nix
     # INFO: Change the desktop option if u wanna another desktop / wm (gnome or hyprland for instance)
     ../common/opts/wayland.nix
   ];
