@@ -5,7 +5,7 @@ let
   inherit (config.userPrefs) wallpaper;
   cliphist = "${pkgs.cliphist}/bin/cliphist";
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-  lock = "${pkgs.swaylock-effects}/bin/swaylock";
+  lock = "${pkgs.swaylock-effects}/bin/swaylock -d";
   idle = "${pkgs.swayidle}/bin/swayidle";
 in ''
   monitor=,1920x1080@120,0x0, 1

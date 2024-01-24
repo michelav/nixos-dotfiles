@@ -13,7 +13,7 @@ in {
       fade-in = 0.5;
       grace = 2;
       ignore-empty-password = true;
-      daemonize = true;
+      # daemonize = true;
 
       # INFO: Comment out if you wanna debug swaylock
       debug = true;

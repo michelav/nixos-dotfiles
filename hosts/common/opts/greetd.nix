@@ -20,7 +20,7 @@ in {
     settings = {
       default_session = {
         command =
-          "${tuigreet} --greeting 'Welcome to Vega!' --asterisks --remember --remember-user-session --time -cmd hyprland-vega";
+          "${tuigreet} --greeting 'Welcome to Vega!' --asterisks --remember --remember-user-session --time --cmd hyprland-vega";
         user = "greeter";
       };
       initial_session = {

@@ -10,7 +10,7 @@ let
   hyprScreenOn = "${hyprctl} dispatch dpms on";
   hyprScreenOff = "${hyprctl} dispatch dpms off";
   toggleMic = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-  lockcmd = "${swaylock} -S";
+  lockcmd = "${swaylock} -d -S";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   restartServices = "${systemctl} --user gammastep.service";
   lockTime = 4 * 60;

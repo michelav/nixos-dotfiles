@@ -12,6 +12,7 @@
     ./waybar.nix
     ./maestral.nix
     ./comm.nix
+    ./remote.nix
     ./virt-manager.nix
   ];
 
