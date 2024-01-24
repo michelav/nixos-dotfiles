@@ -5,6 +5,8 @@ let
   inherit (config.userPrefs) wallpaper;
   cliphist = "${pkgs.cliphist}/bin/cliphist";
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+  lock = "${pkgs.swaylock-effects}/bin/swaylock";
+  idle = "${pkgs.swayidle}/bin/swayidle";
 in ''
   monitor=,1920x1080@120,0x0, 1
   env=XDG_CURRENT_DESKTOP,Hyprland
@@ -73,7 +75,8 @@ in ''
     exec-once=waybar
     exec=swaybg -i ${wallpaper} --mode fill
     exec-once=mako
-    exec-once=swayidle -w -C ${xdg.configHome}/swayidle/hypr-config
+    # INFO: Use -d when debugging swayidle
+    exec-once=${idle} -d -w -C ${xdg.configHome}/swayidle/hypr-config
     #clipboard management
     exec-once = ${wl-paste} --type text --watch ${cliphist} store #Stores only text data
     exec-once = ${wl-paste} --type image --watch ${cliphist} store #Stores only image data
@@ -94,9 +97,9 @@ in ''
     # Toggle waybar
     bind=,XF86Tools,exec,pkill -USR2 waybar # profile button
     # Lock screen
-    bind=,XF86Launch5,exec,swaylock -S
-    bind=,XF86Launch4,exec,swaylock -S
-    bind=SUPER,backspace,exec,swaylock -S
+    bind=,XF86Launch5,exec,${lock} -S
+    bind=,XF86Launch4,exec,${lock} -S
+    bind=SUPER,backspace,exec,${lock} -S
     # Screenshots
     bind=,Print,exec,grimblast --notify copy output
     bind=SHIFT,Print,exec,grimblast --notify copy active
