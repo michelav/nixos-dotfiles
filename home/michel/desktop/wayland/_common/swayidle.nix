@@ -4,13 +4,13 @@ let
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  isLocked = "${pgrep} -x swaylock";
+  isLocked = "${pgrep} -x ${lockcmd}";
   swayScreenOff = ''${swaymsg} "output * dpms off"'';
   swayScreenOn = ''${swaymsg} "output * dpms on"'';
   hyprScreenOn = "${hyprctl} dispatch dpms on";
   hyprScreenOff = "${hyprctl} dispatch dpms off";
   toggleMic = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-  lockcmd = "${swaylock} -d -S";
+  lockcmd = "${swaylock} -f -S";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   restartServices = "${systemctl} --user gammastep.service";
   lockTime = 4 * 60;

@@ -37,8 +37,6 @@
         directory = ".local/share/containers";
         method = "symlink";
       }
-      # Keyrings
-      ".local/share/keyrings"
     ];
     files = [ ".config/sops/age/keys.txt" ];
   };

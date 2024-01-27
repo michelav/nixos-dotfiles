@@ -13,6 +13,7 @@
     ./maestral.nix
     ./comm.nix
     ./remote.nix
+    ./keyring.nix
     ./virt-manager.nix
   ];
 
