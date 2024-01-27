@@ -11,7 +11,7 @@
     ./hardware-configuration.nix
     ../common/opts
     ../common/opts/nvidia.nix
-    # ../common/opts/gpupt.nix
+    ../common/opts/power-mgmt.nix
     # INFO: Change the desktop option if u wanna another desktop / wm (gnome or hyprland for instance)
     ../common/opts/wayland.nix
   ];
@@ -60,23 +60,6 @@
     };
     udisks2.enable = true;
     devmon.enable = true;
-
-    tlp = {
-      enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-
-        USB_DENYLIST = "046d:c534";
-
-        # The following prevents the battery from charging fully to
-        # preserve lifetime. Run `tlp fullcharge` to temporarily force
-        # full charge.
-        # https://linrunner.de/tlp/faq/battery.html#how-to-choose-good-battery-charge-thresholds
-        # START_CHARGE_THRESH_BAT0=40;
-        #  STOP_CHARGE_THRESH_BAT0=50;
-      };
-    };
 
     logind = {
       lidSwitch = "suspend";
