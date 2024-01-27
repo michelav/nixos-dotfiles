@@ -26,6 +26,12 @@
         ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
+    vmVariantWithBootLoader = { # To test config in VMs
+      virtualisation = {
+        memorySize = 4096;
+        cores = 4;
+      };
+    };
     spiceUSBRedirection.enable = true;
   };
   services.spice-vdagentd.enable = true;

@@ -1,5 +1,10 @@
 { pkgs, ... }: {
 
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "secrets" ];
+  };
+
   home.persistence."/persist/home/michel" = {
     allowOther = true;
     directories = [{

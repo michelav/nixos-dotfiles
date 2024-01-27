@@ -3,7 +3,7 @@
     sopsFile = ../secrets.yaml;
     neededForUsers = true;
   };
-  # users.mutableUsers = false;
+  users.mutableUsers = false;
   users.users.michel = {
     isNormalUser = true;
     # password = "pass";
