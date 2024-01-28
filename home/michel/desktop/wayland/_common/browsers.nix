@@ -81,4 +81,18 @@
     "x-scheme-handler/chrome" = [ "firefox.desktop" ];
     "x-scheme-handler/qute" = [ "org.qutebrowser.qutebrowser.desktop" ];
   };
+
+  # Impermanence
+  home.persistence."/persist/home/michel" = {
+    allowOther = true;
+    directories = [
+      ".mozilla/firefox"
+      ".cache/mozilla/firefox"
+      ".config/qutebrowser/bookmarks"
+      ".config/qutebrowser/greasemonkey"
+      ".local/share/qutebrowser"
+      ".config/google-chrome"
+      ".cache/google-chrome"
+    ];
+  };
 }
