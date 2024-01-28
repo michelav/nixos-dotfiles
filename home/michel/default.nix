@@ -6,6 +6,7 @@
     inputs.nix-colors.homeManagerModules.default
     ./hm-impermanence-optin.nix
     ./cli
+    ./cloud
     ./dev
     ./desktop/wayland
     ./gaming

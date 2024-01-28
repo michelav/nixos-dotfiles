@@ -10,7 +10,6 @@
     ./zathura.nix
     ./wezterm.nix
     ./waybar.nix
-    ./maestral.nix
     ./comm.nix
     ./remote.nix
     ./keyring.nix
