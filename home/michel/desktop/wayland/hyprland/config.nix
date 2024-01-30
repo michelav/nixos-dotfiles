@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, gtk-config, ... }:
 let
   inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
   inherit (config) colorscheme xdg;
@@ -74,6 +74,7 @@ in ''
     # Startup
     exec-once=waybar
     exec=swaybg -i ${wallpaper} --mode fill
+    exec=${gtk-config}/bin/gtk-config
     exec-once=mako
     # INFO: Use -d when debugging swayidle
     exec-once=${idle} -d -w -C ${xdg.configHome}/swayidle/hypr-config

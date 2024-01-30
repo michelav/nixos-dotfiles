@@ -7,10 +7,8 @@ in {
     dbus.packages = [ pkgs.gcr keyring ];
     blueman.enable = true;
   };
-  xdg.portal.extraPortals = [ keyring ];
   security.pam.services.swaylock = { enableGnomeKeyring = true; };
   programs = {
-    seahorse.enable = true;
     light.enable = true;
     hyprland = { enable = true; };
   };

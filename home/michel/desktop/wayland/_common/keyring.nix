@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-
+  home.packages = [ pkgs.gnome.seahorse ];
   services.gnome-keyring = {
     enable = true;
     components = [ "secrets" ];
