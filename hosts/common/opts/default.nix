@@ -26,7 +26,7 @@
 
   environment = {
     pathsToLink = [ "/share/fish" ];
-    systemPackages = with pkgs; [ vim wget git unzip gnome.seahorse ];
+    systemPackages = with pkgs; [ vim wget git unzip ];
   };
 
   services.dbus = {
