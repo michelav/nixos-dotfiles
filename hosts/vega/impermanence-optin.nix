@@ -33,10 +33,7 @@ in {
       "/var/cache/jellyfin"
       "/etc/NetworkManager/system-connections"
       "/srv"
-    ] ++ (if dockerEnabled then
-      [ "/var/lib/docker" ]
-    else
-      [ "/var/lib/containers" ]);
+    ];
     files = [
       # Vega ssh keys
       "/etc/ssh/ssh_host_ed25519_key"

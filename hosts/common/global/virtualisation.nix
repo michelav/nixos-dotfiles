@@ -1,8 +1,5 @@
 { pkgs, ... }: {
-  imports = [
-    ./docker.nix
-    # ./podman.nix
-  ];
+  imports = [ ./docker.nix ./podman.nix ];
 
   # Install necessary packages
   environment.systemPackages = with pkgs; [
