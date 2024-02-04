@@ -129,11 +129,14 @@ in {
       };
       "battery" = {
         states = {
+          normal = 50;
           warning = 30;
           critical = 15;
         };
         format = "{capacity}% {icon}";
-        format-charging = "{capacity}%  ";
+        format-charging-critical = "{capacity}% 󰢜 ";
+        format-charging-warning = "{capacity}% 󰂇 ";
+        format-charging-normal = "{capacity}% 󰢝 ";
         format-plugged = "{capacity}%  ";
         format-alt = "{time} {icon}";
         format-icons = [ " " " " " " " " " " ];
@@ -146,7 +149,7 @@ in {
           <tt><small>{calendar}</small></tt>'';
       };
     }];
-    style = with config.colorscheme.colors;
+    style = with config.colorscheme.palette;
       with config.userPrefs; # css
       ''
 

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  inherit (config.colorscheme) colors;
+  colors = config.colorscheme.palette;
   inherit (config.userPrefs) fonts wallpaper;
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
 in {
@@ -16,7 +16,7 @@ in {
       # daemonize = true;
 
       # INFO: Comment out if you wanna debug swaylock
-      debug = true;
+      # debug = true;
 
       font = fonts.regular.name;
       # font-size = 20;

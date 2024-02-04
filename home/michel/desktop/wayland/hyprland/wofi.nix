@@ -20,7 +20,7 @@ in {
   '';
 
   xdg.configFile."wofi/style.css".text = import ./wofi-style.nix {
-    inherit (config.colorScheme) colors;
+    inherit (config.colorScheme) palette;
     inherit (inputs.nix-colors.lib-core.conversions) hexToRGBString;
   };
 }

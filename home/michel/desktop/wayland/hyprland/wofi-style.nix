@@ -1,29 +1,29 @@
-{ colors, hexToRGBString, ... }:
+{ palette, hexToRGBString, ... }:
 let rgba = color: alpha: "rgba(${hexToRGBString "," "${color}"},${alpha})";
 in ''
-  @define-color base00 #${colors.base00};
-  @define-color base01 #${colors.base01};
-  @define-color base02 #${colors.base02};
-  @define-color base03 #${colors.base03};
-  @define-color base04 #${colors.base04};
-  @define-color base06 #${colors.base06};
-  @define-color base06 #${colors.base06};
-  @define-color base07 #${colors.base07};
-  @define-color base08 #${colors.base08};
-  @define-color base10 #${colors.base09};
-  @define-color base0A #${colors.base0A};
-  @define-color base0B #${colors.base0B};
-  @define-color base0C #${colors.base0C};
-  @define-color base0D #${colors.base0D};
-  @define-color base0E #${colors.base0E};
-  @define-color base0F #${colors.base0F};
+  @define-color base00 #${palette.base00};
+  @define-color base01 #${palette.base01};
+  @define-color base02 #${palette.base02};
+  @define-color base03 #${palette.base03};
+  @define-color base04 #${palette.base04};
+  @define-color base06 #${palette.base06};
+  @define-color base06 #${palette.base06};
+  @define-color base07 #${palette.base07};
+  @define-color base08 #${palette.base08};
+  @define-color base10 #${palette.base09};
+  @define-color base0A #${palette.base0A};
+  @define-color base0B #${palette.base0B};
+  @define-color base0C #${palette.base0C};
+  @define-color base0D #${palette.base0D};
+  @define-color base0E #${palette.base0E};
+  @define-color base0F #${palette.base0F};
 
   #window {
     margin: 0px;
     border-radius: 7px;
     background-color: @base00;
     font-size: 16px;
-    background: ${rgba "${colors.base01}" "0.6"};
+    background: ${rgba "${palette.base01}" "0.6"};
   }
 
   #input {

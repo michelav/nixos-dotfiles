@@ -1,6 +1,6 @@
 { config, ... }:
 
-with config.colorscheme.colors;
+with config.colorscheme.palette;
 with config.userPrefs; ''
 
   /* Nord */

@@ -1,7 +1,7 @@
 { config, ... }:
 let
   inherit (config) colorScheme userPrefs;
-  inherit (colorScheme) colors;
+  inherit (colorScheme) palette;
 in {
   services.mako = {
     enable = true;
@@ -13,16 +13,16 @@ in {
     height = 150;
     borderSize = 2;
     defaultTimeout = 5000;
-    backgroundColor = "#${colors.base00}dd";
-    borderColor = "#${colors.base03}dd";
-    textColor = "#${colors.base05}dd";
+    backgroundColor = "#${palette.base00}dd";
+    borderColor = "#${palette.base03}dd";
+    textColor = "#${palette.base05}dd";
     extraConfig = ''
       [urgency=low]
       default-timeout=3000
       [urgency=high]
       default-timeout=8000
-      border-color=#${colors.base08}
-      text-color=#${colors.base08}
+      border-color=#${palette.base08}
+      text-color=#${palette.base08}
       [mode=do-not-disturb]
       invisible=1
     '';

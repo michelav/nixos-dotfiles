@@ -1,9 +1,9 @@
 { config, ... }: {
-  programs.imv = let inherit (config.colorscheme) colors;
+  programs.imv = let inherit (config.colorscheme) palette;
   in {
     enable = true;
     settings = {
-      options = { background = "#${colors.base00}"; };
+      options = { background = "#${palette.base00}"; };
       aliases = { "<Shift+X>" = ''exec rm "$imv_current_file"; close''; };
     };
   };

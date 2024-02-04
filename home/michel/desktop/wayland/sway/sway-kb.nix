@@ -1,6 +1,6 @@
 { modifier, terminal, pkgs, config, ... }:
 let
-  inherit (config.colorscheme) colors;
+  colors = config.colorscheme.palette;
   lockcmd = "${config.programs.swaylock.package}/bin/swaylock -f -S";
 in {
   # open terminal
