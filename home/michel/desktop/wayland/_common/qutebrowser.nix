@@ -1,6 +1,8 @@
 # Color configuration extracted from https://github.com/Misterio77/nix-config
 { pkgs, config, ... }:
-let inherit (config.colorscheme) colors kind;
+let
+  inherit (config.colorscheme) variant;
+  colors = config.colorscheme.palette;
 in {
   programs.qutebrowser = {
     enable = true;
@@ -26,7 +28,7 @@ in {
       content.javascript.clipboard = "access-paste";
       scrolling.smooth = true;
       colors = {
-        webpage = { preferred_color_scheme = kind; };
+        webpage = { preferred_color_scheme = variant; };
         completion = {
           fg = "#${colors.base05}";
           match.fg = "#${colors.base09}";
@@ -91,15 +93,21 @@ in {
           suffix.fg = "#${colors.base05}";
         };
         messages = {
-          error.bg = "#${colors.base08}";
-          error.border = "#${colors.base08}";
-          error.fg = "#${colors.base00}";
-          info.bg = "#${colors.base00}";
-          info.border = "#${colors.base00}";
-          info.fg = "#${colors.base05}";
-          warning.bg = "#${colors.base0E}";
-          warning.border = "#${colors.base0E}";
-          warning.fg = "#${colors.base00}";
+          error = {
+            bg = "#${colors.base08}";
+            border = "#${colors.base08}";
+            fg = "#${colors.base00}";
+          };
+          info = {
+            bg = "#${colors.base00}";
+            border = "#${colors.base00}";
+            fg = "#${colors.base05}";
+          };
+          warning = {
+            bg = "#${colors.base0E}";
+            border = "#${colors.base0E}";
+            fg = "#${colors.base00}";
+          };
         };
         prompts = {
           bg = "#${colors.base00}";
@@ -108,14 +116,18 @@ in {
           selected.bg = "#${colors.base02}";
         };
         statusbar = {
-          caret.bg = "#${colors.base00}";
-          caret.fg = "#${colors.base0D}";
-          caret.selection.bg = "#${colors.base00}";
-          caret.selection.fg = "#${colors.base0D}";
-          command.bg = "#${colors.base01}";
-          command.fg = "#${colors.base04}";
-          command.private.bg = "#${colors.base01}";
-          command.private.fg = "#${colors.base0E}";
+          caret = {
+            bg = "#${colors.base00}";
+            fg = "#${colors.base0D}";
+            selection.bg = "#${colors.base00}";
+            selection.fg = "#${colors.base0D}";
+          };
+          command = {
+            bg = "#${colors.base01}";
+            fg = "#${colors.base04}";
+            private.bg = "#${colors.base01}";
+            private.fg = "#${colors.base0E}";
+          };
           insert.bg = "#${colors.base00}";
           insert.fg = "#${colors.base0C}";
           normal.bg = "#${colors.base00}";
@@ -125,34 +137,44 @@ in {
           private.bg = "#${colors.base00}";
           private.fg = "#${colors.base0E}";
           progress.bg = "#${colors.base0D}";
-          url.error.fg = "#${colors.base08}";
-          url.fg = "#${colors.base05}";
-          url.hover.fg = "#${colors.base09}";
-          url.success.http.fg = "#${colors.base0B}";
-          url.success.https.fg = "#${colors.base0B}";
-          url.warn.fg = "#${colors.base0E}";
+          url = {
+            error.fg = "#${colors.base08}";
+            fg = "#${colors.base05}";
+            hover.fg = "#${colors.base09}";
+            success.http.fg = "#${colors.base0B}";
+            success.https.fg = "#${colors.base0B}";
+            warn.fg = "#${colors.base0E}";
+          };
         };
         tabs = {
           bar.bg = "#${colors.base00}";
           even.bg = "#${colors.base00}";
           even.fg = "#${colors.base05}";
-          indicator.error = "#${colors.base08}";
-          indicator.start = "#${colors.base0D}";
-          indicator.stop = "#${colors.base0C}";
+          indicator = {
+            error = "#${colors.base08}";
+            start = "#${colors.base0D}";
+            stop = "#${colors.base0C}";
+          };
           odd.bg = "#${colors.base00}";
           odd.fg = "#${colors.base05}";
-          pinned.even.bg = "#${colors.base0B}";
-          pinned.even.fg = "#${colors.base00}";
-          pinned.odd.bg = "#${colors.base0B}";
-          pinned.odd.fg = "#${colors.base00}";
-          pinned.selected.even.bg = "#${colors.base02}";
-          pinned.selected.even.fg = "#${colors.base05}";
-          pinned.selected.odd.bg = "#${colors.base02}";
-          pinned.selected.odd.fg = "#${colors.base05}";
-          selected.even.bg = "#${colors.base02}";
-          selected.even.fg = "#${colors.base05}";
-          selected.odd.bg = "#${colors.base02}";
-          selected.odd.fg = "#${colors.base05}";
+          pinned = {
+            even.bg = "#${colors.base0B}";
+            even.fg = "#${colors.base00}";
+            odd.bg = "#${colors.base0B}";
+            odd.fg = "#${colors.base00}";
+            selected = {
+              even.bg = "#${colors.base02}";
+              even.fg = "#${colors.base05}";
+              odd.bg = "#${colors.base02}";
+              odd.fg = "#${colors.base05}";
+            };
+          };
+          selected = {
+            even.bg = "#${colors.base02}";
+            even.fg = "#${colors.base05}";
+            odd.bg = "#${colors.base02}";
+            odd.fg = "#${colors.base05}";
+          };
         };
       };
     };

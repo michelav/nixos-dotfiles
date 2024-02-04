@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   imports = [
     ./neovim
     ./nnn.nix
@@ -47,10 +47,7 @@
     fzf.enableFishIntegration = true;
     bat = {
       enable = true;
-      config = {
-        theme = "gruvbox-light"; # XXX: Change it if colorscheme is changed
-      };
+      # config = { theme = "${config.userPrefs.colorSchemeName}"; };
     };
-    # ranger.enable = true;
   };
 }

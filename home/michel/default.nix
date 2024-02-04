@@ -24,21 +24,22 @@
   systemd.user.startServices = "sd-switch";
 
   userPrefs = let
-    colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
-    wp = colors-lib.nixWallpaperFromScheme {
-      scheme = config.colorScheme;
-      width = 1920;
-      height = 1080;
-      logoScale = 3.0;
-    };
+    # colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
+    # wp = colors-lib.nixWallpaperFromScheme {
+    #   scheme = config.colorScheme;
+    #   width = 1920;
+    #   height = 1080;
+    #   logoScale = 3.0;
+    # };
+    wp = "~/Pictures/wallpapers/dracula_nixos.png";
   in {
     enable = true;
     editor = "vim";
     browser = "firefox";
     terminal = "wezterm";
     # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
-    # colorSchemeName = "catppuccin-macchiato";
-    colorSchemeName = "one-light";
+    # colorSchemeName = "one-light";
+    colorSchemeName = "dracula";
     fonts = {
       monospace = {
         name = "JetBrainsMono Nerd Font";

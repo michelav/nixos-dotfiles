@@ -11,7 +11,7 @@
         family.style = userPrefs.fonts.monospace.name;
         size = 12;
       };
-      colors = with colorscheme.colors; {
+      colors = with colorscheme.palette; {
         primary = {
           background = "#${base00}";
           foreground = "#${base06}";

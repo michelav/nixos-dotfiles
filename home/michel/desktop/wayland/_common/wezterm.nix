@@ -2,7 +2,7 @@
 
 let
   inherit (config) colorscheme;
-  inherit (colorscheme) colors;
+  colors = colorscheme.palette;
 in {
   programs.wezterm = {
     enable = true;
