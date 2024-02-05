@@ -5,7 +5,7 @@ let
   inherit (config.userPrefs) wallpaper;
   cliphist = "${pkgs.cliphist}/bin/cliphist";
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-  lock = "${pkgs.swaylock-effects}/bin/swaylock -d";
+  lock = "${pkgs.swaylock-effects}/bin/swaylock";
   idle = "${pkgs.swayidle}/bin/swayidle";
 in ''
   monitor=,1920x1080@120,0x0, 1
@@ -98,9 +98,9 @@ in ''
     # Toggle waybar
     bind=,XF86Tools,exec,pkill -USR2 waybar # profile button
     # Lock screen
-    bind=,XF86Launch5,exec,${lock} -S
-    bind=,XF86Launch4,exec,${lock} -S
-    bind=SUPER,backspace,exec,${lock} -S
+    # bind=,XF86Launch5,exec,${lock} -f -S
+    # bind=,XF86Launch4,exec,${lock} -f -S
+    bind=SUPER,backspace,exec,${lock} -f -S
     # Screenshots
     bind=,Print,exec,grimblast --notify copy output
     bind=SHIFT,Print,exec,grimblast --notify copy active

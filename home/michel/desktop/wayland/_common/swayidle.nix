@@ -4,7 +4,7 @@ let
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  isLocked = "${pgrep} -x ${lockcmd}";
+  isLocked = "${pgrep} swaylock";
   swayScreenOff = ''${swaymsg} "output * dpms off"'';
   swayScreenOn = ''${swaymsg} "output * dpms on"'';
   hyprScreenOn = "${hyprctl} dispatch dpms on";
