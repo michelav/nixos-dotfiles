@@ -4,7 +4,7 @@ let
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   pgrep = "${pkgs.procps}/bin/pgrep";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  isLocked = "${pgrep} swaylock";
+  isLocked = "${pgrep} -x swaylock";
   swayScreenOff = ''${swaymsg} "output * dpms off"'';
   swayScreenOn = ''${swaymsg} "output * dpms on"'';
   hyprScreenOn = "${hyprctl} dispatch dpms on";
@@ -27,15 +27,9 @@ let
   '';
 in {
   home.packages = [ pkgs.swayidle ];
-  xdg.configFile."swayidle/sway-config".text = ''
-    timeout ${toString lockTime} '${lockcmd}'
-  '' + (mkTimeout 10 "${toggleMic}" "${toggleMic}")
-    + (mkTimeout 60 "${swayScreenOff}" "${swayScreenOn}")
-    + (mkEvent "before-sleep" "${lockcmd}")
-    + (mkEvent "after-resume" "${swayScreenOn} && ${restartServices}");
 
   xdg.configFile."swayidle/hypr-config".text = ''
-    timeout ${toString lockTime} '${lockcmd}'
+    timeout ${toString lockTime} '! ${isLocked} && ${lockcmd}'
   '' + (mkTimeout 10 "${toggleMic}" "${toggleMic}")
     + (mkTimeout 60 "${hyprScreenOff}" "${hyprScreenOn}")
     + (mkEvent "before-sleep" "! ${isLocked} && ${lockcmd}")
