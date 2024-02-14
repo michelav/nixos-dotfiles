@@ -80,4 +80,23 @@ in rec {
     inherit (prev.xorg)
       libX11 libxcb xcbutil xcbutilimage xcbutilkeysyms xcbutilwm;
   };
+
+  # TODO: After flake lock update python-stem broke. Fix in 
+  # https://github.com/torproject/stem/commit/9f1fa4ac53cf83a4cdd7155cc487212bf8bc08af .
+  # Getting the version from 20240214 while Nixpkgs isn't updated
+  python311 = prev.python311.override {
+    packageOverrides = _: nPrev: {
+      stem = nPrev.stem.overrideAttrs (_: {
+        version = "20240214";
+        src = prev.fetchFromGitHub {
+          owner = "torproject";
+          repo = "stem";
+          rev = "9a9c7d4";
+          hash = "sha256-Oc73Jx31SLzuhT9Iym5HHszKfflKZ+3aky5flXudvmI=";
+        };
+      });
+    };
+  };
+  # nix-shell -p pythonPackages.my_stuff
+  python311Packages = python311.pkgs;
 }

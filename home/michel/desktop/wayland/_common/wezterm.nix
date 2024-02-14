@@ -6,7 +6,7 @@ let
 in {
   programs.wezterm = {
     enable = true;
-    package = pkgs.wezterm-main;
+    package = pkgs.wezterm;
     colorSchemes = {
       "${colorscheme.slug}" = {
         foreground = "#${colors.base05}";
