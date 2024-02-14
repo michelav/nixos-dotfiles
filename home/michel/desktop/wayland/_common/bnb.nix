@@ -1,6 +1,11 @@
-{ pkgs, ... }: # TODO: Create script to help connecting to BNB
-{
-  home.packages = [ pkgs.openconnect pkgs.remmina ];
+_: {
+  bnb.vpn = {
+    enable = true;
+    settings = {
+      user = "f132012";
+      disable-ipv6 = true;
+    };
+  };
 
   home.persistence."/persist/home/michel" = {
     allowOther = true;

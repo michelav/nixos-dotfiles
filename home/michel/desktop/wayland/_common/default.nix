@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./bnb.nix
     ./browsers.nix
     ./images.nix
     ./gammastep.nix
@@ -11,7 +12,6 @@
     ./wezterm.nix
     ./waybar.nix
     ./comm.nix
-    ./remote.nix
     ./keyring.nix
     ./virt-manager.nix
   ];
