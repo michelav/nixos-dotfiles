@@ -70,33 +70,4 @@ in rec {
       sha256 = "sha256-09Kq90wIIF9lPjiY2anf9MSgi/EqeXKXW1mFmhxA/aM=";
     };
   });
-  # TODO: Remove this as soon as wezterm version gets bumped in nixpkgs. Check https://github.com/wez/wezterm/issues/4483
-  wezterm-main = prev.callPackage ./wezterm-main.nix {
-    inherit (prev)
-      stdenv rustPlatform lib fetchFromGitHub ncurses perl pkg-config python3
-      fontconfig installShellFiles openssl libGL libxkbcommon wayland zlib
-      CoreGraphics Cocoa Foundation System libiconv UserNotifications nixosTests
-      runCommand vulkan-loader;
-    inherit (prev.xorg)
-      libX11 libxcb xcbutil xcbutilimage xcbutilkeysyms xcbutilwm;
-  };
-
-  # TODO: After flake lock update python-stem broke. Fix in 
-  # https://github.com/torproject/stem/commit/9f1fa4ac53cf83a4cdd7155cc487212bf8bc08af .
-  # Getting the version from 20240214 while Nixpkgs isn't updated
-  python311 = prev.python311.override {
-    packageOverrides = _: nPrev: {
-      stem = nPrev.stem.overrideAttrs (_: {
-        version = "20240214";
-        src = prev.fetchFromGitHub {
-          owner = "torproject";
-          repo = "stem";
-          rev = "9a9c7d4";
-          hash = "sha256-Oc73Jx31SLzuhT9Iym5HHszKfflKZ+3aky5flXudvmI=";
-        };
-      });
-    };
-  };
-  # nix-shell -p pythonPackages.my_stuff
-  python311Packages = python311.pkgs;
 }
