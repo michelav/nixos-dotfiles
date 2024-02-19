@@ -1,7 +1,8 @@
 { pkgs, ... }: {
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
-      plugin = nvim-treesitter.withAllGrammars;
+      # plugin = nvim-treesitter.withAllGrammars;
+      plugin = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars);
       type = "lua";
       config = # lua
         ''

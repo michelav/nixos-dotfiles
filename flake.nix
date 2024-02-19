@@ -35,13 +35,21 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neorg-overlay = {
+      url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       inherit (self) outputs;
       local-overlays = import ./overlays;
-      overlays = [ inputs.neovim-nightly-overlay.overlay local-overlays ];
+      overlays = [
+        inputs.neovim-nightly-overlay.overlay
+        inputs.neorg-overlay.overlays.default
+        local-overlays
+      ];
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       pkgs = forAllSystems (system:
