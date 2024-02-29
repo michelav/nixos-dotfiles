@@ -24,18 +24,6 @@ in rec {
   iamlive = prev.callPackage ../packages/iamlive {
     inherit (prev) lib fetchFromGitHub buildGoModule;
   };
-  waybar-main = (prev.waybar.overrideAttrs (_: {
-    version = "0.9.22_20230817";
-    src = prev.fetchFromGitHub {
-      owner = "Alexays";
-      repo = "Waybar";
-      rev = "master";
-      hash = "sha256-cNwh1LR0ZyF80anyAOMWW8UPebY2DKFH2Cr+5isLjAM=";
-    };
-  })).override {
-    withMediaPlayer = true;
-    hyprlandSupport = true;
-  };
   # TODO: Remove as soon as nixpkgs gets the latest version
   hledger_131 = (overrideCabal (_: {
     version = "1.31";
@@ -61,13 +49,4 @@ in rec {
     hledger-lib = hledger-lib_131;
     hledger = hledger_131;
   };
-  swaylock-effects-main = prev.swaylock-effects.overrideAttrs (_: {
-    version = "20230812";
-    src = prev.fetchFromGitHub {
-      owner = "jirutka";
-      repo = "swaylock-effects";
-      rev = "7c5681ce96587ce3090c6698501faeccdfdc157d";
-      sha256 = "sha256-09Kq90wIIF9lPjiY2anf9MSgi/EqeXKXW1mFmhxA/aM=";
-    };
-  });
 }

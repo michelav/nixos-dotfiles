@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 let
   inherit (config) colorscheme userPrefs;
-  eww = pkgs.eww-wayland;
   xdgDir = config.xdg.configHome;
 in {
-  home.packages = [ eww pkgs.socat ];
+  home.packages = [ pkgs.eww pkgs.socat ];
 
   xdg.configFile = {
     "eww/eww.yuck".text = ''

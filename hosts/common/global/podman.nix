@@ -3,15 +3,10 @@
   in {
     environment.systemPackages = [ pkgs.shadow pkgs.podman-compose ];
     system.nixos.tags = [ "rootless" ];
-
     virtualisation = {
-      docker = {
-        enable = mkForce false;
-        enableNvidia = mkForce false;
-      };
+      docker = { enable = mkForce false; };
       podman = {
         enable = true;
-        enableNvidia = true;
         dockerCompat = true;
         dockerSocket.enable = true;
 

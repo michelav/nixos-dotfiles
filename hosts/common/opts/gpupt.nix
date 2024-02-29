@@ -3,7 +3,6 @@
   in {
     boot.kernelPackages = mkForce pkgs.linuxPackages_zen;
     # hardware.nvidia.prime.offload.enable = mkForce false;
-    virtualisation.docker.enableNvidia = mkForce false;
     system.nixos.tags = [ "vm-bnb" ];
     gpuPassthru = {
       enable = true;

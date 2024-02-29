@@ -51,6 +51,4 @@ in {
     vulkan-tools
     glmark2
   ];
-
-  virtualisation.docker.enableNvidia = config.virtualisation.docker.enable;
 }

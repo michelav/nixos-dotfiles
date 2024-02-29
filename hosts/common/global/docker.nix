@@ -3,7 +3,6 @@
     docker = {
       enable = true;
       enableOnBoot = false;
-      enableNvidia = true;
     };
   };
   environment.persistence."/persist/vega" =

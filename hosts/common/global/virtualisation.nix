@@ -14,6 +14,7 @@
   ];
 
   # Manage the virtualisation services
+  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
   virtualisation = {
     libvirtd = {
       enable = true;

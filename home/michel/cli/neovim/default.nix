@@ -43,6 +43,8 @@
     '';
     extraLuaConfig = builtins.readFile ./cfg/extraConfig.lua;
     extraPython3Packages = ps: with ps; [ greenlet ];
+    extraLuaPackages = ps: [ ps.magick ];
+    extraPackages = [ pkgs.imagemagick ];
   };
 
 }

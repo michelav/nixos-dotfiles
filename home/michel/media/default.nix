@@ -1,5 +1,5 @@
-{ pkgs, lib, ... }: {
-  imports = [ ./easyeffects.nix ];
+{ pkgs, ... }: {
+  imports = [ ./easyeffects.nix ./wireplumber.nix ];
   home.packages = with pkgs; [ pavucontrol spotify playerctl qpwgraph ];
   programs.mpv = with pkgs; {
     enable = true;
