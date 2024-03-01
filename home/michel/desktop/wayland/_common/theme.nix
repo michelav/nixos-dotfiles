@@ -34,6 +34,9 @@ in rec {
     gsettings-desktop-schemas
     nordic
     numix-cursor-theme
+    tela-circle-icon-theme
+    bibata-cursors
+    vimix-cursor-theme
   ];
 
   gtk = {
@@ -42,10 +45,10 @@ in rec {
       name = "${config.colorscheme.slug}";
       package = gtkThemeFromScheme { scheme = config.colorscheme; };
     };
-    cursorTheme.name = "Numix-Cursor-Light";
+    cursorTheme.name = "Bibata-Modern-Classic";
     iconTheme = {
-      name = "Numix-Circle-Light";
-      package = pkgs.numix-icon-theme;
+      name = "Tela-circle-dark";
+      package = pkgs.tela-circle-icon-theme;
     };
     font = {
       inherit (config.userPrefs.fonts.regular) name package;
