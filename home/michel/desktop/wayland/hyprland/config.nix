@@ -228,7 +228,7 @@ in ''
     bind=SUPERSHIFT,f10,movetoworkspacesilent,20
     bind=SUPERSHIFT,f11,movetoworkspacesilent,21
     bind=SUPERSHIFT,f12,movetoworkspacesilent,22
-    ### Resize Submap ###
+    # Resize Submap
     # will switch to a submap called resize
     bind=SUPERSHIFT,r,submap,resize
     # will start a submap called "resize"
@@ -242,7 +242,7 @@ in ''
     bind=,escape,submap,reset 
     # will reset the submap, meaning end the current one and return to the global one
     submap=reset
-    ### Passthrough mode (e.g. for VNC) ###
+    # Passthrough mode (e.g. for VNC)
     bind=SUPER,P,submap,passthrough
     submap=passthrough
     bind=SUPER,P,submap,reset

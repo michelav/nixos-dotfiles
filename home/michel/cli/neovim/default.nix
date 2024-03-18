@@ -4,7 +4,6 @@
     with nodePackages; [
       # language servers
       lua-language-server
-      rnix-lsp
       nil
       nodejs
       dockerfile-language-server-nodejs

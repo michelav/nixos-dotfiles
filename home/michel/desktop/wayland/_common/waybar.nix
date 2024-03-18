@@ -43,18 +43,13 @@ in {
           "special" = " ";
         };
         # XXX: Not working as expected. Should be always visible
-        persistent_workspaces = { "eDP-1" = -99; };
+        persistent-workspaces = { "eDP-1" = -99; };
         show-special = true;
         on-click = "activate";
       };
 
       "custom/media" = {
         format = "{icon} {}";
-        # format-icons = {
-        #     "Playing" = " ";
-        #     "Paused" = " ";
-        # };
-        # max-length = 70;
         escape = true;
         return-type = "json";
         max-length = 40;
@@ -142,8 +137,9 @@ in {
         format-icons = [ " " " " " " " " " " ];
       };
       "clock" = {
-        #format = "{:  %H:%M %p   %d/%m/%Y}";
-        format = "{: %a, %d/%m/%Y  %H:%M}";
+        format = "<big>󰃰</big>   {:%a, %d/%m/%Y  %H:%M}";
+        timezone = "America/Fortaleza";
+        locale = "pt_BR.utf8";
         tooltip-format = ''
           <big>{:%Y %B}</big>
           <tt><small>{calendar}</small></tt>'';

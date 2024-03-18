@@ -30,7 +30,6 @@
 
     nvd
     nix-diff # Check derivation differences
-    rnix-lsp # Nix LSP
     nixfmt # Nix formatter
     deadnix # Nix dead code locator
     statix # Nix linter
