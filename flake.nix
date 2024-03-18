@@ -39,6 +39,11 @@
       url = "github:nvim-neorg/nixpkgs-neorg-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-compat = {
+      url = "github:inclyc/flake-compat";
+      flake = false;
+    };
+    nixd-main.url = "github:nix-community/nixd";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
@@ -48,6 +53,7 @@
       overlays = [
         inputs.neovim-nightly-overlay.overlay
         inputs.neorg-overlay.overlays.default
+        inputs.nixd-main.overlays.default
         local-overlays
       ];
       supportedSystems = [ "x86_64-linux" ];
@@ -86,7 +92,11 @@
         let ps = pkgs.${system};
         in with ps; {
           default = mkShell {
-            buildInputs = [ coreutils findutils gnumake nixpkgs-fmt nixFlakes ];
+            buildInputs =
+              [ coreutils findutils gnumake nixpkgs-fmt nixFlakes nixd ];
+            shellHook = ''
+              nix eval --json --file .nixd.nix > .nixd.json
+            '';
           };
           haskell = import ./shells/haskell.nix { pkgs = ps; };
           rust = import ./shells/rust.nix { pkgs = ps; };
