@@ -15,7 +15,7 @@
       # Example installable for flake-parts, nixos, and home-manager
 
       # nixOS configuration
-      installable = "./#nixosConfigurations.vega.options";
+      installable = ".#nixosConfigurations.vega.options";
     };
   };
 }
