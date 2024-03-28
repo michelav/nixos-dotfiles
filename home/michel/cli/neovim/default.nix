@@ -12,11 +12,16 @@
       gopls
       ccls
       tree-sitter
-      pyright
       jsonlint
       prettier
       markdownlint-cli
       stylua
+
+      # Python Stuff
+      pyright
+      black
+      ruff
+      ruff-lsp
     ];
   imports = [ ./ui.nix ./syntaxes.nix ./workflow.nix ./lsp.nix ];
   programs.neovim = {

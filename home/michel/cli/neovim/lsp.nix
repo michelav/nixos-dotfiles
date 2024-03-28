@@ -8,7 +8,7 @@
     }
 
     {
-      plugin = null-ls-nvim;
+      plugin = none-ls-nvim;
       type = "lua";
       config = ''
         local nls = require "null-ls"
@@ -17,13 +17,13 @@
         local ca = nls.builtins.code_actions
         nls.setup({
         sources = {
+        f.black,
+
         f.prettier,
-        f.jq,
         f.markdownlint,
         f.stylua,
         f.nixfmt,
         d.markdownlint,
-        d.jsonlint,
         d.statix,
         d.deadnix,
         d.fish,
