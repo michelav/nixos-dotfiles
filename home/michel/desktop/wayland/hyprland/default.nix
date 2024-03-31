@@ -43,7 +43,9 @@ in {
   };
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
+    # INFO: The hyprland package is also defined in the host section. Be careful to use the same package
+    # TODO: Place hyprland package in a single configuration place so there won't be any conflicts
+    package = hyprland;
     extraConfig = import ./config.nix { inherit config pkgs gtk-config; };
   };
 }

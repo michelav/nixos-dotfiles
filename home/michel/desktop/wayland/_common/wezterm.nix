@@ -38,9 +38,11 @@ in {
         selection_bg = "#${colors.base05}";
       };
     };
+    # TODO: Enable wayland support after fix: https://github.com/wez/wezterm/issues/5103
     extraConfig = # lua
       ''
         return {
+          enable_wayland = false,
           font = wezterm.font("${config.userPrefs.fonts.monospace.name}"),
           font_size = 12.0,
           color_scheme = "${colorscheme.slug}",
