@@ -1,4 +1,4 @@
-{ inputs, outputs, pkgs, ... }: {
+{ inputs, outputs, pkgs, lib, ... }: {
   imports = [
     # Include the results of the hardware scan.
     inputs.home-manager.nixosModules.home-manager
@@ -23,7 +23,13 @@
   time.timeZone = "America/Fortaleza";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "pt_BR.UTF-8";
+  i18n = {
+    defaultLocale = lib.mkDefault "pt_BR.UTF-8";
+    supportedLocales = lib.mkDefault [
+      "pt_BR.UTF-8/UTF-8"
+      "en_US.UTF-8/UTF-8"
+    ];
+  };
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
     packages = with pkgs; [ terminus_font ];

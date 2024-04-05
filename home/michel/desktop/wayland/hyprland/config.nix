@@ -65,8 +65,11 @@ in ''
       disable_splash_rendering=true
     }
     input {
-      kb_layout=br
-      kb_model=abnt2
+      kb_layout=br,us
+      kb_variant=,intl
+      kb_options = grp:alt_shift_toggle
+      # kb_options = grp:alt_shift_toggle,compose:ralt
+      # kb_model=abnt2,
       touchpad {
         disable_while_typing=false
       }

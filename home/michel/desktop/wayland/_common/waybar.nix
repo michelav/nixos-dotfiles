@@ -25,6 +25,7 @@ in {
         "backlight"
         "pulseaudio"
         "network"
+        "hyprland/language"
         "battery"
         "tray"
       ];
@@ -94,6 +95,11 @@ in {
         tooltip-format-ethernet = "{ifname} - {ipaddr}/{cidr}";
       };
 
+      "hyprland/language" = {
+        format-en = "EN";
+        format-pt = "BR";
+      };
+
       "idle_inhibitor" = {
         format = "{icon}";
         format-icons = {
@@ -137,12 +143,27 @@ in {
         format-icons = [ " " " " " " " " " " ];
       };
       "clock" = {
+        mode = "year";
         format = "<big>󰃰</big>   {:%a, %d/%m/%Y  %H:%M}";
         timezone = "America/Fortaleza";
         locale = "pt_BR.utf8";
+        calendar = {
+            mode          = "year";
+            mode-mon-col  = 3;
+            weeks-pos     = "right";
+            on-scroll     = 1;
+            on-click-right =  "mode";
+            format = with config.colorscheme.palette; {
+                      months = "<span color='#${base0B}'><b>{}</b></span>";
+                      days =      "<span color='#${base04}'><b>{}</b></span>";
+                      weeks =      "<span color='#${base0C}'><b>W{}</b></span>";
+                      weekdays =    "<span color='#${base0A}'><b>{}</b></span>";
+                      today =      "<span color='#${base08}'><b><u>{}</u></b></span>";
+                      };
+        };
         tooltip-format = ''
           <big>{:%Y %B}</big>
-          <tt><small>{calendar}</small></tt>'';
+          <tt>{calendar}</tt>'';
       };
     }];
     style = with config.colorscheme.palette;
@@ -189,6 +210,7 @@ in {
         #network,
         #pulseaudio,
         #idle_inhibitor,
+        #language,
         #tray,
         #wireplumber,
         #backlight {
