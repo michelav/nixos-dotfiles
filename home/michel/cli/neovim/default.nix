@@ -47,7 +47,14 @@
     '';
     extraLuaConfig = builtins.readFile ./cfg/extraConfig.lua;
     extraPython3Packages = ps: with ps; [ greenlet ];
-    extraLuaPackages = ps: [ ps.magick ];
+    extraLuaPackages = ps:
+      with ps; [
+        magick
+        # neorg dependencies
+        lua-utils-nvim
+        pathlib-nvim
+        nvim-nio
+      ];
     extraPackages = [ pkgs.imagemagick ];
   };
 
