@@ -39,10 +39,12 @@ in {
       };
     };
     # TODO: Enable wayland support after fix: https://github.com/wez/wezterm/issues/5103
+    # FIXME: Having problems with multiple files opened error. Disabled reload config meanwhile. Check isue https://github.com/wez/wezterm/issues/4396
     extraConfig = # lua
       ''
         return {
           enable_wayland = false,
+          automatically_reload_config = false,
           font = wezterm.font("${config.userPrefs.fonts.monospace.name}"),
           font_size = 12.0,
           color_scheme = "${colorscheme.slug}",

@@ -19,7 +19,7 @@
       trusted-users = [ "root" "@wheel" ];
       experimental-features = [ "nix-command" "flakes" ];
     };
-    package = pkgs.nixUnstable; # or versioned attributes like nix_2_7
+    package = pkgs.nixVersions.latest;
     optimise = {
       automatic = true;
       dates = [ "weekly" ];

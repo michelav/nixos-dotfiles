@@ -31,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland/v0.40.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-contrib = {
@@ -46,17 +46,16 @@
       url = "github:inclyc/flake-compat";
       flake = false;
     };
-    nixd-main.url = "github:nix-community/nixd";
+    nixd.url = "github:nix-community/nixd";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixd, ... }@inputs:
     let
       inherit (self) outputs;
       local-overlays = import ./overlays;
       overlays = [
         inputs.neovim-nightly-overlay.overlay
         inputs.neorg-overlay.overlays.default
-        inputs.nixd-main.overlays.default
         local-overlays
       ];
       supportedSystems = [ "x86_64-linux" ];
@@ -96,7 +95,7 @@
         in with ps; {
           default = mkShell {
             buildInputs =
-              [ coreutils findutils gnumake nixpkgs-fmt nixFlakes nixd ];
+              [ coreutils findutils gnumake nixpkgs-fmt nixFlakes nixd.packages.${system}.default ];
             shellHook = ''
               nix eval --json --file .nixd.nix > .nixd.json
             '';

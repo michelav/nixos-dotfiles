@@ -22,9 +22,10 @@ local format_on_save = function(bufnr)
 end
 
 local on_attach = function(client, bufnr)
-  if client.supports_method("textDocument/formatting") then
-    format_on_save(bufnr)
-  end
+  format_on_save(bufnr)
+  -- if client.supports_method("textDocument/formatting") then
+  --   format_on_save(bufnr)
+  -- end
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end

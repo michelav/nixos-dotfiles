@@ -30,7 +30,7 @@
 
     nvd
     nix-diff # Check derivation differences
-    nixfmt # Nix formatter
+    nixfmt-rfc-style # Nix formatter
     deadnix # Nix dead code locator
     statix # Nix linter
     haskellPackages.nix-derivation # Inspecting .drv's
