@@ -96,9 +96,6 @@
           default = mkShell {
             buildInputs =
               [ coreutils findutils gnumake nixpkgs-fmt nixFlakes nixd.packages.${system}.default ];
-            shellHook = ''
-              nix eval --json --file .nixd.nix > .nixd.json
-            '';
           };
           haskell = import ./shells/haskell.nix { pkgs = ps; };
           rust = import ./shells/rust.nix { pkgs = ps; };
