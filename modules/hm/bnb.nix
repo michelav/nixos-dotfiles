@@ -1,8 +1,9 @@
-{ pkgs, config, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 let
   cfg = config.bnb.vpn;
   inherit (lib) types mkOption mkEnableOption mkIf mapAttrsToList concatStrings;
   inherit (config) xdg;
+  inherit (inputs.nixpkgs-stable.legacyPackages."x86_64-linux") remmina;
   bnb-vpn = pkgs.writeTextFile {
     name = "bnb-vpn";
     destination = "/bin/bnb-vpn";
@@ -31,7 +32,7 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.openconnect pkgs.remmina bnb-vpn ];
+    home.packages = [ pkgs.openconnect remmina bnb-vpn ];
     xdg.configFile."bnb/vpn-config" = mkIf (cfg.settings != { }) {
       text = concatStrings (mapAttrsToList (n: v:
         if v == false then
