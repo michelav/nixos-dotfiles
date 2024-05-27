@@ -103,7 +103,7 @@ in ''
     # Lock screen
     # bind=,XF86Launch5,exec,${lock} -f -S
     # bind=,XF86Launch4,exec,${lock} -f -S
-    bind=SUPER,backspace,exec,${lock} -f -S
+    bind=SUPER,backspace,exec,loginctl lock-session
     # Screenshots
     bind=,Print,exec,grimblast --notify copy output
     bind=SHIFT,Print,exec,grimblast --notify copy active

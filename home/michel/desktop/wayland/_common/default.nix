@@ -5,8 +5,8 @@
     ./images.nix
     ./gammastep.nix
     ./mako.nix
-    ./swayidle.nix
-    ./swaylock.nix
+    # ./swayidle.nix
+    # ./swaylock.nix
     ./theme.nix
     ./zathura.nix
     ./wezterm.nix

@@ -7,7 +7,10 @@ in {
     dbus.packages = [ pkgs.gcr keyring ];
     blueman.enable = true;
   };
-  security.pam.services.swaylock = { enableGnomeKeyring = true; };
+  security.pam.services = {
+    swaylock = { enableGnomeKeyring = true; };
+    hyprlock = { enableGnomeKeyring = true; };
+  };
   programs = {
     light.enable = true;
     hyprland = {
