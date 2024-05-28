@@ -31,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.40.0";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-contrib = {
@@ -54,7 +54,7 @@
       inherit (self) outputs;
       local-overlays = import ./overlays;
       overlays = [
-        inputs.neovim-nightly-overlay.overlay
+        inputs.neovim-nightly-overlay.overlays.default
         inputs.neorg-overlay.overlays.default
         local-overlays
       ];

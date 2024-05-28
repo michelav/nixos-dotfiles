@@ -21,7 +21,9 @@ in ''
       col.inactive_border=0xff${colorscheme.palette.base02}
       # col.group_border_active=0xff${colorscheme.palette.base0B}
       # col.group_border=0xff${colorscheme.palette.base04}
-      cursor_inactive_timeout=4
+    }
+    cursor {
+      inactive_timeout=5
     }
     decoration {
       active_opacity=0.94
