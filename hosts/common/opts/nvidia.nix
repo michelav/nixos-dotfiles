@@ -7,11 +7,10 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec -a "$0" "$@"
   '';
-in {
+in
+{
   nixpkgs.config = {
-    packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-    };
+    packageOverrides = pkgs: { vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; }; };
   };
   hardware = {
     opengl = {
@@ -29,8 +28,9 @@ in {
       modesetting.enable = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-      /* TODO: These configs work well for vega, but I should change it if I get
-         more PCs with NVidia cards
+      /*
+        TODO: These configs work well for vega, but I should change it if I get
+        more PCs with NVidia cards
       */
       prime = {
         offload.enable = true;
