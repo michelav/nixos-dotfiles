@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = nvim-surround;
@@ -192,6 +193,8 @@
                   default_workspace = "notes",
                 },
               },
+              ["core.completion"] = { config = { engine = "nvim-cmp", name = "[Neorg]" } },
+              ["core.integrations.telescope"] = {},
             },
           }
         '';

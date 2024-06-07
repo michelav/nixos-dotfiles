@@ -73,6 +73,7 @@ cmp.setup({
     { name = "nvim_lsp_signature_help" },
     { name = "orgmode" },
     { name = "hledger" },
+    { name = "neorg" },
   },
 })
 
