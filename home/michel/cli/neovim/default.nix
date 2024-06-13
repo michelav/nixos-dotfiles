@@ -1,31 +1,10 @@
 { config, pkgs, ... }:
 {
 
-  home.packages =
-    with pkgs;
-    with nodePackages;
-    [
-      # language servers
-      lua-language-server
-      nil
-      nodejs
-      dockerfile-language-server-nodejs
-      vscode-langservers-extracted
-      yaml-language-server
-      gopls
-      ccls
-      tree-sitter
-      jsonlint
-      prettier
-      markdownlint-cli
-      stylua
-
-      # Python Stuff
-      pyright
-      black
-      ruff
-      ruff-lsp
-    ];
+  home.packages = [
+    pkgs.nodejs
+    pkgs.tree-sitter
+  ];
   imports = [
     ./ui.nix
     ./syntaxes.nix

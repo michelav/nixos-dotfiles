@@ -77,6 +77,7 @@ config_lsp(lspconfig.yamlls, {})
 config_lsp(lspconfig.texlab, {})
 config_lsp(lspconfig.ccls, {})
 config_lsp(lspconfig.jsonls, {})
+config_lsp(lspconfig.biome, {})
 config_lsp(lspconfig.gopls, { on_attach = on_attach_golang })
 config_lsp(lspconfig.lua_ls, {
   settings = {

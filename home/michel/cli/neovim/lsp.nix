@@ -1,4 +1,32 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
+  home.packages =
+    with pkgs;
+    with nodePackages;
+    [
+      # language servers
+      lua-language-server
+      nil
+      dockerfile-language-server-nodejs
+      vscode-langservers-extracted
+      yaml-language-server
+      gopls
+      ccls
+      jsonlint
+      prettier
+      markdownlint-cli
+      stylua
+
+      # Python Stuff
+      pyright
+      black
+      ruff
+      ruff-lsp
+
+      # javascript and typescript
+      biome
+    ];
+
   programs.neovim.plugins = with pkgs.vimPlugins; [
 
     {
@@ -19,7 +47,7 @@
         sources = {
         f.black,
 
-        f.prettier,
+        f.prettier.with({ filetypes = {"html", "markdown"}}),
         f.markdownlint,
         f.stylua,
         f.nixfmt,
