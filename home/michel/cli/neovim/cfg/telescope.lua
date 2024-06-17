@@ -1,5 +1,5 @@
 local telescope = require("telescope")
-local trouble = require("trouble.providers.telescope")
+local trouble = require("trouble.sources.telescope")
 
 telescope.setup({
   defaults = {
@@ -52,9 +52,9 @@ telescope.setup({
         -- actions.which_key shows the mappings for your picker,
         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
         ["<C-h>"] = "which_key",
-        ["<c-t>"] = trouble.open_with_trouble,
+        ["<c-t>"] = trouble.open,
       },
-      n = { ["q"] = require("telescope.actions").close, ["<c-t>"] = trouble.open_with_trouble },
+      n = { ["q"] = require("telescope.actions").close, ["<c-t>"] = trouble.open },
     },
   },
   pickers = {
