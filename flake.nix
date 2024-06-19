@@ -63,7 +63,7 @@
     }@inputs:
     let
       inherit (self) outputs;
-      local-overlays = import ./overlays { inherit inputs; };
+      local-overlays = import ./overlays;
       overlays = [
         inputs.neovim-nightly-overlay.overlays.default
         inputs.neorg-overlay.overlays.default
