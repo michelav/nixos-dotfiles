@@ -1,4 +1,9 @@
-{ config, pkgs, gtk-config, ... }:
+{
+  config,
+  pkgs,
+  gtk-config,
+  ...
+}:
 let
   inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
   inherit (config) colorscheme xdg;
@@ -7,7 +12,8 @@ let
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
   lock = "${pkgs.swaylock-effects}/bin/swaylock";
   idle = "${pkgs.swayidle}/bin/swayidle";
-in ''
+in
+''
   monitor=,1920x1080@120,0x0, 1
   env=XDG_CURRENT_DESKTOP,Hyprland
   env=XDG_SESSION_DESKTOP,Hyprland
@@ -77,6 +83,7 @@ in ''
       }
     }
     # Startup
+    exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     exec-once=waybar
     exec=swaybg -i ${wallpaper} --mode fill
     exec=${gtk-config}/bin/gtk-config

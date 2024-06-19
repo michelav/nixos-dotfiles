@@ -22,6 +22,10 @@
       flake = false;
     };
 
+    wezterm-main = {
+      url = "github:wez/wezterm?dir=nix&rev=cb1406860a23896ca6935696169644d140e29208";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,10 +53,17 @@
     nixd.url = "github:nix-community/nixd";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixd, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixd,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
-      local-overlays = import ./overlays;
+      local-overlays = import ./overlays { inherit inputs; };
       overlays = [
         inputs.neovim-nightly-overlay.overlays.default
         inputs.neorg-overlay.overlays.default
@@ -60,46 +71,66 @@
       ];
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      pkgs = forAllSystems (system:
+      pkgs = forAllSystems (
+        system:
         import nixpkgs {
           inherit system overlays;
           config = {
             allowUnfree = true;
             allowUnfreePredicate = _: true;
           };
-        });
-      mkNixos = system: modules:
+        }
+      );
+      mkNixos =
+        system: modules:
         nixpkgs.lib.nixosSystem {
           inherit system modules;
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = {
+            inherit inputs outputs;
+          };
         };
       homeManagerModules = import ./modules/hm;
       nixosModules = import ./modules/nixos;
-    in {
+    in
+    {
       inherit overlays homeManagerModules nixosModules;
       nixosConfigurations = {
-        vega = mkNixos "x86_64-linux" ([
-          ./hosts/vega
-          {
-            nixpkgs = {
-              inherit overlays;
-              config.allowUnfree = true;
-              config.allowUnfreePredicate = _: true;
-            };
-            home-manager.useGlobalPkgs = true;
-          }
-        ] ++ (builtins.attrValues nixosModules));
+        vega = mkNixos "x86_64-linux" (
+          [
+            ./hosts/vega
+            {
+              nixpkgs = {
+                inherit overlays;
+                config.allowUnfree = true;
+                config.allowUnfreePredicate = _: true;
+              };
+              home-manager.useGlobalPkgs = true;
+            }
+          ]
+          ++ (builtins.attrValues nixosModules)
+        );
       };
-      devShells = forAllSystems (system:
-        let ps = pkgs.${system};
-        in with ps; {
+      devShells = forAllSystems (
+        system:
+        let
+          ps = pkgs.${system};
+        in
+        with ps;
+        {
           default = mkShell {
-            buildInputs =
-              [ coreutils findutils gnumake nixpkgs-fmt nixFlakes nixd.packages.${system}.default ];
+            buildInputs = [
+              coreutils
+              findutils
+              gnumake
+              nixpkgs-fmt
+              nixFlakes
+              nixd.packages.${system}.default
+            ];
           };
           haskell = import ./shells/haskell.nix { pkgs = ps; };
           rust = import ./shells/rust.nix { pkgs = ps; };
           golang = import ./shells/golang.nix { pkgs = ps; };
-        });
+        }
+      );
     };
 }

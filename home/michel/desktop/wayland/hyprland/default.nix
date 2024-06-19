@@ -50,11 +50,11 @@ in
 
   # Add this so we have a file chooser in the portal
   xdg.portal = {
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
       xdg-desktop-portal-hyprland
-      gnome.gnome-keyring
-      xdg-desktop-portal-wlr
+      pkgs.gnome.gnome-keyring
+      # xdg-desktop-portal-wlr
     ];
     configPackages = [ hyprland ];
     xdgOpenUsePortal = true;

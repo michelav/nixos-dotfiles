@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config) colorscheme;
@@ -7,7 +12,7 @@ in
 {
   programs.wezterm = {
     enable = true;
-    package = pkgs.wezterm;
+    package = inputs.wezterm-main.packages.${pkgs.system}.default;
     colorSchemes = {
       "${colorscheme.slug}" = {
         foreground = "#${colors.base05}";
@@ -44,7 +49,7 @@ in
     extraConfig = # lua
       ''
         return {
-          enable_wayland = false,
+          -- enable_wayland = false,
           automatically_reload_config = false,
           font = wezterm.font("${config.userPrefs.fonts.monospace.name}"),
           font_size = 12.0,
