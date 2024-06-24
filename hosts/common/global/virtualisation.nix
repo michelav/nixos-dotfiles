@@ -1,5 +1,9 @@
-{ pkgs, ... }: {
-  imports = [ ./docker.nix ./podman.nix ];
+{ pkgs, ... }:
+{
+  imports = [
+    ./docker.nix
+    ./podman.nix
+  ];
 
   # Install necessary packages
   environment.systemPackages = with pkgs; [
@@ -14,7 +18,7 @@
   ];
 
   # Manage the virtualisation services
-  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
   virtualisation = {
     libvirtd = {
       enable = true;
@@ -24,7 +28,8 @@
         ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
-    vmVariantWithBootLoader = { # To test config in VMs
+    vmVariantWithBootLoader = {
+      # To test config in VMs
       virtualisation = {
         memorySize = 4096;
         cores = 4;

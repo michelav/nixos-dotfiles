@@ -13,7 +13,7 @@ in
     packageOverrides = pkgs: { vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; }; };
   };
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver
@@ -22,7 +22,7 @@ in
         libvdpau-va-gl
         intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
       ];
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
     nvidia = {
       modesetting.enable = true;
