@@ -12,7 +12,7 @@ in {
       wiki =
         "https://en.wikipedia.org/wiki/Special:Search?search={}&go=Go&ns0=1";
       aw = "https://wiki.archlinux.org/?search={}";
-      # nw = "https://nixos.wiki/index.php?search={}";
+      # nw = "https://wiki.nixos.org/index.php?search={}";
       nw = "https://wiki.nixos.org/w/index.php?search={}";
       nd = "https://discourse.nixos.org/search?q={}";
       gh = "https://github.com/search?q={}";
