@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./bnb.nix
     ./browsers.nix
@@ -18,7 +19,7 @@
 
   home.packages = with pkgs; [
     keepassxc
-    transmission-gtk
+    transmission_4-gtk
     wl-clipboard
     cliphist
     xdg-utils
