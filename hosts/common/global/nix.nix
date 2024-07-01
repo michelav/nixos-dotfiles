@@ -1,4 +1,13 @@
-{ pkgs, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
+let
+  flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+in
+{
   nix = {
     settings = {
       substituters = [
@@ -16,26 +25,22 @@
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
-      trusted-users = [ "root" "@wheel" ];
-      experimental-features = [ "nix-command" "flakes" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
     package = pkgs.nixVersions.latest;
     optimise = {
       automatic = true;
       dates = [ "weekly" ];
     };
-    # Set the $NIX_PATH entry for nixpkgs. This is necessary in
-    # this setup with flakes, otherwise commands like `nix-shell
-    # -p pkgs.htop` will keep using an old version of nixpkgs
-    nixPath = [
-      "nixpkgs=${inputs.nixpkgs}"
-      # "nixpkgs-unstable=${inputs.unstable}"
-    ];
-    # Same as above, but for `nix shell nixpkgs#htop`
-    # FIXME: for non-free packages you need to use `nix shell --impure`
-    registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      # nixpkgs-unstable.flake = inputs.unstable;
-    };
+    # All Inputs and self flakes are available as registries and nicPath
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 }
