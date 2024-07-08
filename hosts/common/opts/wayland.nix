@@ -1,15 +1,23 @@
 { pkgs, inputs, ... }:
-let keyring = pkgs.gnome.gnome-keyring;
-in {
+let
+  keyring = pkgs.gnome-keyring;
+in
+{
   imports = [ ./greetd.nix ];
   services = {
-    # gnome.gnome-keyring.enable = true;
-    dbus.packages = [ pkgs.gcr keyring ];
+    dbus.packages = [
+      pkgs.gcr
+      keyring
+    ];
     blueman.enable = true;
   };
   security.pam.services = {
-    swaylock = { enableGnomeKeyring = true; };
-    hyprlock = { enableGnomeKeyring = true; };
+    swaylock = {
+      enableGnomeKeyring = true;
+    };
+    hyprlock = {
+      enableGnomeKeyring = true;
+    };
   };
   programs = {
     light.enable = true;

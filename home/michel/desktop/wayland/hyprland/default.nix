@@ -53,7 +53,7 @@ in
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       xdg-desktop-portal-hyprland
-      pkgs.gnome.gnome-keyring
+      pkgs.gnome-keyring
       # xdg-desktop-portal-wlr
     ];
     configPackages = [ hyprland ];
