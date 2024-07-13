@@ -44,8 +44,7 @@ in
         selection_bg = "#${colors.base05}";
       };
     };
-    # TODO: Enable wayland support after fix: https://github.com/wez/wezterm/issues/5103
-    # FIXME: Having problems with multiple files opened error. Disabled reload config meanwhile. Check isue https://github.com/wez/wezterm/issues/4396
+    # WARN: Having problems with multiple files opened error. Disabled reload config meanwhile. Check isue https://github.com/wez/wezterm/issues/4396
     extraConfig = # lua
       ''
         return {

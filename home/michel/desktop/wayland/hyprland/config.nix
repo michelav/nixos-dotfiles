@@ -10,8 +10,6 @@ let
   inherit (config.userPrefs) wallpaper;
   cliphist = "${pkgs.cliphist}/bin/cliphist";
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-  lock = "${pkgs.swaylock-effects}/bin/swaylock";
-  idle = "${pkgs.swayidle}/bin/swayidle";
 in
 ''
   monitor=,1920x1080@120,0x0, 1
@@ -88,8 +86,6 @@ in
     exec=swaybg -i ${wallpaper} --mode fill
     exec=${gtk-config}/bin/gtk-config
     exec-once=mako
-    # INFO: Use -d when debugging swayidle
-    exec-once=${idle} -d -w -C ${xdg.configHome}/swayidle/hypr-config
     #clipboard management
     exec-once = ${wl-paste} --type text --watch ${cliphist} store #Stores only text data
     exec-once = ${wl-paste} --type image --watch ${cliphist} store #Stores only image data
@@ -110,8 +106,6 @@ in
     # Toggle waybar
     bind=,XF86Tools,exec,pkill -USR2 waybar # profile button
     # Lock screen
-    # bind=,XF86Launch5,exec,${lock} -f -S
-    # bind=,XF86Launch4,exec,${lock} -f -S
     bind=SUPER,backspace,exec,loginctl lock-session
     # Screenshots
     bind=,Print,exec,grimblast --notify copy output

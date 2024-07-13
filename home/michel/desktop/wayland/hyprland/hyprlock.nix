@@ -1,4 +1,9 @@
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (config.colorscheme) palette;
   inherit (config.userPrefs) fonts;
@@ -7,7 +12,6 @@ let
   fortune = "${pkgs.fortune}/bin/fortune";
 in
 {
-  # home.packages = [ pkgs.fortune ];
   programs.hyprlock = {
     enable = true;
     settings = {

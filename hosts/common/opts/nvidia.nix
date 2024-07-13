@@ -29,7 +29,7 @@ in
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       /*
-        TODO: These configs work well for vega, but I should change it if I get
+        INFO: These configs work well for vega, but I should change it if I get
         more PCs with NVidia cards
       */
       prime = {
