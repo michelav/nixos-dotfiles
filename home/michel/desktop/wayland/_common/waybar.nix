@@ -4,169 +4,182 @@ let
     withMediaPlayer = true;
     hyprlandSupport = true;
   };
-in {
+in
+{
   programs.waybar = {
     enable = true;
     package = custom-waybar;
-    settings = [{
-      # output = "eDP-1";
-      layer = "top";
-      position = "top";
-      modules-left = [
-        # "custom/scratchpad"
-        # "wlr/workspaces"
-        "hyprland/workspaces"
-        "hyprland/submap"
-        "custom/media"
-      ];
-      modules-center = [ "clock" ];
-      modules-right = [
-        "idle_inhibitor"
-        "backlight"
-        "pulseaudio"
-        "network"
-        "hyprland/language"
-        "battery"
-        "tray"
-      ];
-      "hyprland/workspaces" = {
-        format = "{icon}";
-        format-icons = {
-          "1" = "1";
-          "2" = "2";
-          "3" = "3";
-          "4" = "4";
-          "5" = "5";
-          "6" = "6";
-          "7" = "7";
-          "8" = "8";
-          "9" = "9";
-          "special" = " ";
+    settings = [
+      {
+        # output = "eDP-1";
+        layer = "top";
+        position = "top";
+        modules-left = [
+          # "custom/scratchpad"
+          # "wlr/workspaces"
+          "hyprland/workspaces"
+          "hyprland/submap"
+          "custom/media"
+        ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "idle_inhibitor"
+          "backlight"
+          "pulseaudio"
+          "network"
+          "hyprland/language"
+          "battery"
+          "tray"
+        ];
+        "hyprland/workspaces" = {
+          format = "{icon}";
+          format-icons = {
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            "6" = "6";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
+            "special" = " ";
+          };
+          # XXX: Not working as expected. Should be always visible
+          persistent-workspaces = {
+            "eDP-1" = -99;
+          };
+          show-special = true;
+          on-click = "activate";
         };
-        # XXX: Not working as expected. Should be always visible
-        persistent-workspaces = { "eDP-1" = -99; };
-        show-special = true;
-        on-click = "activate";
-      };
 
-      "custom/media" = {
-        format = "{icon} {}";
-        escape = true;
-        return-type = "json";
-        max-length = 40;
-        on-click = "playerctl play-pause";
-        on-click-right = "playerctl stop";
-        smooth-scrolling-threshold =
-          5; # This value was tested using a trackpad, it should be lowered if using a mouse.
-        on-scroll-up = "playerctl next";
-        on-scroll-down = "playerctl previous";
-        exec =
-          "${custom-waybar}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
-      };
-      "custom/scratchpad" = {
-        interval = 1;
-        exec =
-          "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
-        format = "  {}";
-        tooltip = false;
-        on-click = "swaymsg 'scratchpad show'";
-        on-click-right = "swaymsg 'move scratchpad'";
-      };
-      "tray" = {
-        icon-size = 12;
-        spacing = 10;
-      };
-      "backlight" = {
-        "tooltip" = false;
-        "format" = " {}%";
-        "interval" = 1;
-        "on-scroll-up" = "light -A 5";
-        "on-scroll-down" = "light -U 5";
-      };
-      # TODO: Show only network symbol. Adjust tooltip and click to show more info if necessary
-      "network" = {
-        format-wifi = " ";
-        format-ethernet = "󰈀";
-        format-linked = "(No IP) 󰌷";
-        format-disconnected = "Disconnected  ";
-        format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
-        on-click-middle = "nmtui";
-        tooltip-format-wifi = "{essid} ({signalStrength}%) - {ipaddr}";
-        tooltip-format-ethernet = "{ifname} - {ipaddr}/{cidr}";
-      };
+        "custom/media" = {
+          format = "{icon} {}";
+          escape = true;
+          return-type = "json";
+          max-length = 40;
+          on-click = "playerctl play-pause";
+          on-click-right = "playerctl stop";
+          smooth-scrolling-threshold = 5; # This value was tested using a trackpad, it should be lowered if using a mouse.
+          on-scroll-up = "playerctl next";
+          on-scroll-down = "playerctl previous";
+          exec = "${custom-waybar}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
+        };
+        "custom/scratchpad" = {
+          interval = 1;
+          exec = "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
+          format = "  {}";
+          tooltip = false;
+          on-click = "swaymsg 'scratchpad show'";
+          on-click-right = "swaymsg 'move scratchpad'";
+        };
+        "tray" = {
+          icon-size = 12;
+          spacing = 10;
+        };
+        "backlight" = {
+          "tooltip" = false;
+          "format" = " {}%";
+          "interval" = 1;
+          "on-scroll-up" = "light -A 5";
+          "on-scroll-down" = "light -U 5";
+        };
+        # TODO: Show only network symbol. Adjust tooltip and click to show more info if necessary
+        "network" = {
+          format-wifi = " ";
+          format-ethernet = "󰈀";
+          format-linked = "(No IP) 󰌷";
+          format-disconnected = "Disconnected  ";
+          format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
+          on-click-middle = "nmtui";
+          tooltip-format-wifi = "{essid} ({signalStrength}%) - {ipaddr}";
+          tooltip-format-ethernet = "{ifname} - {ipaddr}/{cidr}";
+        };
+        # FIXME: Waybar or Hyprland not handling correctly US Intl Layout
+        "hyprland/language" = {
+          format-en = "EN";
+          format-pt = "BR";
+        };
 
-      "hyprland/language" = {
-        format-en = "EN";
-        format-pt = "BR";
-      };
-
-      "idle_inhibitor" = {
-        format = "{icon}";
-        format-icons = {
-          deactivated = "󰷛 ";
-          activated = "󰍹 ";
+        "idle_inhibitor" = {
+          format = "{icon}";
+          format-icons = {
+            deactivated = "󰷛 ";
+            activated = "󰍹 ";
+          };
+          tooltip-format-activated = "idle disabled";
+          tooltip-format-deactivated = "idle enabled";
         };
-        tooltip-format-activated = "idle disabled";
-        tooltip-format-deactivated = "idle enabled";
-      };
-      "pulseaudio" = {
-        scroll-step = 1;
-        format = "{volume}% {icon} {format_source}";
-        format-bluetooth = "{volume}% {icon} {format_source}";
-        format-bluetooth-muted = " {icon} {format_source}";
-        format-muted = " {format_source}";
-        format-source = " {volume}% ";
-        format-source-muted = " ";
-        format-icons = {
-          headphone = "󰋋";
-          hands-free = "󰋎";
-          headset = "󰋎 ";
-          phone = " ";
-          portable = " ";
-          car = " ";
-          default = [ " " " " " " ];
+        "pulseaudio" = {
+          scroll-step = 1;
+          format = "{volume}% {icon} {format_source}";
+          format-bluetooth = "{volume}% {icon} {format_source}";
+          format-bluetooth-muted = " {icon} {format_source}";
+          format-muted = " {format_source}";
+          format-source = " {volume}% ";
+          format-source-muted = " ";
+          format-icons = {
+            headphone = "󰋋";
+            hands-free = "󰋎";
+            headset = "󰋎 ";
+            phone = " ";
+            portable = " ";
+            car = " ";
+            default = [
+              " "
+              " "
+              " "
+            ];
+          };
+          on-click = "pavucontrol";
         };
-        on-click = "pavucontrol";
-      };
-      "battery" = {
-        states = {
-          normal = 50;
-          warning = 30;
-          critical = 15;
+        "battery" = {
+          states = {
+            normal = 50;
+            warning = 30;
+            critical = 15;
+          };
+          format = "{capacity}% {icon}";
+          format-charging-critical = "{capacity}% 󰢜 ";
+          format-charging-warning = "{capacity}% 󰂇 ";
+          format-charging-normal = "{capacity}% 󰢝 ";
+          format-plugged = "{capacity}%  ";
+          format-alt = "{time} {icon}";
+          format-icons = [
+            " "
+            " "
+            " "
+            " "
+            " "
+          ];
         };
-        format = "{capacity}% {icon}";
-        format-charging-critical = "{capacity}% 󰢜 ";
-        format-charging-warning = "{capacity}% 󰂇 ";
-        format-charging-normal = "{capacity}% 󰢝 ";
-        format-plugged = "{capacity}%  ";
-        format-alt = "{time} {icon}";
-        format-icons = [ " " " " " " " " " " ];
-      };
-      "clock" = {
-        mode = "year";
-        format = "<big>󰃰</big>   {:%a, %d/%m/%Y  %H:%M}";
-        timezone = "America/Fortaleza";
-        locale = "pt_BR.utf8";
-        calendar = {
-            mode          = "year";
-            mode-mon-col  = 3;
-            weeks-pos     = "right";
-            on-scroll     = 1;
-            on-click-right =  "mode";
+        "clock" = {
+          mode = "year";
+          format = "<big>󰃰</big>   {:%a, %d/%m/%Y  %H:%M}";
+          timezone = "America/Fortaleza";
+          locale = "pt_BR.utf8";
+          calendar = {
+            mode = "year";
+            mode-mon-col = 3;
+            weeks-pos = "right";
+            on-scroll = 1;
+            on-click-right = "mode";
             format = with config.colorscheme.palette; {
-                      months = "<span color='#${base0B}'><b>{}</b></span>";
-                      days =      "<span color='#${base04}'><b>{}</b></span>";
-                      weeks =      "<span color='#${base0C}'><b>W{}</b></span>";
-                      weekdays =    "<span color='#${base0A}'><b>{}</b></span>";
-                      today =      "<span color='#${base08}'><b><u>{}</u></b></span>";
-                      };
+              months = "<span color='#${base0B}'><b>{}</b></span>";
+              days = "<span color='#${base04}'><b>{}</b></span>";
+              weeks = "<span color='#${base0C}'><b>W{}</b></span>";
+              weekdays = "<span color='#${base0A}'><b>{}</b></span>";
+              today = "<span color='#${base08}'><b><u>{}</u></b></span>";
+            };
+          };
+          tooltip-format = ''
+            <big>{:%Y %B}</big>
+            <tt>{calendar}</tt>'';
         };
-        tooltip-format = ''
-          <big>{:%Y %B}</big>
-          <tt>{calendar}</tt>'';
-      };
-    }];
-    style = with config.colorscheme.palette;
+      }
+    ];
+    style =
+      with config.colorscheme.palette;
       with config.userPrefs; # css
       ''
 

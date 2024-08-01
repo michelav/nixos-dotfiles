@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   imports = [
     ./neovim
     ./nnn.nix
@@ -14,7 +15,9 @@
     ./eza.nix
   ];
 
-  home.sessionVariables = { NIX_SHELL_PRESERVE_PROMPT = 1; };
+  home.sessionVariables = {
+    NIX_SHELL_PRESERVE_PROMPT = 1;
+  };
 
   home.packages = with pkgs; [
     cachix # For managing my binary cache
@@ -29,6 +32,7 @@
     jq # JSON pretty printer and manipulator
 
     nvd
+    nh
     nix-diff # Check derivation differences
     nixfmt-rfc-style # Nix formatter
     deadnix # Nix dead code locator

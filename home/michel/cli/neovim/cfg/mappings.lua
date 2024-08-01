@@ -1,36 +1,73 @@
-local wk = require('which-key')
+local wk = require("which-key")
 
-local opts = {
-  mode = "n",
-  prefix = "",
-  silent = true,
-  noremap = true,
-  nowait = true,
-}
-
-wk.register({
-  ["<leader>]"] = { "<cmd>bn<cr>", "[BUFFER] Go previous buffer" },
-  ["<leader>["] = { "<cmd>bp<cr>", "[BUFFER] Go next buffer" },
-  ["<leader>q"] = { "<cmd>bd<cr>", "[BUFFER] Close current buffer" },
-
-  --    ["<c-n>"] = { "<cmd>NvimTreeToggle<cr> <cmd>NvimTreeRefresh<cr>", "[NVIMTREE] Toggle" },
-
-  ["<leader>t"] = {
-    name = "[TELESCOPE]",
-    f = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", "[TELESCOPE] Find File" },
-    g = { "<cmd>Telescope live_grep<cr>", "[TELESCOPE] Find File by grep" },
-    b = { "<cmd>Telescope buffers<cr>", "[TELESCOPE] Find buffers" },
-    h = { "<cmd>Telescope help_tags<cr>", "[TELESCOPE] Help tags" },
-    m = { "<cmd>Telescope marks<cr>", "[TELESCOPE] Marks" },
+wk.add({
+  {
+    "<leader>[",
+    "<cmd>bp<cr>",
+    desc = "[BUFFER] Go next buffer",
+    nowait = true,
+    remap = false,
   },
-
-  ["<leader>g"] = {
-    name = "[GITSIGNS]",
-    s = { "<cmd>Gitsigns toggle_signs<cr>", "[GITSIGNS] Toggle signs" },
-    h = { "<cmd>Gitsigns preview_hunk<cr>", "[GITSIGNS] Preview hunk" },
-    d = { "<cmd>Gitsigns diffthis<cr>", "[GITSIGNS] Show diff" },
+  {
+    "<leader>]",
+    "<cmd>bn<cr>",
+    desc = "[BUFFER] Go previous buffer",
+    nowait = true,
+    remap = false,
   },
-}, opts)
+  { "<leader>g", group = "[GITSIGNS]",  nowait = true, remap = false },
+  {
+    "<leader>gd",
+    "<cmd>Gitsigns diffthis<cr>",
+    desc = "[GITSIGNS] Show diff",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>gh",
+    "<cmd>Gitsigns preview_hunk<cr>",
+    desc = "[GITSIGNS] Preview hunk",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>gs",
+    "<cmd>Gitsigns toggle_signs<cr>",
+    desc = "[GITSIGNS] Toggle signs",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>q",
+    "<cmd>bd<cr>",
+    desc = "[BUFFER] Close current buffer",
+    nowait = true,
+    remap = false,
+  },
+  { "<leader>t", group = "[TELESCOPE]", nowait = true, remap = false },
+  {
+    "<leader>tb",
+    "<cmd>Telescope buffers<cr>",
+    desc = "[TELESCOPE] Find buffers",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>tf",
+    "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
+    desc = "[TELESCOPE] Find File",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>tg",
+    "<cmd>Telescope live_grep<cr>",
+    desc = "[TELESCOPE] Find File by grep",
+    nowait = true,
+    remap = false,
+  },
+  { "<leader>th", "<cmd>Telescope help_tags<cr>", desc = "[TELESCOPE] Help tags", nowait = true, remap = false },
+  { "<leader>tm", "<cmd>Telescope marks<cr>",     desc = "[TELESCOPE] Marks",     nowait = true, remap = false },
+})
 
-wk.setup {}
-
+wk.setup({})
