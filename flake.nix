@@ -23,9 +23,8 @@
     };
 
     wezterm-main = {
-      url = "github:wez/wezterm?dir=nix&rev=cb1406860a23896ca6935696169644d140e29208";
+      url = "github:wez/wezterm?dir=nix&rev=56a27e93a9ee50aab50ff4d78308f9b3154b5122";
     };
-
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,6 +48,10 @@
     flake-compat = {
       url = "github:inclyc/flake-compat";
       flake = false;
+    };
+    gp-openconnect = {
+      url = "github:yuezk/GlobalProtect-openconnect";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixd.url = "github:nix-community/nixd";
   };
