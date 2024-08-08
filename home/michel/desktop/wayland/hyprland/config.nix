@@ -10,12 +10,15 @@ let
   inherit (config.userPrefs) wallpaper;
   cliphist = "${pkgs.cliphist}/bin/cliphist";
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+  cursor_size = "${toString config.home.pointerCursor.size}";
 in
 ''
   monitor=,1920x1080@120,0x0, 1
   env=XDG_CURRENT_DESKTOP,Hyprland
   env=XDG_SESSION_DESKTOP,Hyprland
   env=GTK_THEME,${config.gtk.theme.name}
+  env=HYPRCURSOR_THEME,Bibata-modern
+  env=HYPRCURSOR_SIZE,${cursor_size}
 
   general {
       gaps_in=5
@@ -28,6 +31,9 @@ in
     }
     cursor {
       inactive_timeout=5
+      no_hardware_cursors=true
+      allow_dumb_copy=true
+      enable_hyprcursor=true
     }
     decoration {
       active_opacity=0.94

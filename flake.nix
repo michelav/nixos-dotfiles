@@ -24,6 +24,7 @@
 
     wezterm-main = {
       url = "github:wez/wezterm?dir=nix&rev=56a27e93a9ee50aab50ff4d78308f9b3154b5122";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -54,6 +55,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixd.url = "github:nix-community/nixd";
+
+    # Cursosrs and Themes
+    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+    diniamo-pkgs.url = "github:diniamo/niqspkgs";
   };
 
   outputs =

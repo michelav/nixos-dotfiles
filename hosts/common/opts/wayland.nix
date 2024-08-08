@@ -4,6 +4,7 @@ let
 in
 {
   imports = [ ./greetd.nix ];
+  environment.systemPackages = [ inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default ];
   services = {
     dbus.packages = [
       pkgs.gcr

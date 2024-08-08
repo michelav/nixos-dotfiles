@@ -28,7 +28,6 @@ let
         gnome_schema=org.gnome.desktop.interface
         gsettings set "$gnome_schema" gtk-theme "${theme.name}"
         gsettings set "$gnome_schema" icon-theme "${iconTheme.name}"
-        gsettings set "$gnome_schema" cursor-theme "${cursorTheme.name}"
         gsettings set "$gnome_schema" font-name "${font.name}"
       '';
   };
@@ -45,6 +44,7 @@ in
   home.packages = [
     pkgs.swaybg
     pkgs.hyprpicker
+    pkgs.hyprcursor
     hyprw-contrib.grimblast
     gtk-config
   ];

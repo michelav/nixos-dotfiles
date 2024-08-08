@@ -6,30 +6,7 @@
 }:
 let
   inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
-  gtkThemePkg = gtkThemeFromScheme { scheme = config.colorscheme; };
-  # currently, there is some friction between sway and gtk:
-  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
-  # the suggested way to set gtk settings is with gsettings
-  # for gsettings to work, we need to tell it where the schemas are
-  # using the XDG_DATA_DIR environment variable
-  # run at the end of sway config
-  configure-gtk = pkgs.writeTextFile {
-    name = "configure-gtk";
-    destination = "/bin/configure-gtk";
-    executable = true;
-    text =
-      let
-        schema = pkgs.gsettings-desktop-schemas;
-        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-      in
-      with config.gtk;
-      ''
-        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-        gnome_schema=org.gnome.desktop.interface
-        gsettings set $gnome_schema gtk-theme '${gtkThemePkg.name}'
-      '';
-  };
-
+  inherit (inputs.diniamo-pkgs.packages.${pkgs.system}) bibata-hyprcursor;
 in
 rec {
 
@@ -44,7 +21,6 @@ rec {
     nordic
     numix-cursor-theme
     tela-circle-icon-theme
-    bibata-cursors
     vimix-cursor-theme
   ];
 
@@ -54,7 +30,7 @@ rec {
       name = "${config.colorscheme.slug}";
       package = gtkThemeFromScheme { scheme = config.colorscheme; };
     };
-    cursorTheme.name = "Bibata-Modern-Classic";
+    # cursorTheme.name = "Bibata-Modern-Classic";
     iconTheme = {
       name = "Tela-circle-dark";
       package = pkgs.tela-circle-icon-theme;
@@ -65,6 +41,11 @@ rec {
       size = 12;
     };
   };
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
+    style.name = "gtk2";
+  };
   services.xsettingsd = {
     enable = true;
     settings = {
@@ -72,9 +53,14 @@ rec {
       "Net/IconThemeName" = "${gtk.iconTheme.name}";
     };
   };
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk";
-    style.name = "gtk2";
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
   };
+  # INFO: You should also define env variables in hypr config to use hyprcursors.
+  # https://wiki.hyprland.org/Hypr-Ecosystem/hyprcursor/
+  home.file.".local/share/icons/Bibata-modern".source = "${bibata-hyprcursor}/share/icons/Bibata-modern";
 }
