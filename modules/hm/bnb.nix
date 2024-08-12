@@ -24,11 +24,19 @@ let
     executable = true;
     text =
       let
-        oc = "${pkgs.openconnect}/bin/openconnect";
+        vpn-client = "${pkgs.gp-saml-gui}/bin/gp-saml-gui";
         hip = "${pkgs.openconnect}/libexec/openconnect/hipreport.sh";
       in
       ''
-        sudo -E ${oc} --config=${xdg.configHome}/bnb/vpn-config --protocol=gp --csd-wrapper=${hip} "$@"
+        #!${pkgs.fish}/bin/fish
+
+        argparse 'v/verbose' 's/server=' -- $argv
+        if set -q _flag_verbose
+          set -f verbose '--verbose'
+        else
+          set -f csd ${hip}
+        end
+        ${vpn-client} $verbose --gateway -S $_flag_server -- --csd-wrapper=${hip}
       '';
   };
 in
