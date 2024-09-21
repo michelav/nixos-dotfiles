@@ -195,6 +195,19 @@ in
     bind=SUPERALT,l,movecurrentworkspacetomonitor,r
     bind=SUPERALT,k,movecurrentworkspacetomonitor,u
     bind=SUPERALT,j,movecurrentworkspacetomonitor,d
+
+    # WORKSPACES
+
+    workspace = 1, monitor:DP-1
+    workspace = 2, monitor:DP-1
+    workspace = 3, monitor:DP-1
+    workspace = 4, monitor:DP-1
+    workspace = 5, monitor:DP-1
+    workspace = 6, monitor:eDP-1
+    workspace = 7, monitor:eDP-1
+    workspace = 8, monitor:eDP-1
+    workspace = 9, monitor:eDP-1
+    workspace = 10, monitor:eDP-1
     bind=SUPER,u,togglespecialworkspace
     bind=SUPERSHIFT,u,movetoworkspace,special
     bind=SUPER,1,workspace,01
