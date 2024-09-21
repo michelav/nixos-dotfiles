@@ -13,7 +13,8 @@ let
   cursor_size = "${toString config.home.pointerCursor.size}";
 in
 ''
-  monitor=,1920x1080@120,0x0, 1
+  monitor=DP-1, 3440x1440@160, 0x0, 1
+  monitor=eDP-1, 1920x1080@120, 3440x0, 1
   env=XDG_CURRENT_DESKTOP,Hyprland
   env=XDG_SESSION_DESKTOP,Hyprland
   env=GTK_THEME,${config.gtk.theme.name}
