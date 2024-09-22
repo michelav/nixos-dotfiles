@@ -1,4 +1,4 @@
-{ config, ... }: {
+_: {
   home.persistence."/persist/home/michel" = {
     allowOther = true;
     directories = [
