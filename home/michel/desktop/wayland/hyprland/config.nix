@@ -27,6 +27,7 @@ in
       border_size=1
       col.active_border=0xff${colorscheme.palette.base0C}
       col.inactive_border=0xff${colorscheme.palette.base02}
+      layout=master
       # col.group_border_active=0xff${colorscheme.palette.base0B}
       # col.group_border=0xff${colorscheme.palette.base04}
     }
@@ -74,7 +75,7 @@ in
       preserve_split=true
     }
     master {
-      mfact=0.60
+      mfact=0.4
       orientation=center
       always_center_master=true
     }
