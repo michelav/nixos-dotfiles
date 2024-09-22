@@ -70,7 +70,13 @@ in
       animation=workspaces,1,2,easeout,slide
     }
     dwindle {
-      split_width_multiplier=1.35
+      pseudotile=true
+      preserve_split=true
+    }
+    master {
+      mfact=0.60
+      orientation=center
+      always_center_master=true
     }
     misc {
       vfr=on
