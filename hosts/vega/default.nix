@@ -1,4 +1,12 @@
-{ inputs, outputs, pkgs, lib, ... }: {
+{
+  inputs,
+  outputs,
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     inputs.home-manager.nixosModules.home-manager
@@ -15,7 +23,9 @@
     # INFO: Change the desktop option if u wanna another desktop / wm (gnome or hyprland for instance)
     ../common/opts/wayland.nix
   ];
-  home-manager.extraSpecialArgs = { inherit inputs outputs; };
+  home-manager.extraSpecialArgs = {
+    inherit inputs outputs;
+  };
 
   networking.hostName = "vega";
 
@@ -67,10 +77,14 @@
     udisks2.enable = true;
     devmon.enable = true;
 
-    logind = {
-      lidSwitch = "suspend";
-      lidSwitchExternalPower = "lock";
-    };
+    logind =
+      let
+        sync_enabled = config.hardware.nvidia.prime.sync.enable;
+      in
+      {
+        # If sync is on I may use it in docked mode
+        lidSwitchExternalPower = if sync_enabled then "ignore" else "lock";
+      };
 
     fstrim.enable = true;
     thermald.enable = true;

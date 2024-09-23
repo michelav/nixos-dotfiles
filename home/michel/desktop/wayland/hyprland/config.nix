@@ -2,8 +2,10 @@
   config,
   pkgs,
   gtk-config,
+  osConfig,
   ...
 }:
+# TODO: Refactor all this to use nix code
 let
   inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
   inherit (config) colorscheme xdg;
@@ -11,6 +13,15 @@ let
   cliphist = "${pkgs.cliphist}/bin/cliphist";
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
   cursor_size = "${toString config.home.pointerCursor.size}";
+  env_nvidia =
+    if osConfig.hardware.nvidia.prime.sync.enable then
+      ''
+        env=LIBVA_DRIVER_NAME,nvidia
+        env=GBM_BACKEND,nvidia-drm
+        env=__GLX_VENDOR_LIBRARY_NAME,nvidia
+      ''
+    else
+      "";
 in
 ''
   monitor=DP-1, 3440x1440@160, 0x0, 1
@@ -20,6 +31,7 @@ in
   env=GTK_THEME,${config.gtk.theme.name}
   env=HYPRCURSOR_THEME,Bibata-modern
   env=HYPRCURSOR_SIZE,${cursor_size}
+  ${env_nvidia}
 
   general {
       gaps_in=5
