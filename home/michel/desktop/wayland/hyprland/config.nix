@@ -14,14 +14,14 @@ let
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
   cursor_size = "${toString config.home.pointerCursor.size}";
   env_nvidia =
-    if osConfig.hardware.nvidia.prime.sync.enable then
+    if osConfig.hardware.nvidia.prime.offload.enable then
+      ""
+    else
       ''
         env=LIBVA_DRIVER_NAME,nvidia
         env=GBM_BACKEND,nvidia-drm
         env=__GLX_VENDOR_LIBRARY_NAME,nvidia
-      ''
-    else
-      "";
+      '';
 in
 ''
   monitor=DP-1, 3440x1440@160, 0x0, 1

@@ -8,16 +8,16 @@ let
       let
         intel = "0000:00:02.0";
         nvidia = "0000:01:00.0";
-        mode = if config.hardware.nvidia.prime.sync.enable then "sync" else "";
+        mode = if config.hardware.nvidia.prime.offload.enable then "iGPU" else "";
       in
       ''
         mode="${mode}"
         intel_card=$(udevadm info -q property --value -n /dev/dri/by-path/pci-${intel}-card | grep /dev/dri/card)
         nvidia_card=$(udevadm info -q property --value -n /dev/dri/by-path/pci-${nvidia}-card | grep /dev/dri/card)
         if [ -z "$mode" ]; then
-          export AQ_DRM_DEVICES="$intel_card:$nvidia_card"
-        else
           export AQ_DRM_DEVICES="$nvidia_card:$intel_card"
+        else
+          export AQ_DRM_DEVICES="$intel_card:$nvidia_card"
         fi
         Hyprland
       '';
