@@ -23,7 +23,7 @@
     };
 
     wezterm-main = {
-      url = "github:wez/wezterm?dir=nix&rev=56a27e93a9ee50aab50ff4d78308f9b3154b5122";
+      url = "github:wez/wezterm?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     firefox-addons = {

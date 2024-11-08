@@ -1,5 +1,10 @@
-{ pkgs, ... }: {
-  imports = [ ./pipewire.nix ./jellyfin.nix ./networking.nix ];
+{ pkgs, ... }:
+{
+  imports = [
+    ./pipewire.nix
+    ./jellyfin.nix
+    ./networking.nix
+  ];
 
   programs = {
     fish.enable = true;
@@ -26,7 +31,12 @@
 
   environment = {
     pathsToLink = [ "/share/fish" ];
-    systemPackages = with pkgs; [ vim wget git unzip ];
+    systemPackages = with pkgs; [
+      vim
+      wget
+      git
+      unzip
+    ];
   };
 
   services.dbus = {
