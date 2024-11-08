@@ -17,8 +17,8 @@ let
     umount /btrfs
     rm -rf /btrfs
   '';
-  dockerEnabled = config.virtualisation.docker.enable;
-in {
+in
+{
   boot.initrd.postDeviceCommands = lib.mkBefore wipeScript;
 
   environment.persistence."/persist/vega" = {
@@ -29,6 +29,7 @@ in {
       "/var/lib/systemd"
       "/var/lib/iwd"
       "/var/lib/jellyfin"
+      "/var/lib/nixos" # keeping users between boots
       "/var/lib/libvirt/images"
       "/var/cache/jellyfin"
       "/etc/NetworkManager/system-connections"
