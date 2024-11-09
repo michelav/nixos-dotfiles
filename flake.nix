@@ -127,7 +127,7 @@
               findutils
               gnumake
               nixpkgs-fmt
-              nixFlakes
+              nixVersions.latest
               nixd.packages.${system}.default
             ];
           };
