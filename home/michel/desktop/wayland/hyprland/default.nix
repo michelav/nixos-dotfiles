@@ -39,8 +39,6 @@ in
     ./wofi.nix
     ./hypridle.nix
     ./hyprlock.nix
-    # TODO: Remove eww import as soon as I know I won use anything from here
-    # ./eww
   ];
   home.packages = [
     pkgs.swaybg
