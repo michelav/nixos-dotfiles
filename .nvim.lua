@@ -21,20 +21,20 @@ nvim_lsp.nixd.setup({
   capabilities = require("cmp_nvim_lsp").default_capabilities(),
   settings = {
     nixd = {
-      nixpkgs = {
-        expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }",
-      },
+      -- nixpkgs = {
+      -- 	expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }",
+      -- },
       formatting = {
         command = { "nixfmt" },
       },
-      options = {
-        nixos = {
-          expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.vega.options",
-        },
-        home_manager = {
-          expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.vega.config.home_manager.users.michel",
-        },
-      },
+      -- options = {
+      --   nixos = {
+      --     expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.vega.options",
+      --   },
+      --   home_manager = {
+      --     expr = "(builtins.getFlake (toString ./.))..home-manager.users.type.getSubOptions []",
+      --   },
+      -- },
     },
   },
 })
