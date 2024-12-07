@@ -8,7 +8,7 @@
 
 # Local NixOS Configs
 
-This repo contains the set up of my local system using [nix expressions](https://nixos.wiki/wiki/Overview_of_the_Nix_Language).
+This repo contains the set up of my local system using [nix expressions](https://wiki.nixos.org/wiki/Overview_of_the_Nix_Language).
 
 One may have to face many perspectives to understand what Nix is.
 Nix is a novel paradigm that provides a wat to programmatically declare a system.
@@ -24,7 +24,7 @@ No more *apt-get install this* or *rpm -i that*. Just use nix expressions to dec
 need and (hopefully) it'll be there available in your system.
 This repository is based in two major components of Nix ecossystem: Nix Flakes and Home Manager.
 
-[Nix Flakes](https://nixos.wiki/wiki/Flakes) is a directory tree with a nix file named *flake.nix*
+[Nix Flakes](https://wiki.nixos.org/wiki/Flakes) is a directory tree with a nix file named *flake.nix*
 that follows a specific schema to describe inputs and outputs. Inputs are the dependencies of your build
 and outputs are your packages, systems, development environments, etc.
 
