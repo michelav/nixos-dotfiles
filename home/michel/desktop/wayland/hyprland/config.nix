@@ -5,7 +5,7 @@
   osConfig,
   ...
 }:
-# TODO: Refactor all this to use nix code
+# TODO: Remove this file as soon as hyprland config gets stable
 let
   inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
   inherit (config) colorscheme;
