@@ -21,9 +21,9 @@
       enable32Bit = true;
     };
     nvidia = {
-      open = false;
+      open = true;
       modesetting.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       /*
         INFO: These configs work well for vega, but I should change it if I get
