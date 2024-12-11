@@ -7,9 +7,6 @@ let
   isLocked = "${pidof} hyprlock";
   screenOn = "${hyprctl} dispatch dpms on";
   screenOff = "${hyprctl} dispatch dpms off";
-  toggleMic = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-  systemctl = "${pkgs.systemd}/bin/systemctl";
-  restartServices = "${systemctl} --user gammastep.service";
   timeout = time: 300 + time;
 in
 {
@@ -38,16 +35,6 @@ in
           on-resume = "${screenOn}";
         }
       ];
-    };
-  };
-  systemd.user.services.lockOnAutoLogin = {
-    Unit = { Description = "Lock the Screen after autologin"; };
-    Install = { WantedBy = [ "hyprland-session.target" ]; };
-    Service = {
-      Type = "oneshot";
-      RemainAfterExit = "true";
-      Environment = [ "PYTHONOPTIMIZE=2" "LC_CTYPE=UTF-8" ];
-      ExecStart = "${hyprlock} --immediate";
     };
   };
 }

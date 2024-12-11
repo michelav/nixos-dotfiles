@@ -37,6 +37,7 @@ in
 {
   imports = [
     inputs.hyprland.homeManagerModules.default
+    ./uwsm.nix
     ./wofi.nix
     ./hypridle.nix
     ./hyprlock.nix
@@ -70,29 +71,8 @@ in
         inherit (config.colorscheme) palette;
         inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
         inherit (config.userPrefs) wallpaper;
-        cursor_size = "${toString config.home.pointerCursor.size}";
       in
       {
-        env =
-          [
-            "XDG_CURRENT_DESKTOP,Hyprland"
-            "XDG_SESSION_DESKTOP,Hyprland"
-            "GTK_THEME,${config.gtk.theme.name}"
-            "HYPRCURSOR_THEME,Bibata-modern"
-            "HYPRCURSOR_SIZE,${cursor_size}"
-          ]
-          ++
-          # COnfiguring Nvidia
-          (
-            if osConfig.hardware.nvidia.prime.offload.enable then
-              [
-                "LIBVA_DRIVER_NAME,nvidia"
-                "GBM_BACKEND,nvidia-drm"
-                "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-              ]
-            else
-              [ "" ]
-          );
         general = {
           gaps_in = 5;
           gaps_out = 10;
@@ -149,8 +129,8 @@ in
           preserve_split = true;
         };
         master = {
-          mfact = 0.4;
-          orientation = "center";
+          mfact = 0.6;
+          orientation = "left";
           always_center_master = true;
         };
         misc = {
@@ -173,7 +153,6 @@ in
             cliphist = "${pkgs.cliphist}/bin/cliphist";
           in
           [
-            "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
             "waybar"
             "mako"
             "${wl-paste} --type text --watch ${cliphist} store"
@@ -222,44 +201,49 @@ in
             ",XF86AudioMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ",XF86AudioMicMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
           ]
-          ++ [
-            # Window controls
-            "SUPERSHIFT,q,killactive"
-            "SUPERSHIFT,e,exit"
-            "SUPER,s,togglesplit"
-            "SUPER,f,fullscreen,1"
-            "SUPERSHIFT,f,fullscreen,0"
-            "SUPERSHIFT,space,togglefloating"
-            "SUPER,minus,splitratio,-0.25"
-            "SUPERSHIFT,minus,splitratio,-0.3333333"
-            "SUPER,equal,splitratio,0.25"
-            "SUPERSHIFT,equal,splitratio,0.3333333"
-            "SUPER,g,togglegroup"
-            "SUPER,apostrophe,changegroupactive,f"
-            "SUPERSHIFT,apostrophe,changegroupactive,b"
-            "SUPER,left,movefocus,l"
-            "SUPER,right,movefocus,r"
-            "SUPER,up,movefocus,u"
-            "SUPER,down,movefocus,d"
-            "SUPER,h,movefocus,l"
-            "SUPER,l,movefocus,r"
-            "SUPER,k,movefocus,u"
-            "SUPER,j,movefocus,d"
-            "SUPERSHIFT,left,movewindow,l"
-            "SUPERSHIFT,right,movewindow,r"
-            "SUPERSHIFT,up,movewindow,u"
-            "SUPERSHIFT,down,movewindow,d"
-            "SUPERSHIFT,h,movewindow,l"
-            "SUPERSHIFT,l,movewindow,r"
-            "SUPERSHIFT,k,movewindow,u"
-            "SUPERSHIFT,j,movewindow,d"
-            "SUPERCONTROL,1,focusmonitor,DP-1"
-            "SUPERCONTROL,2,focusmonitor,eDP-1"
-            "SUPERCONTROLSHIFT,left,movewindow,mon:l"
-            "SUPERCONTROLSHIFT,right,movewindow,mon:r"
-            "SUPERCONTROLSHIFT,up,movewindow,mon:u"
-            "SUPERCONTROLSHIFT,down,movewindow,mon:d"
-          ]
+          ++ (
+            let
+              uwsm = lib.getExe osConfig.programs.uwsm.package;
+            in
+            [
+              # Window controls
+              "SUPERSHIFT,q,killactive"
+              "SUPERSHIFT,e,exec,${uwsm} stop"
+              "SUPER,s,togglesplit"
+              "SUPER,f,fullscreen,1"
+              "SUPERSHIFT,f,fullscreen,0"
+              "SUPERSHIFT,space,togglefloating"
+              "SUPER,minus,splitratio,-0.25"
+              "SUPERSHIFT,minus,splitratio,-0.3333333"
+              "SUPER,equal,splitratio,0.25"
+              "SUPERSHIFT,equal,splitratio,0.3333333"
+              "SUPER,g,togglegroup"
+              "SUPER,apostrophe,changegroupactive,f"
+              "SUPERSHIFT,apostrophe,changegroupactive,b"
+              "SUPER,left,movefocus,l"
+              "SUPER,right,movefocus,r"
+              "SUPER,up,movefocus,u"
+              "SUPER,down,movefocus,d"
+              "SUPER,h,movefocus,l"
+              "SUPER,l,movefocus,r"
+              "SUPER,k,movefocus,u"
+              "SUPER,j,movefocus,d"
+              "SUPERSHIFT,left,movewindow,l"
+              "SUPERSHIFT,right,movewindow,r"
+              "SUPERSHIFT,up,movewindow,u"
+              "SUPERSHIFT,down,movewindow,d"
+              "SUPERSHIFT,h,movewindow,l"
+              "SUPERSHIFT,l,movewindow,r"
+              "SUPERSHIFT,k,movewindow,u"
+              "SUPERSHIFT,j,movewindow,d"
+              "SUPERCONTROL,1,focusmonitor,DP-1"
+              "SUPERCONTROL,2,focusmonitor,eDP-1"
+              "SUPERCONTROLSHIFT,left,movewindow,mon:l"
+              "SUPERCONTROLSHIFT,right,movewindow,mon:r"
+              "SUPERCONTROLSHIFT,up,movewindow,mon:u"
+              "SUPERCONTROLSHIFT,down,movewindow,mon:d"
+            ]
+          )
           ++
             # Workspace bindings
             (map (x: "SUPER,${toString x},workspace,${toString x}") (lib.genList (x: x + 1) 9))
@@ -269,6 +253,10 @@ in
             "SUPERSHIFT,u,movetoworkspace,special"
             "SUPER,0,workspace,10"
           ]
+          ++
+            # Moving WIndows to Workspace bindings
+            (map (x: "SUPERSHIFT,${toString x},movetoworkspacesilent,${toString x}") (lib.genList (x: x + 1) 9))
+          ++ [ "SUPERSHIFT,0,movetoworkspacesilent,10" ]
           ++ (
             let
               playerctl = lib.getExe' config.services.playerctld.package "playerctl";
