@@ -41,9 +41,9 @@ in
     ./wofi.nix
     ./hypridle.nix
     ./hyprlock.nix
+    ./hyprpaper.nix
   ];
   home.packages = [
-    pkgs.swaybg
     pkgs.hyprpicker
     pkgs.hyprcursor
     hyprw-contrib.grimblast
@@ -70,7 +70,6 @@ in
       let
         inherit (config.colorscheme) palette;
         inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
-        inherit (config.userPrefs) wallpaper;
       in
       {
         general = {
@@ -146,15 +145,12 @@ in
             disable_while_typing = false;
           };
         };
-        exec = [ "swaybg -i ${wallpaper} --mode fill" ];
         exec-once =
           let
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
             cliphist = "${pkgs.cliphist}/bin/cliphist";
           in
           [
-            "waybar"
-            "mako"
             "${wl-paste} --type text --watch ${cliphist} store"
             "${wl-paste} --type image --watch ${cliphist} store"
           ];

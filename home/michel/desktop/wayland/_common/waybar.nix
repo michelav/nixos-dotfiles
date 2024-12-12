@@ -15,8 +15,6 @@ in
         layer = "top";
         position = "top";
         modules-left = [
-          # "custom/scratchpad"
-          # "wlr/workspaces"
           "hyprland/workspaces"
           "hyprland/submap"
           "custom/media"
@@ -354,5 +352,25 @@ in
             }
         }
       '';
+  };
+
+  # systemd unit provided with the package is flawed.
+  # TODO: Use provided systemd unit as soon this gets fixed.
+  # Check: https://github.com/Alexays/Waybar/issues/1371
+  systemd.user.services.mywaybar = {
+    Unit = {
+      Description = "Highly customizable Wayland bar for Sway and Wlroots based compositors.";
+      Documentation = "man:waybar(5)";
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${custom-waybar}/bin/waybar";
+      ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+      Restart = "on-failure";
+      Slice = "app-graphical.slice";
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
   };
 }
