@@ -3,6 +3,11 @@ _: {
     fish = {
       enable = true;
       interactiveShellInit = builtins.readFile ../configs/fish/login.fish;
+      loginShellInit = ''
+        if test (tty) = /dev/tty1
+          uwsm start hyprland-uwsm.desktop
+        end
+      '';
       shellAbbrs = {
         cat = "bat";
         man = "man --pager=most";
@@ -16,16 +21,17 @@ _: {
       enableBashIntegration = true;
       enableFishIntegration = true;
       settings = {
-        format = let
-          git = "$git_branch$git_commit$git_state$git_status";
-          cloud = "$aws$gcloud$azure";
-          langs =
-            "$c$cmake$dotnet$elixir$elm$erlang$golang$haskell$helm$java$julia$kotlin$lua$nodejs$ocaml$perl$pulumi$purescript$python$rlang$ruby$rust$scala";
-        in ''
-          ($all)$username$hostname$directory$shlvl${git} $cmd_duration(
-          ${cloud})(
-          $nix_shell $package $terraform ${langs})
-          $jobs$character'';
+        format =
+          let
+            git = "$git_branch$git_commit$git_state$git_status";
+            cloud = "$aws$gcloud$azure";
+            langs = "$c$cmake$dotnet$elixir$elm$erlang$golang$haskell$helm$java$julia$kotlin$lua$nodejs$ocaml$perl$pulumi$purescript$python$rlang$ruby$rust$scala";
+          in
+          ''
+            ($all)$username$hostname$directory$shlvl${git} $cmd_duration(
+            ${cloud})(
+            $nix_shell $package $terraform ${langs})
+            $jobs$character'';
         username = {
           format = "[$user]($style)@";
           style_root = "bold red";
