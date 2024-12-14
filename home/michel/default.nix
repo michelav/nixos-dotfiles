@@ -26,6 +26,7 @@
     fd
     tree
     htop
+    btop
     gcc
     bc
     bottom

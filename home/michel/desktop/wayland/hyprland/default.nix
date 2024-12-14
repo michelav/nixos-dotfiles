@@ -37,6 +37,7 @@ in
 {
   imports = [
     inputs.hyprland.homeManagerModules.default
+    ./cliphist.nix
     ./uwsm.nix
     ./wofi.nix
     ./hypridle.nix
@@ -70,6 +71,7 @@ in
       let
         inherit (config.colorscheme) palette;
         inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
+        uwsm = lib.getExe osConfig.programs.uwsm.package;
       in
       {
         general = {
@@ -83,6 +85,10 @@ in
         cursor = {
           inactive_timeout = 5;
           enable_hyprcursor = true;
+        };
+        render = {
+          explicit_sync = 0;
+          explicit_sync_kms = 0;
         };
         decoration = {
           active_opacity = 0.94;
@@ -104,7 +110,7 @@ in
           };
         };
         animations = {
-          enabled = "true";
+          enabled = false;
           bezier = [
             "easein,0.11, 0, 0.5, 0"
             "easeout,0.5, 1, 0.89, 1"
@@ -145,15 +151,6 @@ in
             disable_while_typing = false;
           };
         };
-        exec-once =
-          let
-            wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-            cliphist = "${pkgs.cliphist}/bin/cliphist";
-          in
-          [
-            "${wl-paste} --type text --watch ${cliphist} store"
-            "${wl-paste} --type image --watch ${cliphist} store"
-          ];
         # Bindings
         bindm = [
           "SUPER,mouse:272,movewindow"
@@ -171,12 +168,11 @@ in
           in
           [
             # Basic bindings
-            "SUPER,Return,exec,${TERMINAL}"
-            "SUPER,v,exec,${TERMINAL} $SHELL -ic ${EDITOR}"
-            "SUPER,b,exec,${BROWSER}"
+            "SUPER,Return,exec,${uwsm} app ${TERMINAL}"
+            "SUPER,v,exec,${uwsm} app -- ${TERMINAL} $SHELL -ic ${EDITOR}"
+            "SUPER,b,exec,${uwsm} app ${BROWSER}"
             "SUPER, V, exec, ${cliphist} list | ${wofi} --dmenu | ${cliphist} decode | ${wl-copy}"
             "SUPER,w,exec,${makoctl} dismiss"
-            "SUPER,q,exec,pkill -USR1 waybar"
             "SUPER,backspace,exec,loginctl lock-session"
             ",Print,exec,${grimblast} --notify copy output"
             "SHIFT,Print,exec,${grimblast} --notify copy active"
@@ -197,49 +193,44 @@ in
             ",XF86AudioMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ",XF86AudioMicMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
           ]
-          ++ (
-            let
-              uwsm = lib.getExe osConfig.programs.uwsm.package;
-            in
-            [
-              # Window controls
-              "SUPERSHIFT,q,killactive"
-              "SUPERSHIFT,e,exec,${uwsm} stop"
-              "SUPER,s,togglesplit"
-              "SUPER,f,fullscreen,1"
-              "SUPERSHIFT,f,fullscreen,0"
-              "SUPERSHIFT,space,togglefloating"
-              "SUPER,minus,splitratio,-0.25"
-              "SUPERSHIFT,minus,splitratio,-0.3333333"
-              "SUPER,equal,splitratio,0.25"
-              "SUPERSHIFT,equal,splitratio,0.3333333"
-              "SUPER,g,togglegroup"
-              "SUPER,apostrophe,changegroupactive,f"
-              "SUPERSHIFT,apostrophe,changegroupactive,b"
-              "SUPER,left,movefocus,l"
-              "SUPER,right,movefocus,r"
-              "SUPER,up,movefocus,u"
-              "SUPER,down,movefocus,d"
-              "SUPER,h,movefocus,l"
-              "SUPER,l,movefocus,r"
-              "SUPER,k,movefocus,u"
-              "SUPER,j,movefocus,d"
-              "SUPERSHIFT,left,movewindow,l"
-              "SUPERSHIFT,right,movewindow,r"
-              "SUPERSHIFT,up,movewindow,u"
-              "SUPERSHIFT,down,movewindow,d"
-              "SUPERSHIFT,h,movewindow,l"
-              "SUPERSHIFT,l,movewindow,r"
-              "SUPERSHIFT,k,movewindow,u"
-              "SUPERSHIFT,j,movewindow,d"
-              "SUPERCONTROL,1,focusmonitor,DP-1"
-              "SUPERCONTROL,2,focusmonitor,eDP-1"
-              "SUPERCONTROLSHIFT,left,movewindow,mon:l"
-              "SUPERCONTROLSHIFT,right,movewindow,mon:r"
-              "SUPERCONTROLSHIFT,up,movewindow,mon:u"
-              "SUPERCONTROLSHIFT,down,movewindow,mon:d"
-            ]
-          )
+          ++ [
+            # Window controls
+            "SUPERSHIFT,q,killactive"
+            "SUPERSHIFT,e,exec,${uwsm} stop"
+            "SUPER,s,togglesplit"
+            "SUPER,f,fullscreen,1"
+            "SUPERSHIFT,f,fullscreen,0"
+            "SUPERSHIFT,space,togglefloating"
+            "SUPER,minus,splitratio,-0.25"
+            "SUPERSHIFT,minus,splitratio,-0.3333333"
+            "SUPER,equal,splitratio,0.25"
+            "SUPERSHIFT,equal,splitratio,0.3333333"
+            "SUPER,g,togglegroup"
+            "SUPER,apostrophe,changegroupactive,f"
+            "SUPERSHIFT,apostrophe,changegroupactive,b"
+            "SUPER,left,movefocus,l"
+            "SUPER,right,movefocus,r"
+            "SUPER,up,movefocus,u"
+            "SUPER,down,movefocus,d"
+            "SUPER,h,movefocus,l"
+            "SUPER,l,movefocus,r"
+            "SUPER,k,movefocus,u"
+            "SUPER,j,movefocus,d"
+            "SUPERSHIFT,left,movewindow,l"
+            "SUPERSHIFT,right,movewindow,r"
+            "SUPERSHIFT,up,movewindow,u"
+            "SUPERSHIFT,down,movewindow,d"
+            "SUPERSHIFT,h,movewindow,l"
+            "SUPERSHIFT,l,movewindow,r"
+            "SUPERSHIFT,k,movewindow,u"
+            "SUPERSHIFT,j,movewindow,d"
+            "SUPERCONTROL,1,focusmonitor,DP-1"
+            "SUPERCONTROL,2,focusmonitor,eDP-1"
+            "SUPERCONTROLSHIFT,left,movewindow,mon:l"
+            "SUPERCONTROLSHIFT,right,movewindow,mon:r"
+            "SUPERCONTROLSHIFT,up,movewindow,mon:u"
+            "SUPERCONTROLSHIFT,down,movewindow,mon:d"
+          ]
           ++
             # Workspace bindings
             (map (x: "SUPER,${toString x},workspace,${toString x}") (lib.genList (x: x + 1) 9))
