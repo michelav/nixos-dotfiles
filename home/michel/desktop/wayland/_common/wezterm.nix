@@ -21,8 +21,8 @@ in
         ansi = [
           "#${colors.base07}" # black
           "#${colors.base08}" # maroon
-          "#${colors.base0B}" # green
           "#${colors.base0A}" # olive
+          "#${colors.base0B}" # green
           "#${colors.base0C}" # navy
           "#${colors.base0E}" # purple
           "#${colors.base0C}" # teal
@@ -31,8 +31,8 @@ in
         brights = [
           "#${colors.base04}" # grey
           "#${colors.base08}" # red
-          "#${colors.base0B}" # lime
           "#${colors.base0A}" # yellow
+          "#${colors.base0B}" # lime
           "#${colors.base0D}" # blue
           "#${colors.base0E}" # fuchsia
           "#${colors.base0D}" # aqua
