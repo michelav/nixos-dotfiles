@@ -58,7 +58,7 @@
       terminal = "wezterm";
       # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
       # colorSchemeName = "one-light";
-      colorSchemeName = "dracula";
+      colorSchemeName = "nord";
       fonts = {
         monospace = {
           name = "JetBrainsMono Nerd Font";

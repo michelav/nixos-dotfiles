@@ -37,6 +37,7 @@ in
 {
   imports = [
     inputs.hyprland.homeManagerModules.default
+    ./fuzzel.nix
     ./cliphist.nix
     ./uwsm.nix
     ./wofi.nix
@@ -57,7 +58,6 @@ in
       pkgs.xdg-desktop-portal-gtk
       xdg-desktop-portal-hyprland
       pkgs.gnome-keyring
-      # xdg-desktop-portal-wlr
     ];
     configPackages = [ hyprland ];
     xdgOpenUsePortal = true;
@@ -165,6 +165,7 @@ in
             grimblast = "${pkgs.grimblast}/bin/grimblast";
             light = "${pkgs.light}/bin/light";
             wpctl = "${pkgs.wireplumber}/bin/wpctl";
+            fuzzel = "${config.programs.fuzzel.package}/bin/fuzzel";
           in
           [
             # Basic bindings
@@ -180,8 +181,9 @@ in
             "SUPER,Print,exec,${grimblast} --notify copy window"
             "ALT,Print,exec,${grimblast} --notify copy area"
             # Desktop Launchers
-            "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
+            # "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
             "SUPER,d,exec,${wofi} -f -S run"
+            "SUPER,x,exec,${fuzzel} --launch-prefix='uwsm app --'"
             ",Scroll_Lock,exec,pass-wofi"
             ",XF86Calculator,exec,pass-wofi"
             # Laptop brightness
@@ -262,7 +264,7 @@ in
           );
         # Organizing workspaces between 2 monitors. First 5 in Lg Ultrawide Monitor .
         monitor = [
-          "DP-1, 3440x1440@144, 0x0, 1"
+          "DP-1, 3440x1440@100, 0x0, 1"
           "eDP-1, 1920x1080@120, 3440x0, 1"
         ];
         workspace =

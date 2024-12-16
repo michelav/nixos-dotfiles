@@ -19,24 +19,24 @@ in
         background = "#${colors.base00}";
 
         ansi = [
-          "#${colors.base07}" # black
+          "#${colors.base00}" # black
           "#${colors.base08}" # maroon
-          "#${colors.base0A}" # olive
           "#${colors.base0B}" # green
-          "#${colors.base0C}" # navy
+          "#${colors.base0A}" # olive
+          "#${colors.base0F}" # navy
           "#${colors.base0E}" # purple
-          "#${colors.base0C}" # teal
-          "#${colors.base01}" # silver
+          "#${colors.base0D}" # teal
+          "#${colors.base04}" # silver
         ];
         brights = [
-          "#${colors.base04}" # grey
+          "#${colors.base03}" # grey
           "#${colors.base08}" # red
-          "#${colors.base0A}" # yellow
           "#${colors.base0B}" # lime
-          "#${colors.base0D}" # blue
-          "#${colors.base0E}" # fuchsia
-          "#${colors.base0D}" # aqua
-          "#${colors.base00}" # white
+          "#${colors.base0A}" # yellow
+          "#${colors.base0F}" # blue
+          "#${colors.base0F}" # fuchsia
+          "#${colors.base0C}" # aqua
+          "#${colors.base06}" # white
         ];
         cursor_fg = "#${colors.base00}";
         cursor_bg = "#${colors.base05}";
