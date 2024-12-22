@@ -34,6 +34,13 @@
       type = "lua";
       config = builtins.readFile ./cfg/lsp.lua;
     }
+    {
+      plugin = lspsaga-nvim;
+      type = "lua";
+      config = ''
+        require('lspsaga').setup({})
+      '';
+    }
 
     {
       plugin = none-ls-nvim;

@@ -1,36 +1,36 @@
 local lualine = require("lualine")
-local navic = require("nvim-navic")
-navic.setup({
-  icons = {
-    File = " ",
-    Module = " ",
-    Namespace = " ",
-    Package = " ",
-    Class = " ",
-    Method = " ",
-    Property = " ",
-    Field = " ",
-    Constructor = " ",
-    Enum = " ",
-    Interface = " ",
-    Function = " ",
-    Variable = " ",
-    Constant = " ",
-    String = " ",
-    Number = " ",
-    Boolean = " ",
-    Array = " ",
-    Object = " ",
-    Key = " ",
-    Null = " ",
-    EnumMember = " ",
-    Struct = " ",
-    Event = " ",
-    Operator = " ",
-    TypeParameter = " ",
-  },
-  highlight = true,
-})
+-- TODO: Remove in the future. Maybe I'll need these icons
+-- navic.setup({
+--   icons = {
+--     File = " ",
+--     Module = " ",
+--     Namespace = " ",
+--     Package = " ",
+--     Class = " ",
+--     Method = " ",
+--     Property = " ",
+--     Field = " ",
+--     Constructor = " ",
+--     Enum = " ",
+--     Interface = " ",
+--     Function = " ",
+--     Variable = " ",
+--     Constant = " ",
+--     String = " ",
+--     Number = " ",
+--     Boolean = " ",
+--     Array = " ",
+--     Object = " ",
+--     Key = " ",
+--     Null = " ",
+--     EnumMember = " ",
+--     Struct = " ",
+--     Event = " ",
+--     Operator = " ",
+--     TypeParameter = " ",
+--   },
+--   highlight = true,
+-- })
 
 local conditions = {
   buffer_not_empty = function()
@@ -57,7 +57,8 @@ local config = {
     lualine_b = {
       {
         "branch",
-        icon = "",
+        -- icon = "",
+        icon = "",
         separator = "",
       },
       {
@@ -69,8 +70,20 @@ local config = {
       },
     },
     lualine_c = {
-      { "%=",       separator = "" },
-      { "filename", cond = conditions.buffer_not_empty, filestatus = true, path = 3, separator = "" },
+      { "%=", separator = "" },
+      {
+        "filename",
+        cond = conditions.buffer_not_empty,
+        filestatus = true,
+        path = 3,
+        symbols = {
+          modified = "[+]", -- Text to show when the file is modified.
+          readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
+          unnamed = "[No Name]", -- Text to show for unnamed buffers.
+          newfile = "[New]", -- Text to show for newly created file before first write
+        },
+        separator = "",
+      },
     },
     lualine_x = {
       {
@@ -112,7 +125,8 @@ local config = {
     lualine_c = {},
     lualine_x = {},
   },
-  winbar = { lualine_c = { { navic.get_location, cond = navic.is_available } } },
+  winbar = {},
+  -- winbar = { lualine_c = { { navic.get_location, cond = navic.is_available } } },
   inactive_winbar = {},
 }
 

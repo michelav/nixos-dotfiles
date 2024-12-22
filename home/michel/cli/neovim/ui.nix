@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }:
+{
   programs.neovim.plugins = with pkgs.vimPlugins; [
 
     nvim-navic # context top bar
@@ -28,22 +29,6 @@
         }
       '';
     }
-    {
-      plugin = symbols-outline-nvim;
-      type = "lua";
-      config = ''
-        require("symbols-outline").setup() 
-        vim.api.nvim_set_keymap('n', '<leader>o', "<cmd>SymbolsOutline<cr>", {})
-      '';
-    }
-    { # TODO: Integrate with Telescope
-      plugin = nvim-lightbulb;
-      type = "lua";
-      config = ''
-        require('nvim-lightbulb').setup({autocmd = {enabled = true}})
-      '';
-    }
-
     {
       plugin = nvim-tree-lua;
       type = "lua";
