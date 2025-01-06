@@ -47,10 +47,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
-    gp-openconnect = {
-      url = "github:yuezk/GlobalProtect-openconnect";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixd.url = "github:nix-community/nixd";
 
     # Cursosrs and Themes

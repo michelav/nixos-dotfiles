@@ -15,9 +15,7 @@ let
     mapAttrsToList
     concatStrings
     ;
-  inherit (config) xdg;
   inherit (inputs.nixpkgs-stable.legacyPackages."x86_64-linux") remmina;
-  gpclient = inputs.gp-openconnect.packages."x86_64-linux".default;
   bnb-vpn = pkgs.writeTextFile {
     name = "bnb-vpn";
     destination = "/bin/bnb-vpn";
@@ -67,7 +65,6 @@ in
       pkgs.gp-saml-gui
       remmina
       bnb-vpn
-      gpclient
     ];
     xdg.configFile."bnb/vpn-config" = mkIf (cfg.settings != { }) {
       text = concatStrings (

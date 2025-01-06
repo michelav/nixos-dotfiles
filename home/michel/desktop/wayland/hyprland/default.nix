@@ -136,7 +136,6 @@ in
         master = {
           mfact = 0.6;
           orientation = "left";
-          always_center_master = true;
         };
         misc = {
           vfr = "on";
