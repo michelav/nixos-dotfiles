@@ -72,7 +72,6 @@ cmp.setup({
     { name = "luasnip",                option = { use_show_condition = false } },
     { name = "nvim_lsp_signature_help" },
     { name = "orgmode" },
-    { name = "hledger" },
     { name = "neorg" },
   },
 })

@@ -73,7 +73,6 @@
       type = "lua";
       config = builtins.readFile ./cfg/cmp.lua;
     }
-    cmp-hledger
     cmp-nvim-lsp
     cmp-nvim-lua
     cmp-treesitter
