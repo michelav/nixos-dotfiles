@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    # ./docker.nix
-    ./podman.nix
+    ./docker.nix
+    # ./podman.nix
   ];
 
   # Install necessary packages
