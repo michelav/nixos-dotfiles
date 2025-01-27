@@ -52,6 +52,10 @@
     # Cursosrs and Themes
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     diniamo-pkgs.url = "github:diniamo/niqspkgs";
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
   outputs =

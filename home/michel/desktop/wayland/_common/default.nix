@@ -25,6 +25,7 @@
     xdg-utils
     fractal
     drawio
+    ghostty
   ];
 
   home.sessionVariables = {
