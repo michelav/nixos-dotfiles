@@ -23,7 +23,7 @@
     nvidia = {
       open = true;
       modesetting.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       /*
         INFO: These configs work well for vega, but I should change it if I get

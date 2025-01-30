@@ -5,6 +5,7 @@
     ./browsers.nix
     ./images.nix
     ./gammastep.nix
+    ./ghostty.nix
     ./mako.nix
     # ./swayidle.nix
     # ./swaylock.nix
@@ -25,7 +26,6 @@
     xdg-utils
     fractal
     drawio
-    ghostty
   ];
 
   home.sessionVariables = {
