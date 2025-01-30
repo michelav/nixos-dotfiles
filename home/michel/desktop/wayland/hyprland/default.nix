@@ -83,8 +83,10 @@ in
           layout = "master";
         };
         cursor = {
+          no_hardware_cursors = true;
           inactive_timeout = 5;
           enable_hyprcursor = true;
+          warp_on_change_workspace = 1;
         };
         render = {
           explicit_sync = 0;
