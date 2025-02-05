@@ -26,10 +26,15 @@ in
   services.gnome.gnome-keyring.enable = true;
   programs = {
     light.enable = true;
-    hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-      withUWSM = true;
-    };
+    hyprland =
+      let
+        inherit (inputs.hyprland.packages.${pkgs.system}) hyprland xdg-desktop-portal-hyprland;
+      in
+      {
+        enable = true;
+        package = hyprland;
+        portalPackage = xdg-desktop-portal-hyprland;
+        withUWSM = true;
+      };
   };
 }

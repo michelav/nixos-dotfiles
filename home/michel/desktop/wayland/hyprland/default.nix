@@ -67,6 +67,7 @@ in
     # INFO: The hyprland package is also defined in the host section. Be careful to use the same package
     # TODO: Place hyprland package in a single configuration place so there won't be any conflicts
     package = hyprland;
+    portalPackage = xdg-desktop-portal-hyprland;
     settings =
       let
         inherit (config.colorscheme) palette;
@@ -163,7 +164,7 @@ in
             wofi = "${pkgs.wofi}/bin/wofi";
             wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
             makoctl = "${pkgs.mako}/bin/makoctl";
-            grimblast = "${pkgs.grimblast}/bin/grimblast";
+            grimblast = "${hyprw-contrib.grimblast}/bin/grimblast";
             light = "${pkgs.light}/bin/light";
             wpctl = "${pkgs.wireplumber}/bin/wpctl";
             fuzzel = "${config.programs.fuzzel.package}/bin/fuzzel";

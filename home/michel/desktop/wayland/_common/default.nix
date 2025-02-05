@@ -7,8 +7,6 @@
     ./gammastep.nix
     ./ghostty.nix
     ./mako.nix
-    # ./swayidle.nix
-    # ./swaylock.nix
     ./theme.nix
     ./zathura.nix
     ./wezterm.nix

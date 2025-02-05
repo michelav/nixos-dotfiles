@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
+  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
+  hyprctl = "${hyprland}/bin/hyprctl";
   hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
   pidof = "${pkgs.procps}/bin/pidof";
-  hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   bright = "${pkgs.light}/bin/light";
   isLocked = "${pidof} hyprlock";
   screenOn = "${hyprctl} dispatch dpms on";
