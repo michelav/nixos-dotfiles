@@ -21,7 +21,6 @@
       pyright
       black
       ruff
-      ruff-lsp
 
       # javascript and typescript
       biome

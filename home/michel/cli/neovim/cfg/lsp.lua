@@ -96,10 +96,10 @@ config_lsp(lspconfig.lua_ls, {
     },
   },
 })
-config_lsp(lspconfig.ruff_lsp, {
+config_lsp(lspconfig.ruff, {
   options = {
     on_attach = function(client, buffer)
-      if client.name == "ruff_lsp" then
+      if client.name == "ruff" then
         -- Disable hover in favor of Pyright
         client.server_capabilities.hoverProvider = false
       end
