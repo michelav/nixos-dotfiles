@@ -21,7 +21,7 @@ rec {
     nordic
     numix-cursor-theme
     tela-circle-icon-theme
-    vimix-cursor-theme
+    vimix-cursors
   ];
 
   gtk = {
@@ -62,5 +62,6 @@ rec {
   };
   # INFO: You should also define env variables in hypr config to use hyprcursors.
   # https://wiki.hyprland.org/Hypr-Ecosystem/hyprcursor/
-  home.file.".local/share/icons/Bibata-modern".source = "${bibata-hyprcursor}/share/icons/Bibata-modern";
+  home.file.".local/share/icons/Bibata-modern".source =
+    "${bibata-hyprcursor}/share/icons/Bibata-modern";
 }
