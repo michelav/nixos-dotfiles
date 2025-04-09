@@ -15,6 +15,7 @@
     in
     ''
       export XDG_CURRENT_DESKTOP=Hyprland
+      export NIXOS_OZONE_WL=1
       export XDG_SESSION_DESKTOP=
       export GTK_THEME=${config.gtk.theme.name}
       export HYPRCURSOR_THEME=Bibata-modern

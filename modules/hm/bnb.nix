@@ -34,7 +34,7 @@ let
         else
           set -f csd ${hip}
         end
-        ${vpn-client} $verbose --gateway -S $_flag_server -- --csd-wrapper=${hip}
+        ${vpn-client} $verbose --gateway --allow-insecure-crypto -S $_flag_server -- --csd-wrapper=${hip}
       '';
   };
 in
