@@ -42,7 +42,7 @@
     }
 
     {
-      plugin = none-ls-nvim;
+      plugin = none-ls-nvim-20250503;
       type = "lua";
       config = ''
         local nls = require "null-ls"

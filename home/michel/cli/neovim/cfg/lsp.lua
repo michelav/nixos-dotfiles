@@ -23,7 +23,7 @@ end
 
 local on_attach = function(client, bufnr)
   print("LSP Attaching to client", client.name)
-  if client.supports_method("textDocument/formatting") then
+  if client:supports_method("textDocument/formatting") then
     format_on_save(bufnr)
   end
   if client.server_capabilities.documentSymbolProvider then
