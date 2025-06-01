@@ -13,6 +13,7 @@
     ./pass.nix
     ./alacritty.nix
     ./eza.nix
+    ./yazi.nix
   ];
 
   home.sessionVariables = {

@@ -14,6 +14,7 @@
     ./comm.nix
     ./keyring.nix
     ./virt-manager.nix
+    ./nemo.nix
   ];
 
   home.packages = with pkgs; [
