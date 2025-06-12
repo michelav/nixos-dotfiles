@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 let
   wipeScript = ''
     mkdir -p /btrfs
@@ -28,10 +28,10 @@ in
       "/var/lib/bluetooth"
       "/var/lib/systemd"
       "/var/lib/iwd"
-      "/var/lib/jellyfin"
+      # "/var/lib/jellyfin"
+      # "/var/cache/jellyfin"
       "/var/lib/nixos" # keeping users between boots
       "/var/lib/libvirt/images"
-      "/var/cache/jellyfin"
       "/etc/NetworkManager/system-connections"
       "/srv"
     ];
