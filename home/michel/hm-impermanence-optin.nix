@@ -30,6 +30,7 @@ _: {
       ".local/share/fish"
       ".local/share/devenv"
       ".local/share/direnv"
+      ".local/state/lazygit"
       {
         directory = ".local/share/containers";
         method = "symlink";
