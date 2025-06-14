@@ -7,11 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nixpkgs.url = "nixpkgs/nixos-unstable";
-    # FIXME: Problem with Nvidia driver. Keeping this version of nixpkgs
-    # until the following patch lands unstable
-    # https://github.com/NixOS/nixpkgs/pull/412157
-    nixpkgs.url = "github:NixOS/nixpkgs/0271935b80f3b94588e40dee1b7abc3c6cb6e18d";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/23.11";
     flake-utils.url = "github:numtide/flake-utils";
     hardware.url = "github:nixos/nixos-hardware";
