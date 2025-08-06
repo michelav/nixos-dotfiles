@@ -89,10 +89,6 @@ in
           enable_hyprcursor = true;
           warp_on_change_workspace = 1;
         };
-        render = {
-          explicit_sync = 0;
-          explicit_sync_kms = 0;
-        };
         decoration = {
           active_opacity = 0.94;
           inactive_opacity = 0.84;
@@ -171,10 +167,11 @@ in
           in
           [
             # Basic bindings
+            "SUPER,t,exec,${uwsm} app ${TERMINAL}"
             "SUPER,Return,exec,${uwsm} app ${TERMINAL}"
-            "SUPER,v,exec,${uwsm} app -- ${TERMINAL} $SHELL -ic ${EDITOR}"
+            # "SUPER,v,exec,${uwsm} app -- ${TERMINAL} $SHELL -ic ${EDITOR}"
             "SUPER,b,exec,${uwsm} app ${BROWSER}"
-            "SUPER, V, exec, ${cliphist} list | ${wofi} --dmenu | ${cliphist} decode | ${wl-copy}"
+            "SUPER, v, exec, ${cliphist} list | ${wofi} --dmenu | ${cliphist} decode | ${wl-copy}"
             "SUPER,w,exec,${makoctl} dismiss"
             "SUPER,backspace,exec,loginctl lock-session"
             ",Print,exec,${grimblast} --notify copy output"

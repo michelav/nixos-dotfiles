@@ -1,16 +1,10 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
-  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
-  custom-waybar = pkgs.waybar.override {
-    withMediaPlayer = true;
-    hyprlandSupport = true;
-    inherit hyprland;
-  };
+  custom-waybar = pkgs.waybar;
 in
 {
   programs.waybar = {
