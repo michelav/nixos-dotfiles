@@ -49,21 +49,4 @@
     vulkan-tools
     glmark2
   ];
-
-  # In the cases I'm not docked
-  specialisation = {
-    clamshell.configuration = {
-      system.nixos.tags = [ "clamshell" ];
-      hardware.nvidia = {
-        prime = {
-          sync.enable = lib.mkForce true;
-          offload = {
-            enable = lib.mkForce false;
-            enableOffloadCmd = lib.mkForce false;
-          };
-        };
-        powerManagement.finegrained = lib.mkForce false;
-      };
-    };
-  };
 }
