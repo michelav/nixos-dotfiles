@@ -33,6 +33,8 @@ in
         "nix-command"
         "flakes"
       ];
+      warn-dirty = false;
+      flake-registry = ""; # INFO: Disable global flake registry
     };
     package = pkgs.nixVersions.latest;
     optimise = {

@@ -167,9 +167,7 @@ in
           in
           [
             # Basic bindings
-            "SUPER,t,exec,${uwsm} app ${TERMINAL}"
             "SUPER,Return,exec,${uwsm} app ${TERMINAL}"
-            # "SUPER,v,exec,${uwsm} app -- ${TERMINAL} $SHELL -ic ${EDITOR}"
             "SUPER,b,exec,${uwsm} app ${BROWSER}"
             "SUPER, v, exec, ${cliphist} list | ${wofi} --dmenu | ${cliphist} decode | ${wl-copy}"
             "SUPER,w,exec,${makoctl} dismiss"
@@ -180,7 +178,6 @@ in
             "SUPER,Print,exec,${grimblast} --notify copy window"
             "ALT,Print,exec,${grimblast} --notify copy area"
             # Desktop Launchers
-            # "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
             "SUPER,d,exec,${wofi} -f -S run"
             "SUPER,x,exec,${fuzzel} --launch-prefix='uwsm app --'"
             ",Scroll_Lock,exec,pass-wofi"

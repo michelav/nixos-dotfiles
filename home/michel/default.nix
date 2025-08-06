@@ -18,7 +18,8 @@
     ./desktop/wayland
     ./gaming
     ./media
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+  ]
+  ++ (builtins.attrValues outputs.homeManagerModules);
 
   home.packages = with pkgs; [
     jq
@@ -55,7 +56,7 @@
       enable = true;
       editor = "vim";
       browser = "firefox";
-      terminal = "ghostty";
+      terminal = "wezterm";
       # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
       # colorSchemeName = "one-light";
       colorSchemeName = "nord";
