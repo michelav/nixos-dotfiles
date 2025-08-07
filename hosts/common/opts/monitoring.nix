@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   environment.systemPackages = [
-    pkgs.nvtopPackages.intel
-    pkgs.nvtopPackages.nvidia
+    (pkgs.nvtopPackages.nvidia.override { intel = true; })
+
     pkgs.sysstat
   ];
   programs.atop = {

@@ -2,7 +2,6 @@
   inputs,
   outputs,
   pkgs,
-  config,
   ...
 }:
 {
@@ -27,7 +26,7 @@
     fd
     tree
     htop
-    btop
+    btop-cuda
     gcc
     bc
     bottom
