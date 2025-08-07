@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   config,
   lib,
@@ -15,7 +14,6 @@ let
     mapAttrsToList
     concatStrings
     ;
-  inherit (inputs.nixpkgs-stable.legacyPackages."x86_64-linux") remmina;
   bnb-vpn = pkgs.writeTextFile {
     name = "bnb-vpn";
     destination = "/bin/bnb-vpn";
@@ -63,7 +61,7 @@ in
     home.packages = [
       pkgs.openconnect
       pkgs.gp-saml-gui
-      remmina
+      pkgs.remmina
       bnb-vpn
     ];
     xdg.configFile."bnb/vpn-config" = mkIf (cfg.settings != { }) {
