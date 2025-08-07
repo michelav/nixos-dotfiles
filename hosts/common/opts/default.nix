@@ -2,8 +2,8 @@
 {
   imports = [
     ./pipewire.nix
-    ./jellyfin.nix
     ./networking.nix
+    ./monitoring.nix
   ];
 
   programs = {
