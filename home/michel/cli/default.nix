@@ -18,6 +18,9 @@
 
   home.sessionVariables = {
     NIX_SHELL_PRESERVE_PROMPT = 1;
+    LESS = "-R"; # permitir SGR/raw colors
+    MANROFFOPT = "-c";
+    MANPAGER = "most";
   };
 
   home.packages = with pkgs; [
