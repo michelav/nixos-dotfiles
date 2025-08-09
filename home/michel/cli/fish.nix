@@ -10,8 +10,16 @@ _: {
       '';
       shellAbbrs = {
         cat = "bat";
-        man = "man --pager=most";
-        ndev = "nix develop -c $SHELL";
+        nd = {
+          position = "command";
+          expansion = "nix develop .#% -c $SHELL";
+          setCursor = true;
+        };
+        nsh = {
+          position = "command";
+          expansion = "nix shell nixpkgs#% -c $SHELL";
+          setCursor = true;
+        };
         gits = "git status";
       };
     };
