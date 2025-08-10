@@ -22,6 +22,24 @@ _: {
         };
         gits = "git status";
       };
+      functions = {
+        gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+        ffp = {
+          body = ''
+            begin; if git rev-parse --is-inside-work-tree >/dev/null 2>&1; and git ls-files -co --exclude-standard -z; else; fd -0 --type f --hidden --follow --exclude .git .; end; end \
+            | fzf --read0 --print0 --ansi --height=80% --preview 'bat --color=always --style=numbers,header --line-range :200 {} 2>/dev/null || head -n200 {}' \
+            | xargs -0 -r nvim
+          '';
+        };
+        frg = {
+          body = ''
+            rg -n --no-heading --hidden -g '!.git' --color=always "" \
+            | fzf --ansi --delimiter : --preview 'bat --color=always --style=numbers --highlight-line {2} {1} 2>/dev/null' \
+            | awk -F: '{print "+"$2, $1}' \
+            | xargs -r nvim
+          '';
+        };
+      };
     };
 
     starship = {
