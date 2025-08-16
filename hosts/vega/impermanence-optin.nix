@@ -28,6 +28,7 @@ in
       "/var/lib/bluetooth"
       "/var/lib/systemd"
       "/var/lib/iwd"
+      "/var/lib/plex"
       # "/var/lib/jellyfin"
       # "/var/cache/jellyfin"
       "/var/lib/nixos" # keeping users between boots

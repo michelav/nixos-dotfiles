@@ -29,6 +29,7 @@ _: {
       ".cache/spotify"
       ".local/share/fish"
       ".local/share/devenv"
+      ".local/share/plex"
       ".local/share/direnv"
       ".local/state/lazygit"
       {
