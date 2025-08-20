@@ -105,6 +105,7 @@
     in
     {
       inherit overlays homeManagerModules nixosModules;
+      formatter = pkgs.nixfmt-tree;
       nixosConfigurations = {
         vega = mkNixos "x86_64-linux" (
           [
@@ -134,6 +135,7 @@
               findutils
               gnumake
               nixpkgs-fmt
+              nixfmt-tree
               nixVersions.latest
               nixd.packages.${system}.default
             ];
