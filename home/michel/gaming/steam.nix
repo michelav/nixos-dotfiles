@@ -1,8 +1,8 @@
 { pkgs, ... }:
 let
   my-steam = pkgs.steam.override {
-    extraPkgs = p:
-      with p; [
+    extraPkgs =
+      p: with p; [
         libgdiplus
         libpng
         libpulseaudio
@@ -12,16 +12,23 @@ let
         keyutils
       ];
   };
-in {
-  home.packages = [ my-steam pkgs.protontricks ];
+in
+{
+  home.packages = [
+    my-steam
+    pkgs.protontricks
+    pkgs.mangohud
+  ];
   home.persistence = {
     "/persist/home/michel" = {
       allowOther = true;
-      directories = [{
-        # A couple of games don't play well with bindfs
-        directory = ".local/share/Steam";
-        method = "symlink";
-      }];
+      directories = [
+        {
+          # A couple of games don't play well with bindfs
+          directory = ".local/share/Steam";
+          method = "symlink";
+        }
+      ];
     };
   };
 }
