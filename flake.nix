@@ -63,6 +63,10 @@
       url = "github:sxyazi/yazi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim-config = {
+      url = "github:michelav/nixvim-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

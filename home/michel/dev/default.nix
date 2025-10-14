@@ -1,10 +1,17 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
 
   imports = [
-    # ./vscode.nix 
+    # ./vscode.nix
     ./podman.nix
     ./direnv.nix
+    ./neovim.nix
   ];
 
-  home.packages = with pkgs; [ glow lazygit gnumake cmake ];
+  home.packages = with pkgs; [
+    glow
+    lazygit
+    gnumake
+    cmake
+  ];
 }
