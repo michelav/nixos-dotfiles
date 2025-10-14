@@ -1,7 +1,12 @@
-{ pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [
-    ./neovim
+    # TODO: Remove neovim confifguration from this module. A new one is created in dev
+    # ./neovim
     ./nnn.nix
     ./lf.nix
     ./fish.nix
