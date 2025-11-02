@@ -89,7 +89,7 @@
       pkgs = forAllSystems (
         system:
         import nixpkgs {
-          inherit system overlays;
+          inherit system;
           config = {
             allowUnfree = true;
             allowUnfreePredicate = _: true;
