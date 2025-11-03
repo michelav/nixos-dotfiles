@@ -11,7 +11,8 @@
     brave.enable = true;
     firefox =
       let
-        addons = inputs.firefox-addons.packages.${pkgs.system};
+        system = pkgs.stdenv.hostPlatform.system;
+        addons = inputs.firefox-addons.packages.${system};
       in
       {
         enable = true;

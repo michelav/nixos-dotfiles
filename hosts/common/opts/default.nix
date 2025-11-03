@@ -20,7 +20,7 @@
       roboto-slab
       inter
       iosevka
-      noto-fonts-emoji
+      noto-fonts-color-emoji
     ];
     fontconfig.defaultFonts = {
       serif = [ "Roboto Slab" ];

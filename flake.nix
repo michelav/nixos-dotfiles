@@ -2,11 +2,6 @@
   description = "Home Flake";
 
   inputs = {
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/23.11";
     flake-utils.url = "github:numtide/flake-utils";
@@ -43,10 +38,6 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neorg-overlay = {
-      url = "github:nvim-neorg/nixpkgs-neorg-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
     nixd.url = "github:nix-community/nixd";
 
@@ -59,10 +50,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    yazi = {
-      url = "github:sxyazi/yazi";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixvim-config = {
       url = "github:michelav/nixvim-config";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -80,8 +67,6 @@
       inherit (self) outputs;
       local-overlays = import ./overlays;
       overlays = [
-        inputs.neovim-nightly-overlay.overlays.default
-        inputs.neorg-overlay.overlays.default
         local-overlays
       ];
       supportedSystems = [ "x86_64-linux" ];

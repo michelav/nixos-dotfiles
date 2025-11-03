@@ -2,7 +2,8 @@
 {
   home.packages =
     let
-      nixvim = inputs.nixvim-config.packages.${pkgs.system};
+      system = pkgs.stdenv.hostPlatform.system;
+      nixvim = inputs.nixvim-config.packages.${system};
       aliasVimPkgs =
         name: pkg:
         pkgs.runCommand "${name}" { } ''

@@ -7,8 +7,9 @@
   ...
 }:
 let
-  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland xdg-desktop-portal-hyprland;
-  hyprw-contrib = inputs.hyprland-contrib.packages.${pkgs.system};
+  system = pkgs.stdenv.hostPlatform.system;
+  inherit (inputs.hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
+  hyprw-contrib = inputs.hyprland-contrib.packages.${system};
   # currently, there is some friction between sway and gtk:
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
   # the suggested way to set gtk settings is with gsettings

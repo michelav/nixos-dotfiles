@@ -6,7 +6,8 @@
 {
   programs.ghostty =
     let
-      ghostty = inputs.ghostty.packages.${pkgs.system}.default;
+      system = pkgs.stdenv.hostPlatform.system;
+      ghostty = inputs.ghostty.packages.${system}.default;
     in
     {
       enable = true;

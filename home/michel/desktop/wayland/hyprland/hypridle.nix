@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 let
-  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
+  system = pkgs.stdenv.hostPlatform.system;
+  inherit (inputs.hyprland.packages.${system}) hyprland;
   hyprctl = "${hyprland}/bin/hyprctl";
   hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
   pidof = "${pkgs.procps}/bin/pidof";

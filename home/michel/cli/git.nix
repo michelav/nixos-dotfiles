@@ -1,27 +1,40 @@
-{ pkgs, ... }: {
-  programs.git = {
-    enable = true;
-    package = pkgs.gitAndTools.gitFull;
-    userName = "michelav";
-    userEmail = "michel.vasconcelos@gmail.com";
-    aliases = {
-      co = "checkout";
-      graph = "log --decorate --oneline --graph";
-      st = "status";
-    };
-    extraConfig = {
-      init = { defaultBranch = "main"; };
-      credential = {
-        "https://github.com" = { helper = "!pass GitHub/michelav"; };
+{ pkgs, ... }:
+{
+  programs = {
+    git = {
+      enable = true;
+      package = pkgs.gitFull;
+      settings = {
+        alias = {
+          co = "checkout";
+          graph = "log --decorate --oneline --graph";
+          st = "status";
+        };
+        user = {
+          name = "michelav";
+          email = "michel.vasconcelos@gmail.com";
+        };
+        init = {
+          defaultBranch = "main";
+        };
+        credential = {
+          "https://github.com" = {
+            helper = "!pass GitHub/michelav";
+          };
+        };
       };
-    };
-    ignores = [ "result" ".direnv" ];
-    signing = {
-      signByDefault = true;
-      key = "60193619FE330051";
+      ignores = [
+        "result"
+        ".direnv"
+      ];
+      signing = {
+        signByDefault = true;
+        key = "60193619FE330051";
+      };
     };
     delta = {
       enable = true;
+      enableGitIntegration = true;
       options = {
         navigate = true;
         # line-numbers = true;

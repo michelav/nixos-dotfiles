@@ -8,11 +8,12 @@
 let
   inherit (config) colorscheme;
   colors = colorscheme.palette;
+  system = pkgs.stdenv.hostPlatform.system;
 in
 {
   programs.wezterm = {
     enable = true;
-    package = inputs.wezterm-main.packages.${pkgs.system}.default;
+    package = inputs.wezterm-main.packages.${system}.default;
     colorSchemes = {
       "${colorscheme.slug}" = {
         foreground = "#${colors.base05}";

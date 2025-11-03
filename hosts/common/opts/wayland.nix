@@ -1,11 +1,12 @@
 { pkgs, inputs, ... }:
 let
   keyring = pkgs.gnome-keyring;
+  system = pkgs.stdenv.hostPlatform.system;
 in
 {
   # TODO: Remove greetd.nix file after some time with this new config
   # imports = [ ./greetd.nix ];
-  environment.systemPackages = [ inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default ];
+  environment.systemPackages = [ inputs.rose-pine-hyprcursor.packages.${system}.default ];
   services = {
     dbus.packages = [
       pkgs.gcr
@@ -28,7 +29,8 @@ in
     light.enable = true;
     hyprland =
       let
-        inherit (inputs.hyprland.packages.${pkgs.system}) hyprland xdg-desktop-portal-hyprland;
+        system = pkgs.stdenv.hostPlatform.system;
+        inherit (inputs.hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
       in
       {
         enable = true;

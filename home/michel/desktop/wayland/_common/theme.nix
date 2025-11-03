@@ -5,8 +5,9 @@
   ...
 }:
 let
+  system = pkgs.stdenv.hostPlatform.system;
   inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
-  inherit (inputs.diniamo-pkgs.packages.${pkgs.system}) bibata-hyprcursor;
+  inherit (inputs.diniamo-pkgs.packages.${system}) bibata-hyprcursor;
 in
 rec {
 

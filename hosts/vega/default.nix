@@ -83,7 +83,7 @@
       in
       {
         # If sync is on I may use it in docked mode
-        lidSwitchExternalPower = if sync_enabled then "ignore" else "lock";
+        settings.Login.HandleLidSwitchExternalPower = if sync_enabled then "ignore" else "lock";
       };
 
     fstrim.enable = true;
