@@ -4,7 +4,11 @@
   config,
   ...
 }:
+let
+  system = pkgs.stdenv.hostPlatform.system;
+in
 {
+  home.packages = [ inputs.self.packages.${system}.browseros ];
   imports = [ ./qutebrowser.nix ];
   programs = {
     browserpass.enable = true;
