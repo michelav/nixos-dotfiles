@@ -261,7 +261,7 @@ in
           );
         # Organizing workspaces between 2 monitors. First 5 in Lg Ultrawide Monitor .
         monitor = [
-          "DP-1, 3440x1440@100, 0x0, 1"
+          "DP-1, 3440x1440@100, 0x0, 1, bitdepth, 10, cm, auto"
           "eDP-1, 1920x1080@120, 3440x0, 1"
         ];
         workspace =
