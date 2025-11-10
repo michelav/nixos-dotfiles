@@ -1,10 +1,10 @@
 # Color configuration extracted from https://github.com/Misterio77/nix-config
 { pkgs, config, ... }:
 let
-  inherit (config.colorscheme) variant;
   colors = config.colorscheme.palette;
 in
 {
+  home.packages = [ pkgs.adwaita-qt6 ];
   programs.qutebrowser = {
     enable = true;
     loadAutoconfig = true;
@@ -26,7 +26,7 @@ in
       scrolling.smooth = true;
       colors = {
         webpage = {
-          preferred_color_scheme = variant;
+          preferred_color_scheme = "auto";
         };
         completion = {
           fg = "#${colors.base05}";

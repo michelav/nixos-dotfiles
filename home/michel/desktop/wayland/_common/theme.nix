@@ -44,8 +44,11 @@ rec {
   };
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
-    style.name = "gtk2";
+    # platformTheme.name = "gtk";
+    style = {
+      name = "adwaita-dark";
+      package = pkgs.adwaita-qt6;
+    };
   };
   services.xsettingsd = {
     enable = true;
