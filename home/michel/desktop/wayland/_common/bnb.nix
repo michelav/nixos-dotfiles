@@ -9,6 +9,10 @@ _: {
 
   home.persistence."/persist/home/michel" = {
     allowOther = true;
-    directories = [ ".local/share/remmina" ".config/remmina" ];
+    directories = [
+      ".local/share/remmina"
+      ".config/remmina"
+    ];
+    files = [ ".gp-saml-gui-cookies" ];
   };
 }
