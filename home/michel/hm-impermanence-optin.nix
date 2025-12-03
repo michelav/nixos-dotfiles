@@ -37,6 +37,10 @@ _: {
         directory = ".local/share/containers";
         method = "symlink";
       }
+      {
+        directory = "media";
+        method = "symlink";
+      }
     ];
     files = [ ".config/sops/age/keys.txt" ];
   };

@@ -3,6 +3,7 @@
   imports = [
     ./pipewire.nix
     ./networking.nix
+    ./media.nix
     # ./plex.nix
     ./monitoring.nix
   ];
