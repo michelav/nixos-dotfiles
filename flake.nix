@@ -130,6 +130,7 @@
               coreutils
               findutils
               gnumake
+              nixpkgs-track
               nixpkgs-fmt
               nixfmt-tree
               nixVersions.latest
