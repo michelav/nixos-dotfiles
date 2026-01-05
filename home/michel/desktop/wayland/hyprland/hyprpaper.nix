@@ -2,13 +2,19 @@ _: {
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = [
-        "~/Pictures/wallpapers/nixos_1920x1080.jpg"
-        "~/Pictures/wallpapers/nixos_3440x1440_v2.jpg"
-      ];
+      # preload = [
+      #   "~/Pictures/wallpapers/nixos_1920x1080.jpg"
+      #   "~/Pictures/wallpapers/nixos_3440x1440_v2.jpg"
+      # ];
       wallpaper = [
-        "DP-1, ~/Pictures/wallpapers/nixos_3440x1440_v2.jpg"
-        "eDP-1, ~/Pictures/wallpapers/nixos_1920x1080.jpg"
+        {
+          monitor = "DP-1";
+          path = "~/Pictures/wallpapers/nixos_3440x1440_v2.jpg";
+        }
+        {
+          monitor = "eDP-1";
+          path = "~/Pictures/wallpapers/nixos_1920x1080.jpg";
+        }
       ];
     };
   };
