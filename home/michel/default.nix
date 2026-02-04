@@ -8,7 +8,6 @@
 
   # The feats dictates what should be installed
   imports = [
-    inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.nix-colors.homeManagerModules.default
     ./hm-impermanence-optin.nix
     ./cli

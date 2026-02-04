@@ -1,14 +1,14 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = [ pkgs.rclone ];
-  imports = [ ./maestral.nix ./onedrive.nix ];
+  imports = [
+    ./maestral.nix
+    ./onedrive.nix
+  ];
 
-  home.persistence."/persist/home/michel" = {
-    allowOther = true;
+  home.persistence."/persist" = {
     directories = [
-      {
-        directory = "storages";
-        method = "symlink";
-      }
+      "storages"
       ".config/maestral"
       ".config/rclone"
     ];

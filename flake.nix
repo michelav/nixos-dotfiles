@@ -13,11 +13,6 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
 
-    nnn-plugins = {
-      url = "github:jarun/nnn/v4.5";
-      flake = false;
-    };
-
     wezterm-main = {
       url = "github:wez/wezterm?dir=nix";
       # inputs.nixpkgs.follows = "nixpkgs";
@@ -32,12 +27,11 @@
     };
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
+
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
     nixd.url = "github:nix-community/nixd";
 
@@ -135,6 +129,9 @@
               nixfmt-tree
               nixVersions.latest
               nixd.packages.${system}.default
+              age
+              sops
+              codex
             ];
           };
           haskell = import ./shells/haskell.nix { pkgs = ps; };

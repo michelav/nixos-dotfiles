@@ -1,6 +1,5 @@
 _: {
-  home.persistence."/persist/home/michel" = {
-    allowOther = true;
+  home.persistence."/persist" = {
     directories = [
       "Desktop"
       "Downloads"
@@ -10,15 +9,11 @@ _: {
       "Videos"
       "Public"
       "repos"
-      ".mozilla/firefox"
       ".config/discord"
       ".config/Slack"
-      ".config/qutebrowser/bookmarks"
-      ".config/qutebrowser/greasemonkey"
       ".config/eww"
       ".config/github-copilot"
       ".config/teams-for-linux"
-      ".local/share/qutebrowser"
       ".gnupg"
       ".ssh"
       ".secrets/password-store"
@@ -33,14 +28,8 @@ _: {
       ".local/share/plex"
       ".local/share/direnv"
       ".local/state/lazygit"
-      {
-        directory = ".local/share/containers";
-        method = "symlink";
-      }
-      {
-        directory = "media";
-        method = "symlink";
-      }
+      ".local/share/containers"
+      "media"
     ];
     files = [ ".config/sops/age/keys.txt" ];
   };

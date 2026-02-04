@@ -10,7 +10,7 @@
   imports = [
     # Include the results of the hardware scan.
     inputs.home-manager.nixosModules.home-manager
-    inputs.impermanence.nixosModule
+    inputs.impermanence.nixosModules.impermanence
     inputs.hyprland.nixosModules.default
     ../common/global
     ../common/users/michel.nix

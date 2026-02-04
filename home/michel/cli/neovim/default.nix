@@ -49,8 +49,7 @@
   };
 
   home.persistence = {
-    "/persist/home/michel" = {
-      allowOther = true;
+    "/persist" = {
       files = [ ".local/state/nvim/trust" ];
     };
   };

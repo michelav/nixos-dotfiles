@@ -67,8 +67,8 @@ in
     enable = true;
     # INFO: The hyprland package is also defined in the host section. Be careful to use the same package
     # TODO: Place hyprland package in a single configuration place so there won't be any conflicts
-    package = hyprland;
-    portalPackage = xdg-desktop-portal-hyprland;
+    package = null;
+    portalPackage = null;
     settings =
       let
         inherit (config.colorscheme) palette;

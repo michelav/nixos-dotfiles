@@ -20,14 +20,9 @@ in
     pkgs.mangohud
   ];
   home.persistence = {
-    "/persist/home/michel" = {
-      allowOther = true;
+    "/persist" = {
       directories = [
-        {
-          # A couple of games don't play well with bindfs
-          directory = ".local/share/Steam";
-          method = "symlink";
-        }
+        ".local/share/Steam"
       ];
     };
   };

@@ -1,14 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = [ pkgs.lutris ];
   home.persistence = {
-    "/persist/home/michel" = {
-      allowOther = true;
+    "/persist" = {
       directories = [
-        {
-          # Use symlink, as games may be IO-heavy
-          directory = "Games/Lutris";
-          method = "symlink";
-        }
+        "Games/Lutris"
         ".config/lutris"
         ".local/share/lutris"
       ];

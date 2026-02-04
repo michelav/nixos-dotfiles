@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./pipewire.nix
@@ -32,7 +32,7 @@
   };
 
   environment = {
-    pathsToLink = [ "/share/fish" ];
+    pathsToLink = lib.mkAfter [ "/share/fish" ];
     systemPackages = with pkgs; [
       vim
       wget

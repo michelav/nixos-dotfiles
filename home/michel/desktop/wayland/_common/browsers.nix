@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  config,
   ...
 }:
 let
@@ -106,8 +105,7 @@ in
   };
 
   # Impermanence
-  home.persistence."/persist/home/michel" = {
-    allowOther = true;
+  home.persistence."/persist" = {
     directories = [
       ".mozilla/firefox"
       ".cache/mozilla/firefox"

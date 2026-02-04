@@ -7,8 +7,7 @@ _: {
     };
   };
 
-  home.persistence."/persist/home/michel" = {
-    allowOther = true;
+  home.persistence."/persist" = {
     directories = [
       ".local/share/remmina"
       ".config/remmina"
