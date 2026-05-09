@@ -1212,11 +1212,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1778322930,
-        "narHash": "sha256-XzS/qDtmA9L4jb5kB41eYfqBnlMZCWU5lsCTQSKfHmk=",
+        "lastModified": 1778356666,
+        "narHash": "sha256-Qz0kenvwMYFCyE2aHXKqD9c1HDyu3UW3odyMf1rGhws=",
         "owner": "michelav",
         "repo": "nixvim-config",
-        "rev": "1526cc3ba70e89182d60de51553edd50c15dbbe4",
+        "rev": "a54a2d59de7f3b8365b0c810a96045f3502948f6",
         "type": "github"
       },
       "original": {

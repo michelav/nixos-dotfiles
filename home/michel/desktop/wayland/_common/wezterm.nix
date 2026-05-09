@@ -51,6 +51,7 @@ in
         local wezterm = require 'wezterm'
         return {
           automatically_reload_config = false,
+          term = "wezterm",
           font = wezterm.font("${config.userPrefs.fonts.monospace.name}"),
           font_size = 12.0,
           color_scheme = "${colorscheme.slug}",

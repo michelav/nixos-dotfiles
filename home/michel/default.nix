@@ -16,6 +16,7 @@
     ./desktop/wayland
     ./gaming
     ./media
+    ./writing
   ]
   ++ (builtins.attrValues outputs.homeManagerModules);
 
