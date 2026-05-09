@@ -5,7 +5,7 @@ in
 {
   imports = [
     ./transmission.nix
-    ./jellyfin.nix
+    # ./jellyfin.nix
   ];
 
   users.groups.media = { };
@@ -14,7 +14,7 @@ in
     extraGroups = [ "media" ];
   };
 
-  users.users.jellyfin.extraGroups = [ "media" ];
+  # users.users.jellyfin.extraGroups = [ "media" ];
   users.users.transmission.extraGroups = [ "media" ];
 
   # Make sure the directory exists + has correct permissions
