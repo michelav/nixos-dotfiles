@@ -60,7 +60,7 @@
     let
       inherit (self) outputs;
       local-overlays = import ./overlays;
-      overlays = [
+      pkgsOverlays = [
         local-overlays
       ];
       supportedSystems = [ "x86_64-linux" ];
@@ -69,6 +69,7 @@
         system:
         import nixpkgs {
           inherit system;
+          overlays = pkgsOverlays;
           config = {
             allowUnfree = true;
             allowUnfreePredicate = _: true;
@@ -87,7 +88,10 @@
       nixosModules = import ./modules/nixos;
     in
     {
-      inherit overlays homeManagerModules nixosModules;
+      overlays = {
+        default = local-overlays;
+      };
+      inherit homeManagerModules nixosModules;
       formatter = forAllSystems (system: pkgs.${system}.nixfmt-tree);
       nixosConfigurations = {
         vega = mkNixos "x86_64-linux" (
@@ -95,7 +99,7 @@
             ./hosts/vega
             {
               nixpkgs = {
-                inherit overlays;
+                overlays = pkgsOverlays;
                 config.allowUnfree = true;
                 config.allowUnfreePredicate = _: true;
               };
