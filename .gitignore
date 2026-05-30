@@ -2,3 +2,7 @@
 .envrc
 .nixd.json
 .cache
+
+# Local AI-agent memory/settings
+CLAUDE.local.md
+.codex.local

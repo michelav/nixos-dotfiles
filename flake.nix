@@ -136,6 +136,7 @@
               age
               sops
               codex
+              claude-code
             ];
           };
           haskell = import ./shells/haskell.nix { pkgs = ps; };
