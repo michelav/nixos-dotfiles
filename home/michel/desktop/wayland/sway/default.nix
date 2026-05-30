@@ -15,16 +15,20 @@ let
     name = "configure-gtk-sway";
     destination = "/bin/configure-gtk-sway";
     executable = true;
-    text = let
-      schema = pkgs.gsettings-desktop-schemas;
-      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-    in with config.gtk; ''
-      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-      gnome_schema=org.gnome.desktop.interface
-      gsettings set $gnome_schema gtk-theme '${theme.name}'
-    '';
+    text =
+      let
+        schema = pkgs.gsettings-desktop-schemas;
+        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+      in
+      with config.gtk;
+      ''
+        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+        gnome_schema=org.gnome.desktop.interface
+        gsettings set $gnome_schema gtk-theme '${theme.name}'
+      '';
   };
-in {
+in
+{
 
   home = {
     packages = with pkgs; [
@@ -36,10 +40,11 @@ in {
       configure-gtk-sway
       glib
     ];
-    /* sessionVariables = {
-         # wayland
-         XDG_SESSION_DESKTOP = "sway";
-       };
+    /*
+      sessionVariables = {
+        # wayland
+        XDG_SESSION_DESKTOP = "sway";
+      };
     */
 
   };
@@ -88,11 +93,15 @@ in {
         commands = [
           {
             command = "move scratchpad";
-            criteria = { title = "Firefox — Sharing Indicator"; };
+            criteria = {
+              title = "Firefox — Sharing Indicator";
+            };
           }
           {
             command = "move scratchpad";
-            criteria = { app_id = "transmission-gtk"; };
+            criteria = {
+              app_id = "transmission-gtk";
+            };
           }
         ];
       };
@@ -109,8 +118,15 @@ in {
         ];
       };
       modifier = "Mod4";
-      keybindings =
-        import ./sway-kb.nix { inherit modifier terminal lockcmd pkgs config; };
+      keybindings = import ./sway-kb.nix {
+        inherit
+          modifier
+          terminal
+          lockcmd
+          pkgs
+          config
+          ;
+      };
       modes = {
         resize = {
           "h" = "resize shrink width 50 px";
@@ -120,16 +136,19 @@ in {
           "Escape" = "mode default";
           "Return" = "mode default";
         };
-        passthrough = { "${modifier}+F11" = "mode default"; };
+        passthrough = {
+          "${modifier}+F11" = "mode default";
+        };
       };
-      bars = [{ command = "waybar"; }];
+      bars = [ { command = "waybar"; } ];
       colors = import ./colors.nix { inherit (config.colorscheme) colors; };
-      startup = [{
-        command = "${swayidle} -w -C ${xdg.configHome}/swayidle/sway-config";
-      }
-      # Initial lock
-      # { command = "${pkgs.swaylock-effects}/bin/swaylock -f -S"; }
-        ];
+      startup = [
+        {
+          command = "${swayidle} -w -C ${xdg.configHome}/swayidle/sway-config";
+        }
+        # Initial lock
+        # { command = "${pkgs.swaylock-effects}/bin/swaylock -f -S"; }
+      ];
     };
   };
 }

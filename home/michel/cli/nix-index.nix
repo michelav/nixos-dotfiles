@@ -2,7 +2,10 @@
 let
   update-script = pkgs.writeShellApplication {
     name = "fetch-nix-index-database";
-    runtimeInputs = with pkgs; [ wget coreutils ];
+    runtimeInputs = with pkgs; [
+      wget
+      coreutils
+    ];
     text = ''
       filename="index-x86_64-linux"
       mkdir -p ~/.cache/nix-index
@@ -11,11 +14,14 @@ let
       ln -f "$filename" files
     '';
   };
-in {
+in
+{
   programs.nix-index.enable = true;
 
   systemd.user.services.nix-index-sync = {
-    Unit = { Description = "fetch mic92/nix-index-database"; };
+    Unit = {
+      Description = "fetch mic92/nix-index-database";
+    };
     Service = {
       Type = "oneshot";
       ExecStart = "${update-script}/bin/fetch-nix-index-database";
@@ -31,6 +37,8 @@ in {
       OnBootSec = "10m";
       OnUnitActiveSec = "24h";
     };
-    Install = { WantedBy = [ "timers.target" ]; };
+    Install = {
+      WantedBy = [ "timers.target" ];
+    };
   };
 }

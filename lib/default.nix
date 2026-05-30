@@ -1,8 +1,16 @@
-{ inputs, ... }: {
-  mkSystem = { hostname, pkgs, desktop ? "wayland" }:
+{ inputs, ... }:
+{
+  mkSystem =
+    {
+      hostname,
+      pkgs,
+      desktop ? "wayland",
+    }:
     with inputs;
-    let inherit (nixpkgs.lib) nixosSystem;
-    in nixosSystem {
+    let
+      inherit (nixpkgs.lib) nixosSystem;
+    in
+    nixosSystem {
       inherit pkgs;
       specialArgs = { inherit desktop inputs; };
       modules = [
@@ -14,7 +22,13 @@
       ];
     };
 
-  mkHome = { username, pkgs, desktop ? "wayland", feats ? [ "cli" ] }:
+  mkHome =
+    {
+      username,
+      pkgs,
+      desktop ? "wayland",
+      feats ? [ "cli" ],
+    }:
     with inputs;
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs;

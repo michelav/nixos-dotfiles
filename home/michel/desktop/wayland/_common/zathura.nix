@@ -2,7 +2,8 @@
 let
   # inherit (config.colorscheme) colors;
   inherit (config.userPrefs) fonts;
-in {
+in
+{
   programs.zathura = {
     enable = true;
     options = {

@@ -2,7 +2,8 @@ scheme:
 let
   c = scheme.palette;
   # vim
-in ''
+in
+''
   let g:colors_name="nix-${scheme.slug}"
 
   set termguicolors

@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 # Copied from https://github.com/Misterio77/nix-config
 let
   wofi = pkgs.wofi.overrideAttrs (oa: {
@@ -6,7 +11,8 @@ let
       ./wofi-run-shell.patch # Fix for https://todo.sr.ht/~scoopta/wofi/174
     ];
   });
-in {
+in
+{
   home.packages = [ wofi ];
 
   xdg.configFile."wofi/config".text = ''

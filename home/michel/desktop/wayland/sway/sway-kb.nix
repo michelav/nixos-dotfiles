@@ -1,23 +1,30 @@
-{ modifier, terminal, pkgs, config, ... }:
+{
+  modifier,
+  terminal,
+  pkgs,
+  config,
+  ...
+}:
 let
   colors = config.colorscheme.palette;
   lockcmd = "${config.programs.swaylock.package}/bin/swaylock -f -S";
-in {
+in
+{
   # open terminal
   "${modifier}+Return" = "exec ${terminal}";
 
   # open launcher
   "${modifier}+d" = "exec ${
-      toString [
-        "${pkgs.fuzzel}/bin/fuzzel"
-        "-f '${config.gtk.font.name}:size=10'"
-        # "-i '${config.gtk.iconTheme.name}'"
-        "-r 2 -B 3 -y 20 -P 10"
-        "-b '${colors.base00}ff' -t '${colors.base06}ff'"
-        "-C '${colors.base0D}ff' -m '${colors.base08}ff'"
-        "-s '${colors.base02}ff' -S '${colors.base06}ff'"
-      ]
-    }";
+    toString [
+      "${pkgs.fuzzel}/bin/fuzzel"
+      "-f '${config.gtk.font.name}:size=10'"
+      # "-i '${config.gtk.iconTheme.name}'"
+      "-r 2 -B 3 -y 20 -P 10"
+      "-b '${colors.base00}ff' -t '${colors.base06}ff'"
+      "-C '${colors.base0D}ff' -m '${colors.base08}ff'"
+      "-s '${colors.base02}ff' -S '${colors.base06}ff'"
+    ]
+  }";
 
   # function keybindings
   "${modifier}+F1" = "exec ${config.home.sessionVariables.BROWSER}";
@@ -73,12 +80,9 @@ in {
   "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
   "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
   "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
-  "Shift+XF86AudioMute" =
-    "exec ${pkgs.pamixer}/bin/pamixer --default-source -t";
-  "Shift+XF86AudioRaiseVolume" =
-    "exec ${pkgs.pamixer}/bin/pamixer --default-source -i 5";
-  "Shift+XF86AudioLowerVolume" =
-    "exec ${pkgs.pamixer}/bin/pamixer --default-source -d 5";
+  "Shift+XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer --default-source -t";
+  "Shift+XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer --default-source -i 5";
+  "Shift+XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer --default-source -d 5";
 
   "Print" =
     "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen ${config.xdg.userDirs.pictures}/$(date +%m-%d-%Y_%H-%M-%S).jpg";

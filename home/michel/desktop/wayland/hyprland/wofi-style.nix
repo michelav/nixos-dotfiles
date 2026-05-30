@@ -1,6 +1,8 @@
 { palette, hexToRGBString, ... }:
-let rgba = color: alpha: "rgba(${hexToRGBString "," "${color}"},${alpha})";
-in ''
+let
+  rgba = color: alpha: "rgba(${hexToRGBString "," "${color}"},${alpha})";
+in
+''
   @define-color base00 #${palette.base00};
   @define-color base01 #${palette.base01};
   @define-color base02 #${palette.base02};

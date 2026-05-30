@@ -1,8 +1,9 @@
 # check https://github.com/meain/nur-packages
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gtk3
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk3,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "fluent-icon-theme";

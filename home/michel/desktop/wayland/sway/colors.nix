@@ -1,6 +1,7 @@
 { colors, ... }:
 
-with colors; {
+with colors;
+{
   focused = {
     border = "#${base0D}";
     background = "#${base0D}";
@@ -30,5 +31,3 @@ with colors; {
     childBorder = "";
   };
 }
-
-

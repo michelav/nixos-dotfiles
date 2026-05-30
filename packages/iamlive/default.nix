@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 buildGoModule rec {
   pname = "iamlive";
   version = "0.49.0";
@@ -10,8 +14,7 @@ buildGoModule rec {
   };
   vendorSha256 = null;
   meta = {
-    description =
-      "Generate an IAM policy from AWS calls using client-side monitoring (CSM) or embedded proxy";
+    description = "Generate an IAM policy from AWS calls using client-side monitoring (CSM) or embedded proxy";
     homepage = "https://github.com/iann0036/iamlive";
     license = lib.licenses.mit;
   };

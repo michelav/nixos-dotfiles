@@ -1,1 +1,7 @@
-{ imports = [ ./nix.nix ./sops.nix ./virtualisation.nix ]; }
+{
+  imports = [
+    ./nix.nix
+    ./sops.nix
+    ./virtualisation.nix
+  ];
+}

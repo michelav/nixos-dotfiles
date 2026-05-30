@@ -85,8 +85,13 @@ let
       echo "$cache/$thumbnail"
     '';
   };
-in {
-  home.packages = [ lf-cleaner lf-previewer vidthumb ];
+in
+{
+  home.packages = [
+    lf-cleaner
+    lf-previewer
+    vidthumb
+  ];
   programs.lf = {
     enable = true;
     settings = {

@@ -1,6 +1,16 @@
-{ inputs, config, lib, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 let
-  inherit (lib) types mkOption mkEnableOption mkIf;
+  inherit (lib)
+    types
+    mkOption
+    mkEnableOption
+    mkIf
+    ;
   mkFontOption = kind: {
     name = mkOption {
       type = types.str;
@@ -13,17 +23,18 @@ let
       description = "Package for ${kind} font";
     };
   };
-  mkPrefOption = pref:
+  mkPrefOption =
+    pref:
     mkOption {
       type = types.str;
       default = null;
       description = "Default ${pref}";
     };
   cfg = config.userPrefs;
-in {
+in
+{
   options.userPrefs = {
-    enable =
-      mkEnableOption "Whether to enable preferences configuration in desktop.";
+    enable = mkEnableOption "Whether to enable preferences configuration in desktop.";
     fonts = {
       monospace = mkFontOption "monospace";
       regular = mkFontOption "regular";
@@ -42,7 +53,10 @@ in {
 
   config = mkIf cfg.enable {
     fonts.fontconfig.enable = true;
-    home.packages = [ cfg.fonts.monospace.package cfg.fonts.regular.package ];
+    home.packages = [
+      cfg.fonts.monospace.package
+      cfg.fonts.regular.package
+    ];
     colorScheme = inputs.nix-colors.colorSchemes."${cfg.colorSchemeName}";
     home.sessionVariables = {
       EDITOR = cfg.editor;

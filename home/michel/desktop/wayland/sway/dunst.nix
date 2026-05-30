@@ -1,8 +1,11 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   home.packages = [ pkgs.dunst ];
   services.dunst = {
     enable = true;
-    iconTheme = with config.gtk.iconTheme; { inherit name package; };
+    iconTheme = with config.gtk.iconTheme; {
+      inherit name package;
+    };
     settings = with config.colorScheme.palette; {
       global = with config.desktop; {
         font = "${fonts.regular.name} 8";
