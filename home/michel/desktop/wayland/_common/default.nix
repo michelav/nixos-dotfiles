@@ -25,6 +25,9 @@
     xdg-utils
     fractal
     drawio
+    obs-studio
+    kdePackages.kdenlive
+    shotcut
   ];
 
   home.sessionVariables = {
