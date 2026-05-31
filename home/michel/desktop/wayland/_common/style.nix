@@ -1,7 +1,6 @@
 { config, ... }:
 
-with config.colorscheme.palette;
-with config.userPrefs;
+with config.lib.stylix.colors;
 ''
 
   /* Nord */
@@ -31,7 +30,7 @@ with config.userPrefs;
   #waybar {
     background: none;
     color: @module-fg;
-    font-family: '${fonts.regular.name}', '${fonts.monospace.name}';
+    font-family: '${config.stylix.fonts.sansSerif.name}', '${config.stylix.fonts.monospace.name}';
     font-size: 12pt;
     font-weight: normal;
 

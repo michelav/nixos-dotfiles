@@ -6,9 +6,9 @@
     iconTheme = with config.gtk.iconTheme; {
       inherit name package;
     };
-    settings = with config.colorScheme.palette; {
-      global = with config.desktop; {
-        font = "${fonts.regular.name} 8";
+    settings = with config.lib.stylix.colors; {
+      global = {
+        font = "${config.stylix.fonts.sansSerif.name} 8";
         markup = true;
         format = "<b>%s</b>\\n%b";
         indicate_hidden = true;

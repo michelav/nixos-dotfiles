@@ -47,7 +47,7 @@
     statix # Nix linter
     haskellPackages.nix-derivation # Inspecting .drv's
 
-    neofetch
+    fastfetch
     most
   ];
 

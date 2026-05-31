@@ -1,6 +1,14 @@
-{ palette, hexToRGBString, ... }:
+{ palette, ... }:
 let
-  rgba = color: alpha: "rgba(${hexToRGBString "," "${color}"},${alpha})";
+  hexToRGB =
+    hex:
+    let
+      r = builtins.substring 0 2 hex;
+      g = builtins.substring 2 2 hex;
+      b = builtins.substring 4 2 hex;
+    in
+    "${r},${g},${b}";
+  rgba = color: alpha: "rgba(${hexToRGB color},${alpha})";
 in
 ''
   @define-color base00 #${palette.base00};

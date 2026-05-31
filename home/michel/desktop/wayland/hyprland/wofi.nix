@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }:
 # Copied from https://github.com/Misterio77/nix-config
@@ -26,7 +25,6 @@ in
   '';
 
   xdg.configFile."wofi/style.css".text = import ./wofi-style.nix {
-    inherit (config.colorScheme) palette;
-    inherit (inputs.nix-colors.lib-core.conversions) hexToRGBString;
+    palette = config.lib.stylix.colors;
   };
 }

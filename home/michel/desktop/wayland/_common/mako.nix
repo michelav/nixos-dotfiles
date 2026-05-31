@@ -1,14 +1,13 @@
 { config, ... }:
 let
-  inherit (config) colorScheme userPrefs;
-  inherit (colorScheme) palette;
+  palette = config.lib.stylix.colors;
 in
 {
   services.mako = {
     enable = true;
     settings = {
       # iconPath = "${config.gtk.iconTheme.package}/share/icons/${config.gtk.iconTheme.name}";
-      font = "${userPrefs.fonts.regular.name} 10";
+      font = "${config.stylix.fonts.sansSerif.name} 10";
       padding = "10,20";
       anchor = "top-right";
       width = "400";

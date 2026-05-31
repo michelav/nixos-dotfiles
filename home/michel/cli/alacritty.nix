@@ -2,7 +2,7 @@
 {
   programs.alacritty =
     let
-      inherit (config) userPrefs colorscheme;
+      colors = config.lib.stylix.colors;
     in
     {
       enable = true;
@@ -12,10 +12,10 @@
           padding.y = 3;
         };
         font = {
-          family.style = userPrefs.fonts.monospace.name;
+          family.style = config.stylix.fonts.monospace.name;
           size = 12;
         };
-        colors = with colorscheme.palette; {
+        colors = with colors; {
           primary = {
             background = "#${base00}";
             foreground = "#${base06}";

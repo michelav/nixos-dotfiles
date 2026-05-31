@@ -1,7 +1,7 @@
 # Color configuration extracted from https://github.com/Misterio77/nix-config
 { pkgs, config, ... }:
 let
-  colors = config.colorscheme.palette;
+  colors = config.lib.stylix.colors;
 in
 {
   home.packages = [ pkgs.adwaita-qt6 ];

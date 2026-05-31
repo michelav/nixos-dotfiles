@@ -71,7 +71,7 @@ in
     portalPackage = null;
     settings =
       let
-        inherit (config.colorscheme) palette;
+        palette = config.lib.stylix.colors;
         inherit (config.home.sessionVariables) TERMINAL BROWSER EDITOR;
         uwsm = lib.getExe osConfig.programs.uwsm.package;
       in

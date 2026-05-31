@@ -7,7 +7,7 @@
     enable = true;
     settings =
       let
-        fontName = config.userPrefs.fonts.monospace.name;
+        fontName = config.stylix.fonts.monospace.name;
         fontSize = 12;
         icon-theme = config.gtk.iconTheme.name;
       in
@@ -24,7 +24,7 @@
         };
         colors =
           let
-            inherit (config.colorscheme) palette;
+            palette = config.lib.stylix.colors;
             inherit (builtins)
               substring
               stringLength

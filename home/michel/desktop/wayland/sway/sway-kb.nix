@@ -6,7 +6,7 @@
   ...
 }:
 let
-  colors = config.colorscheme.palette;
+  colors = config.lib.stylix.colors;
   lockcmd = "${config.programs.swaylock.package}/bin/swaylock -f -S";
 in
 {

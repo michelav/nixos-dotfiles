@@ -1,5 +1,5 @@
 {
-  inputs,
+  pkgs,
   config,
   lib,
   ...
@@ -11,18 +11,6 @@ let
     mkEnableOption
     mkIf
     ;
-  mkFontOption = kind: {
-    name = mkOption {
-      type = types.str;
-      default = null;
-      description = "Name for ${kind} font";
-    };
-    package = mkOption {
-      type = types.package;
-      default = null;
-      description = "Package for ${kind} font";
-    };
-  };
   mkPrefOption =
     pref:
     mkOption {
@@ -35,29 +23,40 @@ in
 {
   options.userPrefs = {
     enable = mkEnableOption "Whether to enable preferences configuration in desktop.";
-    fonts = {
-      monospace = mkFontOption "monospace";
-      regular = mkFontOption "regular";
-    };
 
     browser = mkPrefOption "browser";
     editor = mkPrefOption "editor";
     terminal = mkPrefOption "terminal";
     colorSchemeName = mkPrefOption "colorSchemeName";
-    wallpaper = mkOption {
-      type = types.str;
-      default = "";
-      description = "Wallpaper path";
-    };
   };
 
   config = mkIf cfg.enable {
-    fonts.fontconfig.enable = true;
-    home.packages = [
-      cfg.fonts.monospace.package
-      cfg.fonts.regular.package
-    ];
-    colorScheme = inputs.nix-colors.colorSchemes."${cfg.colorSchemeName}";
+    stylix = {
+      enable = true;
+      autoEnable = false;
+      polarity = "dark";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/${cfg.colorSchemeName}.yaml";
+      fonts = {
+        monospace = {
+          name = "JetBrainsMono Nerd Font";
+          package = pkgs.nerd-fonts.jetbrains-mono;
+        };
+        sansSerif = {
+          name = "Inter";
+          package = pkgs.inter;
+        };
+      };
+      cursor = {
+        name = "Bibata-Modern-Classic";
+        package = pkgs.bibata-cursors;
+        size = 24;
+      };
+      icons = {
+        enable = true;
+        dark = "Tela-circle-dark";
+        package = pkgs.tela-circle-icon-theme;
+      };
+    };
     home.sessionVariables = {
       EDITOR = cfg.editor;
       BROWSER = cfg.browser;

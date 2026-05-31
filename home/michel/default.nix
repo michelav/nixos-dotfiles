@@ -8,7 +8,7 @@
 
   # The feats dictates what should be installed
   imports = [
-    inputs.nix-colors.homeManagerModules.default
+    inputs.stylix.homeModules.stylix
     ./hm-impermanence-optin.nix
     ./cli
     ./cloud
@@ -40,37 +40,15 @@
 
   systemd.user.startServices = "sd-switch";
 
-  userPrefs =
-    let
-      # colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
-      # wp = colors-lib.nixWallpaperFromScheme {
-      #   scheme = config.colorScheme;
-      #   width = 1920;
-      #   height = 1080;
-      #   logoScale = 3.0;
-      # };
-      wp = "~/Pictures/wallpapers/dracula_nixos.png";
-    in
-    {
-      enable = true;
-      editor = "vim";
-      browser = "firefox";
-      terminal = "wezterm";
-      # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
-      # colorSchemeName = "one-light";
-      colorSchemeName = "nord";
-      fonts = {
-        monospace = {
-          name = "JetBrainsMono Nerd Font";
-          package = pkgs.nerd-fonts.jetbrains-mono;
-        };
-        regular = {
-          name = "Inter";
-          package = pkgs.inter;
-        };
-      };
-      wallpaper = "${wp}";
-    };
+  userPrefs = {
+    enable = true;
+    editor = "vim";
+    browser = "firefox";
+    terminal = "wezterm";
+    # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
+    # colorSchemeName = "one-light";
+    colorSchemeName = "nord";
+  };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

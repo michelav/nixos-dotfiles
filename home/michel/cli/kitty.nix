@@ -1,12 +1,12 @@
 { config, ... }:
 let
-  colors = config.colorscheme.palette;
+  colors = config.lib.stylix.colors;
 in
 {
   programs.kitty = {
     enable = true;
     font = {
-      inherit (config.userPrefs.fonts.monospace) name;
+      inherit (config.stylix.fonts.monospace) name;
       size = 12;
     };
     keybindings = {

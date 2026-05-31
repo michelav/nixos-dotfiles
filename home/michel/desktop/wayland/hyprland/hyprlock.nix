@@ -1,14 +1,19 @@
 {
-  inputs,
   config,
   pkgs,
   ...
 }:
 let
-  inherit (config.colorscheme) palette;
-  inherit (config.userPrefs) fonts;
-  inherit (inputs.nix-colors.lib.conversions) hexToRGBString;
-  hex2RGB = hexToRGBString ", ";
+  palette = config.lib.stylix.colors;
+  fonts = config.stylix.fonts;
+  hex2RGB =
+    hex:
+    let
+      r = builtins.substring 0 2 hex;
+      g = builtins.substring 2 2 hex;
+      b = builtins.substring 4 2 hex;
+    in
+    "${r}, ${g}, ${b}";
   fortune = "${pkgs.fortune}/bin/fortune";
 in
 {
@@ -43,7 +48,7 @@ in
           text = "cmd[update:600000] date +\"%a %d-%m-%Y\"";
           color = "rgb(${hex2RGB palette.base07})";
           font_size = 35;
-          font_family = "${fonts.regular.name}";
+          font_family = "${fonts.sansSerif.name}";
           text_align = "left";
           halign = "right";
           valign = "top";
@@ -53,7 +58,7 @@ in
           text = "$TIME";
           color = "rgb(${hex2RGB palette.base07})";
           font_size = 30;
-          font_family = "${fonts.regular.name}";
+          font_family = "${fonts.sansSerif.name}";
           text_align = "left";
           halign = "right";
           valign = "top";

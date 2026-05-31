@@ -1,12 +1,12 @@
 {
+  inputs,
   config,
   pkgs,
-  inputs,
   ...
 }:
 let
   system = pkgs.stdenv.hostPlatform.system;
-  inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
+  stylix = config.stylix;
   inherit (inputs.diniamo-pkgs.packages.${system}) bibata-hyprcursor;
 in
 rec {
@@ -28,17 +28,14 @@ rec {
   gtk = {
     enable = true;
     theme = {
-      name = "${config.colorscheme.slug}";
-      package = gtkThemeFromScheme { scheme = config.colorscheme; };
+      name = "Nordic";
+      package = pkgs.nordic;
     };
-    # cursorTheme.name = "Bibata-Modern-Classic";
-    iconTheme = {
-      name = "Tela-circle-dark";
-      package = pkgs.tela-circle-icon-theme;
+    cursorTheme = {
+      inherit (stylix.cursor) name package size;
     };
     font = {
-      inherit (config.userPrefs.fonts.regular) name package;
-
+      inherit (stylix.fonts.sansSerif) name package;
       size = 12;
     };
   };
@@ -53,17 +50,11 @@ rec {
   services.xsettingsd = {
     enable = true;
     settings = {
-      "Net/ThemeName" = "${gtk.theme.name}";
-      "Net/IconThemeName" = "${gtk.iconTheme.name}";
+      "Net/ThemeName" = "${config.gtk.theme.name}";
+      "Net/IconThemeName" = "${config.gtk.iconTheme.name}";
     };
   };
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 24;
-  };
   # INFO: You should also define env variables in hypr config to use hyprcursors.
   # https://wiki.hyprland.org/Hypr-Ecosystem/hyprcursor/
   home.file.".local/share/icons/Bibata-modern".source =

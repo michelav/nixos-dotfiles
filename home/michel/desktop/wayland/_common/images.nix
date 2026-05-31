@@ -2,7 +2,7 @@
 {
   programs.imv =
     let
-      inherit (config.colorscheme) palette;
+      palette = config.lib.stylix.colors;
     in
     {
       enable = true;

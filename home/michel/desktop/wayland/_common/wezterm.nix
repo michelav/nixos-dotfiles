@@ -6,8 +6,8 @@
 }:
 
 let
-  inherit (config) colorscheme;
-  colors = colorscheme.palette;
+  colors = config.lib.stylix.colors;
+  colorSchemeName = config.userPrefs.colorSchemeName;
   system = pkgs.stdenv.hostPlatform.system;
 in
 {
@@ -15,7 +15,7 @@ in
     enable = true;
     package = inputs.wezterm-main.packages.${system}.default;
     colorSchemes = {
-      "${colorscheme.slug}" = {
+      "${colorSchemeName}" = {
         foreground = "#${colors.base05}";
         background = "#${colors.base00}";
 
@@ -52,9 +52,9 @@ in
         return {
           automatically_reload_config = false,
           term = "wezterm",
-          font = wezterm.font("${config.userPrefs.fonts.monospace.name}"),
+          font = wezterm.font("${config.stylix.fonts.monospace.name}"),
           font_size = 12.0,
-          color_scheme = "${colorscheme.slug}",
+          color_scheme = "${colorSchemeName}",
           hide_tab_bar_if_only_one_tab = true,
           window_close_confirmation = "NeverPrompt",
           inactive_pane_hsb = { saturation = 0.7, brightness = 0.55 },

@@ -163,7 +163,7 @@ in
             weeks-pos = "right";
             on-scroll = 1;
             on-click-right = "mode";
-            format = with config.colorscheme.palette; {
+            format = with config.lib.stylix.colors; {
               months = "<span color='#${base0B}'><b>{}</b></span>";
               days = "<span color='#${base04}'><b>{}</b></span>";
               weeks = "<span color='#${base0C}'><b>W{}</b></span>";
@@ -177,182 +177,179 @@ in
         };
       }
     ];
-    style =
-      with config.colorscheme.palette;
-      with config.userPrefs; # css
-      ''
+    style = with config.lib.stylix.colors; ''
 
-        @define-color warning #${base0A};
-        @define-color critical #${base08};
-        @define-color workspacesfocused_bg #${base00};
-        @define-color workspacesfocused_fg #${base07};
-        @define-color workspace-urgent #${base09};
-        @define-color module-bg #${base03};
-        @define-color module-bg-alt #${base02};
-        @define-color module-fg #${base00};
-        @define-color module-fg-alt #${base06};
-        @define-color module-fg-anm #${base01};
-        @define-color module-bg-gp1 #${base0B};
-        @define-color module-bg-gp2 #${base0C};
-        @define-color module-bg-gp3 #${base0D};
-        @define-color module-bg-gp4 #${base0E};
-        @define-color module-bg-gp5 #${base0F};
+      @define-color warning #${base0A};
+      @define-color critical #${base08};
+      @define-color workspacesfocused_bg #${base00};
+      @define-color workspacesfocused_fg #${base07};
+      @define-color workspace-urgent #${base09};
+      @define-color module-bg #${base03};
+      @define-color module-bg-alt #${base02};
+      @define-color module-fg #${base00};
+      @define-color module-fg-alt #${base06};
+      @define-color module-fg-anm #${base01};
+      @define-color module-bg-gp1 #${base0B};
+      @define-color module-bg-gp2 #${base0C};
+      @define-color module-bg-gp3 #${base0D};
+      @define-color module-bg-gp4 #${base0E};
+      @define-color module-bg-gp5 #${base0F};
 
-        * {
-          border: none;
-          border-radius: 3px;
-          min-height: 0;
-          margin: 0.2em 0.2em 0.1em 0.2em;
-        }
+      * {
+        border: none;
+        border-radius: 3px;
+        min-height: 0;
+        margin: 0.2em 0.2em 0.1em 0.2em;
+      }
 
-        #waybar {
-          background: none;
-          color: @module-fg;
-          font-family: '${fonts.regular.name}', '${fonts.monospace.name}';
-          font-size: 12pt;
-          font-weight: 500;
-          opacity: 1.0;
-        }
+      #waybar {
+        background: none;
+        color: @module-fg;
+        font-family: '${config.stylix.fonts.sansSerif.name}', '${config.stylix.fonts.monospace.name}';
+        font-size: 12pt;
+        font-weight: 500;
+        opacity: 1.0;
+      }
 
-        /* Each module */
-        #battery,
-        #clock,
-        #submap,
-        #custom-media,
-        #network,
-        #pulseaudio,
-        #idle_inhibitor,
-        #language,
-        #tray,
-        #wireplumber,
-        #backlight {
-          background: @module-bg;
-          color: @module-fg;
-          padding-left: 0.8em;
-          padding-right: 0.8em;
-        }
+      /* Each module */
+      #battery,
+      #clock,
+      #submap,
+      #custom-media,
+      #network,
+      #pulseaudio,
+      #idle_inhibitor,
+      #language,
+      #tray,
+      #wireplumber,
+      #backlight {
+        background: @module-bg;
+        color: @module-fg;
+        padding-left: 0.8em;
+        padding-right: 0.8em;
+      }
 
-        /* Each module that should blink */
-        #memory,
-        #temperature,
-        #battery {
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
+      /* Each module that should blink */
+      #memory,
+      #temperature,
+      #battery {
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+      }
 
-        /* Each critical module */
-        #memory.critical,
-        #cpu.critical,
-        #temperature.critical,
-        #battery.critical {
-            background: @critical;
-            color: @module-fg-anm;
-        }
+      /* Each critical module */
+      #memory.critical,
+      #cpu.critical,
+      #temperature.critical,
+      #battery.critical {
+          background: @critical;
+          color: @module-fg-anm;
+      }
 
-        /* Each critical that should blink */
-        #memory.critical,
-        #temperature.critical,
-        #battery.critical.discharging {
-            animation-name: blink-critical;
-            animation-duration: 2s;
-        }
+      /* Each critical that should blink */
+      #memory.critical,
+      #temperature.critical,
+      #battery.critical.discharging {
+          animation-name: blink-critical;
+          animation-duration: 2s;
+      }
 
-        /* Each warning */
-        #network.disconnected,
-        #memory.warning,
-        #cpu.warning,
-        #temperature.warning,
-        #battery.warning {
-            background: @warning;
-            color: @module-fg-anm;
-        }
-
-        /* Each warning that should blink */
-        #battery.warning.discharging {
-            animation-name: blink-warning;
-            animation-duration: 3s;
-        }
-
-        #submap { /* Shown current Sway mode (resize etc.) */
-          color: @module-fg;
+      /* Each warning */
+      #network.disconnected,
+      #memory.warning,
+      #cpu.warning,
+      #temperature.warning,
+      #battery.warning {
           background: @warning;
-        }
+          color: @module-fg-anm;
+      }
 
-        /* Workspaces stuff */
+      /* Each warning that should blink */
+      #battery.warning.discharging {
+          animation-name: blink-warning;
+          animation-duration: 3s;
+      }
 
-        #workspaces {
-          background: @module-bg;
-        }
+      #submap { /* Shown current Sway mode (resize etc.) */
+        color: @module-fg;
+        background: @warning;
+      }
 
-        #workspaces button,
-        #workspaces button.persistent {
-            font-weight: normal; /* Somewhy the bar-wide setting is ignored*/
-            padding: 0 0.6em;
-            background: none;
-            margin: 2px;
-        }
+      /* Workspaces stuff */
 
-        #workspaces button.special,
-        #workspaces button.focused,
-        #workspaces button.active {
-            /* background: @workspacesfocused_bg; */
-            color: @module-fg;
-            font-weight: bold;
-        }
+      #workspaces {
+        background: @module-bg;
+      }
 
-        #workspaces button.urgent {
-            border-color: @workspace-urgent;
-            color: @workspace-urgent;
-        }
+      #workspaces button,
+      #workspaces button.persistent {
+          font-weight: normal; /* Somewhy the bar-wide setting is ignored*/
+          padding: 0 0.6em;
+          background: none;
+          margin: 2px;
+      }
 
-        #custom-media {
-            padding: 0 0.6em;
-        }
+      #workspaces button.special,
+      #workspaces button.focused,
+      #workspaces button.active {
+          /* background: @workspacesfocused_bg; */
+          color: @module-fg;
+          font-weight: bold;
+      }
 
-        #idle_inhibitor {
-            font-weight: bold;
-            padding: 0 0.6em;
-            color: @module-fg;
-        }
+      #workspaces button.urgent {
+          border-color: @workspace-urgent;
+          color: @workspace-urgent;
+      }
 
-        #idle_inhibitor.activated {
-          background: #${base09}
-        }
+      #custom-media {
+          padding: 0 0.6em;
+      }
 
-        #idle_inhibitor.deactivated {
-          background: @module-bg;
-        }
-
-        #bluetooth {
-          background: @module-bg;
-          font-size: 1.2em;
+      #idle_inhibitor {
           font-weight: bold;
           padding: 0 0.6em;
-        }
+          color: @module-fg;
+      }
 
-        @keyframes blink-warning {
-            70% {
-                color: @module-fg-alt;
-            }
+      #idle_inhibitor.activated {
+        background: #${base09}
+      }
 
-            to {
-                color: @module-fg-anm;
-                background-color: @warning;
-            }
-        }
+      #idle_inhibitor.deactivated {
+        background: @module-bg;
+      }
 
-        @keyframes blink-critical {
-            70% {
+      #bluetooth {
+        background: @module-bg;
+        font-size: 1.2em;
+        font-weight: bold;
+        padding: 0 0.6em;
+      }
+
+      @keyframes blink-warning {
+          70% {
               color: @module-fg-alt;
-            }
+          }
 
-            to {
-                color: @module-fg-anm;
-                background-color: @critical;
-            }
-        }
-      '';
+          to {
+              color: @module-fg-anm;
+              background-color: @warning;
+          }
+      }
+
+      @keyframes blink-critical {
+          70% {
+            color: @module-fg-alt;
+          }
+
+          to {
+              color: @module-fg-anm;
+              background-color: @critical;
+          }
+      }
+    '';
   };
 
   # systemd unit provided with the package is flawed.

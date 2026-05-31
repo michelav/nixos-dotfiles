@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  inherit (config) userPrefs xdg;
+  inherit (config) xdg;
   swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   lockcmd = "${swaylock} -f -S";
   swayidle = "${pkgs.swayidle}/bin/swayidle";
@@ -80,7 +80,7 @@ in
       };
       output."eDP-1".bg = " ~/Pictures/wallpapers/ign_endeavour2.png fill";
       fonts = {
-        names = [ userPrefs.fonts.regular.name ];
+        names = [ config.stylix.fonts.sansSerif.name ];
         size = 12.0;
       };
       gaps = {
@@ -141,7 +141,7 @@ in
         };
       };
       bars = [ { command = "waybar"; } ];
-      colors = import ./colors.nix { inherit (config.colorscheme) colors; };
+      colors = import ./colors.nix { colors = config.lib.stylix.colors; };
       startup = [
         {
           command = "${swayidle} -w -C ${xdg.configHome}/swayidle/sway-config";
