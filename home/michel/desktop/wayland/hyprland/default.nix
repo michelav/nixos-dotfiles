@@ -162,7 +162,9 @@ in
             wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
             makoctl = "${pkgs.mako}/bin/makoctl";
             grimblast = "${hyprw-contrib.grimblast}/bin/grimblast";
-            light = "${pkgs.light}/bin/light";
+            bright = "${pkgs.brightnessctl}/bin/brightnessctl";
+            bright-up = "${bright} s 5%+";
+            bright-down = "${bright} s 5%-";
             wpctl = "${pkgs.wireplumber}/bin/wpctl";
             fuzzel = "${config.programs.fuzzel.package}/bin/fuzzel";
           in
@@ -184,8 +186,8 @@ in
             ",Scroll_Lock,exec,pass-wofi"
             ",XF86Calculator,exec,pass-wofi"
             # Laptop brightness
-            ",XF86MonBrightnessUp,exec,${light} -A 10"
-            ",XF86MonBrightnessDown,exec,${light} -U 10"
+            ",XF86MonBrightnessUp,exec,${bright-up}"
+            ",XF86MonBrightnessDown,exec,${bright-down}"
             # Audio controls
             ",XF86AudioRaiseVolume,exec,${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+"
             ",XF86AudioLowerVolume,exec,${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"

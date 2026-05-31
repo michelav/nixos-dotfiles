@@ -5,7 +5,7 @@ let
   hyprctl = "${hyprland}/bin/hyprctl";
   hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
   pidof = "${pkgs.procps}/bin/pidof";
-  bright = "${pkgs.light}/bin/light";
+  bright = "${pkgs.brightnessctl}/bin/brightnessctl";
   isLocked = "${pidof} hyprlock";
   screenOn = "${hyprctl} dispatch dpms on";
   screenOff = "${hyprctl} dispatch dpms off";
@@ -24,8 +24,8 @@ in
       listener = [
         {
           timeout = timeout 0;
-          on-timeout = "${bright} -O && ${bright} -S 20";
-          on-resume = "${bright} -I";
+          on-timeout = "${bright} -s && ${bright} s 20%";
+          on-resume = "${bright} -r";
         }
         {
           timeout = timeout 60;

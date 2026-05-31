@@ -6,7 +6,10 @@ in
 {
   # TODO: Remove greetd.nix file after some time with this new config
   # imports = [ ./greetd.nix ];
-  environment.systemPackages = [ inputs.rose-pine-hyprcursor.packages.${system}.default ];
+  environment.systemPackages = [
+    inputs.rose-pine-hyprcursor.packages.${system}.default
+    pkgs.brightnessctl
+  ];
   services = {
     dbus.packages = [
       pkgs.gcr
@@ -26,7 +29,6 @@ in
   };
   services.gnome.gnome-keyring.enable = true;
   programs = {
-    light.enable = true;
     hyprland =
       let
         system = pkgs.stdenv.hostPlatform.system;
