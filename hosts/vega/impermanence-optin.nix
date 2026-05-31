@@ -1,5 +1,6 @@
-{ lib, ... }:
+{ pkgs, ... }:
 let
+  rootDevice = "dev-disk-by\\x2dlabel-VEGA_BTRFS.device";
   wipeScript = ''
     mkdir -p /btrfs
     mount -o subvol=/ /dev/disk/by-label/VEGA_BTRFS /btrfs
@@ -19,7 +20,29 @@ let
   '';
 in
 {
-  boot.initrd.postDeviceCommands = lib.mkBefore wipeScript;
+  boot.initrd.systemd.services.rollback-root = {
+    description = "Rollback Btrfs root subvolume";
+
+    requiredBy = [ "sysroot.mount" ];
+    before = [ "sysroot.mount" ];
+
+    requires = [ rootDevice ];
+    after = [ rootDevice ];
+
+    unitConfig.DefaultDependencies = "no";
+
+    serviceConfig = {
+      Type = "oneshot";
+    };
+
+    path = [
+      pkgs.btrfs-progs
+      pkgs.coreutils
+      pkgs.util-linux
+    ];
+
+    script = wipeScript;
+  };
 
   environment.persistence."/persist/vega" = {
     hideMounts = true;
