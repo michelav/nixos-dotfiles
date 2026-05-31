@@ -48,7 +48,17 @@ nix build .#packages.x86_64-linux.<name>
 - Prefer `lib.mkIf`, `lib.mkEnableOption`, and reusable options when a feature may be toggled.
 - Avoid large unrelated edits.
 - Do not reorder big attribute sets unless needed.
-- Run `nix fmt` after editing Nix files.
+
+## Formatting policy
+
+Do not run `nix fmt` over the entire repository unless explicitly requested.
+
+When changing Nix files:
+- preserve existing formatting whenever possible;
+- format only files that were modified by the task;
+- avoid unrelated formatting changes;
+- if broad formatting is required, propose it as a separate commit;
+- keep functional changes and formatting-only changes separated.
 
 ## Host and Home Manager rules
 
@@ -74,7 +84,6 @@ Before editing:
 
 After editing:
 
-- Run `nix fmt`.
 - Prefer `nix flake check`.
 - For host changes, prefer `nixos-rebuild build --flake .#vega`.
 - Summarize changed files and validation results.
