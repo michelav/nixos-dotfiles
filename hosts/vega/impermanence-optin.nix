@@ -1,38 +1,55 @@
 { pkgs, ... }:
 let
-  rootDevice = "dev-disk-by\\x2dlabel-VEGA_BTRFS.device";
+  cryptService = "systemd-cryptsetup@vega_crypt.service";
   wipeScript = ''
+    set -euo pipefail
+
     mkdir -p /btrfs
-    mount -o subvol=/ /dev/disk/by-label/VEGA_BTRFS /btrfs
+    mount -t btrfs -o subvol=/ /dev/mapper/vega_crypt /btrfs
+
     if [ -e "/btrfs/root/dontwipe" ]; then
-      echo "Not wiping root"
+      echo "rollback-root: not wiping root because /btrfs/root/dontwipe exists"
     else
-      echo "Cleaning subvolume"
-      btrfs subvolume list -o /btrfs/root | cut -f9 -d ' ' |
-      while read subvolume; do
-        btrfs subvolume delete "/btrfs/$subvolume"
-      done && btrfs subvolume delete /btrfs/root
-      echo "Restoring blank subvolume"
+      echo "rollback-root: deleting nested subvolumes under /btrfs/root"
+
+      btrfs subvolume list -o /btrfs/root |
+      tac |
+      while IFS= read -r line; do
+        subvolume="''${line#* path }"
+
+        if [ -n "$subvolume" ] && [ "$subvolume" != "$line" ]; then
+          echo "rollback-root: deleting /btrfs/$subvolume"
+          btrfs subvolume delete "/btrfs/$subvolume"
+        fi
+      done
+
+      echo "rollback-root: deleting /btrfs/root"
+      btrfs subvolume delete /btrfs/root
+
+      echo "rollback-root: restoring /btrfs/root from /btrfs/root-blank"
       btrfs subvolume snapshot /btrfs/root-blank /btrfs/root
     fi
+
+    sync
     umount /btrfs
-    rm -rf /btrfs
+    rmdir /btrfs
   '';
 in
 {
   boot.initrd.systemd.services.rollback-root = {
     description = "Rollback Btrfs root subvolume";
-
-    requiredBy = [ "sysroot.mount" ];
+    wantedBy = [ "initrd.target" ];
     before = [ "sysroot.mount" ];
-
-    requires = [ rootDevice ];
-    after = [ rootDevice ];
+    after = [
+      cryptService
+    ];
 
     unitConfig.DefaultDependencies = "no";
 
     serviceConfig = {
       Type = "oneshot";
+      StandardOutput = "journal+console";
+      StandardError = "journal+console";
     };
 
     path = [
