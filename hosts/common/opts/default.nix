@@ -22,11 +22,12 @@
       inter
       iosevka
       noto-fonts-color-emoji
+      nerd-fonts.jetbrains-mono
     ];
     fontconfig.defaultFonts = {
       serif = [ "Roboto Slab" ];
       sansSerif = [ "Inter" ];
-      monospace = [ "Iosevka" ];
+      monospace = [ "JetBrainsMono Nerd Font" ];
       emoji = [ "Noto Color Emoji" ];
     };
   };
