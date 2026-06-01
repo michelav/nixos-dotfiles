@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/23.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/26.05";
     flake-utils.url = "github:numtide/flake-utils";
     hardware.url = "github:nixos/nixos-hardware";
     impermanence.url = "github:nix-community/impermanence";
@@ -95,7 +95,7 @@
         default = local-overlays;
       };
       inherit homeManagerModules nixosModules;
-      formatter = forAllSystems (system: pkgs.${system}.nixfmt-tree);
+      formatter = forAllSystems (system: pkgs.${system}.nixfmt);
       nixosConfigurations = {
         vega = mkNixos "x86_64-linux" (
           [
