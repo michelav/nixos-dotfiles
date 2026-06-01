@@ -130,7 +130,6 @@ in
           ];
         };
         dwindle = {
-          pseudotile = true;
           preserve_split = true;
         };
         master = {
@@ -138,7 +137,6 @@ in
           orientation = "left";
         };
         misc = {
-          vfr = "on";
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
         };
@@ -198,14 +196,14 @@ in
             # Window controls
             "SUPERSHIFT,q,killactive"
             "SUPERSHIFT,e,exec,${uwsm} stop"
-            "SUPER,s,togglesplit"
+            "SUPER,s,layoutmsg,togglesplit"
             "SUPER,f,fullscreen,1"
             "SUPERSHIFT,f,fullscreen,0"
             "SUPERSHIFT,space,togglefloating"
-            "SUPER,minus,splitratio,-0.25"
-            "SUPERSHIFT,minus,splitratio,-0.3333333"
-            "SUPER,equal,splitratio,0.25"
-            "SUPERSHIFT,equal,splitratio,0.3333333"
+            "SUPER,minus,layoutmsg,splitratio,-0.25"
+            "SUPERSHIFT,minus,layoutmsg,splitratio,-0.3333333"
+            "SUPER,equal,layoutmsg,splitratio,0.25"
+            "SUPERSHIFT,equal,layoutmsg,splitratio,0.3333333"
             "SUPER,g,togglegroup"
             "SUPER,apostrophe,changegroupactive,f"
             "SUPERSHIFT,apostrophe,changegroupactive,b"
