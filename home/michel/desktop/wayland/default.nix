@@ -11,6 +11,7 @@
     mimeApps.enable = true;
     userDirs = {
       enable = true;
+      setSessionVariables = false;
     };
     portal.enable = lib.mkForce true;
   };
