@@ -10,7 +10,6 @@
     ./theme.nix
     ./zathura.nix
     ./wezterm.nix
-    ./waybar.nix
     ./comm.nix
     ./keyring.nix
     ./virt-manager.nix

@@ -28,6 +28,15 @@ in
     editor = mkPrefOption "editor";
     terminal = mkPrefOption "terminal";
     colorSchemeName = mkPrefOption "colorSchemeName";
+    desktopShell = mkOption {
+      type = types.enum [
+        "waybar"
+        "quickshell"
+        "ags"
+      ];
+      default = "waybar";
+      description = "Desktop shell to use for Wayland sessions.";
+    };
   };
 
   config = mkIf cfg.enable {

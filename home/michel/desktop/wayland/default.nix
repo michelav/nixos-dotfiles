@@ -3,6 +3,7 @@
   imports = [
     ./_common
     ./hyprland
+    ./shell
   ];
 
   xdg = {

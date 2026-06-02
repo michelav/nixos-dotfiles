@@ -1,12 +1,14 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
 let
   custom-waybar = pkgs.waybar;
+  cfg = config.userPrefs;
 in
-{
+lib.mkIf (cfg.desktopShell == "waybar") {
   programs.waybar = {
     enable = true;
     package = custom-waybar;
