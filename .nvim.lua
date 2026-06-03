@@ -1,4 +1,4 @@
-local nvim_lsp = require("lspconfig")
+local nvim_lsp = require("vim.lsp.config")
 
 local augroup = vim.api.nvim_create_augroup("NixdFormatting", {})
 
