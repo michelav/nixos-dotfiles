@@ -17,6 +17,7 @@
     ./gaming
     ./media
     ./writing
+    ./research
   ]
   ++ (builtins.attrValues outputs.homeManagerModules);
 
