@@ -1,10 +1,34 @@
 # Static networking configuration. It isn't used at moment.
 { pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    # wifi
+    iw
+    wavemon
+    ethtool
+    pciutils
+    usbutils
+
+    # DNS / Route
+    iproute2
+    dnsutils
+    mtr
+    traceroute
+
+    # Throughoput
+    iperf
+
+    # Traffic / Monitoring
+    tcpdump
+    nethogs
+    iftop
+    bmon
+  ];
   networking = {
     networkmanager = {
       enable = true;
-      wifi.backend = "iwd";
+      wifi.backend = "wpa_supplicant";
+      wifi.powersave = false;
       dispatcherScripts =
         let
           nmcli = "${pkgs.networkmanager}/bin/nmcli";
@@ -33,15 +57,6 @@
           }
         ];
     };
-    wireless = {
-      iwd = {
-        enable = true;
-        settings = {
-          Network = {
-            EnableIPv6 = true;
-          };
-        };
-      };
-    };
+    wireless.iwd.enable = false;
   };
 }

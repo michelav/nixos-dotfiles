@@ -7,6 +7,9 @@
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
 
+        WIFI_PWR_ON_AC = "off";
+        WIFI_PWR_ON_BAT = "off";
+
         USB_DENYLIST = "046d:c534";
 
         # The following prevents the battery from charging fully to
