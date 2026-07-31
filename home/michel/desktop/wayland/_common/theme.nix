@@ -7,6 +7,15 @@
 let
   system = pkgs.stdenv.hostPlatform.system;
   stylix = config.stylix;
+  whiteSurNord = pkgs.whitesur-gtk-theme.override {
+    colorVariants = [ "dark" ];
+    schemeVariants = [ "nord" ];
+    themeVariants = [ "blue" ];
+  };
+  gtkTheme = {
+    name = "WhiteSur-Dark-blue-nord";
+    package = whiteSurNord;
+  };
   inherit (inputs.diniamo-pkgs.packages.${system}) bibata-hyprcursor;
 in
 rec {
@@ -16,10 +25,7 @@ rec {
     font-awesome
 
     # GTK Stuff
-    gtk-engine-murrine
-    gtk_engines
     gsettings-desktop-schemas
-    nordic
     numix-cursor-theme
     tela-circle-icon-theme
     vimix-cursors
@@ -27,11 +33,9 @@ rec {
 
   gtk = {
     enable = true;
-    gtk4.theme = null;
-    theme = {
-      name = "Nordic";
-      package = pkgs.nordic;
-    };
+    colorScheme = "dark";
+    gtk4.theme = gtkTheme;
+    theme = gtkTheme;
     cursorTheme = {
       inherit (stylix.cursor) name package size;
     };
