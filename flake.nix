@@ -139,6 +139,7 @@
           haskell = import ./shells/haskell.nix { pkgs = ps; };
           rust = import ./shells/rust.nix { pkgs = ps; };
           golang = import ./shells/golang.nix { pkgs = ps; };
+          python = import ./shells/python.nix { pkgs = ps; };
         }
       );
     };

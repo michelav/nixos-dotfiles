@@ -1,7 +1,6 @@
 {
   inputs,
   outputs,
-  pkgs,
   ...
 }:
 {
@@ -21,18 +20,6 @@
     ./agents
   ]
   ++ (builtins.attrValues outputs.homeManagerModules);
-
-  home.packages = with pkgs; [
-    jq
-    ripgrep
-    fd
-    tree
-    htop
-    btop-cuda
-    gcc
-    bc
-    bottom
-  ];
 
   home = {
     username = "michel";

@@ -6,3 +6,4 @@
 # Local AI-agent memory/settings
 CLAUDE.local.md
 .codex.local
+.claude/settings.local.json

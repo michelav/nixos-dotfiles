@@ -12,6 +12,7 @@
     lazygit
     gnumake
     cmake
+    gcc
   ];
 
   home.persistence."/persist" = {

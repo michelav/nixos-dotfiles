@@ -8,6 +8,6 @@ in
 pkgs.mkShell {
   nativeBuildInputs = [
     python3
-    (poetry.override { python = pkgs.python3; })
+    poetry
   ];
 }

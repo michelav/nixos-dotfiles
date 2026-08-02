@@ -31,11 +31,15 @@
     distrobox # Nice escape hatch, integrates docker images with my environment
 
     bottom # System viewer
+    htop # Process viewer
+    btop-cuda # Process viewer with GPU support
     ncdu # TUI disk usage
     ripgrep # Better grep
     fd # Better find
+    tree # Directory listing
     httpie # Better curl
     jq # JSON pretty printer and manipulator
+    bc # Calculator
 
     nvd
     nh
