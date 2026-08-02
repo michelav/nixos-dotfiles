@@ -9,6 +9,7 @@
   imports = [
     inputs.stylix.homeModules.stylix
     ./hm-impermanence-optin.nix
+    ./apps
     ./cli
     ./cloud
     ./dev
