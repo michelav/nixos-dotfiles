@@ -29,7 +29,6 @@ _: {
       ".local/share/direnv"
       ".local/state/lazygit"
       ".local/share/containers"
-      ".local/share/nvim/site/spell"
       ".config/enchant"
       "media"
     ];

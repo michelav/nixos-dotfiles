@@ -26,4 +26,11 @@ in
     vim-js
     vim-python
   ];
+
+  home.persistence."/persist" = {
+    directories = [
+      ".local/state/nvim"
+      ".local/share/nvim/site/spell"
+    ];
+  };
 }
