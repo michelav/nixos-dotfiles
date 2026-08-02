@@ -1,13 +1,5 @@
 { lib, pkgs, ... }:
 {
-  imports = [
-    ./pipewire.nix
-    ./networking.nix
-    ./media.nix
-    # ./plex.nix
-    ./monitoring.nix
-  ];
-
   programs = {
     fish.enable = true;
     dconf.enable = true;

@@ -17,8 +17,14 @@
 
     ./impermanence-optin.nix
     ./hardware-configuration.nix
-    ../common/opts
+
+    # Feature modules this host opts into. Everything vega enables is listed
+    # here; `hosts/common/opts` is a menu, not a bundle.
+    ../common/opts/media.nix
+    ../common/opts/monitoring.nix
+    ../common/opts/networking.nix
     ../common/opts/nvidia.nix
+    ../common/opts/pipewire.nix
     ../common/opts/power-mgmt.nix
     # INFO: Change the desktop option if u wanna another desktop / wm (gnome or hyprland for instance)
     ../common/opts/wayland.nix
