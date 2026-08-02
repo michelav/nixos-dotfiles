@@ -7,13 +7,11 @@
   imports = [
     ./lf.nix
     ./fish.nix
-    ./kitty.nix
     ./git.nix
     ./gpg.nix
     ./ssh.nix
     ./nix-index.nix
     ./pass.nix
-    ./alacritty.nix
     ./eza.nix
     ./yazi.nix
   ];
