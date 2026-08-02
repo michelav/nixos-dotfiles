@@ -1,40 +1,19 @@
-local nvim_lsp = require("vim.lsp.config")
+local flake = "builtins.getFlake (toString ./.)"
 
-local augroup = vim.api.nvim_create_augroup("NixdFormatting", {})
-
-local on_attach = function(client, bufnr)
-  if client:supports_method("textDocument/formatting") then
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format()
-      end,
-    })
-  end
-end
-
-nvim_lsp.nixd.setup({
-  cmd = { "nixd" },
-  on_attach = on_attach,
-  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+vim.lsp.config("nixd", {
   settings = {
     nixd = {
-      -- nixpkgs = {
-      -- 	expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }",
-      -- },
-      formatting = {
-        command = { "nixfmt" },
+      nixpkgs = {
+        expr = "(" .. flake .. ").nixosConfigurations.vega.pkgs",
       },
-      -- options = {
-      --   nixos = {
-      --     expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.vega.options",
-      --   },
-      --   home_manager = {
-      --     expr = "(builtins.getFlake (toString ./.))..home-manager.users.type.getSubOptions []",
-      --   },
-      -- },
+      options = {
+        nixos = {
+          expr = "(" .. flake .. ").nixosConfigurations.vega.options",
+        },
+        ["home-manager"] = {
+          expr = "(" .. flake .. ").nixosConfigurations.vega.options.home-manager.users.type.getSubOptions []",
+        },
+      },
     },
   },
 })
