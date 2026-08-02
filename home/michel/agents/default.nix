@@ -37,7 +37,7 @@ in
 
   # Use default profile
   programs.fish.shellAbbrs = {
-    codex = "codex --profile default";
+    codex = "codex -a on-request -s workspace-write";
   };
 
   programs.claude-code = {
