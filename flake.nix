@@ -104,13 +104,6 @@
           }
         ];
       };
-      packages = forAllSystems (
-        system:
-        let
-          ps = pkgs.${system};
-        in
-        import ./packages { pkgs = ps; }
-      );
       devShells = forAllSystems (
         system:
         let
