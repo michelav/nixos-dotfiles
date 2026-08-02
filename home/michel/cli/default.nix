@@ -5,8 +5,6 @@
 }:
 {
   imports = [
-    # TODO: Remove neovim confifguration from this module. A new one is created in dev
-    # ./neovim
     ./lf.nix
     ./fish.nix
     ./kitty.nix

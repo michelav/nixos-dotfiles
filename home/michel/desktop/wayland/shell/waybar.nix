@@ -66,14 +66,6 @@ lib.mkIf (cfg.desktopShell == "waybar") {
           on-scroll-down = "playerctl previous";
           exec = "${custom-waybar}/bin/waybar-mediaplayer.py 2>/dev/null"; # Script in resources/custom_modules folder
         };
-        "custom/scratchpad" = {
-          interval = 1;
-          exec = "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length'";
-          format = "  {}";
-          tooltip = false;
-          on-click = "swaymsg 'scratchpad show'";
-          on-click-right = "swaymsg 'move scratchpad'";
-        };
         "tray" = {
           icon-size = 12;
           spacing = 10;

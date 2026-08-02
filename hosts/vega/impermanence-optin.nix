@@ -47,8 +47,6 @@ in
       "/var/lib/systemd"
       "/var/lib/iwd"
       "/var/lib/plex"
-      # "/var/lib/jellyfin"
-      # "/var/cache/jellyfin"
       "/var/lib/nixos" # keeping users between boots
       "/var/lib/libvirt/images"
       "/etc/NetworkManager/system-connections"

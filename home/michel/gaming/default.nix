@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./steam.nix
-    # ./lutris.nix
-  ];
+  imports = [ ./steam.nix ];
   home.packages = [ pkgs.gamescope ];
 }
