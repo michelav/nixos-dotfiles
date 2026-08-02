@@ -1,4 +1,0 @@
-{ config, ... }:
-{
-  imports = [ ./michel.nix ];
-}
