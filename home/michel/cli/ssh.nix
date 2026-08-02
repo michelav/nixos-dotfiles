@@ -30,4 +30,8 @@
       };
     };
   };
+
+  home.persistence."/persist" = {
+    directories = [ ".ssh" ];
+  };
 }

@@ -26,4 +26,7 @@ in
     enable = true;
   };
 
+  home.persistence."/persist" = {
+    directories = [ ".gnupg" ];
+  };
 }

@@ -41,4 +41,8 @@ in
       WantedBy = [ "timers.target" ];
     };
   };
+
+  home.persistence."/persist" = {
+    directories = [ ".cache/nix-index" ];
+  };
 }

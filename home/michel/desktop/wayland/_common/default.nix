@@ -29,6 +29,14 @@
     shotcut
   ];
 
+  home.persistence."/persist" = {
+    directories = [
+      ".cache/keepassxc"
+      ".config/keepassxc"
+      ".secrets/keepassxc"
+    ];
+  };
+
   home.sessionVariables = {
     # wayland
     XDG_SESSION_TYPE = "wayland";

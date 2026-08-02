@@ -13,4 +13,8 @@ in
   home.sessionVariables = {
     DICPATH = dictionaries.dictionaryPath;
   };
+
+  home.persistence."/persist" = {
+    directories = [ ".config/enchant" ];
+  };
 }

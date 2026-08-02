@@ -111,4 +111,8 @@ _: {
       };
     };
   };
+
+  home.persistence."/persist" = {
+    directories = [ ".local/share/fish" ];
+  };
 }

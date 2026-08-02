@@ -3,4 +3,8 @@
     [storage]
     driver="btrfs"
   '';
+
+  home.persistence."/persist" = {
+    directories = [ ".local/share/containers" ];
+  };
 }

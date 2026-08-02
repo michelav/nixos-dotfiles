@@ -8,4 +8,8 @@
       PASSWORD_STORE_DIR = "$HOME/.secrets/password-store";
     };
   };
+
+  home.persistence."/persist" = {
+    directories = [ ".secrets/password-store" ];
+  };
 }

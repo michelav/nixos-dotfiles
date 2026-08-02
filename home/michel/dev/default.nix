@@ -13,4 +13,11 @@
     gnumake
     cmake
   ];
+
+  home.persistence."/persist" = {
+    directories = [
+      ".local/share/devenv"
+      ".local/state/lazygit"
+    ];
+  };
 }

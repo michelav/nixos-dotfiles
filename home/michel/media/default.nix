@@ -28,4 +28,11 @@
     };
     scripts = [ mpvScripts.mpris ];
   };
+
+  home.persistence."/persist" = {
+    directories = [
+      ".cache/spotify"
+      ".config/spotify"
+    ];
+  };
 }
