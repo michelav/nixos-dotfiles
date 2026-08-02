@@ -9,7 +9,6 @@
   # The feats dictates what should be installed
   imports = [
     inputs.stylix.homeModules.stylix
-    ./agents.nix
     ./hm-impermanence-optin.nix
     ./cli
     ./cloud
@@ -19,6 +18,7 @@
     ./media
     ./writing
     ./research
+    ./agents
   ]
   ++ (builtins.attrValues outputs.homeManagerModules);
 

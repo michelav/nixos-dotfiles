@@ -1,89 +1,47 @@
-# Repository Guidelines
+# Repository guidance
 
-## Purpose
+This repository defines Michel's NixOS system and Home Manager configuration
+using flakes. The active host is `vega`; the Home Manager user is `michel`.
 
-This repository defines Michel's NixOS system and Home Manager configuration using Nix flakes.
+## Ownership
 
-Keep changes declarative, reproducible, and scoped. Prefer editing existing Nix modules instead of adding imperative install steps.
+- Host-specific system configuration: `hosts/vega/`.
+- Shared system configuration: `hosts/common/` or `modules/nixos/`.
+- User applications and dotfiles: `home/michel/`.
+- Reusable Home Manager modules: `modules/hm/`.
+- Custom packages, overlays, and development shells:
+  `packages/`, `overlays/`, and `shells/`.
 
-## Repository map
+Inspect nearby files and their imports before introducing a new module.
 
-- `flake.nix`: flake inputs, outputs, host definitions, packages, formatters, and dev shells.
-- `hosts/`: NixOS host configurations.
-  - `hosts/vega/`: current main host.
-  - `hosts/common/global/`: base system concerns such as Nix, sops, and virtualization.
-  - `hosts/common/opts/`: optional system-level features such as Wayland, NVIDIA, networking, media, monitoring, and power management.
-- `home/michel/`: Home Manager configuration for user `michel`.
-  - `cli/`, `dev/`, `desktop/wayland/`, `cloud/`, `gaming/`, `media/`, `writing/`.
-- `modules/nixos/`: reusable NixOS modules.
-- `modules/hm/`: reusable Home Manager modules.
-- `packages/`: custom packages exposed by the flake.
-- `overlays/`: local overlays.
-- `shells/`: language-specific development shells.
-- `vibe/`: user-requested prompt/history notes only.
+## Change rules
 
-## Commands
+- Keep changes declarative, reproducible, minimal, and task-scoped.
+- Prefer existing module boundaries over imperative installation steps.
+- Do not reorder unrelated attribute sets or mix formatting-only changes
+  with functional changes.
+- Do not introduce abstractions for hypothetical reuse. Add reusable options
+  or modules only when requested or when an existing second consumer needs them.
+- Do not update flake inputs or `flake.lock` unless dependency updates are
+  part of the task.
 
-Use these commands from the repository root:
+## Safety
 
-```sh
-nix develop
-nix fmt
-nix flake check
-nixos-rebuild build --flake .#vega
-```
+- Never commit, print, or expose plaintext secrets.
+- Follow the existing `sops-nix` workflow.
+- For stateful services or credentials, check whether persistence under
+  `/persist` is required.
+- Never run `nixos-rebuild switch` unless explicitly requested.
 
-Use `nixos-rebuild switch --flake .#vega` only when the user explicitly asks to apply the system configuration.
+## Validation
 
-For package changes:
+Use the strongest relevant validation:
 
-```sh
-nix build .#packages.x86_64-linux.<name>
-```
+- Modified Nix files: `nix fmt <file>...`.
+- Flake or module changes: `nix flake check`.
+- Host-level changes: `nixos-rebuild build --flake .#vega`.
 
-## Nix style
+Never run repository-wide formatting unless explicitly requested.
 
-- Use two-space indentation.
-- Keep modules small and domain-oriented.
-- Prefer `lib.mkIf`, `lib.mkEnableOption`, and reusable options when a feature may be toggled.
-- Avoid large unrelated edits.
-- Do not reorder big attribute sets unless needed.
-
-## Formatting policy
-
-Do not run `nix fmt` over the entire repository unless explicitly requested.
-
-When changing Nix files:
-- preserve existing formatting whenever possible;
-- format only files that were modified by the task;
-- avoid unrelated formatting changes;
-- if broad formatting is required, propose it as a separate commit;
-- keep functional changes and formatting-only changes separated.
-
-## Host and Home Manager rules
-
-- Host-specific system changes belong under `hosts/<host>/`.
-- Shared NixOS changes belong under `hosts/common/` or `modules/nixos/`.
-- User-level apps, CLI tools, desktop config, and dotfiles belong under `home/michel/`.
-- Reusable Home Manager abstractions belong under `modules/hm/`.
-
-## Secrets and safety
-
-- Do not commit plaintext secrets.
-- Secrets are managed with `sops-nix`; keep encrypted material in the existing sops workflow.
-- Do not print secret values in logs, explanations, examples, or tests.
-- Be careful with impermanence paths. If adding stateful services or credentials, check whether persistence under `/persist` is required.
-
-## Change discipline
-
-Before editing:
-
-- Identify the smallest module that owns the behavior.
-- Inspect related imports before adding a new file.
-- Prefer a minimal patch over broad restructuring.
-
-After editing:
-
-- Prefer `nix flake check`.
-- For host changes, prefer `nixos-rebuild build --flake .#vega`.
-- Summarize changed files and validation results.
+Report changed files, validation performed, skipped checks, failures, and
+host-specific impact.changed files and validation results.
