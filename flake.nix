@@ -88,29 +88,25 @@
           };
         };
       homeManagerModules = import ./modules/hm;
-      nixosModules = import ./modules/nixos;
     in
     {
       overlays = {
         default = local-overlays;
       };
-      inherit homeManagerModules nixosModules;
+      inherit homeManagerModules;
       formatter = forAllSystems (system: pkgs.${system}.nixfmt);
       nixosConfigurations = {
-        vega = mkNixos "x86_64-linux" (
-          [
-            ./hosts/vega
-            {
-              nixpkgs = {
-                overlays = pkgsOverlays;
-                config.allowUnfree = true;
-                config.allowUnfreePredicate = _: true;
-              };
-              home-manager.useGlobalPkgs = true;
-            }
-          ]
-          ++ (builtins.attrValues nixosModules)
-        );
+        vega = mkNixos "x86_64-linux" [
+          ./hosts/vega
+          {
+            nixpkgs = {
+              overlays = pkgsOverlays;
+              config.allowUnfree = true;
+              config.allowUnfreePredicate = _: true;
+            };
+            home-manager.useGlobalPkgs = true;
+          }
+        ];
       };
       packages = forAllSystems (
         system:
