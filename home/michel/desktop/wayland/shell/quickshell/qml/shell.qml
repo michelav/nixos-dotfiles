@@ -1,3 +1,5 @@
+//@ pragma UseQApplication
+
 import Quickshell
 import Quickshell.Services.Pipewire
 
@@ -14,7 +16,12 @@ ShellRoot {
         ]
     }
 
-    Bar {
-        id: bar
+    Variants {
+        model: Quickshell.screens
+
+        Bar {
+            required property var modelData
+            screen: modelData
+        }
     }
 }

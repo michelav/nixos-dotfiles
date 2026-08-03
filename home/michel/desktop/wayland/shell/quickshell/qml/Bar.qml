@@ -50,7 +50,7 @@ PanelWindow {
     }
 
     color: "transparent"
-    implicitHeight: 32
+    implicitHeight: 34
     exclusiveZone: implicitHeight
 
     anchors {
@@ -65,13 +65,15 @@ PanelWindow {
 
         RowLayout {
             anchors.fill: parent
-            anchors.leftMargin: 6
-            anchors.rightMargin: 6
+            anchors.leftMargin: theme.outerGap
+            anchors.rightMargin: theme.outerGap
             anchors.topMargin: 3
             anchors.bottomMargin: 2
             spacing: 6
 
-            Workspaces {}
+            Workspaces {
+                screen: bar.screen
+            }
             Submap {}
             MediaWidget {}
 
@@ -94,9 +96,7 @@ PanelWindow {
                 onOpenControlCenter: bar.openControlCenter()
             }
             LanguageIndicator {}
-            Tray {
-                hostWindow: bar
-            }
+            Tray {}
         }
     }
 

@@ -11,7 +11,7 @@ Rectangle {
     property string fontFamily: "sans-serif"
 
     Layout.alignment: Qt.AlignVCenter
-    Layout.preferredHeight: 24
+    Layout.preferredHeight: 26
     implicitWidth: Math.min(label.implicitWidth + 20, 380)
     radius: 3
     color: backgroundColor
@@ -24,7 +24,7 @@ Rectangle {
         elide: Text.ElideRight
         color: root.textColor
         font.family: root.fontFamily
-        font.pixelSize: 13
+        font.pixelSize: 14
         font.weight: Font.Medium
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

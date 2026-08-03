@@ -1,10 +1,14 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 import Quickshell.Hyprland
 import ".."
 
 RowLayout {
     id: root
+    required property ShellScreen screen
+    readonly property var monitor: Hyprland.monitorFor(screen)
+
     Layout.alignment: Qt.AlignVCenter
     spacing: 3
 
@@ -13,7 +17,7 @@ RowLayout {
     }
 
     Repeater {
-        model: Hyprland.workspaces
+        model: Hyprland.workspaces.values.filter(workspace => workspace.monitor === root.monitor)
 
         Rectangle {
             id: ws
@@ -21,7 +25,7 @@ RowLayout {
             readonly property bool special: modelData.name.indexOf("special") === 0
 
             Layout.preferredWidth: 28
-            Layout.preferredHeight: 24
+            Layout.preferredHeight: 26
             radius: 3
             color: modelData.focused ? theme.moduleBgAlt : theme.moduleBg
             border.width: modelData.urgent ? 1 : 0
@@ -31,7 +35,7 @@ RowLayout {
                 anchors.centerIn: parent
                 color: modelData.focused ? theme.workspaceFg : theme.moduleFg
                 font.family: theme.fontSans
-                font.pixelSize: 13
+                font.pixelSize: 14
                 font.bold: modelData.active
                 text: ws.special ? "󰓎" : modelData.name
             }

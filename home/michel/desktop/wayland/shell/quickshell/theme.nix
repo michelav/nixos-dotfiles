@@ -29,6 +29,9 @@ in
       readonly property color accent: "#${colors.base0B}"
       readonly property color accentAlt: "#${colors.base0C}"
 
+      // Layout
+      readonly property int outerGap: ${toString config.wayland.windowManager.hyprland.settings.config.general.gaps_out}
+
       // Fonts
       readonly property string fontSans: "${fonts.sansSerif.name}"
       readonly property string fontMono: "${fonts.monospace.name}"

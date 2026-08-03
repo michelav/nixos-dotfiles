@@ -13,7 +13,7 @@ Rectangle {
     signal openControlCenter
 
     Layout.alignment: Qt.AlignVCenter
-    Layout.preferredHeight: 24
+    Layout.preferredHeight: 26
     implicitWidth: row.implicitWidth + 16
     radius: 3
     color: theme.moduleBg
