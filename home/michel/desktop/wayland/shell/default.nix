@@ -1,6 +1,6 @@
 {
   imports = [
-    ./quickshell.nix
+    ./quickshell
     ./waybar.nix
   ];
 }

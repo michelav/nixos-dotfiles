@@ -7,3 +7,8 @@ creation_rules:
     - age:
       - *michel
       - *vega
+  - path_regex: home/michel/secrets.yaml$
+    key_groups:
+    - age:
+      - *michel
+      - *vega

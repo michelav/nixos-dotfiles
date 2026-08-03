@@ -8,6 +8,7 @@
   # The feats dictates what should be installed
   imports = [
     inputs.stylix.homeModules.stylix
+    inputs.sops-nix.homeManagerModules.sops
     ./hm-impermanence-optin.nix
     ./apps
     ./cli
@@ -35,7 +36,7 @@
     editor = "vim";
     browser = "firefox";
     terminal = "wezterm";
-    desktopShell = "waybar";
+    desktopShell = "quickshell";
     # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
     # colorSchemeName = "one-light";
     colorSchemeName = "nord";
