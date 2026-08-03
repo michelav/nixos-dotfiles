@@ -8,8 +8,13 @@
 # One-time manual bootstrap after deploying this (cannot be made
 # declarative): fill in the real credentials with
 #   sops home/michel/secrets.yaml
-# then run `vdirsyncer discover google_calendar && vdirsyncer sync` once,
-# interactively, to complete the OAuth consent in a browser.
+# then run `vdirsyncer discover gcal && vdirsyncer sync` once, interactively,
+# to complete the OAuth consent in a browser.
+#
+# The pair is named "gcal" rather than "google_calendar" because vdirsyncer
+# 0.20.0 rejects a pair name that collides with a storage name (confirmed
+# empirically: "Section \"storage google_calendar\": Name \"google_calendar\"
+# already used"), even though pairs and storages are distinct section types.
 {
   pkgs,
   config,
@@ -35,7 +40,7 @@ in
       [general]
       status_path = "~/.local/state/vdirsyncer/status/"
 
-      [pair google_calendar]
+      [pair gcal]
       a = "local_calendar"
       b = "google_calendar"
       collections = ["from b"]
