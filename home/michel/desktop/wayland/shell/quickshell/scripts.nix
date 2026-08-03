@@ -35,7 +35,7 @@
   '';
 
   networkStatus = pkgs.writeShellScript "quickshell-network-status" ''
-    wifi_line="$(${pkgs.networkmanager}/bin/nmcli -t -f active,ssid,signal dev wifi 2>/dev/null | ${pkgs.gnugrep}/bin/grep '^yes:' | ${pkgs.coreutils}/bin/head -n 1)"
+    wifi_line="$(${pkgs.networkmanager}/bin/nmcli -t -f active,ssid,signal dev wifi 2>/dev/null | ${pkgs.gnugrep}/bin/grep -E '^yes:|^sim:' | ${pkgs.coreutils}/bin/head -n 1)"
     if [ -n "$wifi_line" ]; then
       ssid="$(printf "%s" "$wifi_line" | ${pkgs.coreutils}/bin/cut -d : -f 2)"
       signal="$(printf "%s" "$wifi_line" | ${pkgs.coreutils}/bin/cut -d : -f 3)"
