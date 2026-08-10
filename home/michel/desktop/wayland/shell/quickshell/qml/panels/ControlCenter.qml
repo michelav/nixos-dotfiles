@@ -1,10 +1,10 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
 import Quickshell.Hyprland
 import Quickshell.Services.Pipewire
 import ".."
+import "../services"
 
 PopupWindow {
     id: root
@@ -25,34 +25,14 @@ PopupWindow {
     Theme {
         id: theme
     }
+    RuntimeConfig { id: runtime }
 
-    readonly property var networkStatus: {
-        try {
-            return JSON.parse(networkCollector.text || "{}");
-        } catch (e) {
-            return {};
-        }
-    }
+    readonly property var networkStatus: NetworkService.status
 
     onVisibleChanged: {
         if (visible) {
-            wifiProc.exec([theme.wifiListScript]);
-            networkProc.exec([theme.networkStatusScript]);
-        }
-    }
-
-    Process {
-        id: wifiProc
-        command: [theme.wifiListScript]
-        stdout: StdioCollector {
-            id: wifiCollector
-            onStreamFinished: {
-                try {
-                    wifiListView.model = JSON.parse(wifiCollector.text || "[]");
-                } catch (e) {
-                    wifiListView.model = [];
-                }
-            }
+            NetworkService.refreshWifi();
+            BrightnessService.refresh();
         }
     }
 
@@ -60,38 +40,7 @@ PopupWindow {
         interval: 15000
         running: root.visible
         repeat: true
-        onTriggered: wifiProc.exec([theme.wifiListScript])
-    }
-
-    Process {
-        id: networkProc
-        command: [theme.networkStatusScript]
-        stdout: StdioCollector {
-            id: networkCollector
-        }
-    }
-
-    Timer {
-        interval: 5000
-        running: root.visible
-        repeat: true
-        onTriggered: networkProc.exec([theme.networkStatusScript])
-    }
-
-    Process {
-        id: brightnessProc
-        command: [theme.brightnessStatusScript]
-        stdout: StdioCollector {
-            id: brightnessCollector
-        }
-    }
-
-    Timer {
-        interval: 2000
-        running: root.visible
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: brightnessProc.exec([theme.brightnessStatusScript])
+        onTriggered: NetworkService.refreshWifi()
     }
 
     ColumnLayout {
@@ -122,7 +71,7 @@ PopupWindow {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: Quickshell.execDetached([theme.pavucontrolBin])
+                        onClicked: Quickshell.execDetached([runtime.pavucontrolBin])
                     }
                 }
                 Text {
@@ -222,7 +171,7 @@ PopupWindow {
                     Layout.fillWidth: true
                 }
                 Text {
-                    text: (brightnessCollector.text.trim() || "--") + "%"
+                    text: BrightnessService.percent + "%"
                     color: theme.moduleFg
                     font.family: theme.fontSans
                 }
@@ -230,12 +179,11 @@ PopupWindow {
 
             Slider {
                 Layout.fillWidth: true
-                value: (parseInt(brightnessCollector.text.trim() || "0", 10) || 0) / 100
+                value: BrightnessService.percent / 100
                 trackColor: theme.moduleBg
                 fillColor: theme.accentAlt
                 onMoved: newValue => {
-                    const pct = Math.max(1, Math.round(newValue * 100));
-                    Quickshell.execDetached([theme.brightnessctlBin, "set", pct + "%"]);
+                    BrightnessService.setPercent(newValue * 100);
                 }
             }
         }
@@ -314,7 +262,7 @@ PopupWindow {
                 Layout.fillWidth: true
                 Layout.preferredHeight: Math.min(160, count * 32)
                 clip: true
-                model: []
+                model: NetworkService.accessPoints
 
                 delegate: Rectangle {
                     id: wifiRow
@@ -346,7 +294,7 @@ PopupWindow {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: Quickshell.execDetached([theme.wifiConnectScript, modelData.ssid])
+                        onClicked: NetworkService.connect(modelData.ssid)
                     }
                 }
             }

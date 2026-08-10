@@ -10,13 +10,18 @@ workspaces, status widgets, a tray, and three popup panels.
 - `default.nix` selects the package, publishes the QML files through
   `xdg.configFile`, supplies executable paths, and defines
   `quickshell.service`.
-- `theme.nix` generates `Theme.qml`. It is the bridge from Nix/Stylix values and
-  Nix store executable paths into QML.
+- `theme.nix` generates semantic visual tokens in `Theme.qml`.
+- `runtime-config.nix` generates `RuntimeConfig.qml`, the only bridge from QML
+  to Nix store executable paths.
 - `scripts.nix` builds small read-only helper programs for system load, network,
   Wi-Fi, brightness, and calendar data.
 - `calendar.nix` configures the calendar data used by the agenda panel.
-- `qml/shell.qml` is the entry point. It enables `QApplication`, tracks PipeWire
-  audio objects, and creates one `Bar` for every `Quickshell.screens` entry.
+- `qml/shell.qml` is the entry point. It creates a bar and OSD for every screen
+  and exposes the shell IPC handlers.
+- `qml/state/ShellState.qml` owns the globally open panel, its target monitor, and
+  idle inhibition. `qml/services/` owns system, network, audio, media,
+  brightness, and calendar state; periodic system/network polling occurs once.
+- `qml/components/` contains the shared surfaces and interactive controls.
 - `qml/Bar.qml` defines bar dimensions, placement, widget ordering, and the open
   state of its popup panels.
 - `qml/Widget.qml` is the shared status-pill component; `qml/Slider.qml` is the
@@ -25,9 +30,9 @@ workspaces, status widgets, a tray, and three popup panels.
   quick settings, language, battery, network, volume, and tray components.
 - `qml/panels/` contains `ControlCenter`, `CalendarPanel`, and `SystemPanel`.
 
-Static QML files are copied as-is. Do not edit the generated
-`~/.config/quickshell/Theme.qml`; edit `theme.nix` and activate the Home Manager
-configuration instead.
+Static QML files are discovered and copied recursively. Do not edit generated
+`Theme.qml` or `RuntimeConfig.qml` under `~/.config/quickshell`; edit their Nix
+sources and activate the Home Manager configuration instead.
 
 ## Common tweaks
 
@@ -75,17 +80,17 @@ JetBrainsMono Nerd Font. The system tray uses image icons; change
 
 ### Widgets and panels
 
-To reorder or remove bar content, edit the `RowLayout` in `qml/Bar.qml`. Add new
-static QML files to `qmlFiles` in `default.nix`, otherwise Home Manager will not
-publish them into the active configuration.
+To reorder or remove bar content, edit the `RowLayout` in `qml/Bar.qml`. New QML
+files below `qml/` are published automatically.
 
-Popup placement and visibility are owned by `Bar.qml`. The tray menu is separate:
+Popup placement is owned by each panel; global visibility and monitor selection
+are owned by `ShellState`. The tray menu is separate:
 each tray icon has a `QsMenuAnchor` in `qml/widgets/Tray.qml`, including its edge,
 gravity, and on-screen adjustment behavior.
 
 ## Programs and generated helpers
 
-`default.nix` injects absolute Nix store paths into `Theme.qml` for:
+`default.nix` injects absolute Nix store paths into `RuntimeConfig.qml` for:
 
 - `brightnessctl`, used for display brightness;
 - `wpctl`, used for PipeWire volume and mute controls;
@@ -101,6 +106,26 @@ gravity, and on-screen adjustment behavior.
 
 Keep executable references in `default.nix` or `scripts.nix` instead of relying
 on the interactive shell's `PATH`; this keeps the configuration reproducible.
+
+## IPC and media keys
+
+The stable IPC interface is:
+
+```console
+quickshell ipc call shell toggle controlCenter
+quickshell ipc call shell close
+quickshell ipc call osd volumeUp
+quickshell ipc call osd volumeDown
+quickshell ipc call osd toggleMute
+quickshell ipc call osd toggleMicMute
+quickshell ipc call osd brightnessUp
+quickshell ipc call osd brightnessDown
+```
+
+`shell toggle` accepts `controlCenter`, `calendar`, or `system` and targets the
+focused Hyprland monitor. Hardware audio and brightness bindings use these IPC
+calls so the matching monitor displays an OSD. Their generated helpers fall
+back to absolute `wpctl` or `brightnessctl` commands if Quickshell is stopped.
 
 ## Build, restart, and troubleshoot
 
@@ -130,6 +155,11 @@ Inspect service state and recent logs with:
 systemctl --user status quickshell.service
 journalctl --user -u quickshell.service -b -n 200
 ```
+
+For placement issues, `hyprctl layers` should show one `quickshell-bar` in the
+top layer per monitor, and `hyprctl monitors all` should show a 34 px top
+reservation. Modal floating windows are centered inside the monitor work area
+by the named Hyprland rule `center-modal-in-work-area`.
 
 The deployed files are under `~/.config/quickshell`, but they are managed by Home
 Manager. Make lasting changes in this repository, rebuild, and reactivate.

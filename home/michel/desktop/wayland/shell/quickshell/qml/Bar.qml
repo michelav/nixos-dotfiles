@@ -4,45 +4,16 @@ import Quickshell
 import Quickshell.Wayland
 import "widgets"
 import "panels"
+import "state"
 
 PanelWindow {
     id: bar
 
-    property bool controlCenterOpen: false
-    property bool calendarOpen: false
-    property bool systemPanelOpen: false
-
     // Idle inhibition lives here (not in a bar widget) so it keeps working
     // regardless of whether Control Center is open; toggled from there.
-    property bool idleInhibited: false
-
     IdleInhibitor {
         window: bar
-        enabled: bar.idleInhibited
-    }
-
-    function closeAllPanels() {
-        controlCenterOpen = false;
-        calendarOpen = false;
-        systemPanelOpen = false;
-    }
-
-    function openControlCenter() {
-        const next = !controlCenterOpen;
-        closeAllPanels();
-        controlCenterOpen = next;
-    }
-
-    function openCalendar() {
-        const next = !calendarOpen;
-        closeAllPanels();
-        calendarOpen = next;
-    }
-
-    function openSystemPanel() {
-        const next = !systemPanelOpen;
-        closeAllPanels();
-        systemPanelOpen = next;
+        enabled: ShellState.idleInhibited
     }
 
     Theme {
@@ -50,8 +21,12 @@ PanelWindow {
     }
 
     color: "transparent"
-    implicitHeight: 34
+    implicitHeight: theme.barHeight
     exclusiveZone: implicitHeight
+    exclusionMode: ExclusionMode.Normal
+    aboveWindows: true
+    WlrLayershell.layer: WlrLayer.Top
+    WlrLayershell.namespace: "quickshell-bar"
 
     anchors {
         top: true
@@ -82,7 +57,7 @@ PanelWindow {
             }
 
             Clock {
-                onToggleCalendar: bar.openCalendar()
+                onToggleCalendar: ShellState.togglePanel("calendar", bar.screen)
             }
 
             Item {
@@ -90,10 +65,10 @@ PanelWindow {
             }
 
             SystemUsage {
-                onOpenSystemPanel: bar.openSystemPanel()
+                onOpenSystemPanel: ShellState.togglePanel("system", bar.screen)
             }
             QuickSettings {
-                onOpenControlCenter: bar.openControlCenter()
+                onOpenControlCenter: ShellState.togglePanel("controlCenter", bar.screen)
             }
             LanguageIndicator {}
             Tray {}
@@ -102,18 +77,18 @@ PanelWindow {
 
     ControlCenter {
         hostWindow: bar
-        visible: bar.controlCenterOpen
-        idleInhibited: bar.idleInhibited
-        onToggleIdle: bar.idleInhibited = !bar.idleInhibited
+        visible: ShellState.openPanel === "controlCenter" && ShellState.targetScreenName === bar.screen.name
+        idleInhibited: ShellState.idleInhibited
+        onToggleIdle: ShellState.idleInhibited = !ShellState.idleInhibited
     }
 
     CalendarPanel {
         hostWindow: bar
-        visible: bar.calendarOpen
+        visible: ShellState.openPanel === "calendar" && ShellState.targetScreenName === bar.screen.name
     }
 
     SystemPanel {
         hostWindow: bar
-        visible: bar.systemPanelOpen
+        visible: ShellState.openPanel === "system" && ShellState.targetScreenName === bar.screen.name
     }
 }

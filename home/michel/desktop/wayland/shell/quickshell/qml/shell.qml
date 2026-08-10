@@ -2,18 +2,28 @@
 
 import Quickshell
 import Quickshell.Services.Pipewire
+import Quickshell.Io
+import "services"
+import "osd"
+import "state"
 
 ShellRoot {
     id: root
 
-    // Pipewire only populates full node properties (audio.volume/muted) for
-    // nodes that are explicitly tracked. Bind the default sink/source once,
-    // globally, so every widget/panel can safely read Pipewire.defaultAudioSink.
-    PwObjectTracker {
-        objects: [
-            Pipewire.defaultAudioSink,
-            Pipewire.defaultAudioSource,
-        ]
+    IpcHandler {
+        target: "shell"
+        function toggle(panel: string): void { ShellState.togglePanel(panel, null); }
+        function close(): void { ShellState.closePanels(); }
+    }
+
+    IpcHandler {
+        target: "osd"
+        function volumeUp(): void { AudioService.stepVolume(0.05); }
+        function volumeDown(): void { AudioService.stepVolume(-0.05); }
+        function toggleMute(): void { AudioService.toggleMute(); }
+        function toggleMicMute(): void { AudioService.toggleMicMute(); }
+        function brightnessUp(): void { BrightnessService.step(5); }
+        function brightnessDown(): void { BrightnessService.step(-5); }
     }
 
     Variants {
@@ -22,6 +32,14 @@ ShellRoot {
         Bar {
             required property var modelData
             screen: modelData
+        }
+    }
+
+    Variants {
+        model: Quickshell.screens
+        Osd {
+            required property var modelData
+            modelScreen: modelData
         }
     }
 }

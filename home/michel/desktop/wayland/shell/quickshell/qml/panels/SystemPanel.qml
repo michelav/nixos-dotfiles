@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
 import ".."
+import "../services"
 
 PopupWindow {
     id: root
@@ -21,31 +21,7 @@ PopupWindow {
         id: theme
     }
 
-    readonly property var stats: {
-        try {
-            return JSON.parse(collector.text || "{}");
-        } catch (e) {
-            return {};
-        }
-    }
-
-    onVisibleChanged: if (visible)
-        proc.exec([theme.systemStatusScript])
-
-    Process {
-        id: proc
-        command: [theme.systemStatusScript]
-        stdout: StdioCollector {
-            id: collector
-        }
-    }
-
-    Timer {
-        interval: 3000
-        running: root.visible
-        repeat: true
-        onTriggered: proc.exec([theme.systemStatusScript])
-    }
+    readonly property var stats: SystemService.stats
 
     component StatRow: RowLayout {
         Layout.fillWidth: true

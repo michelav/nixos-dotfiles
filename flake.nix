@@ -91,6 +91,39 @@
       };
       inherit homeManagerModules;
       formatter = forAllSystems (system: pkgs.${system}.nixfmt);
+      checks = forAllSystems (
+        system:
+        let
+          ps = pkgs.${system};
+          qmlSource = ./home/michel/desktop/wayland/shell/quickshell/qml;
+        in
+        {
+          quickshell-qml-lint =
+            ps.runCommand "quickshell-qml-lint"
+              {
+                nativeBuildInputs = [ ps.qt6.qtdeclarative ];
+              }
+              ''
+                if ${ps.gnugrep}/bin/grep -Eq 'property[[:space:]]+color[[:space:]]+on[A-Z]' ${./home/michel/desktop/wayland/shell/quickshell/theme.nix}; then
+                  echo "Theme token names beginning with on[A-Z] collide with QML signal-handler syntax" >&2
+                  exit 1
+                fi
+                qmllint -I ${ps.quickshell}/lib/qt-6/qml $(${ps.findutils}/bin/find ${qmlSource} -name '*.qml' -type f)
+                touch $out
+              '';
+          quickshell-qml-format =
+            ps.runCommand "quickshell-qml-format"
+              {
+                nativeBuildInputs = [ ps.qt6.qtdeclarative ];
+              }
+              ''
+                while IFS= read -r file; do
+                  qmlformat "$file" > /dev/null
+                done < <(${ps.findutils}/bin/find ${qmlSource} -name '*.qml' -type f)
+                touch $out
+              '';
+        }
+      );
       nixosConfigurations = {
         vega = mkNixos "x86_64-linux" [
           ./hosts/vega

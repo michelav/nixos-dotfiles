@@ -32,7 +32,6 @@ in
       type = types.enum [
         "waybar"
         "quickshell"
-        "ags"
       ];
       default = "waybar";
       description = "Desktop shell to use for Wayland sessions.";

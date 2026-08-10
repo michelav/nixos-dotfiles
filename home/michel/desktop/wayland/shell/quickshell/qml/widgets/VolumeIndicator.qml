@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.Pipewire
 import ".."
+import "../services"
 
 Widget {
     id: root
@@ -36,7 +37,7 @@ Widget {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: mouse => {
             if (mouse.button === Qt.RightButton)
-                Quickshell.execDetached([theme.pavucontrolBin]);
+                Quickshell.execDetached([runtime.pavucontrolBin]);
             else
                 root.openControlCenter();
         }
@@ -48,4 +49,6 @@ Widget {
             root.sink.audio.volume = Math.max(0, Math.min(1.5, root.sink.audio.volume + delta));
         }
     }
+
+    RuntimeConfig { id: runtime }
 }

@@ -25,8 +25,8 @@ RowLayout {
             readonly property bool special: modelData.name.indexOf("special") === 0
 
             Layout.preferredWidth: 28
-            Layout.preferredHeight: 26
-            radius: 3
+            Layout.preferredHeight: theme.compactHeight
+            radius: theme.radiusSm
             color: modelData.focused ? theme.moduleBgAlt : theme.moduleBg
             border.width: modelData.urgent ? 1 : 0
             border.color: theme.workspaceUrgent

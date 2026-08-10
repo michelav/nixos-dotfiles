@@ -1,19 +1,13 @@
 import QtQuick
-import Quickshell.Io
 import ".."
+import "../services"
 
 Widget {
     id: root
 
     signal openControlCenter
 
-    readonly property var status: {
-        try {
-            return JSON.parse(collector.text || "{}");
-        } catch (e) {
-            return {};
-        }
-    }
+    readonly property var status: NetworkService.status
     readonly property string icon: {
         if (status.type === "ethernet")
             return "󰈀";
@@ -36,22 +30,6 @@ Widget {
 
     Theme {
         id: theme
-    }
-
-    Process {
-        id: proc
-        command: [theme.networkStatusScript]
-        stdout: StdioCollector {
-            id: collector
-        }
-    }
-
-    Timer {
-        interval: 5000
-        running: true
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: proc.exec([theme.networkStatusScript])
     }
 
     MouseArea {

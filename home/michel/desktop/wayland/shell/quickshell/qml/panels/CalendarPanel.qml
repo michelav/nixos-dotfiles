@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
 import ".."
+import "../services"
 
 PopupWindow {
     id: root
@@ -67,7 +67,7 @@ PopupWindow {
         if (visible) {
             root.today = new Date();
             root.goToday();
-            agendaProc.exec([theme.calendarAgendaScript]);
+            CalendarService.refresh();
         }
     }
 
@@ -98,21 +98,6 @@ PopupWindow {
             anchors.fill: parent
             hoverEnabled: true
             onClicked: navBtn.activated()
-        }
-    }
-
-    Process {
-        id: agendaProc
-        command: [theme.calendarAgendaScript]
-        stdout: StdioCollector {
-            id: agendaCollector
-            onStreamFinished: {
-                try {
-                    agendaList.model = JSON.parse(agendaCollector.text || "[]");
-                } catch (e) {
-                    agendaList.model = [];
-                }
-            }
         }
     }
 
@@ -227,7 +212,7 @@ PopupWindow {
             Layout.fillWidth: true
             Layout.preferredHeight: Math.min(200, count * 32)
             clip: true
-            model: []
+            model: CalendarService.agenda
 
             delegate: RowLayout {
                 id: agendaRow

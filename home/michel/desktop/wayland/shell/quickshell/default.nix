@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  osConfig,
   lib,
   ...
 }:
@@ -10,34 +11,20 @@ let
   scripts = import ./scripts.nix { inherit pkgs; };
   bin = {
     brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+    hyprctl = "${osConfig.programs.hyprland.package}/bin/hyprctl";
     wpctl = "${pkgs.wireplumber}/bin/wpctl";
     pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
   };
-  themeQml = import ./theme.nix { inherit config scripts bin; };
+  themeQml = import ./theme.nix { inherit config; };
+  runtimeConfigQml = import ./runtime-config.nix { inherit scripts bin; };
 
   # Static QML files, copied as-is; only Theme.qml (generated above) carries
   # Nix-interpolated values, so everything below can be edited without
   # touching Nix.
-  qmlFiles = [
-    "shell.qml"
-    "Widget.qml"
-    "Bar.qml"
-    "Slider.qml"
-    "widgets/Workspaces.qml"
-    "widgets/Submap.qml"
-    "widgets/Clock.qml"
-    "widgets/MediaWidget.qml"
-    "widgets/SystemUsage.qml"
-    "widgets/QuickSettings.qml"
-    "widgets/VolumeIndicator.qml"
-    "widgets/NetworkIndicator.qml"
-    "widgets/LanguageIndicator.qml"
-    "widgets/BatteryIndicator.qml"
-    "widgets/Tray.qml"
-    "panels/ControlCenter.qml"
-    "panels/CalendarPanel.qml"
-    "panels/SystemPanel.qml"
-  ];
+  qmlRoot = ./qml;
+  qmlFiles = map (file: lib.removePrefix "${toString qmlRoot}/" (toString file)) (
+    lib.filesystem.listFilesRecursive qmlRoot
+  );
   qmlConfigFiles = lib.listToAttrs (
     map (path: {
       name = "quickshell/${path}";
@@ -53,6 +40,7 @@ in
 
     xdg.configFile = qmlConfigFiles // {
       "quickshell/Theme.qml".text = themeQml;
+      "quickshell/RuntimeConfig.qml".text = runtimeConfigQml;
     };
 
     systemd.user.services.quickshell = {
@@ -60,6 +48,7 @@ in
         Description = "QtQuick desktop shell";
         Documentation = "https://quickshell.org/docs/v0.3.0/";
         After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
       };
       Service = {
         ExecStart = "${quickshell}/bin/quickshell";

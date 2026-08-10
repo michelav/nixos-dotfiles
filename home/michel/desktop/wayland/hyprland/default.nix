@@ -177,6 +177,7 @@ in
           misc = {
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
+            new_float_force_onscreen = 2;
           };
           input = {
             kb_layout = "us,br";
@@ -213,9 +214,27 @@ in
             makoctl = "${pkgs.mako}/bin/makoctl";
             grimblast = "${hyprw-contrib.grimblast}/bin/grimblast";
             bright = "${pkgs.brightnessctl}/bin/brightnessctl";
-            bright-up = "${bright} s 5%+";
-            bright-down = "${bright} s 5%-";
             wpctl = "${pkgs.wireplumber}/bin/wpctl";
+            quickshell = "${pkgs.quickshell}/bin/quickshell";
+            mkOsdCommand =
+              name: method: fallback:
+              pkgs.writeShellScript "quickshell-${name}" ''
+                if ! ${quickshell} ipc call osd ${method}; then
+                  exec ${fallback}
+                fi
+              '';
+            bright-up = mkOsdCommand "brightness-up" "brightnessUp" "${bright} set 5%+";
+            bright-down = mkOsdCommand "brightness-down" "brightnessDown" "${bright} set 5%-";
+            volume-up = mkOsdCommand "volume-up" "volumeUp" "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+            volume-down =
+              mkOsdCommand "volume-down" "volumeDown"
+                "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+            volume-mute =
+              mkOsdCommand "volume-mute" "toggleMute"
+                "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            microphone-mute =
+              mkOsdCommand "microphone-mute" "toggleMicMute"
+                "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
             fuzzel = "${config.programs.fuzzel.package}/bin/fuzzel";
           in
           [
@@ -259,32 +278,20 @@ in
               repeating = true;
             })
             # Audio controls
-            (mkBindWith "XF86AudioRaiseVolume"
-              "hl.dsp.exec_cmd(${luaString "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+"})"
-              {
-                locked = true;
-                repeating = true;
-              }
-            )
-            (mkBindWith "XF86AudioLowerVolume"
-              "hl.dsp.exec_cmd(${luaString "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"})"
-              {
-                locked = true;
-                repeating = true;
-              }
-            )
-            (mkBindWith "XF86AudioMute"
-              "hl.dsp.exec_cmd(${luaString "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"})"
-              {
-                locked = true;
-              }
-            )
-            (mkBindWith "XF86AudioMicMute"
-              "hl.dsp.exec_cmd(${luaString "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"})"
-              {
-                locked = true;
-              }
-            )
+            (mkBindWith "XF86AudioRaiseVolume" "hl.dsp.exec_cmd(${luaString volume-up})" {
+              locked = true;
+              repeating = true;
+            })
+            (mkBindWith "XF86AudioLowerVolume" "hl.dsp.exec_cmd(${luaString volume-down})" {
+              locked = true;
+              repeating = true;
+            })
+            (mkBindWith "XF86AudioMute" "hl.dsp.exec_cmd(${luaString volume-mute})" {
+              locked = true;
+            })
+            (mkBindWith "XF86AudioMicMute" "hl.dsp.exec_cmd(${luaString microphone-mute})" {
+              locked = true;
+            })
           ]
           ++ [
             # Window controls
@@ -385,6 +392,13 @@ in
             workspace = toString x;
             monitor = "eDP-1";
           }) (lib.genList (x: x + 6) 5); # Workspace 6 - 10 in Laptop
+        window_rule = [
+          {
+            name = "center-modal-in-work-area";
+            match.modal = true;
+            center = true;
+          }
+        ];
       };
     submaps =
       let

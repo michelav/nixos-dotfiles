@@ -1,0 +1,7 @@
+singleton SystemService 1.0 SystemService.qml
+singleton NetworkService 1.0 NetworkService.qml
+singleton BrightnessService 1.0 BrightnessService.qml
+singleton CalendarService 1.0 CalendarService.qml
+singleton AudioService 1.0 AudioService.qml
+singleton MediaService 1.0 MediaService.qml
+singleton InputService 1.0 InputService.qml
