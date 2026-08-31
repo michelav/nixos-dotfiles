@@ -22,6 +22,7 @@
     obs-studio
     kdePackages.kdenlive
     shotcut
+    pympress
   ];
 
   home.persistence."/persist" = {
@@ -30,5 +31,39 @@
       ".config/keepassxc"
       ".secrets/keepassxc"
     ];
+  };
+
+  # Default apps
+  xdg.mimeApps = {
+    defaultApplications = {
+    };
+  };
+  xdg.mimeApps.defaultApplications = {
+    # Web
+    "text/html" = [
+      "firefox.desktop"
+      "org.qutebrowser.qutebrowser.desktop"
+    ];
+    "text/xml" = [
+      "firefox.desktop"
+      "org.qutebrowser.qutebrowser.desktop"
+    ];
+    "x-scheme-handler/http" = [
+      "firefox.desktop"
+      "org.qutebrowser.qutebrowser.desktop"
+    ];
+    "x-scheme-handler/https" = [
+      "firefox.desktop"
+      "org.qutebrowser.qutebrowser.desktop"
+    ];
+    "x-scheme-handler/chrome" = [ "firefox.desktop" ];
+    "x-scheme-handler/qute" = [ "org.qutebrowser.qutebrowser.desktop" ];
+
+    # File explorer
+    "inode/directory" = [ "nemo.desktop" ];
+    "application/x-gnome-saved-search" = [ "nemo.desktop" ];
+
+    # Teams
+    "x-scheme-handler/msteams" = [ "teams-for-linux.desktop" ];
   };
 }

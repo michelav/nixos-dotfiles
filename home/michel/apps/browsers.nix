@@ -82,27 +82,6 @@ in
     };
   };
 
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = [
-      "firefox.desktop"
-      "org.qutebrowser.qutebrowser.desktop"
-    ];
-    "text/xml" = [
-      "firefox.desktop"
-      "org.qutebrowser.qutebrowser.desktop"
-    ];
-    "x-scheme-handler/http" = [
-      "firefox.desktop"
-      "org.qutebrowser.qutebrowser.desktop"
-    ];
-    "x-scheme-handler/https" = [
-      "firefox.desktop"
-      "org.qutebrowser.qutebrowser.desktop"
-    ];
-    "x-scheme-handler/chrome" = [ "firefox.desktop" ];
-    "x-scheme-handler/qute" = [ "org.qutebrowser.qutebrowser.desktop" ];
-  };
-
   # Impermanence
   home.persistence."/persist" = {
     directories = [
