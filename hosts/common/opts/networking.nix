@@ -29,34 +29,18 @@
       enable = true;
       wifi.backend = "wpa_supplicant";
       wifi.powersave = false;
-      dispatcherScripts =
-        let
-          nmcli = "${pkgs.networkmanager}/bin/nmcli";
-        in
-        [
-          {
-            source = pkgs.writeText "wlan_auto_toogle" ''
-              lan_interface="enp8s0"
-              if [ "$1" = $lan_interface ]; then
-                  case "$2" in
-                      up)
-                          ${nmcli} radio wifi off
-                          echo "Turn wifi off"
-                          ;;
-                      down)
-                          ${nmcli} radio wifi on
-                          echo "Turn wifi on"
-                          ;;
-                  esac
-              elif [ "$(${nmcli} -g GENERAL.STATE device show $lan_interface)" = "20 (unavailable)" ]; then
-                  ${nmcli} radio wifi on
-                  echo "Turn wifi on"
-              fi
-            '';
-            type = "basic";
-          }
-        ];
     };
     wireless.iwd.enable = false;
+  };
+
+  systemd.services.NetworkManager-dundermifflin-compat = {
+    description = "Disable PMF for the dundermifflin Wi-Fi profile";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "NetworkManager.service" ];
+    requires = [ "NetworkManager.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.networkmanager}/bin/nmcli connection modify dundermifflin 802-11-wireless-security.pmf 1";
+    };
   };
 }
