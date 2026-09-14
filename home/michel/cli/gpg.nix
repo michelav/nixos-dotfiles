@@ -5,7 +5,7 @@ let
       {
         packages = [
           pkgs.pinentry-gnome3
-          pkgs.gcr
+          pkgs.gcr_4
         ];
         pkg = pkgs.pinentry-gnome3;
       }
