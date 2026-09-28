@@ -17,6 +17,7 @@
 
     ./impermanence-optin.nix
     ./hardware-configuration.nix
+    ./storage-health.nix
 
     # Feature modules this host opts into. Everything vega enables is listed
     # here; `hosts/common/opts` is a menu, not a bundle.
