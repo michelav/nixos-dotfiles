@@ -32,6 +32,7 @@ let
         else
           set -f csd ${hip}
         end
+        set -lx WEBKIT_DISABLE_DMABUF_RENDERER 1
         ${vpn-client} $verbose --gateway --allow-insecure-crypto -S $_flag_server -- --csd-wrapper=${hip}
       '';
   };
