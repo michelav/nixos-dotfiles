@@ -19,6 +19,17 @@ let
   };
 in
 {
+  # Preserve mutable agent state and manually installed skills.
+  # Home Manager continues managing its symlinks within these directories.
+  home.persistence."/persist" = {
+    directories = [
+      ".codex"
+      ".claude"
+      ".agents"
+    ];
+    files = [ ".claude.json" ];
+  };
+
   home.file.".codex/AGENTS.md".text = globalAgentInstructions;
   home.file.".claude/CLAUDE.md".text = globalAgentInstructions;
   programs.codex = {
@@ -37,7 +48,7 @@ in
 
   # Use default profile
   programs.fish.shellAbbrs = {
-    codex = "codex -a on-request -s workspace-write";
+    codex = "codex --profile default";
   };
 
   programs.claude-code = {
