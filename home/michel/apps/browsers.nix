@@ -18,6 +18,7 @@ in
       in
       {
         enable = true;
+        configPath = ".mozilla/firefox";
         profiles.michel = {
           extensions.packages = with addons; [
             ublock-origin

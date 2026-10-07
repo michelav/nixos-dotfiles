@@ -10,6 +10,7 @@ in
 {
   nix = {
     settings = {
+      nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
       substituters = [
         "https://nix-community.cachix.org"
         "https://misterio.cachix.org"
@@ -43,6 +44,5 @@ in
     };
     # All Inputs and self flakes are available as registries and nicPath
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 }
