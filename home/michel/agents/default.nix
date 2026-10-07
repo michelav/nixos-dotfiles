@@ -39,16 +39,6 @@ in
 
     # Do not manage config file. Let it be writable.
     settings = null;
-
-    profiles.default = {
-      approval_policy = "on-request";
-      sandbox_mode = "workspace-write";
-    };
-  };
-
-  # Use default profile
-  programs.fish.shellAbbrs = {
-    codex = "codex --profile default";
   };
 
   programs.claude-code = {
