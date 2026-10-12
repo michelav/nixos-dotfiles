@@ -7,6 +7,7 @@
     ./keyring.nix
     ./mako.nix
     ./theme.nix
+    ./theme-mode.nix
     ./hyprland
     ./shell
   ];

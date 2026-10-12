@@ -268,6 +268,7 @@ in
             (mkExec "SUPER + x" "${fuzzel} --launch-prefix='uwsm app --'")
             (mkExec "Scroll_Lock" "pass-wofi")
             (mkExec "XF86Calculator" "pass-wofi")
+            (mkExec "SUPER + SHIFT + t" "theme-mode toggle")
             # Laptop brightness
             (mkBindWith "XF86MonBrightnessUp" "hl.dsp.exec_cmd(${luaString bright-up})" {
               locked = true;

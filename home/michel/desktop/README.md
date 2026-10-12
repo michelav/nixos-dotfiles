@@ -52,9 +52,19 @@ Only run the command for the shell currently selected.
 
 - `wayland/hyprland/` contains compositor settings, bindings, launcher, lock,
   idle, clipboard, wallpaper, and session integration.
-- `wayland/theme.nix` configures GTK, Qt, cursors, and desktop icon packages.
-- `userPrefs.colorSchemeName` in `home/michel/default.nix` selects the Stylix
-  Base16 palette used across the desktop.
+- `wayland/theme.nix` configures GTK (Stylix `gtk` target, adw-gtk3), Qt
+  (Stylix `qt` target, Kvantum), cursors, and desktop icon packages.
+- `userPrefs.theme.schemes` in `modules/hm/userPrefs.nix` names the
+  tinted-theming schemes for dark and light mode (default Catppuccin Mocha and
+  Latte). Base24 files are preferred; Base16-only schemes fall back
+  automatically. Apps are themed through explicit `stylix.targets.<app>`
+  entries next to each app; only apps without a target read Stylix colors or
+  `userPrefs.theme.tokens` directly.
+- Light/dark mode switches at runtime without a rebuild: `theme-mode
+  toggle|dark|light|get` (bound to `SUPER + SHIFT + t`) activates the prebuilt
+  base (dark) or `specialisation.light` Home Manager generation. The chosen mode
+  persists in `~/.local/state/theme-mode` across rebuilds and reboots
+  (`wayland/theme-mode.nix`).
 - `modules/hm/userPrefs.nix` defines the shared fonts: Inter for sans-serif text
   and JetBrainsMono Nerd Font for monospace text and glyphs.
 

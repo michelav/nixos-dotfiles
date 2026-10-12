@@ -1,6 +1,7 @@
 {
   inputs,
   outputs,
+  lib,
   ...
 }:
 {
@@ -37,10 +38,10 @@
     browser = "firefox";
     terminal = "wezterm";
     desktopShell = "quickshell";
-    # Check color schemes available at: https://tinted-theming.github.io/base16-gallery/
-    # colorSchemeName = "one-light";
-    colorSchemeName = "nord";
   };
+  # Prebuilt light variant. `theme-mode` (darkman) activates it at runtime;
+  # the base generation is dark.
+  specialisation.light.configuration.userPrefs.theme.mode = lib.mkForce "light";
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

@@ -6,19 +6,15 @@
 }:
 let
   system = pkgs.stdenv.hostPlatform.system;
-  stylix = config.stylix;
-  whiteSurNord = pkgs.whitesur-gtk-theme.override {
-    colorVariants = [ "dark" ];
-    schemeVariants = [ "nord" ];
-    themeVariants = [ "blue" ];
-  };
-  gtkTheme = {
-    name = "WhiteSur-Dark-blue-nord";
-    package = whiteSurNord;
-  };
   inherit (inputs.diniamo-pkgs.packages.${system}) bibata-hyprcursor;
 in
-rec {
+{
+  # GTK (adw-gtk3 + palette CSS, font, cursor) and Qt (Kvantum) follow the
+  # active Stylix scheme and polarity.
+  stylix.targets = {
+    gtk.enable = true;
+    qt.enable = true;
+  };
 
   home.packages = with pkgs; [
     # Some Fonts
@@ -33,25 +29,9 @@ rec {
 
   gtk = {
     enable = true;
-    colorScheme = "dark";
-    gtk4.theme = gtkTheme;
-    theme = gtkTheme;
-    cursorTheme = {
-      inherit (stylix.cursor) name package size;
-    };
-    font = {
-      inherit (stylix.fonts.sansSerif) name package;
-      size = 12;
-    };
+    colorScheme = config.userPrefs.theme.mode;
   };
-  qt = {
-    enable = true;
-    # platformTheme.name = "gtk";
-    style = {
-      name = "adwaita-dark";
-      package = pkgs.adwaita-qt6;
-    };
-  };
+  qt.enable = true;
   services.xsettingsd = {
     enable = true;
     settings = {

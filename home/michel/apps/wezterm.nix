@@ -6,45 +6,18 @@
 }:
 
 let
-  colors = config.lib.stylix.colors;
-  colorSchemeName = config.userPrefs.colorSchemeName;
   system = pkgs.stdenv.hostPlatform.system;
 in
 {
+  stylix.targets.wezterm = {
+    enable = true;
+    # The font is set in extraConfig below.
+    fonts.enable = false;
+  };
+
   programs.wezterm = {
     enable = true;
     package = inputs.wezterm-main.packages.${system}.default;
-    colorSchemes = {
-      "${colorSchemeName}" = {
-        foreground = "#${colors.base05}";
-        background = "#${colors.base00}";
-
-        ansi = [
-          "#${colors.base00}" # black
-          "#${colors.base08}" # maroon
-          "#${colors.base0B}" # green
-          "#${colors.base0A}" # olive
-          "#${colors.base0F}" # navy
-          "#${colors.base0E}" # purple
-          "#${colors.base0D}" # teal
-          "#${colors.base04}" # silver
-        ];
-        brights = [
-          "#${colors.base03}" # grey
-          "#${colors.base08}" # red
-          "#${colors.base0B}" # lime
-          "#${colors.base0A}" # yellow
-          "#${colors.base0F}" # blue
-          "#${colors.base0F}" # fuchsia
-          "#${colors.base0C}" # aqua
-          "#${colors.base06}" # white
-        ];
-        cursor_fg = "#${colors.base00}";
-        cursor_bg = "#${colors.base05}";
-        selection_fg = "#${colors.base00}";
-        selection_bg = "#${colors.base05}";
-      };
-    };
     # WARN: Having problems with multiple files opened error. Disabled reload config meanwhile. Check isue https://github.com/wez/wezterm/issues/4396
     extraConfig = # lua
       ''
@@ -54,7 +27,6 @@ in
           term = "wezterm",
           font = wezterm.font("${config.stylix.fonts.monospace.name}"),
           font_size = 12.0,
-          color_scheme = "${colorSchemeName}",
           hide_tab_bar_if_only_one_tab = true,
           window_close_confirmation = "NeverPrompt",
           inactive_pane_hsb = { saturation = 0.7, brightness = 0.55 },
