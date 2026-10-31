@@ -4,7 +4,6 @@
 
   # Install necessary packages
   environment.systemPackages = with pkgs; [
-    libguestfs
     virt-manager
     virt-viewer
     spice
