@@ -55,6 +55,9 @@ let
       fi
       systemctl --user try-reload-or-restart mywaybar.service || true
       if command -v makoctl >/dev/null; then makoctl reload || true; fi
+      if [ "''${XDG_CURRENT_DESKTOP:-}" = Umbriel ] && command -v noctalia >/dev/null; then
+        noctalia msg theme-mode-set "$mode" || true
+      fi
       if pgrep -f qutebrowser >/dev/null; then
         ${lib.getExe config.programs.qutebrowser.package} ':config-source' || true
       fi

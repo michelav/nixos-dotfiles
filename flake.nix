@@ -30,6 +30,8 @@
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
     };
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
     nixd.url = "github:nix-community/nixd";

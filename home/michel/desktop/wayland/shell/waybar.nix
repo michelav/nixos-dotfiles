@@ -353,7 +353,7 @@ lib.mkIf (cfg.desktopShell == "waybar") {
     Unit = {
       Description = "Highly customizable Wayland bar for Sway and Wlroots based compositors.";
       Documentation = "man:waybar(5)";
-      After = [ "graphical-session.target" ];
+      After = [ "wayland-session-waitenv.service" ];
     };
     Service = {
       ExecStart = "${custom-waybar}/bin/waybar";
@@ -362,7 +362,7 @@ lib.mkIf (cfg.desktopShell == "waybar") {
       Slice = "app-graphical.slice";
     };
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = [ "wayland-session@hyprland.desktop.target" ];
     };
   };
 }

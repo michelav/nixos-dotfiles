@@ -3,11 +3,6 @@ _: {
     fish = {
       enable = true;
       interactiveShellInit = builtins.readFile ../configs/fish/login.fish;
-      loginShellInit = ''
-        if test (tty) = /dev/tty1
-          uwsm start hyprland-uwsm.desktop
-        end
-      '';
       shellAbbrs = {
         cat = "bat";
         nd = {
