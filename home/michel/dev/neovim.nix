@@ -2,6 +2,7 @@
   config,
   inputs,
   pkgs,
+  lib,
   ...
 }:
 
@@ -10,9 +11,21 @@ let
 
   writing = import ../writing/dictionaries.nix { inherit pkgs; };
 
-  # Stylix supplies the active palette, so each Home Manager variant (dark base,
-  # light specialisation) gets its own nvim.
-  theme = config.stylix.targets.nixvim.exportedModule;
+  # Stylix remains the base palette in Hyprland. Umbriel loads the current
+  # Noctalia-generated Base16 file after that palette has initialized.
+  theme = [
+    config.stylix.targets.nixvim.exportedModule
+    {
+      extraConfigLua = lib.mkAfter ''
+        if (vim.env.XDG_CURRENT_DESKTOP or ""):lower() == "umbriel" then
+          local noctalia = vim.fn.stdpath("config") .. "/noctalia.lua"
+          if vim.fn.filereadable(noctalia) == 1 then
+            dofile(noctalia)
+          end
+        end
+      '';
+    }
+  ];
 
   nixvim = inputs.nixvim-config.lib.mkNixvimPackages {
     inherit system;

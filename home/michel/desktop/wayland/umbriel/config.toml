@@ -40,6 +40,12 @@ autostart = ["noctalia"]
 # Modal dialogs hang on their parent window and follow it. Turn this off to keep them ordinary windows.
 # attach_modal_dialogs = false
 
+# These variables are scoped to Umbriel and its child processes. The GTK
+# theme is separate from the Stylix theme selected in Hyprland.
+[environment]
+GTK_THEME = "Noctalia"
+imv_config = "/home/michel/.config/imv/noctalia"
+
 # ==============================================================================
 # Lid events
 # Remove the laptop panel from the desktop while the lid is closed, then

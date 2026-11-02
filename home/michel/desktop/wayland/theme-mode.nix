@@ -20,6 +20,15 @@ let
       systemd
     ];
     text = ''
+      request="''${1:-get}"
+      if [ "''${XDG_CURRENT_DESKTOP,,}" = umbriel ] && command -v noctalia >/dev/null; then
+        case "$request" in
+          get) noctalia msg theme-mode-get; exit $? ;;
+          toggle) noctalia msg theme-mode-toggle; exit $? ;;
+          dark | light) noctalia msg theme-mode-set "$request"; exit $? ;;
+        esac
+      fi
+
       state="${stateDir}"
       current=$(cat "$state/mode" 2>/dev/null || echo dark)
       case "''${1:-get}" in
@@ -55,12 +64,6 @@ let
       fi
       systemctl --user try-reload-or-restart mywaybar.service || true
       if command -v makoctl >/dev/null; then makoctl reload || true; fi
-      if [ "''${XDG_CURRENT_DESKTOP:-}" = Umbriel ] && command -v noctalia >/dev/null; then
-        noctalia msg theme-mode-set "$mode" || true
-      fi
-      if pgrep -f qutebrowser >/dev/null; then
-        ${lib.getExe config.programs.qutebrowser.package} ':config-source' || true
-      fi
     '';
   };
 in

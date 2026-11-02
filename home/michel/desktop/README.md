@@ -52,14 +52,14 @@ Only run the command for the shell currently selected.
 
 - `wayland/hyprland/` contains compositor settings, bindings, launcher, lock,
   idle, clipboard, wallpaper, and session integration.
-- `wayland/theme.nix` configures GTK (Stylix `gtk` target, adw-gtk3), Qt
+- `wayland/theme.nix` configures GTK (adw-gtk3), Qt
   (Stylix `qt` target, Kvantum), cursors, and desktop icon packages.
 - `userPrefs.theme.schemes` in `modules/hm/userPrefs.nix` names the
   tinted-theming schemes for dark and light mode (default Catppuccin Mocha and
   Latte). Base24 files are preferred; Base16-only schemes fall back
-  automatically. Apps are themed through explicit `stylix.targets.<app>`
-  entries next to each app; only apps without a target read Stylix colors or
-  `userPrefs.theme.tokens` directly.
+  automatically. In Umbriel, Noctalia templates provide the active palette to
+  GTK, Qt, and supported applications; Quickshell reads the generated palette
+  file. Other sessions retain the Stylix palette and app targets.
 - Light/dark mode switches at runtime without a rebuild: `theme-mode
   toggle|dark|light|get` (bound to `SUPER + SHIFT + t`) activates the prebuilt
   base (dark) or `specialisation.light` Home Manager generation. The chosen mode

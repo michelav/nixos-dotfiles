@@ -23,6 +23,7 @@ in
           extensions.packages = with addons; [
             ublock-origin
             browserpass
+            pywalfox
           ];
           settings = {
             "browser.disableResetPrompt" = true;

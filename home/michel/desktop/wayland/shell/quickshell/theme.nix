@@ -12,37 +12,59 @@ let
 in
 ''
   import QtQuick
+  import Quickshell
+  import Quickshell.Io
 
   QtObject {
+      id: root
+      // Noctalia writes this palette whenever its active colors change. Keep
+      // Stylix as the fallback for sessions that do not run Umbriel.
+      property var noctaliaPalette: ({})
+      FileView {
+          id: noctaliaPaletteFile
+          path: (Quickshell.env("XDG_CURRENT_DESKTOP") || "").toLowerCase() === "umbriel"
+              ? "${config.xdg.configHome}/quickshell/noctalia-colors.json"
+              : ""
+          watchChanges: true
+          onLoaded: {
+              try { root.noctaliaPalette = JSON.parse(text()) }
+              catch (error) { console.warn("Invalid Noctalia palette:", error) }
+          }
+          onFileChanged: reload()
+      }
+      function paletteColor(name, fallback) {
+          return "#" + (noctaliaPalette[name] || fallback)
+      }
+
       // Semantic palette
-      readonly property color background: "#${tokens.background}"
-      readonly property color surface: "#${tokens.surface}"
-      readonly property color surfaceContainer: "#${tokens.surfaceContainer}"
-      readonly property color surfaceElevated: "#${tokens.surfaceElevated}"
-      readonly property color surfaceHover: "#${tokens.surfaceHover}"
-      readonly property color foreground: "#${tokens.foreground}"
-      readonly property color foregroundMuted: "#${tokens.foregroundMuted}"
-      readonly property color outline: "#${tokens.outline}"
-      readonly property color primary: "#${tokens.primary}"
-      readonly property color primaryForeground: "#${tokens.primaryForeground}"
-      readonly property color secondary: "#${tokens.secondary}"
-      readonly property color success: "#${tokens.success}"
-      readonly property color error: "#${tokens.error}"
+      readonly property color background: paletteColor("background", "${tokens.background}")
+      readonly property color surface: paletteColor("surface", "${tokens.surface}")
+      readonly property color surfaceContainer: paletteColor("surfaceContainer", "${tokens.surfaceContainer}")
+      readonly property color surfaceElevated: paletteColor("surfaceElevated", "${tokens.surfaceElevated}")
+      readonly property color surfaceHover: paletteColor("surfaceHover", "${tokens.surfaceHover}")
+      readonly property color foreground: paletteColor("foreground", "${tokens.foreground}")
+      readonly property color foregroundMuted: paletteColor("foregroundMuted", "${tokens.foregroundMuted}")
+      readonly property color outline: paletteColor("outline", "${tokens.outline}")
+      readonly property color primary: paletteColor("primary", "${tokens.primary}")
+      readonly property color primaryForeground: paletteColor("primaryForeground", "${tokens.primaryForeground}")
+      readonly property color secondary: paletteColor("secondary", "${tokens.secondary}")
+      readonly property color success: paletteColor("success", "${tokens.success}")
+      readonly property color error: paletteColor("error", "${tokens.error}")
 
       // Compatibility aliases while widgets migrate to semantic names.
-      readonly property color bg: "#${colors.base00}"
-      readonly property color fg: "#${colors.base05}"
-      readonly property color moduleBg: "#${colors.base03}"
-      readonly property color moduleBgAlt: "#${colors.base02}"
-      readonly property color moduleFg: "#${colors.base00}"
-      readonly property color moduleFgAlt: "#${colors.base06}"
-      readonly property color moduleFgAnm: "#${colors.base01}"
-      readonly property color workspaceFg: "#${colors.base07}"
-      readonly property color workspaceUrgent: "#${colors.base09}"
-      readonly property color warning: "#${tokens.warning}"
-      readonly property color critical: "#${colors.base08}"
-      readonly property color accent: "#${colors.base0B}"
-      readonly property color accentAlt: "#${colors.base0C}"
+      readonly property color bg: paletteColor("background", "${colors.base00}")
+      readonly property color fg: paletteColor("foreground", "${colors.base05}")
+      readonly property color moduleBg: paletteColor("surfaceContainer", "${colors.base02}")
+      readonly property color moduleBgAlt: paletteColor("surfaceElevated", "${colors.base03}")
+      readonly property color moduleFg: paletteColor("foreground", "${colors.base05}")
+      readonly property color moduleFgAlt: paletteColor("foregroundMuted", "${colors.base04}")
+      readonly property color moduleFgAnm: paletteColor("foreground", "${colors.base05}")
+      readonly property color workspaceFg: paletteColor("foreground", "${colors.base05}")
+      readonly property color workspaceUrgent: paletteColor("secondary", "${colors.base09}")
+      readonly property color warning: paletteColor("warning", "${tokens.warning}")
+      readonly property color critical: paletteColor("error", "${colors.base08}")
+      readonly property color accent: paletteColor("primary", "${colors.base0B}")
+      readonly property color accentAlt: paletteColor("secondary", "${colors.base0C}")
 
       // Layout
       readonly property int outerGap: ${toString config.wayland.windowManager.hyprland.settings.config.general.gaps_out}
