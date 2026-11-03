@@ -192,7 +192,10 @@ numlock_toggle = true
 [keybinds]
 
 # Applications and session
-"Mod+Return" = { action = "spawn wezterm", repeat = false }
+"Mod+Return" = { action = "spawn ${TERMINAL}", repeat = false }
+"Mod+B" = { action = "spawn ${BROWSER}", repeat = false }
+"Mod+Shift+N" = { action = "spawn noctalia msg notification-clear-active", repeat = false }
+"Mod+Shift+L" = { action = "spawn noctalia msg session lock", repeat = false }
 "Mod" = "spawn noctalia msg panel-toggle launcher"
 "Mod+S" = "spawn noctalia msg panel-toggle control-center"
 "Mod+Shift+A" = "spawn noctalia msg screenshot-annotate"
