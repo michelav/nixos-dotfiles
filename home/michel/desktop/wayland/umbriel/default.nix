@@ -79,6 +79,32 @@ let
       "error": "{{colors.error.default.hex}}"
     }
   '';
+  teamsTemplate = pkgs.writeText "noctalia-teams-template.css" ''
+    :root {
+      --colorNeutralBackground1: {{colors.surface.default.hex}};
+      --colorNeutralBackground2: {{colors.surface_container.default.hex}};
+      --colorNeutralBackground3: {{colors.surface_container_high.default.hex}};
+      --colorNeutralBackground4: {{colors.surface_container_highest.default.hex}};
+      --colorNeutralBackground1Hover: {{colors.surface_variant.default.hex}};
+      --colorNeutralForeground1: {{colors.on_surface.default.hex}};
+      --colorNeutralForeground2: {{colors.on_surface_variant.default.hex}};
+      --colorNeutralForeground3: {{colors.outline.default.hex}};
+      --colorNeutralStroke1: {{colors.outline.default.hex}};
+      --colorBrandBackground: {{colors.primary.default.hex}};
+      --colorBrandBackgroundHover: {{colors.primary_fixed_dim.default.hex}};
+      --colorBrandForeground1: {{colors.primary.default.hex}};
+      --colorBrandForeground2: {{colors.secondary.default.hex}};
+      --colorCompoundBrandBackground: {{colors.primary.default.hex}};
+      --colorCompoundBrandBackgroundHover: {{colors.primary_fixed_dim.default.hex}};
+      --colorPaletteRedBackground1: {{colors.error_container.default.hex}};
+      --colorPaletteRedForeground1: {{colors.error.default.hex}};
+    }
+
+    body {
+      background-color: {{colors.surface.default.hex}};
+      color: {{colors.on_surface.default.hex}};
+    }
+  '';
 in
 {
   imports = [
@@ -140,6 +166,10 @@ in
           user.quickshell = {
             input_path = "${quickshellTemplate}";
             output_path = "$XDG_CONFIG_HOME/quickshell/noctalia-colors.json";
+          };
+          user.teams = {
+            input_path = "${teamsTemplate}";
+            output_path = "$XDG_CONFIG_HOME/teams-for-linux/noctalia.css";
           };
         };
       };
