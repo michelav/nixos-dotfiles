@@ -22,8 +22,13 @@ in
     extraConfig = # lua
       ''
         local wezterm = require 'wezterm'
+        local session = (os.getenv("XDG_CURRENT_DESKTOP") or ""):lower()
         return {
           automatically_reload_config = false,
+          -- Noctalia writes this scheme on palette changes. Keep Stylix as the
+          -- fallback for the Hyprland session.
+          color_scheme = session == "umbriel" and "Noctalia" or "stylix",
+          color_scheme_dirs = { wezterm.config_dir .. "/colors" },
           term = "wezterm",
           font = wezterm.font("${config.stylix.fonts.monospace.name}"),
           font_size = 12.0,

@@ -1,6 +1,9 @@
 { lib, pkgs, ... }:
+let
+  hyprlandTarget = "wayland-session@hyprland.desktop.target";
+in
 {
-  # The Wayland session: compositor, bar, notifications and session-wide
+  # Wayland sessions: compositors, bars, notifications and session-wide
   # theming. Plain GUI applications live in ../../apps.
   imports = [
     ./gammastep.nix
@@ -9,6 +12,7 @@
     ./theme.nix
     ./theme-mode.nix
     ./hyprland
+    ./umbriel
     ./shell
   ];
 
@@ -17,6 +21,25 @@
     cliphist
     xdg-utils
   ];
+
+  systemd.user.services =
+    lib.genAttrs
+      [
+        "cliphist"
+        "cliphist-images"
+        "gammastep"
+        "hypridle"
+        "hyprpaper"
+        "mako"
+        "quickshell"
+      ]
+      (_: {
+        # UWSM waits for WAYLAND_DISPLAY here; waiting for graphical-session.target
+        # would create a cycle with services wanted by the Hyprland session target.
+        Unit.After = lib.mkForce [ "wayland-session-waitenv.service" ];
+        Unit.PartOf = [ hyprlandTarget ];
+        Install.WantedBy = lib.mkForce [ hyprlandTarget ];
+      });
 
   home.sessionVariables = {
     XDG_SESSION_TYPE = "wayland";

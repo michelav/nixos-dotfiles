@@ -47,6 +47,7 @@ in
       "/var/lib/systemd"
       "/var/lib/iwd"
       "/var/lib/nixos" # keeping users between boots
+      "/var/lib/noctalia-greeter"
       "/var/lib/libvirt/images"
       "/etc/NetworkManager/system-connections"
       "/srv"

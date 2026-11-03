@@ -6,12 +6,39 @@
   config,
   ...
 }:
+let
+  hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  hyprlandUWSMEntry = pkgs.writeText "hyprland-uwsm.desktop" ''
+    [Desktop Entry]
+    Name=Hyprland (uwsm-managed)
+    Comment=An intelligent dynamic tiling Wayland compositor
+    Exec=uwsm start -e -D Hyprland ${hyprland}/share/wayland-sessions/hyprland.desktop
+    TryExec=uwsm
+    DesktopNames=Hyprland
+    Type=Application
+  '';
+  hyprlandSession = lib.makeOverridable (
+    _:
+    pkgs.symlinkJoin {
+      name = "hyprland-${hyprland.version}-uwsm-session";
+      version = hyprland.version;
+      paths = [ hyprland ];
+      passthru.providedSessions = [ "hyprland-uwsm" ];
+      postBuild = ''
+        rm "$out/share/wayland-sessions/hyprland.desktop"
+        rm "$out/share/wayland-sessions/hyprland-uwsm.desktop"
+        ln -s ${hyprlandUWSMEntry} "$out/share/wayland-sessions/hyprland-uwsm.desktop"
+      '';
+    }
+  ) { };
+in
 {
   imports = [
     # Include the results of the hardware scan.
     inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModules.impermanence
     inputs.hyprland.nixosModules.default
+    inputs.umbriel.nixosModules.default
     ../common/global
     ../common/users/michel.nix
 
@@ -35,6 +62,31 @@
   };
 
   networking.hostName = "vega";
+
+  programs.umbriel.enable = true;
+  programs.hyprland.package = lib.mkForce hyprlandSession;
+  services.displayManager.noctalia-greeter = {
+    enable = true;
+    settings = {
+      user.default = "michel";
+      keyboard = {
+        layout = "us,br";
+        variant = "intl,";
+        options = "grp:alt_altgr_toggle";
+      };
+    };
+  };
+  # Seed the first choice without overriding the greeter's remembered session.
+  systemd.tmpfiles.settings."10-noctalia-greeter"."/var/lib/noctalia-greeter/sync.toml".f = {
+    user = "greeter";
+    group = "greeter";
+    mode = "0644";
+    argument = ''
+      [session]
+      last = "Hyprland (uwsm-managed)"
+    '';
+  };
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   # Set your time zone.
   time.timeZone = "America/Fortaleza";

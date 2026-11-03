@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   stylix.targets.mako.enable = true;
 
@@ -21,5 +22,15 @@
         invisible = "1";
       };
     };
+  };
+
+  systemd.user.services.mako = {
+    Unit = {
+      Description = "Mako notifications for Hyprland";
+      After = [ "wayland-session@hyprland.desktop.target" ];
+      PartOf = [ "wayland-session@hyprland.desktop.target" ];
+    };
+    Service.ExecStart = "${pkgs.mako}/bin/mako";
+    Install.WantedBy = [ "wayland-session@hyprland.desktop.target" ];
   };
 }
