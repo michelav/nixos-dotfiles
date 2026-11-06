@@ -171,6 +171,15 @@ in
             input_path = "${teamsTemplate}";
             output_path = "$XDG_CONFIG_HOME/teams-for-linux/noctalia.css";
           };
+          # Replaces the community qutebrowser template: its reload hook runs
+          # `pgrep -f qutebrowser`, which matches the hook's own command line
+          # and starts a new browser on every palette change. `[.]` matches the
+          # browser's `.qutebrowser-wrapped` argument but not this hook text.
+          user.qutebrowser = {
+            input_path = "${./templates/qutebrowser.py}";
+            output_path = "$XDG_CONFIG_HOME/qutebrowser/noctalia/colors.py";
+            post_hook = "pgrep -u \"$USER\" -f '[.]qutebrowser-wrapped' >/dev/null && qutebrowser :config-source || true";
+          };
         };
       };
       idle.behavior = {
