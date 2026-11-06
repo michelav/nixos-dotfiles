@@ -5,6 +5,10 @@
   ...
 }:
 let
+  # Accents that render as text use the on_*_container roles: across the
+  # community palettes they are the only ones that keep >= 4.5:1 against the
+  # surface in both modes. Plain primary/secondary/tertiary are UI accents
+  # and drop near 2:1 in light mode.
   neovimTemplate = pkgs.writeText "noctalia-neovim-template.lua" ''
     require("base16-colorscheme").setup({
       base00 = "{{colors.surface.default.hex}}",
@@ -15,14 +19,14 @@ let
       base05 = "{{colors.on_surface.default.hex}}",
       base06 = "{{colors.on_surface.default.hex}}",
       base07 = "{{colors.on_background.default.hex}}",
-      base08 = "{{colors.error.default.hex}}",
-      base09 = "{{colors.tertiary.default.hex}}",
-      base0A = "{{colors.secondary.default.hex}}",
-      base0B = "{{colors.primary.default.hex}}",
+      base08 = "{{colors.on_error_container.default.hex}}",
+      base09 = "{{colors.on_tertiary_container.default.hex}}",
+      base0A = "{{colors.on_secondary_container.default.hex}}",
+      base0B = "{{colors.on_primary_container.default.hex}}",
       base0C = "{{colors.tertiary_fixed_dim.default.hex}}",
       base0D = "{{colors.primary_fixed_dim.default.hex}}",
       base0E = "{{colors.secondary_fixed_dim.default.hex}}",
-      base0F = "{{colors.secondary_fixed.default.hex}}",
+      base0F = "{{colors.tertiary_fixed_dim.default.hex}}",
     })
   '';
   zathuraTemplate = pkgs.writeText "noctalia-zathura-template" ''
