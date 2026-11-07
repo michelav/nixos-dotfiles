@@ -1,5 +1,5 @@
 # TODO: Add personal agents like hermes
-_:
+{ pkgs, ... }:
 let
   globalAgentInstructions = ''
     # Global agent guidance
@@ -19,6 +19,7 @@ let
   };
 in
 {
+  home.packages = [ pkgs.bubblewrap ];
   # Preserve mutable agent state and manually installed skills.
   # Home Manager continues managing its symlinks within these directories.
   home.persistence."/persist" = {
