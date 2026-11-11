@@ -10,7 +10,6 @@ in
   imports = [ ./qutebrowser.nix ];
   programs = {
     browserpass.enable = true;
-    brave.enable = true;
     firefox =
       let
         system = pkgs.stdenv.hostPlatform.system;

@@ -35,6 +35,16 @@ in
   home.file.".claude/CLAUDE.md".text = globalAgentInstructions;
   programs.codex = {
     enable = true;
+    package = (
+      pkgs.codex.overrideAttrs (old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [
+          pkgs.aws-lc
+          pkgs.oniguruma
+          pkgs.sqlite
+          pkgs.zstd
+        ];
+      })
+    );
 
     skills = nixSkills;
 
