@@ -65,6 +65,113 @@ let
     [aliases]
     <Shift+X> = exec rm "$imv_current_file"; close
   '';
+  codexTemplate = pkgs.writeText "noctalia-codex-template.tmTheme" ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>name</key>
+      <string>Noctalia</string>
+      <key>settings</key>
+      <array>
+        <dict>
+          <key>settings</key>
+          <dict>
+            <key>background</key>
+            <string>{{colors.surface.default.hex}}</string>
+            <key>caret</key>
+            <string>{{colors.primary.default.hex}}</string>
+            <key>foreground</key>
+            <string>{{colors.on_surface.default.hex}}</string>
+            <key>invisibles</key>
+            <string>{{colors.outline.default.hex}}</string>
+            <key>selection</key>
+            <string>{{colors.surface_container_high.default.hex}}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Comments</string>
+          <key>scope</key>
+          <string>comment, punctuation.definition.comment</string>
+          <key>settings</key>
+          <dict>
+            <key>fontStyle</key>
+            <string>italic</string>
+            <key>foreground</key>
+            <string>{{colors.on_surface_variant.default.hex}}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Strings</string>
+          <key>scope</key>
+          <string>string, constant.other.symbol</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>{{colors.on_tertiary_container.default.hex}}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Numbers and constants</string>
+          <key>scope</key>
+          <string>constant, constant.numeric, constant.language</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>{{colors.on_secondary_container.default.hex}}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Keywords and functions</string>
+          <key>scope</key>
+          <string>keyword, storage.type, storage.modifier, entity.name.function, support.function</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>{{colors.on_primary_container.default.hex}}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Types and properties</string>
+          <key>scope</key>
+          <string>entity.name.type, entity.name.class, support.type, variable.other.property</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>{{colors.on_secondary_container.default.hex}}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Parameters</string>
+          <key>scope</key>
+          <string>variable.parameter</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>{{colors.on_tertiary_container.default.hex}}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Invalid</string>
+          <key>scope</key>
+          <string>invalid, invalid.illegal</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>{{colors.on_error_container.default.hex}}</string>
+          </dict>
+        </dict>
+      </array>
+    </dict>
+    </plist>
+  '';
   quickshellTemplate = pkgs.writeText "noctalia-quickshell-template.json" ''
     {
       "background": "{{colors.surface.default.hex}}",
@@ -125,6 +232,20 @@ in
     enable = true;
     settings = {
       shell.polkit_agent = true;
+      bar.default.end = [
+        "media"
+        "tray"
+        "notifications"
+        "clipboard"
+        "network"
+        "bluetooth"
+        "volume"
+        "brightness"
+        "battery"
+        "screenshot"
+        "control-center"
+        "session"
+      ];
       wallpaper = {
         enabled = true;
         default.path = "${config.home.homeDirectory}/Pictures/wallpapers/nixos_3440x1440_v2.jpg";
@@ -146,6 +267,10 @@ in
           user.wezterm = {
             input_path = "${config.programs.noctalia.package}/share/noctalia/assets/templates/wezterm/wezterm.toml";
             output_path = "$XDG_CONFIG_HOME/wezterm/colors/Noctalia.toml";
+          };
+          user.codex = {
+            input_path = "${codexTemplate}";
+            output_path = "$HOME/.codex/themes/noctalia.tmTheme";
           };
           user.gtk3 = {
             input_path = "${config.programs.noctalia.package}/share/noctalia/assets/templates/gtk/gtk3.css";
