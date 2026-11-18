@@ -199,7 +199,8 @@ numlock_toggle = true
 "Mod" = "spawn noctalia msg panel-toggle launcher"
 "Mod+S" = "spawn noctalia msg panel-toggle control-center"
 "Mod+Shift+A" = "spawn noctalia msg screenshot-annotate"
-"Print" = "spawn noctalia msg screenshot-region"
+"Print" = "spawn noctalia msg screenshot-region --no-save-to-file"
+"Shift+Print" = "spawn noctalia msg screenshot-region"
 "Mod+Shift+D" = "spawn theme-mode toggle"
 "Mod+Q" = { action = "window-close", repeat = false }
 "Mod+Escape" = "session-quit"
