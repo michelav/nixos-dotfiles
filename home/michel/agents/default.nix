@@ -80,17 +80,6 @@ in
 
   programs.codex = {
     enable = true;
-    package = (
-      pkgs.codex.overrideAttrs (old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [
-          pkgs.aws-lc
-          pkgs.oniguruma
-          pkgs.sqlite
-          pkgs.zstd
-        ];
-      })
-    );
-
     skills = nixSkills;
 
     # Do not manage config file. Let it be writable.
